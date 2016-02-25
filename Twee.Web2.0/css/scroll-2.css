@@ -1,0 +1,15 @@
+/* scr_con style */
+.scr_con2 {position:relative;height:365px;width:900px;overflow: hidden;padding-left: 3%;font-size: 12px;}
+#dv_scroll2{position:absolute;height:335px;overflow:hidden;width:870px;}
+#dv_scroll2 .Scroller-Container{width:100%;}
+
+#dv_scroll_bar {position:absolute;right:35px;top:1px;width:6px;height:335px;background:#E1E1E1;border-radius: 5px;}
+#dv_scroll_bar .Scrollbar-Track{position:absolute;left:0;top:0px;width:6px;height:335px;}
+#dv_scroll_bar .Scrollbar-Handle{position:absolute;left:-7px;top:0;width:20px;height:21px;overflow:hidden;cursor:pointer;background: url(../images/20x21.png) no-repeat;z-index: 10;}
+#dv_scroll_bar .Scrollbar-Handle-blue{position:absolute;left:0;top:0;width:6px;height:20px;overflow:hidden;background-color: #0099FF;z-index: 5;border-radius: 5px;}
+#dv_scroll_text {position:absolute;}
+#dv_scroll_text img{display: block;}
+
+
+
+

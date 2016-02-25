@@ -1,0 +1,283 @@
+﻿<%@ Page Title=""  Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="comission_chart.aspx.cs" Inherits="TweebaaWebApp2.College.comission_chart" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+  <!-- CSS Page Style -->    
+<link rel="stylesheet" href="/css/plugins/box-shadows.css">
+<link rel="stylesheet" href="/css/theme-skins/dark.css">
+<link rel="stylesheet" href="/css/pages/page_pricing.css">
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+
+<!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Zone reward points</h1>
+            <ul class="pull-right breadcrumb">
+              <li><a href="/index.aspx">Home</a></li>
+                <li><a href="/College/Education.aspx">Education</a></li>
+                <li class="active">Zone reward points</li>
+            </ul>
+        </div> 
+    </div><!--/breadcrumbs-->
+    <!--=== End Breadcrumbs ===-->  
+        
+      <!--=== Content Part ===-->
+    <div class="container content">	
+    <div class="tag-box tag-box-v4 margin-bottom-10 margin-top-20">
+       <p>Zone reward points determine the commission percentage you earn in each Zone by Submitting,
+Evaluating and Sharing products. You’ll earn more points based upon…<br><br>
+
+You’ll earn more points based upon…<br>
+
+<br>Activity – the more you submit, evaluate and share…the more you earn! <br>
+Results – when your actions lead to measurable results (submitting good products…accurately evaluating…effectively sharing)…the more you earn!"
+<br><br>
+
+We’ll go into greater detail about how points are earned later in these education pages.  (See…Submit Zone, Evaluate Zone, Share Zone).<br><br>
+Keep in mind, points cannot be transferred between Zones.  Each Zone (Submit, Evaluate, Share) has 10 levels.   The more points you earn, the higher the commission you receive. <br><br>
+Zone reward points may not be exchanged for cash, gifts or coupons. They are used solely to determine the amount of TweeBUCKS (“commission”) Tweebaa members can earn by Submitting, Evaluating and Sharing products.<br><br> 
+The following Commission Chart outlines levels, points and commissions.
+</p> 
+                </div>
+
+
+  <!-- Pricing Mega v1 -->
+        <div class="row no-space-pricing pricing-mega-v1">
+            <div class="col-md-1 col-sm-6 hidden-sm hidden-xs block">
+                <div class="pricing hidden-area">
+                    <div class="pricing-head">
+                        <h4 class="price">Level</h4>
+                    </div>
+                    <ul  class="pricing-content list-unstyled">
+                        <li class="bg-color">
+                          1
+                        </li>
+                        <li>
+                         2
+                        </li>
+                        <li class="bg-color">
+                         3
+                        </li>
+                        <li>
+                          4
+                        </li>
+                        <li class="bg-color">
+                         5
+                        </li>
+                        <li>
+                        6
+                        </li>
+                        <li class="bg-color">
+                        7
+                        </li>
+                        <li>
+                         8
+                        </li>
+                        <li>
+                         9
+                        </li>
+                        <li>
+                        10
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+             <div class="col-md-2 col-sm-6 hidden-sm hidden-xs block">
+                <div class="pricing hidden-area">
+                    <div class="pricing-head">
+                        <h4 class="price">Points</h4>
+                    </div>
+                    <ul  class="pricing-content list-unstyled">
+                        <li class="bg-color">
+                          1
+                        </li>
+                        <li>
+                         100
+                        </li>
+                        <li class="bg-color">
+                        200
+                        </li>
+                        <li>
+                         500
+                        </li>
+                        <li class="bg-color">
+                       1000
+                        </li>
+                        <li>
+                        2000
+                        </li>
+                        <li class="bg-color">
+                        5000
+                        </li>
+                        <li>
+                        10000
+                        </li>
+                        <li>
+                        20000
+                        </li>
+                        <li>
+                       40000
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 block">
+                <div class="pricing">
+                    <div class="pricing-head">
+                        <h3 class="bg-color-blue">
+                          Submit<span>Commission</span>
+                        </h3>
+                        <h4 class="price">
+                           Rate%
+                 
+                        </h4>
+                    </div>
+                    <ul class="pricing-content list-unstyled blue">
+                        <li class="bg-color">
+                         0.50%
+                        </li>
+                        <li>
+                        0.55%
+                        </li>
+                        <li class="bg-color">
+                         0.60%
+                        </li>
+                        <li>
+                        0.65%
+                        </li>
+                        <li class="bg-color">
+                      0.70%
+                        </li>
+                        <li>
+                        0.75%
+                        </li>
+                        <li class="bg-color">
+                       0.80%
+                        </li>
+                        <li>
+                       0.85%
+                        </li>
+                        <li class="bg-color">
+                       0.90%
+                        </li>
+                        <li>
+                        1.0%
+                        </li>
+                    
+                    
+                    </ul>
+               
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 block">
+                <div class="pricing">
+                    <div class="pricing-head">
+                        <h3 class="bg-color-sea">
+                             Evaluate<span>Commission</span>
+                        </h3>
+                        <h4 class="price">
+                         Rate%
+                        </h4>
+                    </div>
+                   <ul class="pricing-content list-unstyled green">
+                        <li class="bg-color">
+                      0.20%
+                        </li>
+                        <li>
+                        0.25%
+                        </li>
+                        <li class="bg-color">
+                       0.30%
+                        </li>
+                        <li>
+                       0.35%
+                        </li>
+                        <li class="bg-color">
+                       0.40%
+                        </li>
+                        <li>
+                        0.45%
+                        </li>
+                        <li class="bg-color">
+                         0.50%
+                        </li>
+                        <li>
+                        0.55%
+                        </li>
+                        <li class="bg-color">
+                         0.60%
+                        </li>
+                        <li>
+                        0.65%
+                        </li>
+                   
+                    
+                    
+                    </ul>
+             
+                </div>
+            </div>
+             <div class="col-md-3 col-sm-6 block">
+                <div class="pricing">
+                    <div class="pricing-head">
+                        <h3 class="bg-color-orange">
+                             Share<span>Commission</span>
+                        </h3>
+                        <h4 class="price">
+                         Rate%
+                        </h4>
+                    </div>
+                     <ul class="pricing-content list-unstyled orange">
+                        <li class="bg-color">
+                         5%
+                        </li>
+                        <li>
+                        5.5%
+                        </li>
+                        <li class="bg-color">
+                         6%
+                        </li>
+                        <li>
+                        6.5%
+                        </li>
+                        <li class="bg-color">
+                      7%
+                        </li>
+                        <li>
+                        7.5%
+                        </li>
+                        <li class="bg-color">
+                       8%
+                        </li>
+                        <li>
+                       8.5%
+                        </li>
+                        <li class="bg-color">
+                       9%
+                        </li>
+                        <li>
+                        10.0%
+                        </li>
+                    
+                    
+                    </ul>
+               
+                </div>
+            </div>
+           
+        </div>
+        <!-- End Pricing Mega v1 -->
+    
+    
+    
+    <ul class="pager">
+                   <li class="previous"><a class="rounded" href="commission.aspx">← Back to Commission</a></li>
+                        <!--   <li class="next"><a class="rounded" href="shopping_reward.aspx">Referral rewards →</a></li> -->
+                     
+                    </ul>
+    </div>	
+    <!--=== End Content Part ===-->
+</asp:Content>

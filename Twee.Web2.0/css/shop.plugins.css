@@ -1,0 +1,475 @@
+/*   
+ * Template Name: Unify - Responsive Bootstrap Template
+ * Description: Business, Corporate, Portfolio, E-commerce and Blog Theme.
+ * Version: 1.6
+ * Author: @htmlstream
+ * Website: http://htmlstream.com
+*/
+
+/*Master Slider
+------------------------------------*/
+.ms-showcase2-template { 
+  margin: 0 auto;
+  max-width: 550px; 
+}
+.ms-showcase2-template .ms-view { 
+  background: transparent;
+}
+
+.ms-showcased-template img{ 
+
+  max-width: 490px; 
+  margin-left:10px;
+}
+.ms-showcased-template .ms-view { 
+  background: transparent;
+}
+
+/*Revolution Slider (Main)
+------------------------------------*/
+.tp-bullets.preview4 .bullet {
+  border-radius: 10px !important;
+}
+
+.tp-banner-container a.btn-u,
+.tp-banner-container a.btn-u:hover {
+  color: #fff;
+  border: solid 1px transparent;
+}
+.tp-banner{  height:322px;}
+
+.tp-banner-container a.re-btn-brd {
+  background: none;
+  border: solid 1px #fff;
+}
+
+.tp-banner-container a.re-btn-brd:hover {
+  color: #555;
+  background: #fff; 
+}
+
+/*Fullwidth*/
+.tp-banner-container .btn-u.btn-brd {
+  font-weight: 400;
+}
+
+.tp-banner-container {
+  width: 100%;
+  min-height:0px;
+	position: relative;
+}
+
+/*Fullscreen*/
+.fullscreen-container {
+  width:100%;
+  position:relative;
+  height: 422px;
+  padding:0;
+}
+
+/*Slider Contents v1*/
+
+.revolution-mch-1:after {
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 422px;
+  content: ' ';
+  position: absolute;
+  background: rgba(0,0,0,0);
+} 
+
+.revolution-ch1 {
+  color: #333;
+  font-size: 100px;
+  font-weight: 200;
+  line-height: 60px;
+  padding: 30px 50px;
+  text-align: center;
+  border: 1px solid #fff;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+
+}
+
+.revolution-ch2 {
+  color: #fff;
+  font-size: 30px;
+  max-width: 470px;
+  line-height: 32px;
+  position: relative;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+ 
+}
+
+.revolution-ch2:after {
+  left: 50%;
+  width: 70px;
+  height: 2px;
+  content: ' '; 
+  bottom: -20px;
+  background: #fff;
+  margin-left: -35px;
+  position: absolute;
+}
+
+.revolution-ch3 {
+  color: #333;
+  font-size: 60px;
+  font-weight: 200;
+  line-height: 80px;
+  text-align: right;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  text-shadow: 0px 1px 0px #999;
+  /* background: rgba(255,255,255,0.5);
+	padding:30px 30px 60px 30px; */
+ 
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch3 {
+  font-size: 40px !important;
+  line-height: 48px !important;
+  padding:10px 0px;
+  
+  
+}
+	}
+
+.revolution-ch4 {
+  color: #666;
+  font-size: 22px;
+  max-width: 660px;
+  line-height: 30px;
+  text-align: left;
+  position: relative;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch4 {
+  font-size: 14px !important;
+  line-height: 18px !important;
+  margin:10px 0px !important;
+  top:130px !important;
+  left:20px !important;
+
+  
+}
+
+.shopbtn{ top:180px !important;}
+.gameicon {
+  top:160px !important;
+  left:20px !important;
+}
+.gameicon img{
+  width:100px !important;
+  height:auto !important;
+}
+	}
+
+.revolution-ch5 {
+  color: #333;
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 70px;
+  text-align: left;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  text-shadow: 0px 1px 0px #999;
+  /*background: rgba(255,255,255,0.5);
+  padding:30px 30px 60px 30px;*/
+}
+
+.revolution-ch6 {
+  color: #666;
+  font-size: 24px;
+  max-width: 660px;
+  line-height:40px;
+  text-align: right;
+  position: relative;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+   text-transform: uppercase;
+  
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch5 {
+  font-size: 30px !important;
+  line-height: 40px !important;
+  
+}
+
+.revolution-ch6 {
+  font-size: 24px  !important;
+  left:40px  !important;
+
+  
+}
+
+.tb2{  left:60px  !important;}
+.app
+{
+   font-size: 40px !important;
+  line-height: 43px !important; 
+  top:70px  !important; 
+    }
+    
+ .shbtn
+ {
+     right:-130px !important;
+     
+     }   
+    
+	}
+
+
+.revolution-ch7 {
+  color: #333;
+  font-size: 40px;
+  max-width: 660px;
+  line-height: 50px;
+  text-align: right;
+  position: relative;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch7 {
+  font-size: 24px !important;
+  line-height: 36px !important;
+  margin:10px 0px !important;
+  top:130px !important;
+  left:180px !important;
+
+  
+}
+	}
+@media only screen and (max-width: 650px) {	
+.sharebtn
+{ top:210px !important;
+  left:90px !important;
+
+    
+    }	
+.btn-u-yellow { 
+  color:#333 !important; }  
+    
+}
+.revolution-ch9{
+  color: #fff;
+  font-size: 14px;
+  max-width: 660px;
+  line-height: 24px;
+  text-align: right;
+  position: relative;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+ background: rgba(250,165,78,1);
+	padding:5px 10px; 
+  
+}
+@media only screen and (max-width: 650px) {
+.revolution-ch9 {
+  font-size: 12px !important;
+  line-height: 18px !important;
+    margin:0px 50px 0 0 !important;
+    top:120px !important;
+    left:110px !important;
+    max-width:280px !important;
+
+  
+}
+	}
+.revolution-ch8 {
+  color: #333;
+  font-size: 52px;
+  max-width: 660px;
+  line-height: 60px;
+  text-align: right;
+  position: relative;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch8 {
+  font-size:24px !important;
+  line-height: 30px !important;
+    margin:0px 50px 0 0 !important;
+    top:80px !important;
+    left:100px !important;
+    max-width:280px !important;
+
+  
+}
+	}
+
+.revolution-ch10{
+  color: #fff;
+  font-size: 18px;
+  max-width: 660px;
+  line-height: 24px;
+  text-align: right;
+  position: relative;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif; 
+  
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch10 {
+  font-size:14px !important;
+  line-height:18px !important;
+    margin:0px 50px 0 0 !important;
+    top:150px !important;
+    left:70px !important;
+    max-width:280px !important;
+
+  
+}
+
+.buynow
+{
+    top:20px !important;}
+	}
+
+
+.revolution-ch11 {
+  color: #333;
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 70px;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  text-shadow: 0px 1px 0px #999;
+}
+
+.revolution-ch12 {
+  color: #666;
+  font-size: 24px;
+  max-width: 660px;
+  line-height: 30px;
+  text-align: left;
+  position: relative;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch12 {
+  font-size: 14px !important;
+  line-height: 18px !important;
+  margin:10px 0px !important;
+  top:100px !important;
+  left:60px !important; 
+}
+.collage img
+{  
+  width:300px !important;
+  height:auto !important;}
+
+	}
+	
+.revolution-ch14 {
+  color: #666;
+  font-size: 26px;
+  line-height: 30px;
+  text-align: center;
+  position: relative;
+  font-weight: normal;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch14 {
+  font-size: 14px !important;
+  line-height: 18px !important;
+  margin:10px 0px !important;
+  top:100px !important;
+  left:60px !important; 
+}
+
+
+	}	
+	
+.revolution-ch15 {
+  color: #333;
+  font-size: 48px;
+  font-weight: 200;
+  line-height: 100px;
+  text-align: center;
+  font-weight:bolder;
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  text-shadow: 0px 1px 0px #999;
+  /* background: rgba(255,255,255,0.5);
+	padding:30px 30px 60px 30px; */
+ 
+}
+
+@media only screen and (max-width: 650px) {
+.revolution-ch15{
+  font-size: 30px !important;
+  line-height: 38px !important;
+  padding:10px 0px;
+  
+  
+}
+	}	
+
+	
+	
+	
+/*Back to top Button
+------------------------------------*/
+#topcontrol {
+  color: #fff;
+  z-index: 99;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  background: #222;
+  position: relative;
+  right: 14px !important;
+  bottom: 11px !important;
+  border-radius: 3px !important;
+}
+
+#topcontrol:after {
+  /*top: -2px;*/
+  left: 8.5px;
+  content: "\f106";
+  position: absolute;
+  text-align: center;
+  font-family: FontAwesome;
+}
+
+#topcontrol:hover {
+    color: #fff;
+    background: #18ba9b;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+

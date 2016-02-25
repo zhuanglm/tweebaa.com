@@ -1,0 +1,180 @@
+﻿$(document).ready(
+function () {
+    //console.log("start get prdcate");
+    LoadPrdCate();
+});
+var lv1num = 0;                      //二级菜单的编号数量
+var reloadflag = 0;                 //reload函数是否被执行过
+//加载类别列表
+function LoadPrdCate() {
+    //要请求的一级机构JSON获取页面
+    varurl = "../../AjaxPages/prdCateAjax.aspx";
+    $(".select1-nav*").empty();                 //清空左侧的下拉菜单
+    $(".select2-nav*").empty();                 //清空右侧的下拉菜单
+    var lv0num = 0;
+    $(".select1-nav*").append(" <em class='sjx'> </em>");       //插入头信息
+    $(".select1-nav*").append("<ul>  </ul>\n");
+    $.ajax({                                            //ajax方法
+        type: "GET",
+        url: "../../AjaxPages/prdCateAjax.aspx",
+        data: "layer=0",                                //获取0级信息
+        success: function (obj) {
+            var obj = eval(obj);           
+            $(obj).each(function (index) {              //处理获取到的列表信息
+                var val = obj[index];
+                var id = "'" + val.id + "'";
+                lv0num++;                               //增加标号，保证之后设定的类名标记正确
+                $(".select1-nav* ul:last").append("<li class=lv1-"+lv0num+" style='font-size:13px;'> <a href='#' class='lv2'>" + val.name + "</a>\n </li>");    //左侧下拉列表插入一级标签
+                $(".select2-nav*").append("<li style='font-size:13px;'><a href='#' s-data=" + lv0num + ">" + val.name + "</a> </li> \n ");                         //右侧下拉列表插入一级标签
+                BindCate2(lv0num, val.id);              //插入二级标签
+
+                // $(".select1-nav* li:laste").append('<li value="' + val.id + '"><a href="#" onmouseover="BindCate2(this,'+id +')" class="lv2">' + val.name + '</a></li>');
+            });
+        },
+        error: function (obj) {
+            //alert("失败");
+        }
+    });
+
+
+}
+
+function BindCate2(lv0num, parentID) {          //加入二级选项
+
+    $.ajax({                                        //ajax方法
+        type: "GET",    
+        url: "../../AjaxPages/prdCateAjax.aspx",
+        data: "layer=1&&id=" + parentID,
+        success: function (obj) {
+            var obj = eval(obj);
+            $(".lv1-" + lv0num).append("<div class='lv3 bdccc'>\n </div>");     //插入div模块
+            $(obj).each(function (index) {
+                lv1num++;
+                var val = obj[index];
+            //   console.log(".lv1 - " + lv0num);
+                $(".lv1-" + lv0num + " div").append(" <dl>\n  <dt> <a href='#'>" + val.name + "</a></dt>\n   <dd id=ku2-" + lv1num + ">   </dd> \n");
+                                                                                    //插入二级信息，并设定dd标签id
+                BindCate3(lv1num,val.id);                                           //对于每一项获取子选项插入
+            });
+          },
+        error: function (obj) {
+            //alert("失败");
+        }
+    });
+
+}
+
+
+function BindCate3(lv2num, parentID) {      //更新加入三级选项
+    $.ajax({                                //ajax请求三级选项
+        type: "GET",
+        url: "../../AjaxPages/prdCateAjax.aspx",       //ajax源页
+        data: "layer=2&&id=" + parentID,
+        success: function (obj) {
+            var obj = eval(obj);
+            $(obj).each(function (index) {
+                var val = obj[index];
+                var id = "'" + val.id + "'";
+                var temchar = "#ku2-" + lv2num;                //确定<dd>标签位置并并入信息
+                //   console.log(temchar);                
+                $(temchar).append('<a href="#" onclick="SerchPrdByCate(' + id + ')"> ' + val.name + '</a>\n');
+            });
+            //console.log("lv2-" + lv2num + "finish");
+
+        },
+        error: function (obj) {
+            //alert("失败");
+        }
+    });
+    if (reloadflag == 0) {                                      //确保重新载入reloadbar不会循环执行多次
+        reloadflag = 1;
+        reloadbar();
+
+    }
+}
+
+function reloadbar() {              //重新执行../Js/selectNav.js 的代码保证座左侧列表能正常弹出
+    //select 菜单
+    $("#selectnav").find(".select1").mouseenter(function (event) {
+        $(this).addClass('hover')
+
+    }).mouseleave(function (event) {
+        $(this).removeClass('hover')
+
+    });
+
+
+    $("#selectnav").find(".select2").click(function (event) {
+        $(this).addClass('hover')
+        $(this).find("ul").show();
+
+    }).mouseleave(function (event) {
+        $(this).removeClass('hover')
+        $(this).find("ul").hide();
+
+    });
+
+
+    $(".select1-nav ul > li").mouseenter(function (event) {
+        $(this).addClass('hover')
+    }).mouseleave(function (event) {
+        $(this).removeClass('hover')
+    });
+
+    $(".select2-nav").find("a").click(function (event) {
+        var select2Data = $(".select2 > h2")
+        select2Data.attr('s-data', $(this).attr('s-data'));
+        select2Data.text($(this).text())
+        $(".select2-nav").hide();
+        return false;
+    });
+}
+
+
+
+//    //一级下拉联动二级下拉 
+//    $("#prdType1").change(function () {
+//        //清除二级下拉列表
+//        $("#prdType2").empty();
+//        $("#prdType2").append($("<option/>").text("--请选择--").attr("value", "-1"));
+//        //要请求的二级下拉JSON获取页面
+//        $.ajax({
+//            type: "GET",
+//            url: "../AjaxPages/prdCateAjax.aspx",
+//            data: "layer=1&&id=" + $(this).attr("value"),
+//            success: function (obj) {
+//                var obj = eval(obj);
+//                $(obj).each(function (index) {
+//                    var val = obj[index];
+//                    $("#prdType2").append($("<option/>").text(val.name).attr("value", val.id));
+//                });
+//            },
+//            error: function (obj) {
+//                //alert("失败");
+//            }
+//        });
+//    });
+
+//    //二级下拉联动三级下拉
+//    $("#prdType2").change(function () {
+//        //清除三级下拉列表
+//        $("#prdType3").empty();
+//        $("#prdType3").append($("<option/>").text("--请选择--").attr("value", "-1"));
+//        //要请求的三级下拉JSON获取页面
+//        $.ajax({
+//            type: "GET",
+//            url: "../AjaxPages/prdCateAjax.aspx",
+//            data: "layer=2&&id=" + $(this).attr("value"),
+//            success: function (obj) {
+//                var obj = eval(obj);
+//                $(obj).each(function (index) {
+//                    var val = obj[index];
+//                    $("#prdType3").append($("<option/>").text(val.name).attr("value", val.id));
+//                });
+//            },
+//            error: function (obj) {
+//                //alert("失败");
+//            }
+//        });
+
+//    });

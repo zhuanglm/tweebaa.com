@@ -1,0 +1,84 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="TwitterCallback.aspx.cs" Inherits="TweebaaWebApp2.Twitter.TwitterCallback" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+
+
+
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Twitter authorization</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="../index.aspx">Home</a></li>
+                <li><a href="#">Login</a></li>
+                <li class="active">Twitter authorization</li>
+            </ul>
+        </div><!--/container-->
+    </div><!--/breadcrumbs-->
+    <!--=== End Breadcrumbs ===-->
+
+        <!-- log-reg-v3 -->
+        <div class="log-reg-v3 content margin-bottom-30">
+        <div class="container">
+            <div class="row">
+                
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <!--
+                    <form id="sky-form4" class="log-reg-block sky-form" >
+                       
+                        <input type="hidden" name="action" value="authorization" />
+
+                        <p>Please enter the PIN and Click "Send" to complete the authorization process</p>
+                        <div style="padding:20px 0px;">
+                        <input type="text" name="PIN" id="txtPIN" placeholder="PIN" class="form-control">
+                        </div>
+                        <button onclick="DoTwitterAuthorization();return false;" name="submit">Send</button>
+                    </form>
+        -->
+            <p>Redirectint to Homepage...</p>
+                    <div class="margin-bottom-20"></div>
+               
+                </div>
+            </div><!--/end row-->
+        <!-- Footer Version 3 -->
+           </div><!--/end container-->
+    </div>
+
+<script type="text/javascript">
+    function DoTwitterAuthorization() {
+        Loading(true);
+        var txtPIN = $("#txtPIN").val();
+        if (txtPIN.length < 6) {
+            alert("please input PIN");
+            return;
+        }
+        var _data = "action=authorization&PIN=" + txtPIN;
+        $.ajax({
+            type: "POST",
+            url: '/Twitter/TwitterAPI.aspx',
+            data: _data,
+            success: function (msg) {
+                Loading(false);
+                if (msg == 0) {
+                    //登录成功
+                    window.location.href = "/index.aspx";
+                } else if (msg == 1) {
+                
+                } else if (msg == 2) {
+                alert("Bind Account error!");
+                }
+                
+            },
+            error: function (msg) {
+                alert("Bind Account error!");
+                //            $("#labMessage").html("用户名或密码错误！");
+                //            $("#greybox1").show();
+            }
+        });
+
+    }
+</script>
+</asp:Content>

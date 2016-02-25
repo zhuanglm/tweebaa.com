@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.SessionState;
+using System.Web.UI;
+
+namespace TweebaaWebApp
+{
+    public class Global : System.Web.HttpApplication
+    {
+
+        protected void Application_Start(object sender, EventArgs e)
+        {
+            log4net.Config.XmlConfigurator.Configure();
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if (HttpContext.Current.Request.IsSecureConnection.Equals(false) && HttpContext.Current.Request.IsLocal.Equals(false))
+            {
+                Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"]
+            + HttpContext.Current.Request.RawUrl);
+            }
+        }
+
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            string url = HttpContext.Current.Request.Url.ToString();
+
+            if (url.ToLower().Contains("mgr/") && !url.ToLower().Contains("mgr/index.aspx")
+                && (url.ToLower().EndsWith(".aspx") || url.ToLower().Contains(".aspx?"))
+                )
+            {
+                var user = Session["CURRENT_USER"] as Twee.Model.Adminstrator;
+                if (null == user)
+                {
+                    HttpContext.Current.Response.Redirect("~/mgr/index.aspx?relogin=1");
+                }
+            }
+
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Session_End(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Application_End(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

@@ -1,0 +1,172 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CouponAddEdit.aspx.cs" Inherits="TweebaaWebApp2.Mgr.CouponAdmin.CouponAddEdit" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Add / Edit Coupon</title>
+    <link href="../css/mgr.css" rel="stylesheet" />
+    <link href="../css/aspnetpager.css" rel="stylesheet" />
+    <link href="../ui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../ui/themes/demo.css" rel="stylesheet" type="text/css" />
+    <link href="../ui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <script src="../ui/jquery.min.js" type="text/javascript"></script>
+    <script src="../ui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../ui/easyloader.js" type="text/javascript"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <input type="hidden" id="hidMgrConfig1" runat="server" />
+        <input type="hidden" id="hidMgrConfigCount" runat="server" />
+        <input type="hidden" id="hidMgrAdminid" runat="server" />
+        <input type="hidden" id="coupon_id" value="<%= coupon_id %>" />
+    <div>
+  <fieldset>
+<table cellpadding="2" cellspacing="2">
+      <tr>
+        <td align="left" class="main">Coupon Name</td>
+        <td align="left"><input type="text" name="coupon_name" id="coupon_name" /></td>
+        <td align="left" class="main" width="40%">A short name for the coupon</td>
+      </tr>
+       <tr>
+        <td align="left" class="main">Coupon Amount</td>
+        <td align="left"><input type="text" name="coupon_amount" id="coupon_amount" /></td>
+        <td align="left" class="main">The value of the discount for the coupon, either fixed or add a % on the end for a percentage discount.</td>
+      </tr>
+      <tr>
+        <td align="left" class="main">Coupon Minimum Order</td>
+        <td align="left"><input type="text" name="coupon_min_order" id="coupon_min_order" /></td>
+        <td align="left" class="main">The minimum order value before the coupon is valid</td>
+      </tr>
+      <tr>
+        <td align="left" class="main">Free Shipping</td>
+        <td align="left"><input type="checkbox" name="coupon_free_ship" id="coupon_free_ship" /></td>
+        <td align="left" class="main">The coupon gives free shipping on an order. Note. This overrides the coupon_amount figure but respects the minimum order value</td>
+      </tr>
+      <tr>
+        <td align="left" class="main">Coupon Code</td>
+        <td align="left"><input type="text" name="coupon_code" id="coupon_code" /></td>
+        <td align="left" class="main">You can enter your own code here, or leave blank for an auto generated one.</td>
+      </tr>
+      <tr>
+        <td align="left" class="main">Uses per Coupon</td>
+        <td align="left"><input type="text" name="coupon_uses_coupon" id="coupon_uses_coupon" /></td>
+        <td align="left" class="main">The maximum number of times the coupon can be used, leave blank if you want no limit.</td>
+      </tr>
+      <tr>
+        <td align="left" class="main">Uses per Customer</td>
+        <td align="left"><input type="text" name="coupon_uses_user" id="coupon_uses_user" /></td>
+        <td align="left" class="main">Number of times a user can use the coupon, leave blank for no limit.</td>
+      </tr>
+       <tr>
+        <td align="left" class="main">Valid Product List</td>
+        <td align="left"><input type="text" name="coupon_products" id="coupon_products" /><A HREF="validproducts.aspx" TARGET="_blank" ONCLICK="window.open('validproducts.aspx', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td align="left" class="main">A comma separated list of product_ids that this coupon can be used with. Leave blank for no restrictions.</td>
+      </tr>
+      <tr>
+        <td align="left" class="main">Valid Categories List</td>
+        <td align="left"><input type="text" name="coupon_categories" id="coupon_categories" /> <A HREF="validcategories.aspx" TARGET="_blank" ONCLICK="window.open('validcategories.aspx', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td align="left" class="main">A comma separated list of cpaths that this coupon can be used with, leave blank for no restrictions.</td>
+      </tr>   
+      <tr>
+        <td align="left" class="main">Start Date</td>
+        <td align="left"><input type="text" id="txtStartDate"   /></td>
+        <td align="left" class="main">The date the coupon will be valid from</td>
+      </tr>
+      <tr>
+        <td align="left" class="main">End Date</td>
+        <td align="left"><input type="text" id="txtEndDate"  /> </td>
+        <td align="left" class="main">The date the coupon expires</td>
+      </tr>
+      <tr><td colspan="3">
+        <button onclick="AddEditCoupon();return false;">Submit</button>
+      </td></tr>
+    </table>
+</fieldset>          
+    </div>
+    </form>
+
+<script type="text/javascript">
+
+    function AddEditCoupon() {
+
+        CheckInput();
+        var coupon_name = $("#coupon_name").val();
+        var coupon_amount = $("#coupon_amount").val();
+        var coupon_min_order = $("#coupon_min_order").val();
+        var coupon_free_ship = "0";
+        if ($("#coupon_free_ship").is(':checked')) coupon_free_ship = 1;
+        var coupon_code = $("#coupon_code").val();
+        var coupon_uses_coupon = $("#coupon_uses_coupon").val();
+        var coupon_uses_user = $("#coupon_uses_user").val();
+        var coupon_products = $("#coupon_products").val();
+        var coupon_categories = $("#coupon_categories").val();
+        /*
+        var txtStartDate = $("#txtStartDate").val();
+        var txtEndDate = $("#txtEndDate").val();*/
+        var sStartDate = $("#txtStartDate").datebox("getValue");
+        var sEndDate = $("#txtEndDate").datebox("getValue");
+        var coupon_id = $("#coupon_id").val();
+
+        $.ajax({
+            type: "Post",
+            url: "/Mgr/CouponAdmin/CouponAdminHandler.ashx",
+            data: "action=AddEdit&coupon_id=" + coupon_id +
+                    "&coupon_name=" + coupon_name +
+                    "&coupon_amount=" + coupon_amount +
+                    "&coupon_min_order=" + coupon_min_order +
+                    "&coupon_free_ship=" + coupon_free_ship +
+                    "&coupon_code=" + coupon_code +
+                    "&coupon_uses_coupon=" + coupon_uses_coupon +
+                    "&coupon_uses_user=" + coupon_uses_user +
+                    "&coupon_products=" + coupon_products +
+                    "&coupon_categories=" + coupon_categories +
+                    "&coupon_start_date=" + sStartDate +
+                    "&coupon_expire_date=" + sEndDate +
+                     "",
+            async: false,
+            success: function (resu) {
+
+            },
+            error: function (obj) {
+                // alert("Load failed");
+            }
+        });
+    }
+    function Init() {
+
+
+        // date range            
+        $("#txtStartDate,#txtEndDate").datebox();
+
+
+    }
+    function CheckInput() {
+        var sStartDate = $("#txtStartDate").datebox("getValue");
+        var sEndDate = $("#txtEndDate").datebox("getValue");
+        if (sStartDate != "") {
+            if (!IsDate(sStartDate)) {
+                alert("Please enter a valid start date!");
+                $("#txtStartDate").focus();
+                return false;
+            }
+        }
+        if (sEndDate != "") {
+            if (!IsDate(sEndDate)) {
+                alert("Please enter a valid end date!");
+                $("#txtEndDate").focus();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function IsDate(s) {
+        if (s.length != 10) return false;
+        if (isNaN(Date.parse(s))) return false;
+        return true;
+    }
+    Init();
+</script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using log4net;
+using Twee.DataMgr;
+using System.Reflection;
+using System.Data;
+
+namespace Twee.Mgr
+{
+    public class UserGradeCalMgr
+    {
+        ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        UserGradeCalDataMgr mgr = new UserGradeCalDataMgr();
+
+        #region  BasicMethod
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool Exists(Guid guid)
+        {
+            return mgr.Exists(guid);
+        }
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public bool Add(Twee.Model.Usergrade model)
+        {
+            return mgr.Add(model);
+        }
+
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public bool Update(Twee.Model.Usergrade model)
+        {
+            return mgr.Update(model);
+        }
+         //Add by Long for Slot Machine
+        public void SlotMachineSaveLuckyWinner(string userGuid, int iPrizeID)
+        {
+             mgr.SlotMachineSaveLuckyWinner(userGuid, iPrizeID);
+        }
+        public void SlotMachineUpdateCredit(string userGuid, int iUsedCredit)
+        {
+            mgr.SlotMachineUpdateCredit(userGuid, iUsedCredit);
+        }
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(Guid guid)
+        {
+
+            return mgr.Delete(guid);
+        }
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool DeleteList(string guidlist)
+        {
+            return mgr.DeleteList(guidlist);
+        }
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Twee.Model.Usergrade GetModel(Guid guid)
+        {
+
+            return mgr.GetModel(guid);
+        }
+
+        //Add by Long for Share Point Redeem
+        public DataTable GetHomeRedeemHistoryDetial(Guid userGuid, string strWhere)
+        {
+            return mgr.GetHomeRedeemHistoryDetial(userGuid, strWhere);
+        }
+        public int GetHomeRedeemRecordCount(Guid userGuid, string strWhere)
+        {
+            return mgr.GetHomeRedeemRecordCount(userGuid, strWhere);
+
+        }
+        public string GetUserTotalSharePointRedeem(Guid userguid)
+        {
+
+            return mgr.GetUserTotalSharePointRedeem(userguid);
+        }
+        /// <summary>
+        /// 得到一个对象实体，从缓存中
+        /// </summary>
+        public Twee.Model.Usergrade GetModelByCache(Guid guid)
+        {
+
+            string CacheKey = "wn_usergradeModel-" + guid;
+            object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
+            if (objModel == null)
+            {
+                try
+                {
+                    objModel = mgr.GetModel(guid);
+                    if (objModel != null)
+                    {
+                        int ModelCache = Maticsoft.Common.ConfigHelper.GetConfigInt("ModelCache");
+                        Maticsoft.Common.DataCache.SetCache(CacheKey, objModel, DateTime.Now.AddMinutes(ModelCache), TimeSpan.Zero);
+                    }
+                }
+                catch { }
+            }
+            return (Twee.Model.Usergrade)objModel;
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList(string strWhere)
+        {
+            return mgr.GetList(strWhere);
+        }
+        /// <summary>
+        /// 获得前几行数据
+        /// </summary>
+        public DataSet GetList(int Top, string strWhere, string filedOrder)
+        {
+            return mgr.GetList(Top, strWhere, filedOrder);
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public List<Twee.Model.Usergrade> GetModelList(string strWhere)
+        {
+            DataSet ds = mgr.GetList(strWhere);
+            return DataTableToList(ds.Tables[0]);
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public List<Twee.Model.Usergrade> DataTableToList(DataTable dt)
+        {
+            List<Twee.Model.Usergrade> modelList = new List<Twee.Model.Usergrade>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                Twee.Model.Usergrade model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = mgr.DataRowToModel(dt.Rows[n]);
+                    if (model != null)
+                    {
+                        modelList.Add(model);
+                    }
+                }
+            }
+            return modelList;
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetAllList()
+        {
+            return GetList("");
+        }
+
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public int GetRecordCount(string strWhere)
+        {
+            return mgr.GetRecordCount(strWhere);
+        }
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public DataSet GetListByPage(string strWhere, string orderby, int startIndex, int endIndex)
+        {
+            return mgr.GetListByPage(strWhere, orderby, startIndex, endIndex);
+        }
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        //public DataSet GetList(int PageSize,int PageIndex,string strWhere)
+        //{
+        //return mgr.GetList(PageSize,PageIndex,strWhere);
+        //}
+
+        #endregion  BasicMethod
+
+        /// <summary>
+        /// 为推荐注册人增加分享积分
+        /// </summary>
+        /// <param name="tuiJianEmail"></param>
+        /// <param name="addIntegral"></param>
+        /// <returns></returns>
+        public bool UpdateShareIntegral(string regiserGuid, int addIntegral, out string tuijianID)
+        {
+            return mgr.UpdateShareIntegral(regiserGuid, addIntegral,out tuijianID);
+        }
+        /// <summary>
+        /// 为推荐注册人增加积分三个区
+        /// </summary>
+        /// <param name="regiserGuid">注册用户id</param>
+        /// <returns></returns>
+        public bool UpdateShareIntegral(string regiserGuid)
+        {           
+            return mgr.UpdateShareIntegral(regiserGuid);
+        }
+
+        #region 会员中心
+
+        /// <summary>
+        /// 根据会员id,查询会员的等级、积分、佣金比例
+        /// </summary>
+        /// <param name="userGuid">会员id为空时，返回所有人的</param>
+        /// <returns></returns>
+        public DataTable GetUserGrade(Guid? userGuid)
+        {
+            return mgr.GetUserGrade(userGuid);
+        }
+
+        /// <summary>
+        /// 根据会员id,查询会员的share等级、积分、佣金比例
+        /// </summary>
+        /// <param name="userGuid"></param>
+        /// <returns></returns>
+        public DataTable GetUserShareGrade(Guid? userGuid)
+        {
+            return mgr.GetUserShareGrade(userGuid);
+        }
+
+
+        #endregion
+
+        #region 会员等级积分计算
+        /// <summary>
+        /// 发布者者积分计算，在评审按钮下调用(第一版，弃用)
+        /// </summary>
+        /// <param name="pubUserID">发布者ID</param>
+        /// <param name="supportCount">评审正支持人数</param>
+        /// <returns></returns>      
+        public bool MgePublishIntegralCal(Guid pubUserID, int supportCount,Guid prdId)
+        {
+            try
+            {
+                return mgr.MgePublishIntegralCal(pubUserID, supportCount, prdId);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }  
+
+        }
+        /// <summary>
+        /// 发布者者积分计算
+        /// --发布区积分存储过程（后台产品状态更改时调用）
+        /// 1.提交的产品通过tweebaa审核,进入大众评审中，奖励5积分；（即状态改为1）
+        /// 2.一天内发布10个产品通过tweebaa审核，奖励25积分；(这个逻辑暂且不加，建议去掉)
+        /// 3.提交的产品通过预售，奖励30积分；即状态改为3）
+        /// </summary>
+        /// <param name="pubUserID">发布者ID</param>
+        /// <param name="supportCount">评审正支持人数</param>
+        /// <returns></returns>      
+        public bool MgePublishIntegralCal(Guid pubUserID, Guid prdId, int prdState)
+        {
+            try
+            {
+                return mgr.MgePublishIntegralCal(pubUserID, prdId, prdState);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+
+        }
+
+        /// <summary>
+        /// 分享者积分计算，在分享链接被访问的时候调用（已经将该方法合并在 ShareDataMgr类中的 UpdateVisitCount 下） 
+        /// </summary>
+        /// <param name="shareUserID">链接的分享者ID</param>
+        /// <param name="visitCount">链接的访问数</param>
+        /// <returns></returns>      
+        public bool MgeShareIntegralCal(Guid shareUserID, int visitCount)
+        {
+            try
+            {
+                return mgr.MgeShareIntegralCal(shareUserID, visitCount);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }  
+        }
+
+        /// <summary>
+        /// 评审区积分计算，在产品状态更改的时候触发（后台调用）
+        /// </summary>
+        /// <param name="proId">被评审的产品ID</param>
+        /// <param name="reviewResult">评审结果：0：未进入销售区；1：进入销售区</param>
+        /// <returns></returns>
+        public bool MgeReviewIntegralCal(Guid proId, int reviewResult)
+        {
+            try
+            {
+                return mgr.MgeReviewIntegralCal(proId, reviewResult);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }  
+
+
+            //评审积分 = 活跃度 * 10 * 成功率 + 成功数 * 10
+            //= 活跃度 *10 *（1- 失败率） + 成功数 * 10
+            //活跃度：代表平均每天评审的项目个数；活跃度*10代表活跃度积分；
+            //说明：得分来源 =   活跃度积分 + 成功评审积分，而活跃度积分是建立在成功率的基础上，相对上一版公式：活跃度积分=活跃度*10，扣掉了失           败的活跃度积分，保留了 成功的活跃度积分。
+            //计算公式：
+            //d : 成为会员总天数
+            //a : 评审总次数
+            //s : 评审成功次数
+            //f : 评审失败次数
+            //p : 最终积分
+            //p= a/d * 10 * (s/a)+s*10 = s/d *10 + s*10
+
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 修改购物者积分
+        /// </summary>
+        /// <param name="orderNo">订单号</param>
+        /// <returns></returns>
+        public bool UpdateShopingPoint(string orderNo)
+        {
+            return mgr.UpdateShopingPoint(orderNo);
+        }
+        public bool SharePointRedeem(string orderNo)
+        {
+            return mgr.SharePointRedeem(orderNo);
+        }
+
+        /// <summary>
+        /// 签到获得积分:每签到一次三个区各的1积分，连续签到7天，3个区各得10积分
+        /// </summary>
+        /// <param name="orderNo">订单号</param>
+        /// <returns></returns>
+        public bool UserQianDaoIntegralCal(Guid userGuid, int point)
+        {            
+            return mgr.UserQianDaoIntegralCal(userGuid,point);
+        }
+
+        /// <summary>
+        /// 查询已使用积分
+        /// </summary>
+        /// <param name="userID">用户id</param>
+        /// <returns></returns>
+        public DataTable GetUseShoppingPoint(string userID)
+        {
+            return mgr.GetUseShoppingPoint(userID);
+        }
+    }
+}

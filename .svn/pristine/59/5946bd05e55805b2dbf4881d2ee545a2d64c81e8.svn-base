@@ -1,0 +1,173 @@
+﻿<%@ Page Title=""  Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true"
+    CodeBehind="shopCart.aspx.cs" Inherits="TweebaaWebApp2.Product.shopCart" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="../css/custom.css">
+    <script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../MethodJs/calculate.js" type="text/javascript"></script>
+    <script src="../MethodJs/buy.js?v=151119" type="text/javascript"></script>
+
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+    window.$zopim || (function (d, s) {
+        var z = $zopim = function (c) { z._.push(c) }, $ = z.s =
+d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+    z.set.
+_.push(o)
+}; z._ = []; z.set._ = []; $.async = !0; $.setAttribute("charset", "utf-8");
+        $.src = "//v2.zopim.com/?3SkhL2CFelNy1xITHgs9PrwP0JnHNM52"; z.t = +new Date; $.
+type = "text/javascript"; e.parentNode.insertBefore($, e)
+    })(document, "script");
+</script>
+<!--End of Zopim Live Chat Script-->
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">
+                Shopping Cart</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="/index.aspx">Home</a></li>
+                <li><a href="/Product/prdSaleAll.aspx">Product</a></li>
+                <li class="active">Shopping Cart</li>
+            </ul>
+        </div>
+        <!--/container-->
+    </div>
+    <!--/breadcrumbs-->
+    <!--=== End Breadcrumbs ===-->
+    <!--=== Content Medium Part ===-->
+    <div class="content margin-bottom-30">
+        <div class="container">
+            <form class="shopping-cart" action="#">
+            <div class="row">
+                <div class="table-responsive col-sm-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Product
+                                </th>
+                                <th>
+                                    SKU#
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                                <th>
+                                    Qty
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabCart">
+                            <%--<tr>
+                                <td class="product-in-table">
+                                    <img class="img-responsive" src="images/shopimg.jpg" alt="">
+                                    <div class="product-it-in">
+                                        <h3>
+                                            Double-Breasted
+                                        </h3>
+                                        <p class="shop-red">
+                                            Test-sale</p>
+                                        <span class="size-label-s">S</span><span class="color_label_s"></span> <span>
+                                            <button class="btn btn-xs rounded btn-default" type="button">
+                                                Favorite
+                                            </button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    $ 160.00
+                                </td>
+                                <td>
+                                    <button type='button' class="quantity-button" name='subtract' onclick='javascript: subtractQty1();'
+                                        value='-'>
+                                        -</button>
+                                    <input type='text' class="quantity-field" name='qty1' value="5" id='qty1' />
+                                    <button type='button' class="quantity-button" name='add' onclick='javascript: document.getElementById("qty1").value++;'
+                                        value='+'>
+                                        +</button>
+                                </td>
+                                <td class="shop-red">
+                                    $ 320.00
+                                </td>
+                                <td>
+                                    <button type="button" class="close">
+                                        <span>&times;</span><span class="sr-only">Close</span></button>
+                                </td>
+                            </tr>--%>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="coupon-code">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul class="list-inline total-result">
+                                <li>
+                                   <%-- <h4 style="margin-right:-100px;">
+                                        Subtotal:</h4>--%>
+                                    <div class="total-result-in">
+                                      <label style="font-size:18px;  padding-right:20px;">Subtotal:</label><span>$<label id="labPayMoney1"></label></span>
+                                    </div>
+                                </li>
+                                <%--<li>
+                                    <h4>
+                                        Tax:</h4>
+                                    <div class="total-result-in">
+                                        <span></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h4>
+                                        Shipping:</h4>
+                                    <div class="total-result-in">
+                                        <span class="text-right"></span>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="total-price">
+                                    <h4>
+                                        Total:</h4>
+                                    <div class="total-result-in">
+                                        <span></span>
+                                    </div>
+                                </li>--%>
+                                <li class="total-price">
+                                  
+                                    <div class="total-result-in row" style="font: 15px;">
+                                     <div class="col-sm-6 txt-left"><p class="color-blue"><strong> For your convenience, we accept both Paypal and Credit Card*</strong></br>
+                                      *Credit Card payment will be processed by Paypal, Paypal account is not necessary</p>
+                                     </div>
+                                     <div class="col-sm-6">
+                                             <button type="button" class="btn-u btn-u-white rounded" onclick="window.location.href='/Product/prdSaleAll.aspx'">
+                               Continue Shopping</button>
+                                               <button type="button" class="btn-u btn-u-blue rounded" onclick="CreateOrder()">
+                                            Check Out</button></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            </form>
+        </div>
+        <!--/end container-->
+    </div>
+    <!--=== End Content Medium Part ===-->
+</asp:Content>

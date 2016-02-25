@@ -1,0 +1,620 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="CollageReview.aspx.cs" Inherits="TweebaaWebApp2.Product.CollageReview" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+Collage Design Review
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+	<link rel="stylesheet" href="/css/index.css" />
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/js/qtab.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/public.js"></script>
+	<link rel="stylesheet" href="../css/shareall.css" />
+
+    <script type="text/javascript" src="/js/jquery-ui.js" ></script>
+    <script type="text/javascript" src="/js/jquery.cookie.js" ></script>
+    <script type="text/javascript" src="/js/jquery.mousewheel.min.js" ></script>
+
+	<script type="text/javascript" src="/js/jquery.iviewer.js" ></script>
+	<script type="text/javascript" src="/js/CollageDesign.js" ></script>
+    <script type="text/javascript" src="/js/jquery.poshytip.js" ></script>
+    <style>
+        #design_workarea
+        {
+        	/*position: relative;
+        	float:left;*/
+        	width:600px;
+        	padding-left:10px;
+        }
+        .overlay-share div.fr
+        {
+        	width:220px !important;
+        	margin-left:10px;
+        }
+        div.kuang92{ Z-INDEX: 200;}
+        .review-submit
+        {
+            height:80px;
+        }
+        #btnPostComment
+        {
+            margin-top:0px;
+        }
+    </style>
+
+     <link rel="stylesheet" href="/plugins/master-slider/quick-start/masterslider/style/masterslider.css">
+    <link rel='stylesheet' href="/plugins/master-slider/quick-start/masterslider/skins/default/style.css">
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+<!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Collage details</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="/index.aspx">Home</a></li>
+                <li><a href="#">Share</a></li>
+                <li class="active">Collage Details</li>
+            </ul>
+        </div><!--/container-->
+    </div><!--/breadcrumbs-->
+    <!--=== End Breadcrumbs ===-->
+  <!--=== Shop Product ===-->
+   <div class="shop-product">
+  <div class="container">
+            <div class="row">
+                <div class="col-md-6 md-margin-bottom-50">
+                <img src="<%=sImgSrc %>" width="550">
+                 
+                </div>
+
+                <div class="col-md-6">
+                    <div class="shop-product-heading">
+                        <h2><strong><%=sTitle %></strong></h2>
+                        
+                    </div><!--/end shop product social-->
+
+                    <ul class="list-inline product-ratings margin-bottom-10">
+                       <!-- <li><i class="rating-selected fa fa-star"></i></li>
+                        <li><i class="rating-selected fa fa-star"></i></li>
+                        <li><i class="rating-selected fa fa-star"></i></li>
+                        <li><i class="rating fa fa-star"></i></li>
+                        <li><i class="rating fa fa-star"></i></li> -->
+                        <li class="product-review-list">
+                            <span>DESIGNER : <span id="txtDesignerInfo"></span></span>
+                        </li>
+                    </ul><!--/end shop product ratings-->
+
+                    <!--
+                    <p>Integer <strong>dapibus ut elit</strong> non volutpat. Integer auctor purus a lectus suscipit fermentum. Vivamus lobortis nec erat consectetur elementum.</p>
+
+                    -->
+                    <h5><strong>Designer Inspiration</strong></h5>
+				    <p class="inspiration-txt">
+					    <%=sInspiration %>
+				    </p>
+     
+         <input type="hidden" id="hidpersent" value="<%=_persent %>" />
+    <input type="hidden" id="hiduserid" value="<%=_userid %>" />
+    <input type="hidden" id="DesignIsValid" value="<%=IsValidID %>" />
+              
+            <input type="hidden" id="userID" name="userID" value="<%=_userid %>" />
+            <input type="hidden" id="txtDesignID" name="txtDesignID" value="<%=design_id %>" />
+			<input type="hidden" id="txtShareID" name="txtShareID" value="<%=shareID %>" />
+                    
+                
+                    <ul class="list-inline add-to-wishlist add-to-wishlist-brd">
+                        <li class="wishlist-in">
+                            <i class="fa fa-heart"></i>
+                            <a href="javascript:void(0)" onclick="FavoriteCollage('<%=design_id %>')" >Add to My Favorite</a>
+                        </li>
+                     
+                    </ul>    
+                  
+                  <button class="btn-u btn-u-lg rounded btn-u-share margin-bottom-15" id="link_share_earn" type="button">Share Now</button>
+                 
+                 
+                        <div class="alert alert-warning fade in">
+                      <h4>Want to bulid your own collage? Download our APP now </h4>
+                        <img src="/images/appstore-icons.png" width="263" usemap="#DownloadApp">
+                        </div>
+  <area shape="rect" coords="137,3,263,46" target="_blank" href="https://play.google.com/store/apps/details?id=com.Tweebaa.App.CollageApp" alt="Tweebaa at Google Play">
+  <area shape="rect" coords="0,0,126,46" target="_blank" href="https://itunes.apple.com/ca/app/tweebaa/id1027840811?mt=8" alt="Tweebaa at Apple Store">                 
+
+                </div>
+                <!-- End Tab v2 -->                
+
+                </div>
+            </div><!--/end row-->
+        </div>    
+   
+    <!--=== End Shop Product ===--> 
+     <!--=== Content Medium ===-->
+    <div class="content-md container">
+        <div class="tab-v5">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#description" role="tab" data-toggle="tab">Collage product list</a></li>
+                <li><a href="#reviews" role="tab" data-toggle="tab">Comment(<span id="comment_count"></span>)</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- Description -->
+
+                
+                <div class="tab-pane fade in active" >
+                
+                    <div class="row">
+                        <div class="col-md-12">
+                          
+                            <div class="illustration-v2 margin-bottom-60">
+            <div class="customNavigation margin-bottom-25">
+                <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
+                <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+            </div>
+
+            <ul class="list-inline owl-slider-v4" id="products_lists">
+
+            </ul>
+        </div> 
+                        </div>
+               
+                    </div>
+                   
+                </div>
+               
+                <!-- End Description -->
+
+                <!-- Reviews -->                
+                <div class="tab-pane fade" id="reviews">
+                    <div class="product-comment margin-bottom-40">
+                    <div class="product-comment-in" id="ulCommentsList">
+
+                    </div>
+				    <div class="page tr" id="CommentsPage">
+				    </div>
+                    <!--
+                        
+                            <img class="product-comment-img rounded-x" src="images/team/01.jpg" alt="">
+                            <div class="product-comment-dtl">
+                                <h4>Mickel <small>22 days ago</small></h4>
+                                <p>I like the green colour, it's very likeable and reminds me of Hollister. A little loose though but I am very skinny</p>
+                                <ul class="list-inline product-ratings">
+                                    <li class="reply"><a href="#">Reply</a></li>
+                                    <li class="pull-right">
+                                        <ul class="list-inline">
+                                            <li><i class="rating-selected fa fa-star"></i></li>
+                                            <li><i class="rating-selected fa fa-star"></i></li>
+                                            <li><i class="rating-selected fa fa-star"></i></li>
+                                            <li><i class="rating fa fa-star"></i></li>
+                                            <li><i class="rating fa fa-star"></i></li>
+                                        </ul>
+                                    </li>    
+                                </ul>
+                            </div>
+                        </div>    
+                        -->
+                    </div>
+                    
+                    <h3 class="heading-md margin-bottom-30">Add a review</h3>
+
+<% if (isLogion)
+   { %>
+                    <form method="post" id="sky-form3" class="sky-form sky-changes-4">
+                        <fieldset>
+                        <!--
+                            <div class="margin-bottom-30">
+                                <label class="label-v2">Name</label>
+                                <label class="input">
+                                    <input type="text" name="name" id="name">
+                                </label>
+                            </div>    
+                            
+                            <div class="margin-bottom-30">
+                                <label class="label-v2">Email</label>
+                                <label class="input">
+                                    <input type="email" name="email" id="email">
+                                </label>
+                            </div>    
+                           -->
+                            <div class="margin-bottom-30">
+                                <label class="label-v2">Review</label>
+                                <label class="textarea">
+                                    <textarea rows="7" name="txtComments" id="txtComments"></textarea>
+                                </label>
+                            </div>    
+                        </fieldset>    
+                           
+                        <footer class="review-submit">
+                        <!--
+                            <label class="label-v2">Review</label>
+                            <div class="stars-ratings">
+                                <input type="radio" name="stars-rating" id="stars-rating-5">
+                                <label for="stars-rating-5"><i class="fa fa-star"></i></label>
+                                <input type="radio" name="stars-rating" id="stars-rating-4">
+                                <label for="stars-rating-4"><i class="fa fa-star"></i></label>
+                                <input type="radio" name="stars-rating" id="stars-rating-3">
+                                <label for="stars-rating-3"><i class="fa fa-star"></i></label>
+                                <input type="radio" name="stars-rating" id="stars-rating-2">
+                                <label for="stars-rating-2"><i class="fa fa-star"></i></label>
+                                <input type="radio" name="stars-rating" id="stars-rating-1">
+                                <label for="stars-rating-1"><i class="fa fa-star"></i></label>
+                            </div>
+                            -->
+                            <button type="button" id="btnPostComment" class="btn-u btn-u-sm btn-u-red pull-right" onclick="write_comments()">Submit</button>
+                        </footer>
+                    </form>
+<% }
+   else
+   { %>
+
+       <fieldset>
+        <label class="label-v2">Please Login to Add a Review</label>
+       </fieldset>
+
+<% } %>
+                </div>
+                <!-- End Reviews -->                
+            </div>
+        </div></div>
+
+
+<script type="text/javascript">
+
+    var iTotalPage;
+    var iPrevPage = 1;
+    var pageDiv = 20;
+    var limitTime = null;
+
+    //详情和评价切换
+    $(".pingshen-box").qTab({
+        tabT: ".tab a", //tab title
+        tabCon: ".itembox"//tab Con
+    })
+
+    //Expand评论
+    $(".open-p").click(function () {
+        $(".open-p").show();
+        $(".recently-list .auto").removeClass('on')
+        $(this).hide().siblings('.auto').addClass('on')
+        return false;
+    })
+
+
+    //显示 Favorite和分享
+
+    $("#mainsrp-itemlist .box").live('mouseenter', function (event) {
+        $(this).addClass('hover').parent().css('zIndex', '100');
+        $(this).find(".floatDiv").stop().animate({ top: 0 }, 100)
+    }).live('mouseleave', function (event) {
+        $(this).removeClass('hover').parent().css('zIndex', '');
+        $(this).find(".floatDiv").stop().animate({ top: "-110px" }, 100)
+    });
+
+    $(".share-btn").live('mouseenter', function (event) {
+        $(this).siblings().show();
+    }).live('mouseleave', function (event) {
+        $(this).siblings().hide();
+    });
+
+    $(".closeBtn,.go-share-btn").click(function () {
+        $(this).parents(".greybox").hide();
+        return false;
+    })
+
+
+    //模拟点击分享按钮，随机 登陆 和未登录状态 。
+
+    $(".yellow-share,.share-btn").live('click', function (event) {
+        var shareTck = ["#share-tck2", "#share-tck"]
+        var thisb = $(shareTck[parseInt(Math.random() * 2)])
+        thisb.animate({ top: "2%" }, 300);
+        thisb.parent().show()
+        return false;
+    });
+
+    function write_comments() {
+        var sDesignID = $("#txtDesignID").val();
+        var txtComments = $("#txtComments").val();
+        
+        
+        if ("<%=isLogion %>" == "False") {
+            //save data and template ID
+            //var template_id = $("#templateID").val();
+            $.cookie("back2Collage", 3);// post comments
+            $.cookie("DesignID", sDesignID);
+            $.cookie("txtComments", txtComments);
+
+            setTimeout(window.location.href = "/User/login.aspx?op=CollageReview&id=" + sDesignID, 200);
+            return;
+        }
+        var txtUserID = $("#userID").val();
+
+        $.ajax({
+            type: "POST",
+            url: "CollageComments.ashx",
+            data: "{ 'txtComments':'" + txtComments
+                + "','action':'" + "save_comment"
+                + "','txtUserID':'" + txtUserID
+                + "','txtDesignID':'" + sDesignID
+                + "'}"
+        }).done(function (o) {
+            console.log('saved:' + o);
+            if (parseInt(o) == 1) {
+                $("#txtComments").val("Your Comments Saved");
+                limitTime = 20;
+                limitComment();
+                LoadCommentsTotal();
+            }
+           
+        });
+
+    }
+
+    function limitComment() {
+        limitTime = limitTime - 1;
+        if (limitTime > 0) {
+                $("#txtComments").val('you can post another comment after ' + limitTime + ' seconds');
+                $("#txtComments").attr('disabled', 'disabled');
+                $("#btnPostComment").attr('disabled', 'disabled');
+                setTimeout("limitComment()", 1000);
+        } else if (limitTime == 0) {
+                $("#txtComments").val('');
+                $("#txtComments").removeAttr('disabled');
+                $("#btnPostComment").removeAttr('disabled', '');
+        }
+
+    }
+    
+
+    function LoadCommentsTotal() {
+        var sDesignID = "<%=design_id %>";//$("#txtDesignID").val();
+        $.ajax({
+            type: "POST",
+            url: "CollageComments.ashx",
+            data: "{ 'action':'" + "load_comment_total"
+                + "','DesignID':'" + sDesignID
+                + "'}"
+        }).done(function (xml) {
+            var stotal = $(xml).find('total').text();
+            console.log("total=" + stotal);
+            var iTotal = Math.ceil(stotal / pageDiv);
+            //make pages
+            var i = 0; var html = '<a href="#" class="up">&lt;</a>';
+
+            for (i = 1; i <= iTotal; i++) {
+                if (i == 1) {
+                    html += '<a href="#" id="CN_' + i + '" class="on" onclick="CommentPageNavigate(' + i + ')" >' + i + '</a>';
+                } else {
+
+                    html += '<a href="#" id="CN_' + i + '" onclick="CommentPageNavigate(' + i + ')">' + i + '</a>';
+                }
+            }
+            html += '<a href="#" class="down">&gt;</a>';
+            if (iTotal > 0) {
+                $("#CommentsPage").html(html);
+            }
+            $("#comment_count").html(stotal);
+            //load first page
+            LoadComments(1);
+
+        });
+    }
+
+    function CommentPageNavigate(iPage) {
+        $("#CN_" + iPrevPageMyDraft).removeClass("on");
+        LoadComments(iPage);
+        $("#CN_" + iPage).addClass("on");
+        iPrevPageMyDraft = iPage;
+    }
+    function LoadComments(iPage) {
+        var sDesignID ="<%=design_id %>";// $("#txtDesignID").val();
+        $.ajax({
+            type: "POST",
+            url: "CollageComments.ashx",
+            data: "{'action':'" + "load"
+                + "','txtDesignID':'" + sDesignID
+                + "','page':'" + iPage
+                + "'}",
+            dataType: "xml"
+        }).done(function (xml) {
+            var html = "";
+            $(xml).find('comment').each(function () {
+                var sID = $(this).find('ID').text();
+                var comments_text = $(this).find('comments_text').text();
+                var user_name = $(this).find('user_name').text();
+                var CreateTime = $(this).find('CreateTime').text();
+               // var timesince = timeSince(CreateTime);
+                /*
+                html += '<li><span class="fr time">';
+                html += CreateTime + '</span>';
+                html += '<span class="fr people">';
+                html += '<a href="" class="vip-lv vip-lv5">' + user_name + '</a>';
+                html += '</span>';
+                html += '<p class="fl">';
+                html += comments_text;
+                html += '</p></li>';*/
+                html += '<div class="product-comment-dtl">';
+                html += '<h4>' + user_name + '<small>' + CreateTime + '</small></h4>';
+                html += '<p>' + comments_text + '</p>';
+                /*
+                html += '<ul class="list-inline product-ratings">';
+                html += '<li class="reply"><a href="#">Reply</a></li>';
+                html += '<li class="pull-right">';
+                html += '<ul class="list-inline">';
+                html += '<li><i class="rating-selected fa fa-star"></i></li>';
+                html += '<li><i class="rating-selected fa fa-star"></i></li>';
+                html += '<li><i class="rating-selected fa fa-star"></i></li>';
+                html += '<li><i class="rating fa fa-star"></i></li>';
+                html += '<li><i class="rating fa fa-star"></i></li>';
+                html += '</ul>';
+                html += '</li>';    
+                html += '</ul>';*/
+                html += '</div>';
+                //console.log("html=" + html);
+            });
+            $("#ulCommentsList").html(html);
+        });
+
+    }
+</script>
+
+
+
+
+
+
+<!-- 无线加载js -->
+<script type="text/javascript">
+    $(function () {
+        //url data function dataType
+        var iCommentPage = 1;
+       
+       
+
+       //if this link back from SNS ?
+       var sLinkback ="<%=shareID %>";
+       if(sLinkback.length>10){
+            //This is link back, so we should add poits
+            //if($.cookie("Collage_Linkback")==null || $.cookie("Collage_Linkback")==0)
+            {
+                //send request
+                
+                $.ajax({
+                type: "POST",
+                url: "CollageShareHandler.ashx",
+                data: "{ 'action':'" + "share_link_back"
+                    + "','txtShareID':'" + sLinkback
+                    + "'}"
+                }).done(function (o) {
+                    $.cookie("Collage_Linkback",1);
+
+           
+                }).error(function (XMLHttpRequest, textStatus, errorThrown) {
+                     alert("Failed saved data");
+                })
+            }
+
+       }
+
+         //Load Design from database
+        LoadDesign("<%=design_id%>",2);
+
+        //if come back from login windows, we need to post the comments for the user
+        if("<%=isLogion %>"=="True" && $.cookie("back2Collage")==3){
+
+            var txtComments = $.cookie("txtComments");
+            var sDesignID = $.cookie("DesignID");
+        
+
+            var txtUserID = $("#userID").val();
+
+            $.ajax({
+                type: "POST",
+                url: "CollageComments.ashx",
+                data: "{ 'txtComments':'" + txtComments
+                    + "','action':'" + "save_comment"
+                    + "','txtUserID':'" + txtUserID
+                    + "','txtDesignID':'" + sDesignID
+                    + "'}"
+            }).done(function (o) {
+                $.cookie("back2Collage",0);
+                $.cookie("txtComments","");
+                $.cookie("DesignID","");
+                console.log('saved:' + o);
+                if (parseInt(o) == 1) {
+                    $("#txtComments").val("Your Comments Saved");
+                    limitTime = 10;
+                    limitComment();
+                    LoadCommentsTotal();
+                }
+           
+            });
+        }else{
+
+         $.cookie("DesignID",0);
+
+        }
+        //loadMeinv($(".jstabcon").eq(0));
+        //loadMeinv($(".jstabcon").eq(1));
+        //无限加载
+        $(window).on("scroll", function () {
+            $minUl = getMinUl();
+            if ($minUl.height() <= $(window).scrollTop() + $(window).height()) {
+                //如果要鼠标滚动就加载，
+                //loadMeinv();//加载新图片
+            }
+        })
+        function getMinUl(obj) {
+            var $arrUl = $(obj).find('.items')
+            var $minUl = $arrUl.eq(0);
+            $arrUl.each(function (index, elem) {
+                if ($(elem).height() < $minUl.height()) {
+                    $minUl = $(elem);
+                }
+            });
+            return $minUl;
+        }
+        //点击更多加载
+        $(".down-mores").click(function () {
+            $minUl = getMinUl($(this).parents(".w964"));
+            loadMeinv($(this).parents(".w964"));
+            return false;
+        });
+
+
+        //Load Comments for this Design
+        LoadCommentsTotal();
+
+        for(i=1;i<=8;i++){
+         $('#product_popup'+i).hide();
+        }
+
+    })
+</script>
+
+
+    <div class="greybox">
+        <div id="share-tck2" class="tck">
+             <a href="#" class="closeBtn" id="btnCloseBox" title="Close"></a>
+             <h2 class="t">
+                <span>Share & Earn</span>
+            </h2>
+             <div class="box">
+                <div class="sharebox clearfix my-dietu">
+                    <span class="fl t ">Share to </span>
+                    <div class="bdsharebuttonbox fl">
+                                                <a href="javascript:void(0);" target="_blank" id="shareToFacebook" title="Facebook"><img src="../Images/flat-circles_03.png" /></a>&nbsp;&nbsp;
+                        <a href="javascript:void(0);" target="_blank" id="shareToTwitter" title="Twitter"><img src="../Images/flat-circles_05.png" /></a>&nbsp;&nbsp;
+                        <a href="javascript:void(0);" target="_blank" id="shareToGoogle" title="Google"><img src="../Images/flat-circles_13.png" /></a>&nbsp;&nbsp;
+                        <!--a href="javascript:void(0)" target="_blank" id="share4" title="Wechat"><img src="../Images/share-rss.png" /></a>&nbsp;&nbsp;-->
+                        <a href="javascript:void(0);" target="_blank" id="shareToPinterest" title="Pinterest"><img src="../Images/share-pin.png" /></a>&nbsp;&nbsp;
+                        
+                        <a href="javascript:void(0)" target="_blank" id="shareToEmail" title="Email"><img src="../Images/share-mail.png" /></a>
+
+                    </div>                  
+                    <!--a href="/Home/Index.aspx" class="share-media-set">Link My Account</a-->
+                </div>
+                <div class="ps clearfix">
+<% if (isLogion)
+   { %>
+                    <span class="fr"><a href="#"></a></span><span class="fl">You will earn  <!--span id="sharePercent"></span-->commission when your friend makes a purchase from your shared link. </span>
+<%}
+   else
+   { %>
+                    <span class="fr"><a href="#"></a></span><span class="fl">You are not logged in. If you want to earn a commission when your friends purchase, please log in first.</span>
+
+<%} %>                </div>
+            </div>
+            
+        </div>
+
+<!-- Master Slider -->
+<script src="/plugins/master-slider/quick-start/masterslider/masterslider.min.js"></script>
+<script src="/plugins/master-slider/quick-start/masterslider/jquery.easing.min.js"></script>
+<script src="/js/plugins/master-slider.js"></script>
+
+<script type="text/javascript">
+    $("#btnCloseBox").click(function () {
+        $(this).parents(".greybox").hide();
+        return false;
+    })
+</script>
+</asp:Content>

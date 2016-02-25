@@ -1,0 +1,744 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Twee.Comm;
+using Newtonsoft.Json.Linq;
+using System.Xml.Linq;
+using Twee.Mgr;
+using System.Text;
+using System.Data.SqlClient;
+using System.Data;
+
+
+namespace TweebaaWebApp2.mobileApp
+{
+    /// <summary>
+    /// Summary description for UCAPI
+    /// </summary>
+    public class UCAPI : IHttpHandler
+    {
+        private int IsSlave = System.Configuration.ConfigurationManager.AppSettings.Get("IsSlave").ToInt(); //System.Configuration.ConfigurationManager.ConnectionStrings["IsSlave"].ToString().ToInt();
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //context.Response.Write("Hello World");
+            //action=login&username="+sUsername+"&Passwrod="+sPasswrod
+            String sXMLTag = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            sXMLTag = sXMLTag + System.Environment.NewLine;
+
+
+
+            String sAction = context.Request.Form["action"];
+            if (String.IsNullOrEmpty(sAction))
+            {
+                XElement xml = new XElement("mobileApp");
+                XElement XmlError = new XElement("error", "1");
+                xml.Add(XmlError);
+                context.Response.Write(xml);
+                return;
+                
+            }
+            if(sAction.Equals("login")){
+                //Do Login
+                try
+                {
+                    string sEncrypt = context.Request.Form["EncryptData"];
+                    //base 6
+                    XElement xml = new XElement("mobileAppLogin");
+                    if (sEncrypt.Length < 6)
+                    {
+                        
+                        XElement XmlError = new XElement("error", "1");
+                        xml.Add(XmlError);
+                        context.Response.Write(xml);
+                        return;
+                    }
+
+                    sEncrypt = XXTEA.DecodeString(sEncrypt);
+
+                    
+                    string[] s2 = sEncrypt.Split('&');
+
+                    String sUsername = s2[0].Split('=')[1].Trim();
+                    String sPass = s2[1].Split('=')[1].Trim();
+
+                    sPass = PasswordHelper.ToUpMd5(sPass);
+                    Twee.Mgr.UserMgr mgr = new Twee.Mgr.UserMgr();
+                    string resu = mgr.UserLogin(sUsername, sPass);
+
+                    JObject json = JObject.Parse(resu); //"{email:'" + email + "',userGuid:'" + userGuid + "'}";  
+                    string email = json["email"].ToString();
+                    string state = json["state"].ToString();
+                    string userGuid = json["userGuid"].ToString();
+                    string username = json["username"].ToString();
+                    context.Response.Clear();
+                    
+                    //XElement subXml = new XElement("template");
+
+                    if (state == "0")
+                    {
+                        XElement XmlError = new XElement("error", "0");
+                        //context.Response.Write("0");
+
+                        xml.Add(XmlError);
+                        XElement XmlUserGuid = new XElement("UserGuid", userGuid);
+                        xml.Add(XmlUserGuid);
+                        XElement XmlUserName = new XElement("UserName", username);
+                        xml.Add(XmlUserName);
+                        context.Response.Write(xml);
+                        return;
+                    }
+                    if (!string.IsNullOrEmpty(userGuid) && !string.IsNullOrEmpty(email))
+                    {
+                        //CookiesHelper cook = new CookiesHelper();
+                        //bool b1 = cook.createCookie("jZvJvvjqCILHX7zjBWskQA", userGuid, 30);
+                        //bool b2 = cook.createCookie("jZvJvvjqCILHX7zjBWskQB", email, 30);
+                        //bool b3 = cook.createCookie("jZvJvvjqCILHX7zjBWskQC", sPass, 1);
+                        //if (b1 && b2)
+                        if (CommUtil.SetUserLoginCookie(userGuid, email, sPass))
+                        {
+                            //context.Response.Write("1");
+                        }
+                        else
+                        {
+                            // context.Response.Write("1");
+                        }
+                        XElement XmlError = new XElement("error", "0");
+                        //context.Response.Write("0");
+
+                        xml.Add(XmlError);
+                        XElement XmlUserGuid = new XElement("UserGuid", userGuid);
+                        xml.Add(XmlUserGuid);
+                        XElement XmlUserName = new XElement("UserName", username);
+                        xml.Add(XmlUserName);
+                        context.Response.Write(xml);
+
+                    }
+                    else
+                    {
+                        if (sUsername.Length > 3 && sUsername.Substring(0, 3).Equals("fb_"))
+                        {
+                            //this is facebook
+                            XElement XmlError = new XElement("error", "2");
+                            xml.Add(XmlError);
+                            context.Response.Write(xml);
+                        }
+                        else if (sUsername.Length > 8 && sUsername.Substring(0, 8).Equals("twitter_"))
+                        {
+
+                            XElement XmlError = new XElement("error", "2");
+                            xml.Add(XmlError);
+                            context.Response.Write(xml);
+                        }
+                        else
+                        {
+                            XElement XmlError = new XElement("error", "1");
+                            xml.Add(XmlError);
+                            context.Response.Write(xml);
+                        }
+
+                        //context.Response.Write("0");
+                    }
+                }
+                catch (Exception e1)
+                {
+                    Twee.Comm.CommUtil.GenernalErrorHandler(e1);
+                }
+            }
+            if (sAction.Equals("login_ex"))
+            {
+                //Do Login and Get Daily CheckIn Result
+                try
+                {
+                    string sEncrypt = context.Request.Form["EncryptData"];
+                    //base 6
+                    XElement xml = new XElement("mobileAppLogin");
+                    if (sEncrypt.Length < 6)
+                    {
+
+                        XElement XmlError = new XElement("error", "1");
+                        xml.Add(XmlError);
+                        context.Response.Write(xml);
+                        return;
+                    }
+
+                    sEncrypt = XXTEA.DecodeString(sEncrypt);
+
+
+                    string[] s2 = sEncrypt.Split('&');
+
+                    String sUsername = s2[0].Split('=')[1].Trim();
+                    String sPass = s2[1].Split('=')[1].Trim();
+
+                    //如果用户ID
+
+                    sPass = PasswordHelper.ToUpMd5(sPass);
+                    Twee.Mgr.UserMgr mgr = new Twee.Mgr.UserMgr();
+                    string resu = mgr.UserLogin(sUsername, sPass);
+
+                    JObject json = JObject.Parse(resu); //"{email:'" + email + "',userGuid:'" + userGuid + "'}";  
+                    string email = json["email"].ToString();
+                    string state = json["state"].ToString();
+                    string userGuid = json["userGuid"].ToString();
+                    string username = json["username"].ToString();
+                    context.Response.Clear();
+
+                    //XElement subXml = new XElement("template");
+
+                    if (state == "0")
+                    {
+                        XElement XmlError = new XElement("error", "0");
+                        //context.Response.Write("0");
+
+                        xml.Add(XmlError);
+                        XElement XmlUserGuid = new XElement("UserGuid", userGuid);
+                        xml.Add(XmlUserGuid);
+                        XElement XmlUserName = new XElement("UserName", username);
+                        xml.Add(XmlUserName);
+
+                        if (CreateDailyCheckInXML(userGuid, context, xml))
+                        {
+
+                        }
+                        else
+                        {
+                            XElement XmlResult = new XElement("CheckInResult", "-1");
+                            xml.Add(XmlResult);
+                        }
+
+                        context.Response.Write(xml);
+                        return;
+                    }
+                    if (!string.IsNullOrEmpty(userGuid) && !string.IsNullOrEmpty(email))
+                    {
+                        //CookiesHelper cook = new CookiesHelper();
+                        //bool b1 = cook.createCookie("jZvJvvjqCILHX7zjBWskQA", userGuid, 30);
+                        //bool b2 = cook.createCookie("jZvJvvjqCILHX7zjBWskQB", email, 30);
+                        //bool b3 = cook.createCookie("jZvJvvjqCILHX7zjBWskQC", sPass, 1);
+                        //if (b1 && b2)
+                        if (CommUtil.SetUserLoginCookie(userGuid, email, sPass))
+                        {
+                            //context.Response.Write("1");
+                        }
+                        else
+                        {
+                            // context.Response.Write("1");
+                        }
+                        XElement XmlError = new XElement("error", "0");
+                        //context.Response.Write("0");
+
+                        xml.Add(XmlError);
+                        XElement XmlUserGuid = new XElement("UserGuid", userGuid);
+                        xml.Add(XmlUserGuid);
+                        XElement XmlUserName = new XElement("UserName", username);
+                        xml.Add(XmlUserName);
+                        if (CreateDailyCheckInXML(userGuid, context, xml))
+                        {
+
+                        }
+                        else
+                        {
+                            XElement XmlResult = new XElement("CheckInResult", "-1");
+                            xml.Add(XmlResult);
+                        }
+                        context.Response.Write(xml);
+
+                    }
+                    else
+                    {
+                        if (sUsername.Length > 3 && sUsername.Substring(0, 3).Equals("fb_"))
+                        {
+                            //this is facebook
+                            XElement XmlError = new XElement("error", "2");
+                            xml.Add(XmlError);
+                            context.Response.Write(xml);
+                        }
+                        else if (sUsername.Length > 8 && sUsername.Substring(0, 8).Equals("twitter_"))
+                        {
+
+                            XElement XmlError = new XElement("error", "2");
+                            xml.Add(XmlError);
+                            context.Response.Write(xml);
+                        }
+                        else
+                        {
+                            XElement XmlError = new XElement("error", "1");
+                            xml.Add(XmlError);
+                            context.Response.Write(xml);
+                        }
+
+                        //context.Response.Write("0");
+                    }
+                }
+                catch (Exception e1)
+                {
+                    Twee.Comm.CommUtil.GenernalErrorHandler(e1);
+                }
+            }
+            if (sAction.Equals("sync_point"))
+            {
+                //get user id
+                // post data context.Request.Form["username"];
+                try
+                {
+                    //local_point = " + s1 + "&LV = " + s2 + "&UserID = " + s;
+                    StringBuilder strSql = new StringBuilder();
+                    string sEncrypt = context.Request.Form["EncryptData"];
+                    sEncrypt = XXTEA.DecodeString(sEncrypt);
+
+
+                    string[] s2 = sEncrypt.Split('&');
+                    /*
+                    String sUsername = s2[0].Split('=')[1].Trim();
+                    String sPass = s2[1].Split('=')[1].Trim();*/
+                    if (s2.Length == 3)
+                    {
+                        string sUserID = s2[2].Split('=')[1].Trim();
+                        string sLocalPoint = s2[0].Split('=')[1].Trim();
+                        string sLevel = s2[1].Split('=')[1].Trim();
+                        //loca_point=100&LV=1&UserID=eff4dca6-fedc-4bd9-bbe5-79dec2bb39d8
+
+                        //get Current Point
+                        strSql.Append("select shareintegral from wn_usergrade where userguid='" + sUserID + "'");
+                        object obj = DbHelperSQL.GetSingle(strSql.ToString());
+                        int iCurrentPoint = Convert.ToInt32(obj);
+                        int iPoint = sLocalPoint.ToInt() + iCurrentPoint;
+                        //记录流水表
+                        strSql.Clear();
+                        if (sLocalPoint.ToInt() > 0)
+                        {
+                            strSql.Append("insert into wn_point(type,userId,point,remark,addTime,state) values(3,'");
+                            strSql.Append(sUserID + "'," + sLocalPoint + ",'Tweebaa App Points','" + System.DateTime.Now.ToString() + "',1);");
+                            DbHelperSQL.GetSingle(strSql.ToString());
+                        }
+                        //更新汇总表
+                        strSql.Clear();
+                        strSql.Append("update wn_usergrade set sharegrade=" + sLevel + ",shareintegral=" + iPoint + ",updatetime='" + System.DateTime.Now.ToString() + "' where userguid='" + sUserID + "'");
+                        //
+                        object obj2 = DbHelperSQL.GetSingle(strSql.ToString());
+                        XElement xml = new XElement("mobileAppSyncPoint");
+                        XElement XmlError = new XElement("result", iPoint);
+                        xml.Add(XmlError);
+                        context.Response.Write(sXMLTag); context.Response.Write(xml);
+                        context.Response.Write(System.Environment.NewLine);
+                    }
+                    else
+                    {
+                        XElement xml = new XElement("mobileAppSyncPoint");
+                        XElement XmlError = new XElement("result", "-1");
+                        xml.Add(XmlError);
+                        context.Response.Write(sXMLTag); context.Response.Write(xml); context.Response.Write(System.Environment.NewLine);
+                    }
+                }
+                catch (Exception e)
+                {
+                    XElement xml = new XElement("mobileAppSyncPoint");
+                    XElement XmlError = new XElement("result", "-1");
+                    xml.Add(XmlError);
+                    context.Response.Write(sXMLTag); context.Response.Write(xml); context.Response.Write(System.Environment.NewLine);
+
+                }
+            }
+            if (sAction.Equals("register"))
+            {
+                try
+                {
+                    string sEncrypt = context.Request.Form["EncryptData"];
+                    sEncrypt = XXTEA.DecodeString(sEncrypt);
+
+                    //"username = " + sUserName + "&e_mail = " + sEMail + "&Password = " + sPassword;;
+                    string[] s2 = sEncrypt.Split('&');
+
+                    String sUsername = s2[0].Split('=')[1].Trim();
+                    
+
+
+                    // String sUsername = context.Request.Form["username"];
+                    //String sPass = context.Request.Form["Passwrod"];
+                    String sEMail = s2[1].Split('=')[1].Trim();
+                    String sPass = s2[2].Split('=')[1].Trim();
+                    //DO Register for mobile App
+
+
+                    string email = sEMail;// Request["Email"].ToString();
+                    string loginName = sUsername;// Request["LoginName"].ToString();
+                    string pass = sPass;// Request["Pass"].ToString();
+                    string country = "1";// Request["Country"].ToString();
+                    string tuijieEmail = "";// Request["TuiJieEmail"].ToString();
+                    string KnowWay = "99";// Request["KnowWay"].ToString();
+                    string Consent = "1";
+
+
+                    XElement xml = new XElement("mobileAppRegister");
+                    Twee.Model.User user = new Twee.Model.User();
+                    user.email = email;
+                    user.phone = "";
+                    user.username = sUsername;
+                    user.pwd = pass;
+                    user.knowwayid = int.Parse(KnowWay);
+                    user.tuijieEmail = tuijieEmail;
+                    user.consent = (Consent.ToLower() == "true") ? true : false;
+                    //user.countryid = country.ToInt();
+                    Twee.Mgr.UserMgr userMgr = new Twee.Mgr.UserMgr();
+                    string resu = userMgr.RegUser(loginName, user.email, user.phone, pass, country.ToInt(), user.knowwayid, user.tuijieEmail, (bool)user.consent);//{it:'1',strLoginGuid:'345a26d4-4dc3-4d36-a6ca-6b40ec9ed26d'}
+                    context.Response.Clear();
+                    JObject json = JObject.Parse(resu);
+                    string it = json["it"].ToString();
+                    if (it == "-1")
+                    {
+                        XElement XmlError = new XElement("error", "-1");
+                        xml.Add(XmlError);
+                        context.Response.Write(xml);
+                        //Response.Write(-1);//该邮箱已经注册过
+                        return;
+                    }
+                    else if (it == "1" && json["strLoginGuid"].ToString() != "")
+                    {
+                        //注册成功
+                        string userGuid = json["strLoginGuid"].ToString();
+                        bool b = AddGrade(userGuid.ToGuid().Value, user.email);
+                        if (b == true)
+                        {
+                            //更新主数据库服务器,需要异步调用来减少时间
+                           // Twee.Comm.CommHelper.WrtLog("before Sync Call");
+                            if (IsSlave == 1)
+                            {
+                                /*
+                                AsyncCallback cb = new AsyncCallback(RemoteRegisterCompleted);
+                                Twee.WebService.MobileAppDBWebService mobileWS = new Twee.WebService.MobileAppDBWebService();*/
+                              //  RemoteRegisterHandler handle=new RemoteRegisterHandler(mobileWS.MobileAppDoRegister);
+                              //  IAsyncResult result = mobileWS.BeginInvoke(MobileAppDoRegister(userGuid, loginName, user.email, user.phone, pass, country.ToInt(), user.knowwayid, user.tuijieEmail, (bool)user.consent);
+                               
+                                TweebaaWebService.MobileAppDBWebService ws = new TweebaaWebService.MobileAppDBWebService();
+                                ws.MobileAppDoRegisterCompleted += new TweebaaWebService.MobileAppDoRegisterCompletedEventHandler(ws_MobileAppDoRegisterCompleted);
+                                ws.MobileAppDoRegisterAsync(userGuid, loginName, user.email, user.phone, pass, country.ToInt(), user.knowwayid, user.tuijieEmail, (bool)user.consent);
+                                
+                            }
+                           // Twee.Comm.CommHelper.WrtLog("after Sync Call");
+                            //Response.Write(1);//注册成功并且添加会员等级信息成功
+                            XElement XmlError = new XElement("error", "0");
+                            xml.Add(XmlError);
+                            XElement XmlUserGuid = new XElement("UserGuid", userGuid);
+                            xml.Add(XmlUserGuid);
+                            context.Response.Write(xml);
+                            return;
+                        }
+                        else
+                        {
+                            XElement XmlError = new XElement("error", "-2");
+                            xml.Add(XmlError);
+                            context.Response.Write(xml);
+                        }
+                    }
+                    else
+                    {
+                        XElement XmlError = new XElement("error", "-2");
+                        xml.Add(XmlError);
+                        context.Response.Write(xml);
+                    }
+                }
+                catch (Exception e1)
+                {
+                    Twee.Comm.CommUtil.GenernalErrorHandler(e1);
+                }
+            }
+
+            if (sAction.Equals("save_ranking"))
+            {
+                try
+                {
+                    String sUsername = context.Request.Form["username"];
+                    // String sGametype = context.Request.Form["gametype"];
+                    String sScore = context.Request.Form["score"];
+                    /////////////
+                    String[] s1 = sScore.Split(',');
+                    Twee.Mgr.MobileAppGameRankingMgr mgr = new MobileAppGameRankingMgr();
+                    for (int i = 0; i < s1.Length; i++)
+                    {
+                        if (s1[i].Length > 0)
+                        {
+                            short type = short.Parse(s1[i].Split(':')[0]);
+                            int score = int.Parse(s1[i].Split(':')[1]);
+                            int iRet = mgr.AddGameScore(type, sUsername, score);
+                        }
+                    }
+                    context.Response.Write(1);
+                }
+                catch (Exception e1)
+                {
+                    Twee.Comm.CommUtil.GenernalErrorHandler(e1);
+                }
+            }
+            if (sAction.Equals("save_user_info"))
+            {
+                try
+                {
+                    string sEncrypt = context.Request.Form["EncryptData"];
+                    sEncrypt = XXTEA.DecodeString(sEncrypt);
+                    string slayer = context.Request.Form["layer"];
+                    string sPlat_form = context.Request.Form["plat_form"];
+                    string sScreen = context.Request.Form["screen"];
+
+                    Twee.Comm.CommHelper.WrtLog("save_user_info =" + sEncrypt);
+                    string[] s2 = sEncrypt.Split('&');
+                    //"score = " + strFlow+"local_point = " + s1 + "&LV = " + s2 + "&UserID = " + s
+                    if (s2.Length == 5)
+                    {
+                        /*
+                        String sUsername = s2["username"];
+                        // String sGametype = context.Request.Form["gametype"];
+                        String sScore = context.Request.Form["score"];
+                        */
+                        string sScore = s2[0].Split('=')[1].Trim();
+                        if (string.IsNullOrEmpty(sScore) || sScore.Length == 0) sScore = "0";
+                        string sLocalPoint = s2[1].Split('=')[1].Trim();
+                        string sLevel = s2[2].Split('=')[1].Trim();
+                        string sUserID = s2[3].Split('=')[1].Trim();
+                        string sVirtualProps = s2[4].Split('=')[1].Trim();
+                        Twee.Comm.CommHelper.WrtLog("sVirtualProps=" + sVirtualProps);
+                        if (sScore == "0" && sLocalPoint == "0")
+                        {
+                            //这种情况就不用处理
+                            XElement xml = new XElement("mobileAppSyncPoint");
+                            XElement XmlError = new XElement("result", "-1");
+                            xml.Add(XmlError);
+                            context.Response.Write(sXMLTag); context.Response.Write(xml); context.Response.Write(System.Environment.NewLine);
+                            return;
+                        }
+                        string sGame1 = "0"; string sGame2 = "0"; string sGame3 = "0";
+                        string sGame4 = "0"; string sGame5 = "0"; string sGame6 = "0";
+                        /////////////
+                        String[] s1 = sScore.Split(',');
+                        Twee.Mgr.MobileAppGameRankingMgr mgr = new MobileAppGameRankingMgr();
+                        
+                        for (int i = 0; i < s1.Length; i++)
+                        {
+                            if (s1[i].Length > 2)
+                            {
+                                string[] ss=s1[i].Split(':');
+                                short type = short.Parse(ss[0]);
+                                if (ss.Length == 2)
+                                {
+                                    string score = ss[1];
+                                    if (type == 1) sGame1 = score;
+                                    if (type == 2) sGame2 = score;
+                                    if (type == 3) sGame3 = score;
+                                    if (type == 4) sGame4 = score;
+                                    if (type == 5) sGame5 = score;
+                                    if (type == 6) sGame6 = score;
+                                }
+                                //int iRet = mgr.AddGameScore(type, sUserID, score);
+                            }
+                        }
+                        string sRet = mgr.SaveGameInformationAfterUserWin(slayer, sPlat_form, sScreen, sUserID, sLocalPoint, sLevel, sVirtualProps,
+                            sGame1, sGame2, sGame3, sGame4, sGame5, sGame6);
+                       // Twee.Comm.CommHelper.WrtLog("before SaveGameInformationAfterUserWin Sync Call");
+                        if (IsSlave == 1)
+                        {
+                            
+                            TweebaaWebService.MobileAppDBWebService mobileWS = new TweebaaWebService.MobileAppDBWebService();
+                            mobileWS.SaveGameInformationAfterUserWinCompleted += new TweebaaWebService.SaveGameInformationAfterUserWinCompletedEventHandler(mobileWS_SaveGameInformationAfterUserWinCompleted);
+                            mobileWS.SaveGameInformationAfterUserWinAsync(slayer, sPlat_form, sScreen, sUserID, sLocalPoint, sLevel, sVirtualProps,
+                            sGame1, sGame2, sGame3, sGame4, sGame5, sGame6);
+                        }
+                        Twee.Comm.CommHelper.WrtLog("Save User Info ret=" + sRet);
+                        string[] s4 = sRet.Split(':');
+                        if (s4.Length == 2)
+                        {
+                            XElement xml = new XElement("mobileAppSyncPoint");
+                            XElement XmlError = new XElement("result", "0");
+                            xml.Add(XmlError);
+                            XElement XmlTotalPoints = new XElement("TotalPoints", s4[0]);
+                            xml.Add(XmlTotalPoints);
+                            XElement XmlTotalTools = new XElement("TotalTools", s4[1]);
+                            xml.Add(XmlTotalTools);
+                            context.Response.Write(sXMLTag); context.Response.Write(xml);
+                            context.Response.Write(System.Environment.NewLine);
+                        }
+                        else
+                        {
+                            Twee.Comm.CommUtil.SendDebugString("Save User Info ret=" + sRet + " sUserID=" + sUserID);
+                            XElement xml = new XElement("mobileAppSyncPoint");
+                            XElement XmlError = new XElement("result", "-1");
+                            xml.Add(XmlError);
+                            context.Response.Write(sXMLTag); context.Response.Write(xml); context.Response.Write(System.Environment.NewLine);
+                        }
+                    }
+                    else
+                    {
+                        XElement xml = new XElement("mobileAppSyncPoint");
+                        XElement XmlError = new XElement("result", "-1");
+                        xml.Add(XmlError);
+                        context.Response.Write(sXMLTag); context.Response.Write(xml); context.Response.Write(System.Environment.NewLine);
+                        //Twee.Comm.CommUtil.GenernalErrorHandler(e1);
+                    }
+                }
+                catch (Exception e1)
+                {
+                    XElement xml = new XElement("mobileAppSyncPoint");
+                    XElement XmlError = new XElement("result", "-1");
+                    xml.Add(XmlError);
+                    context.Response.Write(sXMLTag); context.Response.Write(xml); context.Response.Write(System.Environment.NewLine);
+                    Twee.Comm.CommUtil.GenernalErrorHandler(e1);
+                }
+            }
+
+        }
+        
+        void mobileWS_SaveGameInformationAfterUserWinCompleted(object sender, TweebaaWebService.SaveGameInformationAfterUserWinCompletedEventArgs e)
+        {
+            //throw new NotImplementedException();
+           // Twee.Comm.CommHelper.WrtLog("mobileWS_SaveGameInformationAfterUserWinCompleted Call Complete");
+        }
+
+        void ws_MobileAppDoRegisterCompleted(object sender, TweebaaWebService.MobileAppDoRegisterCompletedEventArgs e)
+        {
+           // Twee.Comm.CommHelper.WrtLog("Sync Call Complete");
+            //throw new NotImplementedException();
+            //Remote Register Complete
+        }
+       // public delegate int RemoteRegisterHandler(string sUserGuid, string userName, string strNameEmailTel, string phone, string strPass, int countryId, int? knowwayid, string tuijieEmail, bool consent);
+        
+        private bool CreateDailyCheckInXML(string userGuid, HttpContext context, XElement xml)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(string.Format("select top 7 createtime,DATEDIFF(dd,createtime,getdate()) as diff from wn_userQianDao  where userid='{0}' order by createtime desc;", userGuid));
+            DataSet ds = DbHelperSQL.Query(strSql.ToString());
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                //return dt;
+                //XElement xml = new XElement("mobileAppGetDailyCheckIn");
+                XElement XmlResult = new XElement("CheckInResult", ds.Tables[0].Rows.Count);
+                xml.Add(XmlResult);
+
+                XElement XmlResults = new XElement("results");
+                xml.Add(XmlResults);
+
+                /////////////
+                DateTime signDate = Convert.ToDateTime(dt.Rows[0]["createtime"].ToString());
+                TimeSpan ts = DateTime.Now.Subtract(signDate);
+                int dd = ts.Days;
+
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+
+                    XElement Xmlcreatetime = new XElement("createtime", ds.Tables[0].Rows[i]["createtime"]);
+                    XmlResults.Add(Xmlcreatetime);
+
+
+
+                    string dateStr = dt.Rows[i]["createtime"].ToString();
+                    DateTime time = Convert.ToDateTime(dateStr);
+
+                    if (IsInSameWeek(time, DateTime.Now))
+                    {
+                        XElement Xmldiff = new XElement("SameWeek", "1");
+                        XmlResults.Add(Xmldiff);
+                    }
+                    else
+                    {
+                        XElement Xmldiff = new XElement("SameWeek", "0");
+                        XmlResults.Add(Xmldiff);
+                    }
+                    //week date
+                    int year = time.Year;
+                    int month = time.Month;
+                    int day = time.Day;
+                    string s_weekday = CaculateWeekDay(year, month, day);
+                    XElement XmWeekDay = new XElement("WeekDay", s_weekday);
+                    XmlResults.Add(XmWeekDay);
+                }
+                return true;
+                //context.Response.Write(sXMLTag); context.Response.Write(xml); context.Response.Write(System.Environment.NewLine);
+            }
+            else
+            {
+                /*
+                XElement xml = new XElement("mobileAppGetDailyCheckIn");
+                XElement XmlError = new XElement("result", "0");
+                xml.Add(XmlError);
+                context.Response.Write(sXMLTag); context.Response.Write(xml); context.Response.Write(System.Environment.NewLine);
+                 * */
+                return false;
+            }
+
+        }
+
+        private bool IsInSameWeek(DateTime dtS, DateTime dtE)
+        {
+            //return ((dtE - new DateTime(1752, 12, 31)).Ticks / (7 * 24 * 60 * 60 * 10000000L) == (dtS - new DateTime(1752, 12, 31)).Ticks / (7 * 24 * 60 * 60 * 10000000L));
+
+            return ((dtE - new TimeSpan(Convert.ToInt32(dtE.DayOfWeek), 0, 0, 0) - dtE.TimeOfDay) == (dtS - new TimeSpan(Convert.ToInt32(dtS.DayOfWeek), 0, 0, 0) - dtS.TimeOfDay));
+        }
+        protected bool IsSatuDay(int y, int m, int d)
+        {
+            if (m == 1 || m == 2)
+            {
+                m += 12;
+                y--;         //把一月和二月看成是上一年的十三月和十四月，例：如果是2004-1-10则换算成：2003-13-10来代入公式计算。
+            }
+            int week = (d + 2 * m + 3 * (m + 1) / 5 + y + y / 4 - y / 100 + y / 400) % 7;
+            if (week == 5)
+            {
+                return true;
+            }
+            return false;
+        }
+        protected string CaculateWeekDay(int y, int m, int d)
+        {
+            if (m == 1 || m == 2)
+            {
+                m += 12;
+                y--;         //把一月和二月看成是上一年的十三月和十四月，例：如果是2004-1-10则换算成：2003-13-10来代入公式计算。
+            }
+            int week = (d + 2 * m + 3 * (m + 1) / 5 + y + y / 4 - y / 100 + y / 400) % 7;
+
+            string weekstr = "";
+            switch (week)
+            {
+                case 6: weekstr = "sun"; break;//星期日
+                case 0: weekstr = "mon"; break;//星期一
+                case 1: weekstr = "tue"; break;//星期二
+                case 2: weekstr = "wed"; break;//星期三
+                case 3: weekstr = "thu"; break;//星期四
+                case 4: weekstr = "fri"; break;//星期五
+                case 5: weekstr = "sat"; break;//星期六
+
+            }
+            return weekstr;
+        }
+        private bool AddGrade(Guid userGuid, string email)
+        {
+            UserGradeCalMgr gradeMgr = new UserGradeCalMgr();
+            Twee.Model.Usergrade grade = new Twee.Model.Usergrade();
+            grade.userguid = userGuid;
+            grade.publishgrade = 0;
+            grade.publishintegral = 0;
+            grade.publishcount = 0;
+            grade.reviewgrade = 0;
+            grade.reviewintegral = 0;
+            grade.reviewhcount = 0;
+            grade.sharegrade = 0;
+            grade.shareintegral = 0;
+            grade.sharecount = 0;
+            grade.updatetime = DateTime.Now;
+            bool b = gradeMgr.Add(grade);
+            if (b == false)
+            {
+                Twee.Mgr.UserMgr userMgr = new Twee.Mgr.UserMgr();
+                bool resu = userMgr.Delete(userGuid, email);
+            }
+            return b;
+
+        }
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

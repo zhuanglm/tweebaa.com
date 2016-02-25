@@ -1,0 +1,231 @@
+﻿ @charset "utf-8";
+body,input,a,select
+{
+    padding: 0px;
+    margin: 0px;
+    padding-left: 4px;
+    font-size: 18px;
+}
+img
+{
+    border: none;
+    vertical-align: middle;
+    text-align: center;
+}
+a:link, a:visited, a:hover, a:active
+{
+    text-decoration: none;
+    color: #000066;
+}
+a:hover
+{
+    color: #FF0000;
+}
+
+/*查询表单*/
+.tbSear
+{ 
+    background: #fff;
+    width: 100%;
+    position: fixed;
+    _position: absolute;
+    top: 0px; z-index:9999;
+    line-height:40px; vertical-align:middle; padding-left:20px;
+}
+
+
+.txtTime
+{
+    border: solid 1px #1C5180;
+    cursor: pointer;
+    background-position: center center;
+    background: url(calendar.gif);
+    width: 120px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.SelectedRow
+        {
+            background: yellow;
+        }
+        .contextMenu
+        {
+            display: none;
+        }
+        
+        
+ 
+ 
+ /* 反回顶部*/
+a.backToTop
+{
+    width: 60px;
+    height: 60px;
+    background: #eaeaea url(top.gif) no-repeat -51px 0;
+    text-indent: -999em;
+}
+a.backToTop:hover
+{
+    background-position: -113px 0;
+}
+
+ /* 右键菜单*/
+.menuCol
+{
+    background:url(contemtmenu.png) no-repeat left center;
+	cursor:pointer; text-indent:16px;
+}
+
+.contextMenu{   display: none;}
+.rightmenu
+{ display:block; 
+  background:url(Home_Age_UnSelect.jpg) no-repeat left center;
+ text-indent:19px;
+}
+/* 右键菜单*/
+/* 按钮*/
+a.aFind, a.aFind:hover
+{ 
+  background:url(search.png) no-repeat left center;
+  padding-left:15px;
+}
+
+a.aAll, a.aAll:hover
+{ 
+    background:url(all.png) no-repeat left center;
+  padding-left:17px;
+}
+
+a.aSave, a.aSave:hover
+{ 
+    background:url(save.png) no-repeat left center;
+  padding-left:15px;
+}
+a.aEsc, a.aEsc:hover
+{ 
+  background:url(esc.png) no-repeat left center;
+  padding-left:15px;
+}
+/* 按钮*/
+.t1{  width:150px;
+	 padding:2px;
+	border: 1px solid #D3D3D3;
+	color: #777;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-khtml-border-radius: 2px;
+}
+.t1:focus{
+	outline:none;
+	border: 1px solid #000066;
+	box-shadow: 0px 0px 4px #000066;
+	-moz-box-shadow: 0px 0px 4px #000066;
+	-webkit-box-shadow: 0px 0px 4px #000066;
+}
+
+/*支持列表*/
+.commentname {
+	MARGIN: 2px 0px 0px; FLOAT: left;
+}
+.zhichilst li{ background-color:#fff;}
+.commentinfo {
+	TEXT-ALIGN: right; MARGIN-TOP: 2px; FLOAT: right; PADDING-TOP: 18px
+}
+.commenttext {
+	LINE-HEIGHT: 1.3em; MARGIN-TOP: 1px; FONT-FAMILY: "Helvetica", "Arial"; MARGIN-BOTTOM: 2px; COLOR: #5b5b5b; CLEAR: both; FONT-SIZE: 1.1em; BORDER-TOP: #9b9b9b 1px solid; PADDING-TOP: 3px
+}
+.commenttext-author {
+	LINE-HEIGHT: 1.3em; MARGIN-TOP: 1px; FONT-FAMILY: "Helvetica", "Arial"; MARGIN-BOTTOM: 30px; COLOR: #3c657b; CLEAR: both; FONT-SIZE: 1.1em; BORDER-TOP: #9b9b9b 1px solid; FONT-WEIGHT: normal; PADDING-TOP: 3px
+}
+.commenttext-author A {
+	FONT-WEIGHT: bold
+}
+.commentText {
+	BORDER-BOTTOM: none; BORDER-LEFT: none;  FONT-FAMILY: Verdana, sans-serif; HEIGHT: 13px; FONT-SIZE: 1em; BORDER-TOP: #919191 1px solid; BORDER-RIGHT: none;
+}
+.commentdel{ text-align:right; }
+.commentdel A {
+ font-size:12px;
+}
+/*支持列表*/
+
+
+#tab1{ background-color:#fff }
+#tab1 tr td,#tab1 tr td ul li{ background-color:#EFEFEF; }
+#tab1 tr td ul li{ border:none;}
+#tab1 tr td { width:220px; vertical-align:top; }
+#tab1 div{ margin:2px;}
+#tab1 input{ width:100px;}
+
+
+/*
+http://www.easyicon.net/570559-matte_white_square_icon_people_things_people_carry_suitcase_sc_icon.html
+*/
+
+/* ydf add */
+
+/*右侧区域样式*/
+#maincont{margin-left:0px;}
+#main_c{border:1px solid #abb8c4;border-width:0 1px;background:#f7f8f9;padding-top:10px;height:auto!important;height:650px;min-height:650px; padding-left:20px;}
+.main_t,.main_b{height:26px;overflow:hidden;zoom:1;background:url(../css/menubg.gif) repeat-x;background-repeat:repeat-x}
+.main_t{background-position:0 -108px;}
+.main_b{background-position:0 -134px;}
+.main_t .main_t_l,.main_t .main_t_r,.main_b .main_b_l,.main_b .main_b_r{background:url(../css/menubg.gif) no-repeat;width:7px;overflow:hidden;height:26px;}
+.main_t .main_t_r{background-position:0 -27px;float:right;}
+.main_t .main_t_l{background-position:0 0;float:left}
+.main_b .main_b_r{background-position:0 -55px;float:right;}
+.main_b .main_b_l{background-position:0 -82px;float:left;}
+	
+.b1,.b2,.b3,.b4,.b1b,.b2b,.b3b,.b4b{display:block;overflow:hidden;}
+.b1,.b2,.b3,.b1b,.b2b,.b3b{height:1px;}
+.b2,.b3,.b4,.b2b,.b3b,.b4b{border-left:1px solid #abb8c4;border-right:1px solid #abb8c4;}
+.b1,.b1b{margin:0 5px;background:#abb8c4;}
+.b2,.b2b{margin:0 3px;border-width:2px;}
+.b3,.b3b{margin:0 2px;}
+.b4,.b4b{height:1px;margin:0 1px;}
+
+/*右侧内容区域字体*/
+.rightcontfont{font: 14px/20px simsun,sans-serif;color: #343434;}
+
+/*文本框*/
+ .input_tx{height:20px;line-height:20px;width:230px;}
+
+ 
+ 
+ /*操作图标*/
+a.del{background:url("../css/delet.png") no-repeat;float:left;width:20px;height:20px;}
+a.edit{background:url("../css/edit.png") no-repeat;float:left;width:20px;height:20px;}
+
+/*搜索按钮*/
+.btnSerch{width: 50px; height: 22px;background: #1D3647;border: 0; color: white; text-align: center;
+        cursor: pointer; font-size:14px;}
+.btnSerch2{width: 120px; height: 22px;background: #1D3647;border: 0; color: white; text-align: center;
+        cursor: pointer; font-size:14px;}
+ 
+ /*table列表*/ 
+.tableStyle { border: 1px solid #CCC;margin-left: 0px;  width: 98%;}
+.tableStyle th { background: #ebf0f4; font-weight: bold; padding: 10px;border-bottom: 1px solid #BFC4CA; text-align: center; white-space: nowrap;font-size: 13px; }
+/*.tableStyle td { padding: 10px; border-bottom: 1px dashed #CCC; text-align: center;font: 13px normal "宋体" , Arial, Helvetica, sans-serif;}*/
+.tableStyle td { padding: 10px; border-bottom: 1px dashed #CCC;   height:30px; text-align: center;font: 12px/18px simsun,sans-serif;color: #343434;}
+ 
+/*分页样式*/
+
+/*拍拍网风格*/
+.paginator { font: 11px Arial, Helvetica, sans-serif;padding:10px 20px 10px 0; margin: 0px;}
+.paginator a {padding: 1px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none;margin-right:2px}
+.paginator a:visited {padding: 1px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none;}
+.paginator .cpb {padding: 1px 6px;font-weight: bold; font-size: 13px;border:none}
+.paginator a:hover {color: #fff; background: #ffa501;border-color:#ffa501;text-decoration: none;}
+
+/*淘宝风格*/
+/*.paginator { font: 12px Arial, Helvetica, sans-serif;padding:10px 20px 10px 0; margin: 0px;}
+.paginator a {border:solid 1px #ccc;color:#0063dc;cursor:pointer;text-decoration:none;}
+.paginator a:visited {padding: 1px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none;}
+.paginator .cpb {border:1px solid #F50;font-weight:700;color:#F50;background-color:#ffeee5;}
+.paginator a:hover {border:solid 1px #F50;color:#f60;text-decoration:none;}
+.paginator a,.paginator a:visited,.paginator .cpb,.paginator a:hover  
+{float:left;height:16px;line-height:16px;min-width:10px;_width:10px;margin-right:5px;text-align:center;
+ white-space:nowrap;font-size:12px;font-family:Arial,SimSun;padding:0 3px;}*/
+ 

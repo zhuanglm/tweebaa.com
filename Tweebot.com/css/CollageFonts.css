@@ -1,0 +1,268 @@
+﻿
+@font-face {
+  font-family: "80db";
+  src: url(/css/Collage_Fonts/80db.ttf);
+}
+.font_80db
+{
+    font-family:"80db";
+}
+/*
+  <Font>
+    <Name>A Damn Mess</Name>
+    <File>fonts/A Damn Mess.ttf</File>
+    <Description></Description>
+  </Font> ??
+*/
+@font-face {
+  font-family: "A Damn Mess";
+  src: url(/css/Collage_Fonts/ADamnMess.ttf);
+}
+.font_ADamnMess
+{
+    font-family:"A Damn Mess";
+}
+
+/*
+  <Font>
+    <Name>baidu</Name>
+    <File>fonts/baidu.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "baidu";
+  src: url(/css/Collage_Fonts/baidu.ttf);
+}
+.font_baidu
+{
+    font-family:"baidu";
+}
+/*
+  <Font>
+    <Name>ASMAN</Name>
+    <File>fonts/ASMAN.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "ASMAN";
+  src: url(/css/Collage_Fonts/ASMAN.ttf);
+}
+.font_ASMAN
+{
+    font-family:"ASMAN";
+}
+
+/*
+  <Font>
+    <Name>colour</Name>
+    <File>fonts/colour.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "colour";
+  src: url(/css/Collage_Fonts/colour.ttf);
+}
+.font_colour
+{
+    font-family:"colour";
+}
+
+/*
+  <Font>
+    <Name>contrast</Name>
+    <File>fonts/contrast.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "contrast";
+  src: url(/css/Collage_Fonts/contrast.ttf);
+}
+.font_contrast
+{
+    font-family:"contrast";
+}
+
+/*
+  <Font>
+    <Name>fast99</Name>
+    <File>fonts/fast99.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "fast99";
+  src: url(/css/Collage_Fonts/fast99.ttf);
+}
+.font_fast99
+{
+    font-family:"fast99";
+}
+
+/*
+  <Font>
+    <Name>froufrou</Name>
+    <File>fonts/froufrou.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "froufrou";
+  src: url(/css/Collage_Fonts/froufrou.ttf);
+}
+.font_froufrou
+{
+    font-family:"froufrou";
+}
+/*
+  <Font>
+    <Name>horrendo</Name>
+    <File>fonts/horrendo.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "horrendo";
+  src: url(/css/Collage_Fonts/horrendo.ttf);
+}
+.font_horrendo
+{
+    font-family:"horrendo";
+}
+
+/*
+  <Font>
+    <Name>leadcoat</Name>
+    <File>fonts/leadcoat.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "leadcoat";
+  src: url(/css/Collage_Fonts/leadcoat.ttf);
+}
+.font_leadcoat
+{
+    font-family:"leadcoat";
+}
+/*
+  <Font>
+    <Name>Marker Felt</Name>
+    <File>fonts/Marker Felt.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "Marker Felt";
+  src: url(/css/Collage_Fonts/MarkerFelt.ttf);
+}
+.font_MarkerFelt
+{
+    font-family:"Marker Felt";
+}
+/*
+  <Font>
+    <Name>sewer</Name>
+    <File>fonts/sewer.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "sewer";
+  src: url(/css/Collage_Fonts/sewer.ttf);
+}
+.font_sewer
+{
+    font-family:"sewer";
+}
+/*
+  <Font>
+    <Name>stocky</Name>
+    <File>fonts/stocky.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "stocky";
+  src: url(/css/Collage_Fonts/stocky.ttf);
+}
+.font_stocky
+{
+    font-family:"stocky";
+}
+
+/*
+  <Font>
+    <Name>valuoldcaps</Name>
+    <File>fonts/valuoldcaps.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "valuoldcaps";
+  src: url(/css/Collage_Fonts/valuoldcaps.ttf);
+}
+.font_valuoldcaps
+{
+    font-family:"valuoldcaps";
+}
+
+/*
+  <Font>
+    <Name>Humanst521 BT</Name>
+    <File>fonts/Humanst521 BT.ttf</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "Humanst521 BT";
+  src: url(/css/Collage_Fonts/Humanst521BT.ttf);
+}
+.font_Humanst521BT
+{
+    font-family:"Humanst521 BT";
+}
+
+/*
+  <Font>
+    <Name>HUM521B</Name>
+    <File>fonts/HUM521B.TTF</File>
+    <Description></Description>
+  </Font>
+*/
+@font-face {
+  font-family: "HUM521B";
+  src: url(/css/Collage_Fonts/HUM521B.ttf);
+}
+.font_HUM521B
+{
+    font-family:"HUM521B";
+}
+
+/*
+
+  <Font>
+    <Name>ygyqmt</Name>
+    <File>fonts/ygyqianmt.ttf</File>
+    <Description></Description>
+  </Font>
+*/   
+
+/*
+@font-face {
+  font-family: "ygyqmt";
+  src: url(/css/Collage_Fonts/ygyqianmt.ttf);
+}
+.font_stocky
+{
+    font-family:"ygyqmt";
+}*/
+
+.big_text
+{
+    font-size:22px;
+    letter-spacing:4px;
+}

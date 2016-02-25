@@ -1,0 +1,482 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+using Twee.Comm;
+using System.Data.SqlClient;
+
+namespace Twee.DataMgr
+{
+    public class MoneyDataMgr
+    {
+        #region  BasicMethod
+
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool Exists(Guid guid)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) from wn_money");
+            strSql.Append(" where guid=@guid ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@guid", SqlDbType.UniqueIdentifier,16)			};
+            parameters[0].Value = guid;
+
+            return DbHelperSQL.Exists(strSql.ToString(), parameters);
+        }
+
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public bool Add(Twee.Model.Money model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into wn_money(");
+            strSql.Append("guid,userguid,amount,addtime,edttime,paymentno,defremark,wntype,wnstate)");
+            strSql.Append(" values (");
+            strSql.Append("@guid,@userguid,@amount,@addtime,@edttime,@paymentno,@defremark,@wntype,@wnstate)");
+            SqlParameter[] parameters = {
+					new SqlParameter("@guid", SqlDbType.UniqueIdentifier,16),
+					new SqlParameter("@userguid", SqlDbType.UniqueIdentifier,16),
+					new SqlParameter("@amount", SqlDbType.Decimal,8),
+					new SqlParameter("@addtime", SqlDbType.DateTime),
+					new SqlParameter("@edttime", SqlDbType.DateTime),
+					new SqlParameter("@paymentno", SqlDbType.NVarChar,150),
+					new SqlParameter("@defremark", SqlDbType.NVarChar,150),
+					new SqlParameter("@wntype", SqlDbType.Int,4),
+					new SqlParameter("@wnstate", SqlDbType.Int,4)};
+            parameters[0].Value = Guid.NewGuid();
+            parameters[1].Value = Guid.NewGuid();
+            parameters[2].Value = model.amount;
+            parameters[3].Value = model.addtime;
+            parameters[4].Value = model.edttime;
+            parameters[5].Value = model.paymentno;
+            parameters[6].Value = model.defremark;
+            parameters[7].Value = model.wntype;
+            parameters[8].Value = model.wnstate;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public bool Update(Twee.Model.Money model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update wn_money set ");
+            strSql.Append("userguid=@userguid,");
+            strSql.Append("amount=@amount,");
+            strSql.Append("addtime=@addtime,");
+            strSql.Append("edttime=@edttime,");
+            strSql.Append("paymentno=@paymentno,");
+            strSql.Append("defremark=@defremark,");
+            strSql.Append("wntype=@wntype,");
+            strSql.Append("wnstate=@wnstate");
+            strSql.Append(" where guid=@guid ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@userguid", SqlDbType.UniqueIdentifier,16),
+					new SqlParameter("@amount", SqlDbType.Decimal,8),
+					new SqlParameter("@addtime", SqlDbType.DateTime),
+					new SqlParameter("@edttime", SqlDbType.DateTime),
+					new SqlParameter("@paymentno", SqlDbType.NVarChar,150),
+					new SqlParameter("@defremark", SqlDbType.NVarChar,150),
+					new SqlParameter("@wntype", SqlDbType.Int,4),
+					new SqlParameter("@wnstate", SqlDbType.Int,4),
+					new SqlParameter("@guid", SqlDbType.UniqueIdentifier,16)};
+            parameters[0].Value = model.userguid;
+            parameters[1].Value = model.amount;
+            parameters[2].Value = model.addtime;
+            parameters[3].Value = model.edttime;
+            parameters[4].Value = model.paymentno;
+            parameters[5].Value = model.defremark;
+            parameters[6].Value = model.wntype;
+            parameters[7].Value = model.wnstate;
+            parameters[8].Value = model.guid;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(Guid guid)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from wn_money ");
+            strSql.Append(" where guid=@guid ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@guid", SqlDbType.UniqueIdentifier,16)			};
+            parameters[0].Value = guid;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 批量删除数据
+        /// </summary>
+        public bool DeleteList(string guidlist)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from wn_money ");
+            strSql.Append(" where guid in (" + guidlist + ")  ");
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Twee.Model.Money GetModel(Guid guid)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select  top 1 guid,userguid,amount,addtime,edttime,paymentno,defremark,wntype,wnstate from wn_money ");
+            strSql.Append(" where guid=@guid ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@guid", SqlDbType.UniqueIdentifier,16)			};
+            parameters[0].Value = guid;
+
+            Twee.Model.Money model = new Twee.Model.Money();
+            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return DataRowToModel(ds.Tables[0].Rows[0]);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Twee.Model.Money DataRowToModel(DataRow row)
+        {
+            Twee.Model.Money model = new Twee.Model.Money();
+            if (row != null)
+            {
+                if (row["guid"] != null && row["guid"].ToString() != "")
+                {
+                    model.guid = new Guid(row["guid"].ToString());
+                }
+                if (row["userguid"] != null && row["userguid"].ToString() != "")
+                {
+                    model.userguid = new Guid(row["userguid"].ToString());
+                }
+                if (row["amount"] != null && row["amount"].ToString() != "")
+                {
+                    model.amount = decimal.Parse(row["amount"].ToString());
+                }
+                if (row["addtime"] != null && row["addtime"].ToString() != "")
+                {
+                    model.addtime = DateTime.Parse(row["addtime"].ToString());
+                }
+                if (row["edttime"] != null && row["edttime"].ToString() != "")
+                {
+                    model.edttime = DateTime.Parse(row["edttime"].ToString());
+                }
+                if (row["paymentno"] != null)
+                {
+                    model.paymentno = row["paymentno"].ToString();
+                }
+                if (row["defremark"] != null)
+                {
+                    model.defremark = row["defremark"].ToString();
+                }
+                if (row["wntype"] != null && row["wntype"].ToString() != "")
+                {
+                    model.wntype = int.Parse(row["wntype"].ToString());
+                }
+                if (row["wnstate"] != null && row["wnstate"].ToString() != "")
+                {
+                    model.wnstate = int.Parse(row["wnstate"].ToString());
+                }
+            }
+            return model;
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select guid,userguid,amount,addtime,edttime,paymentno,defremark,wntype,wnstate ");
+            strSql.Append(" FROM wn_money ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获得前几行数据
+        /// </summary>
+        public DataSet GetList(int Top, string strWhere, string filedOrder)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select ");
+            if (Top > 0)
+            {
+                strSql.Append(" top " + Top.ToString());
+            }
+            strSql.Append(" guid,userguid,amount,addtime,edttime,paymentno,defremark,wntype,wnstate ");
+            strSql.Append(" FROM wn_money ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            strSql.Append(" order by " + filedOrder);
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获取记录总数
+        /// </summary>
+        public int GetRecordCount(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) FROM wn_money ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            object obj = DbHelperSQL.GetSingle(strSql.ToString());
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(obj);
+            }
+        }
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public DataSet GetListByPage(string strWhere, string orderby, int startIndex, int endIndex)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT * FROM ( ");
+            strSql.Append(" SELECT ROW_NUMBER() OVER (");
+            if (!string.IsNullOrEmpty(orderby.Trim()))
+            {
+                strSql.Append("order by T." + orderby);
+            }
+            else
+            {
+                strSql.Append("order by T.guid desc");
+            }
+            strSql.Append(")AS Row, T.*  from wn_money T ");
+            if (!string.IsNullOrEmpty(strWhere.Trim()))
+            {
+                strSql.Append(" WHERE " + strWhere);
+            }
+            strSql.Append(" ) TT");
+            strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /*
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public DataSet GetList(int PageSize,int PageIndex,string strWhere)
+        {
+            SqlParameter[] parameters = {
+                    new SqlParameter("@tblName", SqlDbType.VarChar, 255),
+                    new SqlParameter("@fldName", SqlDbType.VarChar, 255),
+                    new SqlParameter("@PageSize", SqlDbType.Int),
+                    new SqlParameter("@PageIndex", SqlDbType.Int),
+                    new SqlParameter("@IsReCount", SqlDbType.Bit),
+                    new SqlParameter("@OrderType", SqlDbType.Bit),
+                    new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
+                    };
+            parameters[0].Value = "wn_money";
+            parameters[1].Value = "guid";
+            parameters[2].Value = PageSize;
+            parameters[3].Value = PageIndex;
+            parameters[4].Value = 0;
+            parameters[5].Value = 0;
+            parameters[6].Value = strWhere;	
+            return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
+        }*/
+
+        #endregion  BasicMethod
+
+        #region 后台方法
+
+        public DataTable MgeGetListByPage(string Guid, string userName, string userEmail, string moneyType, string moneyTimeBegin, string moneyTimeEnd, string moneyState, int startIndex, int endIndex, string orderBy)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT TT.*,username FROM ( ");
+            strSql.Append(" SELECT ROW_NUMBER() OVER (");
+            if (!string.IsNullOrEmpty(orderBy.Trim()))
+            {
+                strSql.Append("order by T." + orderBy);
+            }
+            else
+            {
+                strSql.Append("order by T.addTime desc");
+            }
+            strSql.Append(")AS Row, T.*  from dbo.wn_money T  WHERE 1=1 ");
+
+            if (!string.IsNullOrEmpty(Guid.Trim()))
+            {
+                strSql.Append(" and guid='" + Guid + "'");
+            }
+            if (!string.IsNullOrEmpty(userEmail.Trim()))
+            {
+                strSql.Append(" and u.email='" + userEmail + "'");
+            }
+            if (!string.IsNullOrEmpty(moneyType.Trim()))
+            {
+                strSql.Append(" and wntype=" + moneyType);
+            }
+            if (!string.IsNullOrEmpty(moneyState.Trim()))
+            {
+                strSql.Append(" and wnstate=" + moneyState);
+            }
+            if (!string.IsNullOrEmpty(moneyTimeBegin.Trim()))
+            {
+                strSql.Append(" and addtime>='" + moneyTimeBegin + "'");
+            }
+            if (!string.IsNullOrEmpty(moneyTimeEnd.Trim()))
+            {
+                strSql.Append(" and addtime<='" + moneyTimeEnd + "'");
+            }
+            strSql.Append(" ) TT");
+            strSql.Append(" left join dbo.wn_user u on TT.userguid=u.guid");
+            strSql.AppendFormat(" WHERE 1=1 ");
+            if (!string.IsNullOrEmpty(userName.Trim()))
+            {
+                strSql.Append(" and userName like'%" + userName + "%'");
+            }
+            strSql.AppendFormat("  and TT.Row between {0} and {1}", startIndex, endIndex);
+            DataSet ds = DbHelperSQL.Query(strSql.ToString());
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                return ds.Tables[0];
+            }
+            return null;
+        }
+
+        public int MgeGetRecordCount(string userGuid, string userName, string userEmail, string moneyType, string moneyTimeBegin, string moneyTimeEnd, string moneyState, int startIndex, int endIndex, string orderBy)
+        {
+            StringBuilder strSql = new StringBuilder();
+            //amount,wntype,wnstate,addtime,username,u.paymentno
+            strSql.Append("select count(*) from dbo.wn_money m ");
+            strSql.Append(" left join dbo.wn_user u on m.userguid=u.guid ");
+            strSql.Append(" where 1=1 ");
+            if (!string.IsNullOrEmpty(userGuid.Trim()))
+            {
+                strSql.Append(" and m.userguid='" + userGuid + "'");
+            }
+            if (!string.IsNullOrEmpty(userName.Trim()))
+            {
+                strSql.Append(" and u.userName like'%" + userName + "%'");
+            }
+            if (!string.IsNullOrEmpty(userEmail.Trim()))
+            {
+                strSql.Append(" and u.email='" + userEmail + "'");
+            }
+            if (!string.IsNullOrEmpty(moneyType.Trim()))
+            {
+                strSql.Append(" and wntype=" + moneyType);
+            }
+            if (!string.IsNullOrEmpty(moneyState.Trim()))
+            {
+                strSql.Append(" and wnstate=" + moneyState);
+            }
+            if (!string.IsNullOrEmpty(moneyTimeBegin.Trim()))
+            {
+                strSql.Append(" and addtime>=" + moneyTimeBegin);
+            }
+            if (!string.IsNullOrEmpty(moneyTimeEnd.Trim()))
+            {
+                strSql.Append(" and addtime<=" + moneyTimeEnd);
+            }
+            object obj = DbHelperSQL.GetSingle(strSql.ToString());
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(obj);
+            }
+        }
+
+
+        #endregion
+
+        #region 会员中心方法
+        /// <summary>
+        /// 根据USERID获取不同类型收益的总和
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="shouYiType">收益类型编号</param>
+        /// <returns></returns>
+        public string GetShouYi(string userid , string shouYiType) {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select  sum(isnull(amount,0)) from wn_money ");
+            strSql.Append(" where userguid=@userguid ");    
+            if (!string.IsNullOrEmpty(shouYiType))
+            {
+                strSql.Append("  and wntype=@wntype ");            
+            }
+            SqlParameter[] parameters = {
+					new SqlParameter("@userguid", SqlDbType.UniqueIdentifier),
+                    new SqlParameter("@wntype", SqlDbType.Int)
+             };  
+            parameters[0].Value = Guid.Parse(userid);
+            parameters[1].Value = shouYiType.ToInt();
+            var res = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
+            if (null == res)
+                return string.Empty;
+            else
+                return res.ToString();
+        }
+
+        #endregion
+
+    }
+}

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<extends>
+  <!--alias为gift的是属于礼品模块-->
+  <run id="1" dllname="FirstTest.dll" namespace="FirstTest" classname="MainEnter" method="GetConnName" ></run>
+  <run id="2" dllname="FirstTest.dll" namespace="FirstTest" classname="MainEnter" method="GetConnName" ></run>
+</extends>

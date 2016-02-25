@@ -1,0 +1,473 @@
+﻿var state = "";//订单状态
+var page = 1;
+var recordCount = 0;
+var pageCount = 0;
+var beginTime = $("#txtBeginTime").val();
+var endTime = $("#txtEndTime").val();
+
+
+$(document).ready(
+   function () {
+       var Request = new Object();
+       Request = GetRequest();
+       state = Request["state"];
+       DoSearch();
+   });
+
+   //function SetState(orderState) {
+   //    state = orderState;
+   //    DoSearch();
+   //}
+
+   function DoOrderStatusChange() {
+       state = $("#optOrderStatus option:selected").val();
+       DoSearch();
+   }
+
+   //获取总记录数、页数
+   function loadCount() {
+       $("#kkpager").empty();      
+       var beginTime = $("#txtBeginTime").val();
+       var endTime = $("#txtEndTime").val();
+       $.ajax({
+           type: "Post",
+           url: "../AjaxPages/orderAjax.aspx",
+           data: "{'action':'queryhomecount','state':'" + state + "','beginTime':'" + beginTime
+                    + "','endTime':'" + endTime + "'}",
+           async: false,
+           success: function (resu) {
+               if (resu == "") {
+                   return;
+               }
+               var arry = new Array();
+               arry = resu.split(",");
+               recordCount = arry[0];
+               pageCount = arry[1];
+               kkpager.generPageHtml({
+                   lang: {
+                       firstPageText: 'First',
+                       firstPageTipText: 'First',
+                       lastPageText: 'Last',
+                       lastPageTipText: 'Last',
+                       prePageText: 'Prev',
+                       prePageTipText: 'Prev',
+                       buttonTipBeforeText: 'Page ',
+                       buttonTipAfterText: '',
+                       nextPageText: 'Next',
+                       nextPageTipText: 'Next'
+                   }
+                   ,
+                   pno: 1,
+                   total: pageCount, //总页码
+                   //总数据条数
+                   totalRecords: recordCount,
+                   mode: 'click', //默认值是link，可选link或者click
+                   click: function (n) {
+                       page = n;
+                       loadMeinv();
+                       this.selectPage(n); //手动选中按钮
+                       return false;
+                   }
+               });
+           },
+           error: function (obj) {
+               // alert("Load failed");
+           }
+       });   
+   }
+
+   function loadMeinv() {   
+    $("#tdData").empty();
+    var order = "";
+    $.ajax({
+        type: "Post",
+        url: "../AjaxPages/orderAjax.aspx",
+        data: "{'action':'queryhome','state':'" + state
+                    + "','beginTime':'" + beginTime
+                    + "','endTime':'" + endTime
+                    + "','page':'" + page
+                    + "'}",
+        async: false,
+        success: function (resu) {
+            if (resu == "" || resu == "[]") {
+                $("#kkpager").empty();
+                $("#divNoData").show();
+                return;
+            }
+            var obj = eval("(" + resu + ")");
+
+            for (var i = 0; i < obj.length; i++) {
+                var data = obj[i];
+                //var date = data.date.replace(/-/g, '/').substring(0, 10);
+                var date = data.date.substring(0, data.date.indexOf(" "));
+                var orderNo = data.orderNo;
+                var orderInfo = data.orderInfo;
+                var doman = data.doman;
+                var htmlData = "";
+                //htmlData += '<div class="panel panel-u margin-bottom-20"><div class="panel-heading"> <h3 class="panel-title">ID：' + orderNo + ' ( ' + Date2MMDDYYYY(date) + ')</h3></div>';
+
+                var dispShipmentDetail = "display:none";
+                var dispReturnDetail = "display:none";
+                //alert(data.HaveShipmentDetail + " " + data.HaveReturnInfo);
+                if (data.HaveShipmentDetail == "1") dispShipmentDetail = "display:block";
+                if (data.HaveReturnInfo == "1") dispReturnDetail = "display:block";
+                var orderNoWithQuo = "'" + orderNo + "'";
+
+                htmlData += '<div class="panel-heading">';
+                htmlData += '<div class="row">';
+                htmlData += '<div class="col-md-7"> <h3 class="panel-title"> ID：' + orderNo + ' ( ' + Date2MMDDYYYY(date) + ')</h3> </div>';
+                htmlData += '<div class="col-md-5"><p class="fr">';
+                htmlData += '<button style="' + dispShipmentDetail + '" onclick="DoShowShipmentDetail('+ orderNoWithQuo + ')" class="btn btn-xs rounded btn-primary margin-right-10" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">Shipment Details</button>';
+                htmlData += '<button style="' + dispReturnDetail + '" onclick="DoShowReturnDetail(' + orderNoWithQuo + ')" class="btn btn-xs rounded btn-danger" type="button"  data-toggle="modal" data-target=".bs-example-modal-lg2"> Return Details</button></p></div> </div> </div>';
+
+                htmlData += '<table class="table table-bordered">';
+                htmlData += '<thead><tr><th>Product</th><th class="hidden-sm">Price</th><th class="hidden-sm">  Quantity</th><th> Payment</th><th> Status</th><th class="hidden-sm">Action</th><th class="hidden-sm">View</th></tr> </thead>';
+                htmlData += '<tbody id="tdData">';
+                var rowspan = orderInfo.length;
+                var prdMoney = 0;
+
+                // calculate total money
+                $(orderInfo).each(function (index) {
+                    prdMoney += parseFloat(orderInfo[index].bodymoney);
+                });
+
+                // display details
+                $(orderInfo).each(function (index) {
+                    var val = orderInfo[index];
+                    var img = doman + val.fileurl.replace("big", "small");
+                    //prdMoney += val.money;
+                    var tr = "";
+                    if (index == 0) {
+                        tr += '<tr>';
+                        tr += '<td><a href="../Product/saleBuy.aspx?id=' + val.prdGuid + '">' + val.name + '</a></td>';
+                        tr += '<td class="hidden-sm"> $' + val.bodymoney.toFixed(2) + ' </td>';
+                        tr += '<td class="hidden-sm" style="text-align:center"> ' + val.quantity + ' </td>';
+
+                        if (data.expressprice == 0) {
+                            tr += '<td rowspan="' + rowspan + '" valign="middle"> $' + prdMoney.toFixed(2) + '<br/>(Shipping: Free)</td>';
+                        }
+                        else {
+                            tr += '<td rowspan="' + rowspan + '" valign="middle"> $' + (prdMoney + parseFloat(data.expressprice)).toFixed(2) + '<br/>(Shipping: $' + parseFloat(data.expressprice).toFixed(2) + ')</td>';
+                        }
+                        tr += '<td rowspan="' + rowspan + '"> <span class="label label-success">' + data.orderState + '</span></td>';
+                        if (data.wnstat == 0) {
+                            //未支付
+                            tr += '<td rowspan="' + rowspan + '" class="hidden-sm"><a class="btn btn-xs rounded btn-default" >Pay</a></td>';
+                        }
+                        else if (data.wnstat == 1) {
+                            //【待发货订单】可以申请退货
+                            if (data.HaveTestSale == 1) {
+                                tr += '<td rowspan="' + rowspan + '" class="hidden-sm"><button class="btn btn-xs rounded btn-default" type="button" onclick="UpdateState(\'' + orderNo + '\',-2)">Cancel</button></td>';
+                            } else {
+                                tr += '<td rowspan="' + rowspan + '" class="hidden-sm"></td>';
+                            }
+                        }
+                        else if (data.wnstat == 3) {
+                            //【已完成订单】可以申请退货和删除
+                            if (data.DiffDate < 30) { //30天退货
+                                tr += '<td rowspan="' + rowspan + '" class="hidden-sm"><button class="btn btn-xs rounded btn-default" type="button" onclick="UpdateState(\'' + orderNo + '\',-2)">Return</button></td>';
+                            } else {
+                                tr += '<td rowspan="' + rowspan + '" class="hidden-sm"></td>';
+                            }
+                        }
+                        else if (data.wnstat == -3) {
+                            //退货中
+                            tr += '<td rowspan="' + rowspan + '" class="hidden-sm"><button class="btn btn-xs rounded btn-default" type="button">Pay</button></td>';
+                        }
+                        else if (data.wnstat == -1) {
+                            //已经取消
+                            tr += '<td rowspan="' + rowspan + '" class="hidden-sm"></td>';
+                        } else if (data.wnstat == -2) {
+                            //退款申请
+                            tr += '<td rowspan="' + rowspan + '" class="hidden-sm"></td>';
+                        } else if (data.wnstat == 2) {
+                            //Shipped 
+                            tr += '<td rowspan="' + rowspan + '" class="hidden-sm"></td>';
+                        }
+                        tr += '<td rowspan="' + rowspan + '" class="hidden-sm"><a class="btn btn-xs rounded btn-default" href="../home/homeOrderInfo.aspx?headguid=' + data.headGuid + '"><i class="fa fa-folder-open-o"></i></a> </td>';
+                        tr += '</tr>';
+                    }
+                    else {
+                        tr += '<tr>';
+                        tr += '<td><a href="#">' + val.name + '</a></td>';
+                        tr += '<td class="hidden-sm"> $' + val.saleprice.toFixed(2) + ' </td>';
+                        tr += '<td class="hidden-sm" style="text-align:center"> ' + val.quantity + ' </td>';
+                        tr += '</tr>';
+                    }
+                    htmlData += tr;
+
+                });
+                htmlData += '</tbody>';
+                htmlData += '</table>';
+                htmlData += '</div>';
+                $("#tdData").append(htmlData);
+            }
+        },
+        error: function (obj) {
+            alert("Load failed");
+        }
+    });
+
+}
+function DoSearch() {
+    beginTime = $("#txtBegin").val();
+    endTime = $("#txtEnd").val();
+    $("#divNoData").hide();
+    loadCount();
+    loadMeinv();
+}
+
+function Pay(orderNo) {
+    window.parent.location.href = "../Product/shopOrder.aspx?orderNo=" + orderNo;
+}
+
+function UpdateState(orderNo, orderState) {
+
+    var sureMess = "";
+    var alertMess = "";
+    if (orderState=="-1") {
+        sureMess = "Are you sure to cancel the order?";
+        alertMess = "Dear Value Customer:\n Your order " + orderNo + " has now been cancelled and your refund is being processed.\n Feel free to check your order status anytime through My Order. \n\nThank you for choosing Tweebaa!";
+    }
+    if (orderState == "-2") {
+        sureMess = "Are you sure to apply for a refund?";
+        alertMess = "Processing refund. We will send you an email to confirm.";
+    }
+    if (!window.confirm(sureMess)) {
+        return;
+    }
+    $.ajax({
+        type: "Post",
+        url: "../AjaxPages/orderAjax.aspx",
+        data: "{'action':'updateState','orderNo':'" + orderNo + "','state':'" + orderState + "'}",
+        async: false,
+        success: function (resu) {
+            if (resu == "1") {
+                alert(alertMess);
+                DoSearch();
+            }
+        },
+        error: function (obj) {
+
+        }
+    });
+}
+
+//全选、反选
+function CheckAll(obj) {
+   // $(".checkbox").attr("checked", $(obj).attr("checked"));
+   // return;
+    if ($(obj).attr("checked")==true) {
+        //全选       
+        $(".checkbox,.all-select-btn").attr('checked', 'checked');
+
+    }
+  
+    if ($(obj).is(":checked") == false) {
+        //取消全选
+        $(".checkbox,.all-select-btn").attr('checked', false)
+    }
+}
+//数量改变时重新结算总支付金额
+function Delete() {  
+    var ids ="";
+    $(".checkbox").each(function (index, obj) {
+        ids +="'"+ $(obj).attr('value') + "',";
+    });
+    if (!confirm(" Confirm to delete the item?")) {
+        return;
+    }
+    var action = "delet";
+    var _data = "{ action:'" + action + "',ids:'" + ids + "'}";
+    $.ajax({
+        type: "POST",
+        url: '../AjaxPages/orderAjax.aspx',
+        data: _data,
+        async: false,
+        success: function (msg) {
+            if (msg == "-1") {
+                alert("Please login！");
+                return;
+            }
+            else if (msg == "1") {
+                DoSearch();
+                return;
+            }
+            else if (msg == "0") {
+                alert("Delete failed");
+                return;
+            }
+        },
+        error: function (msg) {
+            alert("Delete failed");
+        }
+    });
+}
+
+//接收URL参数
+/*
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}*/
+
+function Date2MMDDYYYY(s) {
+    var sRet = s.replace(/-/g, '/').substring(0, 10);
+    if (sRet.substring(4, 5) == "/" && sRet.substring(7, 8) == "/") {
+        sRet = s.substring(5, 7) + "/" + s.substring(8, 10) + "/" + s.substring(0, 4);
+    }
+    return sRet;
+}
+
+
+function GetShipmentDetail(sOrderNo) {
+    var sDetail = "";
+    $.ajax({
+        type: "Post",
+        url: "../AjaxPages/orderAjax.aspx",
+        data: "{'action':'QueryHomeOrderShipmentDetail','orderNo':'" + sOrderNo + "'}",
+        async: false,
+        success: function (resu) {
+            sDetail = resu;
+            return resu;
+        },
+        error: function (obj) {
+            alert("Failed to get shipment details!");
+            return "";
+        }
+    });
+    return sDetail;
+}
+
+function GetReturnDetail(sOrderNo) {
+    var sDetail = "";
+    $.ajax({
+        type: "Post",
+        url: "../AjaxPages/orderAjax.aspx",
+        data: "{'action':'QueryHomeOrderReturnDetail','orderNo':'" + sOrderNo + "'}",
+        async: false,
+        success: function (resu) {
+            sDetail = resu;
+            return resu;
+        },
+        error: function (obj) {
+            alert("Failed to get return details!");
+            return "";
+        }
+    });
+    return sDetail;
+}
+
+
+function GetTrackingLink(sCarrierName, sTrackingNo) {
+    var sTrackingLink = "";
+    $.ajax({
+        type: "Post",
+        url: "../AjaxPages/shipOrderAjax.aspx",
+        data: "{'action':'QueryTrackingLink','CarrierName':'" + sCarrierName + "','TrackingNo':'" + sTrackingNo + "'}",
+        async: false,
+        success: function (resu) {
+            sTrackingLink = resu;
+            return resu;
+        },
+        error: function (obj) {
+            alert("Failed to get shipment details!");
+            return "";
+        }
+    });
+    return sTrackingLink;
+}
+
+
+function DoShowShipmentDetail(sOrderNo) {
+
+    $("#divShipmentDetail").html("");
+
+    var sDetail = GetShipmentDetail(sOrderNo);
+    var objList = eval("(" + sDetail + ")");
+
+    var htmlDetail = '';
+
+    htmlDetail += '<div  class="panel panel-blue margin-bottom-20">';
+    htmlDetail += '  <div class="panel-heading">';
+    htmlDetail += '    <h3 class="panel-title">Order #: ' + sOrderNo + '</h3>';
+    htmlDetail += '  </div>';
+    htmlDetail += '  <table class="table table-striped">';
+    htmlDetail += '    <thead><tr>';
+    htmlDetail += '    <th>Product Name</th><th>Price</th><th>QTY</th><th>Shipped Date</th><th>Tracking Number</th><th>Carrier Name</th>';
+    htmlDetail += '    </tr></thead>';
+    htmlDetail += '    <tbody>';
+    for (var i = 0; i < objList.length; i++) {
+        var obj = objList[i];
+        var price = obj.UnitPrice * obj.ShippedQuantity;
+        var trackingLink = GetTrackingLink(obj.CarrierName, obj.TrackingNo);
+
+        htmlDetail += '    <tr>';
+        htmlDetail += '      <td>' + obj.ProductName + '</td>';
+        htmlDetail += '      <td>$' + price.toFixed(2) + '</td>';
+        htmlDetail += '      <td>' + obj.ShippedQuantity.toFixed(0) + '</td>'; 
+        htmlDetail += '      <td>' + obj.ShippedDate.substring(0, 10) + ' </td>';
+        if (trackingLink != '') {
+            htmlDetail += '      <td><a target="_blank" style="color:blue; text-decoration: underline;" href="' + trackingLink + '">' + obj.TrackingNo + '</a></td>';
+        }
+        else {
+            htmlDetail += '      <td>' + obj.TrackingNo + '</td>';
+        }
+
+        htmlDetail += '      <td>' + obj.CarrierName + '</td>';
+        htmlDetail += '    </tr>';
+     }
+     htmlDetail += '    </tbody>';
+     htmlDetail += '  </table>';
+     htmlDetail += '</div>';
+     $("#divShipmentDetail").html(htmlDetail);
+}
+
+function DoShowReturnDetail(sOrderNo) {
+
+    $("#divReturnDetail").html("");
+    var sDetail = GetReturnDetail(sOrderNo);
+    var objList = eval("(" + sDetail + ")");
+
+    var htmlDetail = '';
+
+    htmlDetail += '<div  class="panel panel-blue margin-bottom-20">';
+    htmlDetail += '  <div class="panel-heading">';
+    htmlDetail += '    <h3 class="panel-title">Order #: ' + sOrderNo + '</h3>';
+    htmlDetail += '  </div>';
+    htmlDetail += '  <table class="table table-striped">';
+    htmlDetail += '    <thead><tr>';
+    htmlDetail += '    <th>Product Name</th><th>Price</th><th>QTY</th><th>Return Date</th><th>Quality</th><th>Reason</th><th>Action</th>';
+    htmlDetail += '    </tr></thead>';
+    htmlDetail += '    <tbody>';
+    for (var i = 0; i < objList.length; i++) {
+        var obj = objList[i];
+        var price = obj.UnitPrice * obj.ReturnQuantity;
+        var trackingLink = GetTrackingLink(obj.CarrierName, obj.TrackingNo);
+
+        htmlDetail += '    <tr>';
+        htmlDetail += '      <td>' + obj.ProductName + '</td>';
+        htmlDetail += '      <td>$' + price.toFixed(2) + '</td>';
+        htmlDetail += '      <td>' + obj.ReturnQuantity.toFixed(0) + '</td>';
+        htmlDetail += '      <td>' + obj.ReturnDate.substring(0, 10) + ' </td>';
+        htmlDetail += '      <td>' + obj.ReturnQuality + ' </td>';
+        htmlDetail += '      <td>' + obj.ReturnReasonDesc + ' </td>';
+        htmlDetail += '      <td>' + obj.ReturnAction + ' </td>';
+        htmlDetail += '    </tr>';
+    }
+    htmlDetail += '    </tbody>';
+    htmlDetail += '  </table>';
+    htmlDetail += '</div>';
+    $("#divReturnDetail").html(htmlDetail);
+
+
+
+}

@@ -1,0 +1,130 @@
+﻿using System;
+using System.Data;
+using System.Text;
+using System.Data.SqlClient;
+using Twee.Comm;
+
+namespace Twee.DataMgr
+{
+    public partial class CouponDataMgr
+    {
+        public CouponDataMgr()
+        { }
+
+        public int CouponAdd(Twee.Model.Coupons coupon)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into wn_Coupons(");
+            strSql.Append("coupon_type,coupon_code,coupon_amount,coupon_minimum_order,coupon_start_date,coupon_expire_date,uses_per_coupon,uses_per_user,is_restrict_to_products,is_restrict_to_categories,is_restrict_to_customers,coupon_active)");
+            strSql.Append(" values (");
+            strSql.Append("@coupon_type,@coupon_code,@coupon_amount,@coupon_minimum_order,@coupon_start_date,@coupon_expire_date,@uses_per_coupon,@uses_per_user,@is_restrict_to_products,@is_restrict_to_categories,@is_restrict_to_customers,@coupon_active)");
+            strSql.Append(";select @@IDENTITY");
+            SqlParameter[] parameters = {
+					new SqlParameter("@coupon_type",SqlDbType.Int),
+                    new SqlParameter("@coupon_code",SqlDbType.NChar,1),
+                    new SqlParameter("@coupon_amount",SqlDbType.Decimal),
+                    new SqlParameter("@coupon_minimum_order",SqlDbType.Decimal),
+                    new SqlParameter("@coupon_start_date",SqlDbType.DateTime),
+                    new SqlParameter("@coupon_expire_date",SqlDbType.DateTime),
+                    new SqlParameter("@uses_per_coupon",SqlDbType.SmallInt),
+                    new SqlParameter("@uses_per_user",SqlDbType.SmallInt),
+                    new SqlParameter("@is_restrict_to_products",SqlDbType.TinyInt),
+                    new SqlParameter("@is_restrict_to_categories",SqlDbType.TinyInt),
+                    new SqlParameter("@is_restrict_to_customers",SqlDbType.TinyInt),
+                    new SqlParameter("@coupon_active",SqlDbType.TinyInt)
+           };
+            parameters[0].Value = coupon.CouponType;
+            parameters[1].Value = coupon.CouponCode;
+            parameters[2].Value = coupon.CouponAmount;
+            parameters[3].Value = coupon.CouponMinimumOrder;
+            parameters[4].Value = coupon.CouponStartDate;
+            parameters[5].Value = coupon.CouponExpireDate;
+            parameters[6].Value = coupon.UsesPerCoupon;
+            parameters[7].Value = coupon.UsesPerUser;
+            parameters[8].Value = coupon.IsRestrictToProducts;
+            parameters[9].Value = coupon.IsRestrictToCategories;
+            parameters[10].Value = coupon.IsRestrictToCustomers;
+            parameters[11].Value = coupon.CouponActive;
+            object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(obj);
+            }
+        }
+        public bool Update(Twee.Model.Coupons coupon)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update wn_Coupons set ");
+            strSql.Append("coupon_type=@coupon_type,coupon_code=@coupon_code,coupon_amount=@coupon_amount,coupon_minimum_order=@coupon_minimum_order,coupon_start_date=@coupon_start_date,coupon_expire_date=@coupon_expire_date,uses_per_coupon=@uses_per_coupon,uses_per_user=@uses_per_user,is_restrict_to_products=@is_restrict_to_products,is_restrict_to_categories=@is_restrict_to_categories,is_restrict_to_customers=@is_restrict_to_customers,coupon_active=@coupon_active,date_modified=@date_modified");
+            strSql.Append(" where coupon_id=@id");
+            SqlParameter[] parameters = {
+					new SqlParameter("@coupon_type",SqlDbType.Int),
+                    new SqlParameter("@coupon_code",SqlDbType.NChar,1),
+                    new SqlParameter("@coupon_amount",SqlDbType.Decimal),
+                    new SqlParameter("@coupon_minimum_order",SqlDbType.Decimal),
+                    new SqlParameter("@coupon_start_date",SqlDbType.DateTime),
+                    new SqlParameter("@coupon_expire_date",SqlDbType.DateTime),
+                    new SqlParameter("@uses_per_coupon",SqlDbType.SmallInt),
+                    new SqlParameter("@uses_per_user",SqlDbType.SmallInt),
+                    new SqlParameter("@is_restrict_to_products",SqlDbType.TinyInt),
+                    new SqlParameter("@is_restrict_to_categories",SqlDbType.TinyInt),
+                    new SqlParameter("@is_restrict_to_customers",SqlDbType.TinyInt),
+                    new SqlParameter("@coupon_active",SqlDbType.TinyInt),
+                    new SqlParameter("@date_modified",SqlDbType.DateTime),
+           };
+            parameters[0].Value = coupon.CouponType;
+            parameters[1].Value = coupon.CouponCode;
+            parameters[2].Value = coupon.CouponAmount;
+            parameters[3].Value = coupon.CouponMinimumOrder;
+            parameters[4].Value = coupon.CouponStartDate;
+            parameters[5].Value = coupon.CouponExpireDate;
+            parameters[6].Value = coupon.UsesPerCoupon;
+            parameters[7].Value = coupon.UsesPerUser;
+            parameters[8].Value = coupon.IsRestrictToProducts;
+            parameters[9].Value = coupon.IsRestrictToCategories;
+            parameters[10].Value = coupon.IsRestrictToCustomers;
+            parameters[11].Value = coupon.CouponActive;
+            parameters[12].Value = DateTime.Now;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(int id)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from wn_Coupons ");
+            strSql.Append(" where coupon_id=@id");
+            SqlParameter[] parameters = {
+					new SqlParameter("@id", SqlDbType.Int,4)
+			};
+            parameters[0].Value = id;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+     }
+
+}

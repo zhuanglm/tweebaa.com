@@ -1,0 +1,199 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+
+namespace TweebaaWebApp2.Product
+{
+    public partial class ShopIndex : System.Web.UI.Page
+    {
+        public string strHTML_Featured = "";
+        public string strHTML_Latest = "";
+        public string strHTML_FreeShipping = "";
+        public string strHTML_TestSale = "";
+        public string strHTML_InventorShop = "";
+        public string strHTML_OurBrand = "";
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+
+            //Read from cache
+            Twee.Comm.XMLCache cache = new Twee.Comm.XMLCache();
+            string strDay = cache.GetDateString();
+            if (cache.IsHTMLFileExists("ShopIndex_1_" + strDay))
+            {
+                strHTML_Featured = cache.ReadCacheHTML("ShopIndex_1_" + strDay);
+                strHTML_Latest = cache.ReadCacheHTML("ShopIndex_2_" + strDay);
+                strHTML_FreeShipping= cache.ReadCacheHTML("ShopIndex_3_" + strDay);
+                strHTML_TestSale= cache.ReadCacheHTML("ShopIndex_4_" + strDay);
+                strHTML_InventorShop= cache.ReadCacheHTML("ShopIndex_5_" + strDay);
+                strHTML_OurBrand = cache.ReadCacheHTML("ShopIndex_6_" + strDay);
+            }
+            else
+            {
+                //create the HTML
+                Twee.Mgr.PrdMgr mgr=new Twee.Mgr.PrdMgr();
+                DataTable dt = mgr.GetShopIndexData();
+                //string strHTML1 = "";
+                string sURL = "";
+                string sImg = "";
+                if (dt != null)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DataRow dr = dt.Rows[i];
+                        int iFlag = int.Parse(dr["flag"].ToString());
+                        sImg = "http://tweebaa.com/" + dr["fileurl"].ToString().Replace("/big/", "/mid2/");
+                        string favoriteClassID = "favoriteClass" + i.ToString();
+                        float flMinSalePrice = float.Parse(dr["minfinalsaleprice"].ToString());
+                        float flEstimateprice = float.Parse(dr["estimateprice"].ToString());
+
+                        string favoriteFunc = "FavoritePrdOnOff('" + dr["prdGuid"].ToString() + "', '#" + favoriteClassID + "')";
+                        int iRewardPoint = Twee.Comm.CommUtil.getExtraShoppingRewardPoint(flMinSalePrice);
+                        string shareText = iRewardPoint.ToString();
+                        string strShortDesc = dr["txtjj"].ToString();
+                        strShortDesc = Twee.Comm.CommUtil.GetShortDesc(strShortDesc);
+                        strShortDesc = HttpUtility.UrlPathEncode(strShortDesc);
+                        strShortDesc = strShortDesc.Replace("\"", "&quot;");
+
+                        //Featured Products
+                        if (iFlag == 1)
+                        {
+                            sURL = "/Product/SaleBuy/" + HttpUtility.UrlPathEncode(dr["name"].ToString());
+                            strHTML_Featured = strHTML_Featured + "<li class=\"item\">";
+                            strHTML_Featured = strHTML_Featured + "<div class=\"product-img product-img-brd\">";
+                            strHTML_Featured = strHTML_Featured + "<a href=\"" + sURL + "\"><img class=\"full-width img-responsive\" src=\"" + sImg + "\"></a>";
+                            strHTML_Featured = strHTML_Featured + "<span class=\"add-to-cart\">";
+                            strHTML_Featured = strHTML_Featured + "<a href=\"" + sURL + "\"><i class=\"icon-custom rounded-x fa fa-shopping-cart\"></i></a>";
+                            strHTML_Featured = strHTML_Featured + "<a href=\"javascript:void(0)\" onclick=\"" + favoriteFunc + "\"><i id=\"" + favoriteClassID + "\" class=\"icon-custom rounded-x fa fa-heart-o\"></i> </a>";
+                            strHTML_Featured = strHTML_Featured + "<a href=\"javascript:void(0)\" onclick=\"SharePrd('" + dr["prdGuid"].ToString() + "','" + dr["name"].ToString() + "','" + sImg + "','" + "saleBuy.aspx" + "','" + shareText + "','" + strShortDesc + "')\" ><i class=\"icon-custom rounded-x fa fa-share-alt\"></i></a>";
+                            //strHTML_Featured=strHTML_Featured+"<div class=\"promotion\"><span class=\"new-product\"> NEW</span> <span class=\"discount\">15% OFF</span></div>";
+                            strHTML_Featured = strHTML_Featured + "</span>";
+                            strHTML_Featured = strHTML_Featured + "</div>";
+                            strHTML_Featured = strHTML_Featured + "<div class=\"product-description product-description-brd margin-bottom-30\">";
+                            strHTML_Featured = strHTML_Featured + "<div class=\"overflow-h\">";
+                            strHTML_Featured = strHTML_Featured + "<div class=\"pull-left margin-bottom-10\">";
+                            strHTML_Featured = strHTML_Featured + "<h4 class=\"title-price shop-price\"><a href=\"" + sURL + "\">" + dr["name"].ToString() + "</a></h4>";
+                            strHTML_Featured = strHTML_Featured + "<span class=\"gender\">" + dr["txtjj"].ToString() + "</span></div>";
+                            strHTML_Featured = strHTML_Featured + "<div class=\"product-price margin-bottom-5\"><span class=\"title-price-shop\">$" + flMinSalePrice.ToString("0.00") + "</span> <span class=\"title-price line-through\">$" + flEstimateprice.ToString("0.00") + "</span>";
+                            strHTML_Featured = strHTML_Featured + "</div>";
+                            /*
+                            strHTML_Featured=strHTML_Featured+"<ul class=\"list-inline product-ratings\">";
+                            strHTML_Featured=strHTML_Featured+"<li><i class=\"rating-selected fa fa-star\"></i></li>";
+                            strHTML_Featured=strHTML_Featured+"<li><i class=\"rating-selected fa fa-star\"></i></li>";
+                            strHTML_Featured=strHTML_Featured+"<li><i class=\"rating-selected fa fa-star\"></i></li>";
+                            strHTML_Featured=strHTML_Featured+"<li><i class=\"rating fa fa-star\"></i></li>";
+                            strHTML_Featured=strHTML_Featured+"<li><i class=\"rating fa fa-star\"></i></li>";
+                            strHTML_Featured=strHTML_Featured+"<li class=\"like-icon\"><a href=\"#\"><i class=\"fa fa-shopping-cart icon-mds\"></i></a></li>";
+                            strHTML_Featured=strHTML_Featured+"</ul>"; */
+                            strHTML_Featured = strHTML_Featured + "</div>";
+                            strHTML_Featured = strHTML_Featured + "</div>";
+                            strHTML_Featured = strHTML_Featured + "</li>";
+                        }
+
+                        //Latest Products
+                        if (iFlag == 2)
+                        {
+                            sURL = "/Product/SaleBuy/" + HttpUtility.UrlPathEncode(dr["name"].ToString());
+                            strHTML_Latest = strHTML_Latest + "<li class=\"item\">";
+                            strHTML_Latest = strHTML_Latest + "<div class=\"product-img product-img-brd\">";
+                            strHTML_Latest = strHTML_Latest + "<a href=\"" + sURL + "\"><img class=\"full-width img-responsive\" src=\"" + sImg + "\"></a>";
+                            strHTML_Latest = strHTML_Latest + "<span class=\"add-to-cart\">";
+                            strHTML_Latest = strHTML_Latest + "<a href=\"" + sURL + "\"><i class=\"icon-custom rounded-x fa fa-shopping-cart\"></i></a>";
+                            strHTML_Latest = strHTML_Latest + "<a href=\"javascript:void(0)\" onclick=\"" + favoriteFunc + "\"><i id=\"" + favoriteClassID + "\" class=\"icon-custom rounded-x fa fa-heart-o\"></i> </a>";
+                            strHTML_Latest = strHTML_Latest + "<a href=\"javascript:void(0)\" onclick=\"SharePrd('" + dr["prdGuid"].ToString() + "','" + dr["name"].ToString() + "','" + sImg + "','" + "saleBuy.aspx" + "','" + shareText + "','" + strShortDesc + "')\" ><i class=\"icon-custom rounded-x fa fa-share-alt\"></i></a>";
+                            //strHTML_Latest=strHTML_Latest+"<div class=\"promotion\"><span class=\"new-product\"> NEW</span> <span class=\"discount\">15% OFF</span></div>";
+                            strHTML_Latest = strHTML_Latest + "</span>";
+                            strHTML_Latest = strHTML_Latest + "</div>";
+                            strHTML_Latest = strHTML_Latest + "<div class=\"product-description product-description-brd margin-bottom-30\">";
+                            strHTML_Latest = strHTML_Latest + "<div class=\"overflow-h\">";
+                            strHTML_Latest = strHTML_Latest + "<div class=\"pull-left margin-bottom-10\">";
+                            strHTML_Latest = strHTML_Latest + "<h4 class=\"title-price shop-price\"><a href=\"" + sURL + "\">" + dr["name"].ToString() + "</a></h4>";
+                            strHTML_Latest = strHTML_Latest + "<span class=\"gender\">" + dr["txtjj"].ToString() + "</span></div>";
+                            strHTML_Latest = strHTML_Latest + "<div class=\"product-price margin-bottom-5\"><span class=\"title-price-shop\">$" + flMinSalePrice.ToString("0.00") + "</span> <span class=\"title-price line-through\">$" + flEstimateprice.ToString("0.00") + "</span>";
+                            strHTML_Latest = strHTML_Latest + "</div>";
+                            /*
+                            strHTML_Latest=strHTML_Latest+"<ul class=\"list-inline product-ratings\">";
+                            strHTML_Latest=strHTML_Latest+"<li><i class=\"rating-selected fa fa-star\"></i></li>";
+                            strHTML_Latest=strHTML_Latest+"<li><i class=\"rating-selected fa fa-star\"></i></li>";
+                            strHTML_Latest=strHTML_Latest+"<li><i class=\"rating-selected fa fa-star\"></i></li>";
+                            strHTML_Latest=strHTML_Latest+"<li><i class=\"rating fa fa-star\"></i></li>";
+                            strHTML_Latest=strHTML_Latest+"<li><i class=\"rating fa fa-star\"></i></li>";
+                            strHTML_Latest=strHTML_Latest+"<li class=\"like-icon\"><a href=\"#\"><i class=\"fa fa-shopping-cart icon-mds\"></i></a></li>";
+                            strHTML_Latest=strHTML_Latest+"</ul>"; */
+                            strHTML_Latest = strHTML_Latest + "</div>";
+                            strHTML_Latest = strHTML_Latest + "</div>";
+                            strHTML_Latest = strHTML_Latest + "</li>";
+                        }
+                        if (iFlag == 3) //Free Shipping
+                        {
+                            strHTML_FreeShipping = strHTML_FreeShipping + "<div class=\"thumb-product\">";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "<img class=\"thumb-product-img\" src=\"" + sImg + "\" alt=\"\">";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "<div class=\"thumb-product-in\">";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "<h4><a href=\"" + sURL + "\">" + dr["name"].ToString() + "</a></h4>";
+                            //strHTML_FreeShipping = strHTML_FreeShipping + "<span class=\"thumb-product-type\">Footwear - Oxfords</span>";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "</div>";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "<ul class=\"list-inline overflow-h\">";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "<li class=\"thumb-product-price line-through\">$" + flEstimateprice.ToString("0.00") + "</li>";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "<li class=\"thumb-product-price\">$" + flMinSalePrice.ToString("0.00") + "</li>";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "<li class=\"thumb-product-purchase\"><a href=\"" + sURL + "\"><i class=\"fa fa-shopping-cart\"></i></a> | <a href=\"javascript:void(0)\" onclick=\"" + favoriteFunc + "\"><i id=\"" + favoriteClassID + "\" class=\"fa fa-heart-o\"></i> </a></li>";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "</ul>";
+                            strHTML_FreeShipping = strHTML_FreeShipping + "</div>";
+                        }
+
+                        if (iFlag == 4) //Test Sale
+                        {
+                            strHTML_TestSale = strHTML_TestSale + "<div class=\"thumb-product\">";
+                            strHTML_TestSale = strHTML_TestSale + "<img class=\"thumb-product-img\" src=\"" + sImg + "\" alt=\"\">";
+                            strHTML_TestSale = strHTML_TestSale + "<div class=\"thumb-product-in\">";
+                            strHTML_TestSale = strHTML_TestSale + "<h4><a href=\"" + sURL + "\">" + dr["name"].ToString() + "</a></h4>";
+                            //strHTML_TestSale = strHTML_TestSale + "<span class=\"thumb-product-type\">Footwear - Oxfords</span>";
+                            strHTML_TestSale = strHTML_TestSale + "</div>";
+                            strHTML_TestSale = strHTML_TestSale + "<ul class=\"list-inline overflow-h\">";
+                            strHTML_TestSale = strHTML_TestSale + "<li class=\"thumb-product-price line-through\">$" + flEstimateprice.ToString("0.00") + "</li>";
+                            strHTML_TestSale = strHTML_TestSale + "<li class=\"thumb-product-price\">$" + flMinSalePrice.ToString("0.00") + "</li>";
+                            strHTML_TestSale = strHTML_TestSale + "<li class=\"thumb-product-purchase\"><a href=\"" + sURL + "\"><i class=\"fa fa-shopping-cart\"></i></a> | <a href=\"javascript:void(0)\" onclick=\"" + favoriteFunc + "\"><i id=\"" + favoriteClassID + "\" class=\"fa fa-heart-o\"></i> </a></li>";
+                            strHTML_TestSale = strHTML_TestSale + "</ul>";
+                            strHTML_TestSale = strHTML_TestSale + "</div>";
+                        }
+                        if (iFlag == 5) // Inventor Shop
+                        {
+                            strHTML_InventorShop = strHTML_InventorShop + "<div class=\"thumb-product\">";
+                            strHTML_InventorShop = strHTML_InventorShop + "<img class=\"thumb-product-img\" src=\"" + sImg + "\" alt=\"\">";
+                            strHTML_InventorShop = strHTML_InventorShop + "<div class=\"thumb-product-in\">";
+                            strHTML_InventorShop = strHTML_InventorShop + "<h4><a href=\"" + sURL + "\">" + dr["name"].ToString() + "</a></h4>";
+                            //strHTML_InventorShop = strHTML_InventorShop + "<span class=\"thumb-product-type\">Footwear - Oxfords</span>";
+                            strHTML_InventorShop = strHTML_InventorShop + "</div>";
+                            strHTML_InventorShop = strHTML_InventorShop + "<ul class=\"list-inline overflow-h\">";
+                            strHTML_InventorShop = strHTML_InventorShop + "<li class=\"thumb-product-price line-through\">$" + flEstimateprice.ToString("0.00") + "</li>";
+                            strHTML_InventorShop = strHTML_InventorShop + "<li class=\"thumb-product-price\">$" + flMinSalePrice.ToString("0.00") + "</li>";
+                            strHTML_InventorShop = strHTML_InventorShop + "<li class=\"thumb-product-purchase\"><a href=\"" + sURL + "\"><i class=\"fa fa-shopping-cart\"></i></a> | <a href=\"javascript:void(0)\" onclick=\"" + favoriteFunc + "\"><i id=\"" + favoriteClassID + "\" class=\"fa fa-heart-o\"></i> </a></li>";
+                            strHTML_InventorShop = strHTML_InventorShop + "</ul>";
+                            strHTML_InventorShop = strHTML_InventorShop + "</div>";
+                        }
+                        if (iFlag == 6)
+                        {
+                            strHTML_OurBrand = strHTML_OurBrand + "<li class=\"item first-child\">";
+                            strHTML_OurBrand = strHTML_OurBrand + "<a href=\"" + sURL + "\"><img src=\"" + sImg + "\" alt=\"\"></a>";
+                            strHTML_OurBrand = strHTML_OurBrand + "</li>";
+
+                        }
+
+                        cache.WriteCahceHTML(strHTML_Featured, "ShopIndex_1_" + strDay);
+                        cache.WriteCahceHTML(strHTML_Latest, "ShopIndex_2_" + strDay);
+                        cache.WriteCahceHTML(strHTML_FreeShipping, "ShopIndex_3_" + strDay);
+                        cache.WriteCahceHTML(strHTML_TestSale, "ShopIndex_4_" + strDay);
+                        cache.WriteCahceHTML(strHTML_InventorShop, "ShopIndex_5_" + strDay);
+                        cache.WriteCahceHTML(strHTML_OurBrand, "ShopIndex_6_" + strDay);
+                    }
+                }
+                 
+            }
+
+        }
+    }
+}

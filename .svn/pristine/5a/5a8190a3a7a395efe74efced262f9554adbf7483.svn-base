@@ -1,0 +1,196 @@
+﻿ [
+   {
+		text: 'System Management',
+		state: 'closed',
+		children: [{
+		    id:1,
+			text: 'Administrator List',
+			attributes:{url:'sysManager/ManagerList.aspx'}
+		},{
+		    id:2,
+			text: 'Add Administrator',
+			attributes:{url:'sysManager/Manager.aspx'}
+		}]
+	},
+    {
+		text: 'Member Management',
+		state: 'closed',
+		children: [{
+		    id:3,
+			text: 'Member List',
+			attributes:{url:'userMgr/users.aspx'}
+		}]
+	},{
+		text: 'Category Management',
+		state: 'closed',
+		children: [{
+		    id:5,
+			text: 'Add Category',
+			attributes:{url:'proTypeMgr/proCateAddMgr.aspx'}
+		},{
+		    id:6,
+			text: 'View Category',
+			attributes:{url:'proTypeMgr/proTypeList.aspx'}
+		}]
+	},{
+		text: 'By Focus Categories Management',
+		state: 'closed',
+		children: [{
+		    id:21,
+			text: 'Manage By Focus',
+			attributes:{url:'ByFocusMgr/ByFocusCateMgr.aspx'}
+		},{
+		    id:22,
+			text: 'Setup Product By Focus',
+			attributes:{url:'ByFocusMgr/SetupProductByFocus.aspx'}
+		}]
+	},{
+		text: 'Product Management',
+		state: 'closed',
+		children: [
+		{
+		    id:15,
+			text: 'Initial Evaluation',
+			attributes:{url:'proManager/proCheck.aspx'}
+		},{
+		    id:7,
+			text: 'Public Evaluation',
+			attributes:{url:'proManager/proPublicJudgeMgr.aspx'}
+		},{
+		    id:8,  
+			text: 'Tweebaa Evaluation',
+			attributes:{url:'proManager/proTweeJudgeMgr.aspx'}
+		},{
+		    id:9,
+			text: 'Test-Sales Zone',
+			attributes:{url:'proManager/proPreSaleMgr.aspx'}
+		},{
+		    id:10,
+			text: 'Approved Zone',
+			attributes:{url:'proManager/proUpMgr.aspx'}
+		},{
+		    id:11,
+			text: 'Buy Now Zone',
+			attributes:{url:'proManager/proSaleMgr.aspx'}
+		},{
+		    id:12,
+			text: 'Removal Zone',
+			attributes:{url:'proManager/proDownMgr.aspx'}
+		}]
+	},{
+		text: 'Supply Management',
+		state: 'closed',
+		children: [{
+		    id:14,
+			text: 'Supply Search List',
+			attributes:{url:'Inventory/InventorySearch.aspx'}
+		}]
+	},{
+		text: 'Order Management',
+		state: 'closed',
+		children: [{
+		    id:13,
+			text: 'Unpaid Order',
+			attributes:{url:'orderMgr/orderNoPay.aspx'}
+		},{
+			text: 'Pending Order'
+		},{
+			text: 'Shipped Order'
+		},{
+			text: 'Completed Order'
+		},{
+			text: 'Cancelled Order'
+		}]
+	},{
+		text: 'Shipping Order Management',
+		state: 'closed',
+		children: [{
+		    id:25,
+			text: 'Shipping Orders',
+			attributes:{url:'ShipOrderMgr/ShipOrder.aspx'}
+		}]
+	},{
+		text: 'Commission Management',
+		state: 'closed',
+		children: [{
+		    id:20,
+			text: 'Claimed',
+			attributes:{url:'userMgr/userCash.aspx'}
+		},{
+		    id:21,
+			text: 'Pay',
+			attributes:{url:'userMgr/payCash.aspx'}
+		}]
+	},{
+		text: 'Product Share',
+		state: 'closed',
+		children: [{
+			id: 16,
+			text: 'Share Record',
+			attributes:{url:'productShare/productShareRecord.aspx'}
+		},{
+			text: 'Share Statistics'
+		}]
+	},{
+		text: 'Product Evaluation',
+		state: 'closed',
+		children: [{
+			text: 'Evaluation Record'
+		},{
+			text: 'Evaluation Statistics'
+		}]
+	},{
+		text: 'Warehouse Management',
+		state: 'closed',
+		children: [{
+			text: 'All Warehouse'
+		},{
+			text: 'Add Warehouse'
+		},{
+			text: 'Logistics Area '
+		},{
+			text: 'Warehouse Area'
+		},{
+			text: '推送产品'
+		},{
+			text: 'Product Inventory'
+		}]
+	},{
+		text: 'Purchasing Management',
+		state: 'closed',
+		children: [{
+			text: 'Purchase Order'
+		},{
+			text: 'Purchase Record'
+		},{
+			text: 'Logistics Area'
+		}]
+	},{
+		text: 'Articles Management',
+		state: 'closed',
+		children: [{
+			text: 'Articles Categories'
+		},{
+			text: 'Add Articles'
+		},{
+			text: 'Articles List'
+		}]
+	},
+	{
+		text: 'Grade Management',
+		state: 'closed',
+		children: [{		
+		    id: 17,   
+			text: 'Publish Grade',
+			attributes:{url:'userMgr/publistGradeParam.aspx'}
+		},{		
+		    id: 18,   	
+			text: 'Review Grade',
+			attributes:{url:'userMgr/reviewGradeParam.aspx'}
+		},{			
+		    id: 19,   
+			text: 'Share Grade',
+			attributes:{url:'userMgr/shareGradeParam.aspx'}
+		}]
+	}	
+]

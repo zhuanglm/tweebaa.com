@@ -1,0 +1,124 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+using Twee.Comm;
+
+namespace Twee.Mgr
+{
+    /// <summary>
+    /// 首页方法
+    /// </summary>
+    public class IndexMgr
+    {
+        /// <summary>
+        /// 首页：发布、评审、分享信息
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetInfo()
+        {
+            StringBuilder sbStr = new StringBuilder();
+            //首页发布者信息
+            string strSql = "select top 10 p.name, u.username, c.CityName from wn_prd p left join wn_user  u on p.userguid=u.guid left join wn_City c  on u.cityid=c.CityID where p.wnstat=1 order by  p.addtime desc; ";
+
+            //首页评审者信息
+            string strSql2 = "select top 10 u.username,p.name, c.CityName from wn_review r left join wn_prd p on p.prdGuid=r.prtguid left join wn_user  u on r.userguid=u.guid left join wn_City c  on u.cityid=c.CityID where p.wnstat=1 order by  p.addtime desc; ";
+
+             //首页分享者信息
+            string strSql3 = "select top 10 u.username,p.name, c.CityName from dbo.wn_share s left join wn_prd p on p.prdGuid=s.prtguid left join wn_user  u on s.userguid=u.guid left join wn_City c  on u.cityid=c.CityID order by  p.addtime desc; ";
+
+            sbStr.Append(strSql).Append(strSql2).Append(strSql3);
+
+            return DbHelperSQL.Query(sbStr.ToString());
+
+        }
+        /// <summary>
+        ///  首页：评审、预售、销售、竞价供货 产品
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetPrd()
+        {
+            Guid? userGuid = CommUtil.IsLogion();
+
+            StringBuilder strSql1 = new StringBuilder();//评审查询（根据评审数取前4名）
+            /*
+             * Hard code by Long base on issue #47 for the presale item
+             * 
+            strSql1.Append("SELECT top 4 TT.[prdguid],TT.[userGuid],[cateGuid],[name],[addtime],[txtjj],[estimateprice], [presaleforward], TT.[wnstat],[reviewendtime] , DateDiff(Day, getdate(), reviewendtime) as reviewendday, DateDiff(Day, getdate(), presaleendtime) as presaleendday, f.fileurl,r.reviewCount, x.MinFinalSalePrice FROM  wn_prd TT ");
+            strSql1.Append(" left join  (select prtguid,fileurl from  [dbo].[wn_file] where idx=0 ) f on TT.prdguid= f.prtguid ");
+            strSql1.Append(" left join (select prtguid,COUNT(*) reviewCount from [dbo].[wn_review]  group by prtguid ) r on TT.prdGuid=r.prtguid ");
+            strSql1.Append(" left join vw_ProductMinFinalSalePrice x on TT.prdGuid = x.prdGuid "); 
+            strSql1.Append(" where TT.wnstat=1  ");
+            strSql1.AppendFormat(" order by r.reviewCount desc ");
+            */
+
+            // get login user favorite status 
+            string strFavorite = string.Empty;
+            if (userGuid != null)
+                strFavorite = " left join ( select guid, prtguid from wn_favorite where userguid='" + userGuid.ToString() + "') w  on TT.prdGuid = w.prtguid ";
+            else
+                strFavorite = " left join ( select guid, prtguid from wn_favorite where userguid= null) w  on TT.prdGuid = w.prtguid ";
+
+            // normal sql
+            strSql1.Append("SELECT top 4 TT.[prdguid],TT.[userGuid],[cateGuid],[name],[addtime],[txtjj],[estimateprice],[saleprice], [presaleforward], TT.[wnstat],TT.[idx],[reviewendtime] , DateDiff(Day, getdate(), reviewendtime) as reviewendday, DateDiff(Day, getdate(), presaleendtime) as presaleendday, [presaleendtime],[saleprice],f.fileurl,s.saleCount, x.MinFinalSalePrice, y.FavoriteCount, w.guid as favoriteGuid FROM  wn_prd TT ");
+            strSql1.Append(" left join  (select prtguid,fileurl from  [dbo].[wn_file] where idx=0 ) f on TT.prdguid= f.prtguid ");
+            strSql1.Append(" left join (select distinct b.prdGuid,c.saleCount from  dbo.wn_orderhead h left join dbo.wn_orderBody b on h.guid=b.headGuid   left join (select  prdGuid,COUNT(*) saleCount from  dbo.wn_orderBody group by prdGuid ) c on b.prdGuid=c.prdGuid) s on TT.prdGuid=s.prdGuid ");
+            strSql1.Append(" left join vw_ProductMinFinalSalePrice x on TT.prdGuid = x.prdGuid ");
+            strSql1.Append(" left join vw_ProductFavoriteCount y on TT.prdGuid = y.prdGuid ");
+            strSql1.Append(strFavorite);
+            strSql1.Append(" where  TT.prdguid in ('670bdf26-a935-4643-ac0e-ba24c2249107','7ed21a8d-67cf-43e8-b667-f857d80cc434','3d7aeec0-5ece-4fad-975c-a58ef9464af1','df8630a7-cb30-492b-b86b-f0fd44aa4b92') ");
+            strSql1.AppendFormat(" order by s.saleCount desc ");
+
+            /*
+
+            strSql1.Append("SELECT  TT.[prdguid],TT.[userGuid],[cateGuid],[name],[addtime],[txtjj],[estimateprice], [presaleforward], TT.[wnstat],[reviewendtime] , DateDiff(Day, getdate(), reviewendtime) as reviewendday, DateDiff(Day, getdate(), presaleendtime) as presaleendday, f.fileurl,r.reviewCount, x.MinFinalSalePrice FROM  wn_prd TT ");
+            strSql1.Append(" left join  (select prtguid,fileurl from  [dbo].[wn_file] where idx=0 ) f on TT.prdguid= f.prtguid ");
+            strSql1.Append(" left join (select prtguid,COUNT(*) reviewCount from [dbo].[wn_review]  group by prtguid ) r on TT.prdGuid=r.prtguid ");
+            strSql1.Append(" left join vw_ProductMinFinalSalePrice x on TT.prdGuid = x.prdGuid ");
+            strSql1.Append(" where  TT.prdguid in ('670bdf26-a935-4643-ac0e-ba24c2249107','7ed21a8d-67cf-43e8-b667-f857d80cc434','3d7aeec0-5ece-4fad-975c-a58ef9464af1','df8630a7-cb30-492b-b86b-f0fd44aa4b92') ");
+            strSql1.AppendFormat(" order by r.reviewCount desc ");
+            //strSql1.Append("select * from wn_prd where prdguid in ('670bdf26-a935-4643-ac0e-ba24c2249107','7ed21a8d-67cf-43e8-b667-f857d80cc434','3d7aeec0-5ece-4fad-975c-a58ef9464af1','df8630a7-cb30-492b-b86b-f0fd44aa4b92')");
+            */
+
+            StringBuilder strSql2 = new StringBuilder();//预售查询（根据评审数取前4名）
+            strSql2.Append("SELECT top 4 TT.[prdguid],TT.[userGuid],[cateGuid],[name],[addtime],[txtjj],[estimateprice],[saleprice],TT.[wnstat],TT.[idx],[reviewendtime] , DateDiff(Day, getdate(), reviewendtime) as reviewendday, DateDiff(Day, getdate(), presaleendtime) as presaleendday, [presaleendtime],[saleprice], [presaleforward], f.fileurl,s.saleCount, x.MinFinalSalePrice, y.FavoriteCount, w.guid as favoriteGuid FROM  wn_prd TT ");
+            strSql2.Append(" left join  (select prtguid,fileurl from  [dbo].[wn_file] where idx=0 ) f on TT.prdguid= f.prtguid ");
+            strSql2.Append(" left join (select distinct b.prdGuid,c.saleCount from  dbo.wn_orderhead h left join dbo.wn_orderBody b on h.guid=b.headGuid   left join (select  prdGuid,COUNT(*) saleCount from  dbo.wn_orderBody group by prdGuid ) c on b.prdGuid=c.prdGuid) s on TT.prdGuid=s.prdGuid ");
+            strSql2.Append(" left join vw_ProductMinFinalSalePrice x on TT.prdGuid = x.prdGuid ");
+            strSql2.Append(" left join vw_ProductFavoriteCount y on TT.prdGuid = y.prdGuid ");
+            strSql2.Append(strFavorite);
+            strSql2.Append(" where TT.wnstat=2 ");
+            strSql2.AppendFormat(" order by s.saleCount desc ");
+
+            StringBuilder strSql3 = new StringBuilder();//销售查询（根据评审数取前4名）
+            strSql3.Append("SELECT top 4 TT.[prdguid],TT.[userGuid],[cateGuid],[name],[addtime],[txtjj],[estimateprice],[saleprice], [presaleforward], TT.[wnstat],TT.[idx],[reviewendtime] , DateDiff(Day, getdate(), reviewendtime) as reviewendday, DateDiff(Day, getdate(), presaleendtime) as presaleendday, [presaleendtime],[saleprice],f.fileurl,s.saleCount, x.MinFinalSalePrice, y.FavoriteCount, w.guid as favoriteGuid FROM  wn_prd TT ");
+            strSql3.Append(" left join  (select prtguid,fileurl from  [dbo].[wn_file] where idx=0 ) f on TT.prdguid= f.prtguid ");
+            strSql3.Append(" left join (select distinct b.prdGuid,c.saleCount from  dbo.wn_orderhead h left join dbo.wn_orderBody b on h.guid=b.headGuid   left join (select  prdGuid,COUNT(*) saleCount from  dbo.wn_orderBody group by prdGuid ) c on b.prdGuid=c.prdGuid) s on TT.prdGuid=s.prdGuid ");
+            strSql3.Append(" left join vw_ProductMinFinalSalePrice x on TT.prdGuid = x.prdGuid ");
+            strSql3.Append(" left join vw_ProductFavoriteCount y on TT.prdGuid = y.prdGuid ");
+            strSql3.Append(strFavorite);
+            strSql3.Append(" where TT.wnstat=3 ");
+            strSql3.AppendFormat(" order by s.saleCount desc ");
+
+            StringBuilder strSql4 = new StringBuilder();//分享查询（根据分享数取前4名）
+            strSql4.Append("SELECT top 4 TT.[prdguid],TT.[userGuid],[cateGuid],[name],[addtime],[txtjj],[estimateprice],[saleprice], [presaleforward], DateDiff(Day, getdate(), reviewendtime) as reviewendday,  DateDiff(Day, getdate(), presaleendtime) as presaleendday, TT.[wnstat],TT.[idx],[reviewendtime] ,[presaleendtime],[saleprice],f.fileurl,s.shareCount, x.MinFinalSalePrice, y.FavoriteCount, w.guid as favoriteGuid FROM  wn_prd TT ");
+            strSql4.Append(" left join (select prtguid,fileurl from  [dbo].[wn_file] where idx=0 ) f on TT.prdguid= f.prtguid ");
+            strSql4.Append(" left join (select prtguid,COUNT(prtguid) shareCount from  wn_share  group by prtguid ) s on TT.prdGuid=s.prtguid ");
+            strSql4.Append(" left join vw_ProductMinFinalSalePrice x on TT.prdGuid = x.prdGuid ");
+            strSql4.Append(" left join vw_ProductFavoriteCount y on TT.prdGuid = y.prdGuid ");
+            strSql4.Append(strFavorite);
+            strSql4.Append(" where TT.wnstat in(2,3)  ");
+            strSql4.AppendFormat(" order by s.shareCount desc ");
+
+            string querySql = strSql1.ToString() + ";" + strSql2.ToString() + ";" + strSql3.ToString() + ";" + strSql4.ToString() + ";";
+            DataSet ds = DbHelperSQL.Query(querySql);
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                return ds;
+            }
+            return null;
+        }
+
+    }
+}

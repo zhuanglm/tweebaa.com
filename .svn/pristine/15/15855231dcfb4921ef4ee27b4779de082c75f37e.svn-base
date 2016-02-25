@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <title>Product name advances to Tweebaa Review</title>
+    <link href="../Css/index.css" rel="stylesheet" type="text/css" />
+</head>
+<body bgcolor="#90E4FD">
+	
+	
+<table width="700" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;color: #666;font-family: 'open_sansregular';">
+  <tr>
+    <td style="background-color: #fff;">
+    	   <div style="margin: 0 20px;border-bottom:1px solid #E1E1E1;padding: 15px 0;">
+            <a href="#"><img src="../images/logo.png" alt="" style="margin: 0 10px;"></a> 
+         </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #fff;">
+         <div style="margin:0 40px;line-height:14px;padding-bottom:15px;">
+              <p style="font-size:18px;line-height:18px;margin:20px 0;">Dear _____,</p>
+         
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px;">Great news!  The votes are in, and your submission,<a href="#">product name</a>,has reached 300 supportive evaluations and will now advance to our Tweebaa Review stage!  Our Tweebaa team is getting ready to analyze the product more closely and determine if it will advance to the Test-Sale stage. </p>
+
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px;">Before we begin our Tweebaa Review, we need to know more about the product.Please complete the following items:<br>
+<a href="#">Supply Agreement</a>– takes care of the legal details <br>
+<a href="#">Supply Form</a> – captures additional details about the product
+</p>                  
+<p style="font-size:14px;line-height:18px;padding-bottom:8px;">If we think of anything else, we may contact you for additional informaton.  Once you complete the online forms (listed above), we'll need about 15 days to complete our review.  You can expect to hear from us then (we hope it's with good news!).</p>
+
+              <p style="font-size:14px;line-height:18px;">If you have any questions, please reply to this email and we will have an account manager contact you; or<a href="#">  click here to learn more about selling your product on Tweebaa.</a></p>
+              
+               <p style="font-size:14px;line-height:18px;margin-bottom:30px;">Warm Regards,<br>
+The Tweebaa Team
+</p>
+         </div>
+    </td>
+  </tr>
+ 
+</table>
+
+
+
+
+</body>
+</html>

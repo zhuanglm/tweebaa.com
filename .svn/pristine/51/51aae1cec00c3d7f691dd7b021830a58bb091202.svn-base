@@ -1,0 +1,281 @@
+﻿using System;
+namespace Twee.Model
+{
+    /// <summary>
+    /// proRules:实体类(属性说明自动提取数据库字段的描述信息)
+    /// </summary>
+    [Serializable]
+    public partial class proRules
+    {
+        public proRules()
+        { }
+        #region Model
+        private int _id;
+        private string _proid;
+        private string _userid;
+        private int? _proruletitle;
+        private string _prorule;
+        private string _prostock;
+        private string _prosku;      // tweebaa sku
+        private string _suppliersku; // supplier sku
+        private string _probulk;
+        private string _proweight;
+        private string _prolength;
+        private string _prowidth;
+        private string _proheight;
+        private string _probox;
+        private string  _prosize;
+        private decimal? _proboxweight;
+        private string _proboxlength;
+        private string _proboxwidth;
+        private string _proboxheight;
+        private string _packageweight;
+        private string _packagelength;
+        private string _packagewidth;
+        private string _packageheight;
+        private string _procolor;
+        private string _barcode;
+        private DateTime? _createtime;
+        private string _color;
+        private int _ShipFrom_ID;
+        private int _ShipPartner_ID;
+        private int _uploadBatchNo;
+        private int _isCustomerFreeShip;
+        private decimal? _SupplierShipFee;
+        private string _wholesaleprice;
+
+        public string WholeSalePrice
+        {
+            get { return _wholesaleprice; }
+            set { _wholesaleprice = value; }
+        }
+
+        public decimal? SupplierShipFee
+        {
+            get { return _SupplierShipFee; }
+            set { _SupplierShipFee = value; }
+        }
+
+        
+        public int isCustomerFreeShip
+        {
+            get { return _isCustomerFreeShip; }
+            set { _isCustomerFreeShip = value; }
+        }
+
+
+        public int UpLoadBatchNo
+        {
+            get { return _uploadBatchNo; }
+            set { _uploadBatchNo = value; }
+        }
+
+
+        public int ShipFrom_ID
+        {
+            set { _ShipFrom_ID = value; }
+            get { return _ShipFrom_ID; }
+        }
+        public int ShipPartner_ID
+        {
+            set { _ShipPartner_ID = value; }
+            get { return _ShipPartner_ID; }
+        }
+        public string barcode
+        {
+            set { _barcode = value; }
+            get { return _barcode; }
+        }
+        public string color
+        {
+            set { _color = value; }
+            get { return _color; }
+        }
+        public DateTime? createtime
+        {
+            set { _createtime = value; }
+            get { return _createtime; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int id
+        {
+            set { _id = value; }
+            get { return _id; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string proid
+        {
+            set { _proid = value; }
+            get { return _proid; }
+        }
+        public string procolor
+        {
+            set { _procolor = value; }
+            get { return _procolor; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string userid
+        {
+            set { _userid = value; }
+            get { return _userid; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? proruletitle
+        {
+            set { _proruletitle = value; }
+            get { return _proruletitle; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string prorule
+        {
+            set { _prorule = value; }
+            get { return _prorule; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string prostock
+        {
+            set { _prostock = value; }
+            get { return _prostock; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string prosku
+        {
+            set { _prosku = value; }
+            get { return _prosku; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string suppliersku
+        {
+            set { _suppliersku = value; }
+            get { return _suppliersku; }
+        }
+
+         
+        /// <summary>
+        /// 
+        /// </summary>
+        public string probulk
+        {
+            set { _probulk = value; }
+            get { return _probulk; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string proweight
+        {
+            set { _proweight = value; }
+            get { return _proweight; }
+        }
+
+        public string prolength
+        {
+            set { _prolength = value; }
+            get { return _prolength; }
+        }
+
+        public string prowidth
+        {
+            set { _prowidth = value; }
+            get { return _prowidth; }
+        }
+
+        public string proheight
+        {
+            set { _proheight = value; }
+            get { return _proheight; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string packageweight
+        {
+            set { _packageweight = value; }
+            get { return _packageweight; }
+        }
+
+        public string packagelength
+        {
+            set { _packagelength = value; }
+            get { return _packagelength; }
+        }
+
+        public string packagewidth
+        {
+            set { _packagewidth = value; }
+            get { return _packagewidth; }
+        }
+
+        public string packageheight
+        {
+            set { _packageheight = value; }
+            get { return _packageheight; }
+        }
+
+
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public string probox
+        {
+            set { _probox = value; }
+            get { return _probox; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string prosize
+        {
+            set { _prosize = value; }
+            get { return _prosize; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? proboxweight
+        {
+            set { _proboxweight = value; }
+            get { return _proboxweight; }
+        }
+        public string proboxlength
+        {
+            set { _proboxlength = value; }
+            get { return _proboxlength; }
+        }
+        public string proboxwidth
+        {
+            set { _proboxwidth = value; }
+            get { return _proboxwidth; }
+        }
+        public string proboxheight
+        {
+            set { _proboxheight = value; }
+            get { return _proboxheight; }
+        }
+
+        #endregion Model
+
+    }
+}
+

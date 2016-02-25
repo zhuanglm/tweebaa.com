@@ -1,0 +1,216 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Twitterizer;
+using Twee.Mgr;
+using System.Data;
+using Twee.Comm;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace TweebaaWebApp2.Twitter
+{
+    public partial class TwitterAPI : System.Web.UI.Page
+    {
+        public static string consumerKey = "DCLGWLbqMtsf7sPP1bj4vaeQ6";
+        public static string consumerSecret = "E6mE6PWaRTcZn4tAyYqegAinmnFj3bYxJWJzFU671sUoca42LX";
+        public static string pin = "";
+        public static string callbackAddy = Twee.Comm.CommUtil.strwebAppDomain+ "Twitter/TwitterCallback.aspx";// "oob";
+        public static string screenName;
+
+
+        public static OAuthTokenResponse tokenResponse;
+        public static OAuthTokenResponse tokenResponse2;
+
+        public static OAuthTokens tokens;
+        //TwitterXML myXML;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Request.Form["action"]))
+            {
+                string sAction = Request.Form["action"].ToString();
+                if (sAction == "TwitterLogin")
+                {
+                    /*
+                    bool loggedIn = AlreadyLoggedIn();
+                    if (!loggedIn)
+                    {
+                        DoTwitterLogin();
+                    }
+                    */
+                    DoTwitterLogin();
+                }
+                    /*
+                else if (sAction == "authorization")
+                {
+                    //Send PIN
+                    string sPin = Request.Form["PIN"].ToString();
+                    SendPing(sPin);
+                }*/
+
+            }
+        }
+        private void SendPing(string sPIN)
+        {
+           /* pin = sPIN;
+           // Properties.Settings.Default.Save();
+            tokenResponse2 = OAuthUtility.GetAccessToken(consumerKey, consumerSecret, tokenResponse.Token, sPIN);
+            //myXML.writeToXML(tokenResponse2.ScreenName.ToString(), tokenResponse2.Token, tokenResponse2.TokenSecret);
+            //
+            //tokenResponse2.UserId
+            screenName = tokenResponse2.ScreenName.ToString();
+            //Twee.Comm.CommHelper.WrtLog("ID=" + tokenResponse2.UserId + " name=" + screenName);
+            
+            SetLocalTokens();
+
+            Twee.Mgr.UserMgr userMgr2 = new Twee.Mgr.UserMgr();
+            string email = tokenResponse2.UserId + "@twitter.com";
+            if (userMgr2.ExistsBySNSLogin(email, "101"))
+            {
+                //用户登录
+                DoSNSLogin(email, screenName);
+            }
+            else
+            {
+                //注册这个用户并登录
+                //注册
+                //这个邮箱是否存在？Twitter 拿不到EMail, 所以不用做这一步
+
+                if (DoSNSRegister(email, screenName))
+                {
+                    //Do Login
+                    DoSNSLogin(email, screenName);
+                    Response.Write("0");
+                    return;
+                }
+                Response.Write("2");
+                return;
+            }*/
+        }
+        private void DoLoginWithTweebaaAccount(string sEmail)
+        {
+            Twee.Mgr.UserMgr mgr = new Twee.Mgr.UserMgr();
+            DataTable dt = mgr.GetUserInfo4SNSLogin(sEmail);
+            //CookiesHelper cook = new CookiesHelper();
+            //bool b1 = cook.createCookie("jZvJvvjqCILHX7zjBWskQA", dt.Rows[0]["guid"].ToString(), 30);
+            //bool b2 = cook.createCookie("jZvJvvjqCILHX7zjBWskQB", sEmail, 30);
+            //bool b3 = cook.createCookie("jZvJvvjqCILHX7zjBWskQC", dt.Rows[0]["pwd"].ToString(), 1);
+            CommUtil.SetUserLoginCookie(dt.Rows[0]["guid"].ToString(), sEmail, dt.Rows[0]["pwd"].ToString());
+        }
+        private void SetLocalTokens()
+        {
+            tokens = new OAuthTokens();
+            tokens.AccessToken = tokenResponse2.Token;
+            tokens.AccessTokenSecret = tokenResponse2.TokenSecret;
+            tokens.ConsumerKey = consumerKey;
+            tokens.ConsumerSecret = consumerSecret;
+        }
+        private void DoTwitterLogin()
+        {
+            tokenResponse = OAuthUtility.GetRequestToken(consumerKey,
+                      consumerSecret, callbackAddy);
+            string target = "https://twitter.com/oauth/authenticate?oauth_token=" +
+                      tokenResponse.Token;
+            try
+            {
+                //browserControl.Navigate(new Uri(target));
+               // Twee.Comm.CommHelper.WrtLog("token=" + tokenResponse.Token);
+                Response.Write(tokenResponse.Token);
+                
+            }
+            catch (Exception other)
+            {
+                Twee.Comm.CommUtil.GenernalErrorHandler(other);
+                //MessageBox.Show(other.Message);
+            }
+        }
+        public bool AlreadyLoggedIn()
+        {
+            try
+            {
+                //MessageBox.Show("Trying to get login info");
+                /*
+                List<string> LoginInfo = myXML.readFromXml();
+
+                screenName = LoginInfo[1];
+                if (!SetLocalTokens(LoginInfo[2], LoginInfo[3]))
+                    return false;*/
+                //MessageBox.Show("Already logged in.");
+                return true;
+            }
+            catch (Exception e)
+            {
+                //statusBarMessage.Text = "Not logged in.";
+                return false;
+            }
+        }
+        private bool SetLocalTokens(string accessToken, string tokenSec)
+        {
+            try
+            {
+                tokens = new OAuthTokens();
+                tokens.AccessToken = accessToken;
+                tokens.AccessTokenSecret = tokenSec;
+                tokens.ConsumerKey = consumerKey;
+                tokens.ConsumerSecret = consumerSecret;
+                // MessageBox.Show("Tokens with arguments initialized.");
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public void SendMessage(string msg, string receiverScreenName)
+        {
+            try
+            {
+                TwitterDirectMessage.Send(tokens, receiverScreenName.Trim(), msg);
+                //     MessageBox.Show(msg + " to " + receiverScreenName + " has been sent successfuly");
+
+            }
+            catch (TwitterizerException te)
+            {
+                //MessageBox.Show(te.Message);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+        }
+
+        public bool tweetIt(string status)
+        {
+            try
+            {
+                TwitterStatus.Update(tokens, status);
+                //MessageBox.Show("Status updated successfuly");
+                return true;
+            }
+            catch (TwitterizerException te)
+            {
+                //MessageBox.Show(te.Message);
+                return false;
+            }
+        }
+
+        public List<string> getMessages()
+        {
+            List<string> temp = new List<string>();
+            var receivedMessages = TwitterDirectMessage.DirectMessages(tokens);
+            foreach (var v in receivedMessages.ResponseObject)
+            {
+                temp.Add(v.Recipient.ScreenName + " >> " + v.Text);
+            }
+
+            return temp;
+        }
+
+      
+
+    }
+}

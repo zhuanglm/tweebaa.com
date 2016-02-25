@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/scroll.css" />
+    <link rel="stylesheet" href="../css/college-new.css" />
+    <link rel="stylesheet" href="../css/selectCss.css" />
+    <script src="../js/jquery.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.placeholder.js" type="text/javascript"></script>
+    <script src="../js/reg.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/jquery-hcheckbox.js"></script>
+    <script type="text/javascript" src="../js/jquery.xScroller.js"></script>
+    <script type="text/javascript" src="../js/dragbox.js"></script>
+    <script type="text/javascript" src="../js/public.js"></script>
+    <script src="../js/custom.js"></script>
+</head>
+<body>
+    <form action="">
+     <div class="ctitle">
+        <ul>
+            <li class="p1">Cash rewards</li>
+            <li class="line"></li>
+            <li class="p2">When Tweebaa members contribute to product success through submitting,
+                evaluating, and/or sharing…
+                <br />
+                they can earn EARN TWEEBUCKS which can be redeemed for cash rewards!</li>
+        </ul>
+    </div>
+     <div class="award mt50">
+        <dl class="award-1 clearfix">
+            <dt class="img">
+                <img src="../Images/ico-13.png" width="109" height="109"></dt>
+            <dd>
+                <h4>
+                    Submitters earn…by telling Tweebaa about emerging items!</h4>
+                <table width="830" cellpadding="0" cellspacing="1" border="0" bgcolor="#0099ff">
+                    <tr>
+                        <td width="255">
+                            When product passes Test-Sale Stage
+                        </td>
+                        <td>
+                            Submitter of the product receives a one-time cash reward of 30 TweeBucks (redemption
+                            value :USD $30).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            When product is Tweebaa-Approved
+                            <br />
+                            (Excludes Test-Sale purchases)
+                        </td>
+                        <td>
+                            Submitter of the product receives a lifetime commission of 0.5% to 0.95% of product’s
+                            selling price for Successful Purchases in Tweebaa Shop. For commission level, please
+                            see Commission Chart. Commission is earned in TweeBucks and redeemable of cash!<a
+                                href="#"></a>
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+        </dl>
+        <dl class="award-2 clearfix">
+            <dt>
+                <img src="../Images/ico-14.png" width="109" height="109"></dt>
+            <dd>
+                <h4>
+                    Evaluators earn…by taking surveys to rate potential Tweebaa products!</h4>
+                <div class="posR">
+                    For a submission to advance from Evaluate Zone to Test-Sale Stage, it must receive
+                    300 positive evaluations.
+                    <br />
+                    From all the product evaluators who accurately predicted success, TWO will be chosen
+                    to receive a commission…
+                    <br />
+                    one is the member with highest Evaluator Zone points *, the other is the first Evaluator
+                    to submit the products evaluation.
+                    <br />
+                    *In case of tie, the Evaluator with longest membership will receive commission.
+                </div>
+                <table width="830" cellpadding="0" cellspacing="1" border="0" bgcolor="#39cdab" class="mt10">
+                    <tr>
+                        <td width="250">
+                            When product is Tweebaa-Approved<br />
+                            (Excludes Test-Sale purchases)
+                        </td>
+                        <td>
+                            Two Evaluators will receive a lifetime commission of 0.2% to 0.65% of submitted
+                            product’s selling price in Tweebaa Shop. For commission level, please see Commission
+                            Chart. Commission is earned in TweeBucks and redeemable of cash!
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+        </dl>
+        <dl class="award-3 clearfix">
+            <dt>
+                <img src="../Images/ico-15.png" width="109" height="109"></dt>
+            <dd>
+                <h4>
+                    Sharers earn…by telling friends about Tweebaa products!</h4>
+                <table width="830" cellpadding="0" cellspacing="1" border="0" bgcolor="#fb9254" class="mt10">
+                    <tr>
+                        <td style="width: 270px;">
+                            When members Share Tweebaa items (both Test-Sale and Tweebaa-Approved)
+                        </td>
+                        <td>
+                            Sharer will receive a lifetime commission of 5% to 9.5% of product’s selling price
+                            for every purchase made through the sharer's unique link.Commission is earned in
+                            TweeBucks and redeemable of cash!
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            When members share a purchase
+                        </td>
+                        <td>
+                            When members purchase a product from Tweebaa and tell their friends about it (via
+                            shared link), they will earn a commission of 5% to 9.5% of the product’s selling
+                            price when their friends purchase from the shared link. For commission level, please
+                            see Commission Chart.Commission is earned in TweeBucks and redeemable of cash!</a>
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+        </dl>
+        <div class="ctitle">
+            <ul>
+                <li>
+                    <h4>
+                        More about Commissions</h4>
+                </li>
+                <li>Commission percentages are directly tied to your Zone reward points in each zone.
+                    The more points you accumulate in the Submit Zone, Evaluate Zone and Share Zone,
+                    the higher your reward! See <a href="#" class="blue">Commission Chart</a> for levels
+                    and percentages.<br />
+                    · Commissions are earned in TweeBucks and redeemable for cash! (One TweeBuck = One
+                    US Dollar)<br />
+                    · As you accrue TweeBucks, they will be deposited into your <a href="#" class="blue">
+                        Tweebaa account.</a>
+                    <br />
+                    · All commissions are computed from Tweebaa selling price less any applied discounts,
+                    and exclude any shipping fees and/or taxes.<br />
+                    · TweeBucks earned by a product Submitter, Evaluators and Sharers will be added
+                    to those members’ accounts at the completion of purchase transactions. The TweeBucks
+                    will be listed as “pending status” until product has shipped to the customer and
+                    the return period has expired. At that time, “pending” TweeBucks will be transferred
+                    to “available” status and can be redeemed for CASH or purchase credits. (TweeBucks
+                    cannot be redeemed while in pending status).<br />
+                    · You can let your TweeBucks build like a savings account…save them up and redeem
+                    for a special occasion like birthday gifts…or for a special event like a vacation.
+                    You can also redeem TweeBucks just like cash on purchases from Tweebaa.<br />
+                    · As long as you log on to your Tweebaa account at least once every 18 months, TweeBucks
+                    will never expire.
+                    <br />
+                    <br />
+                    <li>
+                        <li>
+                            <h4>
+                                About redeeming TweeBUCKS</h4>
+                        </li>
+                        <li>· If you wish to redeem your accrued TweeBUCKS for cold-hard-CASH, all you need
+                            to do is create a PayPal account (or link your existing PayPal account) and click
+                            the “Redeem Now” button in your <a href="#" class="blue">Member Center. </a>
+                            <br />
+                            · It is not necessary to enter a PayPal account, but if you earn TweeBUCKS on Tweebaa
+                            and wish to redeem them for cash, PayPal is the means by which we will send your
+                            payment.
+                            <br />
+                            · If you do not provide a PayPal account, you can still redeem your TweeBUCKS towards
+                            purchases at the Tweebaa Shop.
+                            <br />
+                            · You can convert TweeBUCKS to cash a maximum of once per week, and the minimum
+                            withdrawal amount is $10 per transaction.
+                            <br />
+                            · Any PayPal transaction fees will be deducted from your account.
+                            <br />
+                            · The money will transfer to the default currency in your PayPal account.
+                            <br />
+                        </li>
+                        <br />
+                        <br />
+                        <h4>
+                            Commission ratios are directly proportional to your Expert Level...the higher your
+                            level, the higher your commission!</h4>
+                    </li>
+                <br />
+                <li>We have created a few examples to illustrate how commission rates will vary based
+                    upon Tweebaa members’ activity levels…
+                    <br />
+                    <br />
+                    <h4>
+                        Example 1: Submit Commission</h4>
+                    <br />
+                </li>
+                <li class="process">
+                    <img src="../Images/submit-p.png" alt="" width="450" height="351" /></li>
+                <li><strong>February 1:</strong> Dave submits Product A; he is Submit Zone Level 1.
+                    If Product A advances to “Tweebaa Approved”, Dave will earn 0.5% commission on all
+                    sales of Product A (excluding Test-Sale).<br />
+                    <em>Dave continues to submit more products to Tweebaa, and as he does he builds points
+                        and advances to Submit Zone Level 2.</em><br />
+                    <br />
+                    <strong>March 6: </strong>Dave submits Product B; he is Submit Zone Level 2. If
+                    Product B advances to “Tweebaa Approved”, Dave will earn 0.55% commission on all
+                    sales of Product B, and will continue to earn 0.5% commission on sales of Product
+                    A (excluding Test-Sale).<br />
+                    <em>Dave is becoming more ‘expert’ at Submitting, and continues to submit products to
+                        Tweebaa. As he does, he builds points and advances to Submit Zone Level 3.</em><br />
+                    <br />
+                    <strong>April 18: </strong>Dave submits Product C; he is Submit Zone Level 3. If
+                    Product C advances to “Tweebaa Approved”, Dave will earn 0.6% commission on all
+                    sales of Product C, and will continue to earn 0.5% commission on sales of Product
+                    A and 0.55% commission on sales of Product B (excluding Test-Sale). </li>
+                <br />
+                <br />
+                <br />
+                <h4>
+                    Example 2: Evaluate Commission</h4>
+                <li class="process2">
+                    <img src="../Images/evaluate-p.png" alt="" width="450" height="473" /></li>
+                <li><strong>February 1:</strong>Mia evaluates Product D; she is Evaluate Zone Level 6.  Many other Tweebaa members join Mia in giving positive evaluations of Product D, and upon reaching 300 positive evaluations, Product D advances to the Tweebaa-Review stage and then Test-Sale.  On May 1, Product D is “Tweebaa Approved” and is added to the Tweebaa Shop.  Of all the evaluators who supported Product D, Mia holds the highest Evaluate Zone points at the time of evaluation, and therefore she will receive a Level 6 commission of 0.45% on all sales of Product D (excluding Test-Sale).  HOORAY FOR MIA!<br />
+                    <em>Mia continues to evaluate more products on Tweebaa, and as she does she builds points
+                        and advances to Evaluate Zone Level 7.</em><br />
+                    <br />
+                    <strong>March 6: </strong>Mia evaluates Product E; she is Evaluate Zone Level 7.  Many other Tweebaa members join Mia in giving positive evaluations of Product E, and upon reaching 300 positive evaluations, Product E advances to the Tweebaa-Review stage and then Test-Sale.  Several months later Product E is “Tweebaa-Approved” and is added to the Tweebaa Shop.  Once again, Mia’s point level at the time of evaluation was highest of all the evaluators who supported Product E, so she receives Level 7 commission of 0.50% on all sales of Product E (excluding Test-Sale).  HOORAY FOR MIA!  Mia also continues to receive Level 6 commission on Product D.<br />
+                    <em>Mia gets very busy for the remainder of March and does not evaluate many products.
+                        In April, she starts evaluating heavily but her evaluation predictions are inaccurate
+                        and she begins to lose evaluation points, eventually dropping her from a Level 7
+                        to a Level 6.</em><br />
+                    <br />
+                    <strong>April 18: </strong>Mia evaluates Product F; she is Evaluate Zone Level 6.  Many other Tweebaa members join Mia in giving positive evaluations of Product F, and upon reaching 300 positive evaluations, Product F advances to the Tweebaa-Review stage and then Test-Sale.  Several months later, Product F is “Tweebaa-Approved” and is added to the Tweebaa Shop.  Mia is NOT the evaluator with the highest Evaluate Zone points; however, Mia was the very FIRST of the evaluators to have completed a positive evaluation of Product F, and therefore Mia is rewarded with a Level 6 commission of 0.45% on all sales of Product F (excluding Test-Sale).  HOORAY FOR MIA!  Mia also continues to receive the Level 6 commission on Product D and the Level 7 commission on Product E.</li>
+                <br />
+                <br />
+                <br />
+                <h4>
+                    Example 3: Share Commission</h4>
+                <li class="process2">
+                    <img src="../Images/share-p.png" alt="" width="450" height="351" /></li>
+                <li><strong>February 1:</strong> Charlie shares Products A, B and C with all of his
+                    Facebook friends; he is Share Zone Level 1. Over the next week, two of Charlie’s
+                    friends click on his shared link and purchase Product A; five friends click on his
+                    shared link and purchase Product B; eight friends click on his shared link and purchase
+                    Product C. All these purchases occur while Charlie is at Share Zone Level 1, so
+                    he receives commission of 5%.<br />
+                    <em>Charlie continues to share products and many of his friends click on links, and
+                        some continue to purchase too. All these activities earn Charlie more Share points,
+                        and on March 6 he advances to Share Zone Level 2.</em><br />
+                    <br />
+                    <strong>March 6: </strong>Charlie shares Product D with his Twitter followers; he
+                    is Share Zone Level 2. Twelve friends purchase Product D from Charlie’s shared link.
+                    Friends also purchase three more units of Product A from the link Charlie previously
+                    shared on Facebook. All these purchases occur while Charlie is at Share Zone Level
+                    2, so he receives commission of 5.5%.<br />
+                    <em>Charlie is thrilled by how easy and fun it is to be a Tweebaa Sharer, and he continues
+                        to share more products on Facebook, Twitter, and Pinterest. With every click and/or
+                        purchase, he is earning more Share points and on April 18 he advances to Share Zone
+                        Level 3. Charlie’s commissions rise to 6%. </em>
+                    <br />
+                    <br />
+                    <strong>Through the end of April, </strong>there are a total of 25 additional products
+                    ordered through links that Charlie has previously posted on his social media networks.
+                    As a Level 3, Charlie earns a 6% commission on all those 25 purchases (without doing
+                    any additional work). HOORAY CHARLIE!<em> Charlie is earning lucrative commissions with
+                        very little work…and he’s having great fun!</em> </li>
+                <br />
+                <br />
+                <br />
+        </div>
+       <!-- <div class="ebtn clearfix">
+            <ul>
+                <li><a href="#" class="bli">Back to Education home page</a></li></ul>
+        </div>-->
+    </div>
+    </form>
+</body>
+</html>

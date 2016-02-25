@@ -1,0 +1,76 @@
+﻿function SendEmail(email) {
+    var _data = "email=" + email;
+    $.ajax({
+        type: "POST",
+        url: '../AjaxPages/sendEmailAjax.aspx',
+        data: _data,
+        success: function (msg) {
+            if (msg == "success") {
+                window.location.href = "resetpwd2.aspx?id=" + email + "&type=email";
+            }
+            else if (msg == "-1") {
+                alert("The user does not exist");
+            }
+            else {
+                alert("Validation failed, please try again later");
+            }
+        },
+        error: function (msg) {
+            alert("Validation failed, please try again later");
+        }
+    });
+
+}
+
+var eamil = "";
+$(document).ready(
+function load() {
+    if ($("#labEmail") != null) {
+        var Request = new Object();
+        Request = GetRequest();
+        eamil = Request["id"];
+        if (eamil == null || eamil == "") {
+            return;
+        }
+        $("#labEmail").text(eamil);
+        $("#hrefEmail").attr("href", "mailto:" + eamil);
+    }
+
+});
+
+//没收到，再发一次
+function SendEmail2() {  
+
+    var _data = "email=" + eamil;
+    $.ajax({
+        type: "POST",
+        url: '../AjaxPages/sendEmailAjax.aspx',
+        data: _data,
+        success: function (msg) {
+            if (msg == "success") {
+                alert("Has been sent, please check it again！");
+            }
+            else {
+                alert("Send failed！");
+            }
+        },
+        error: function (msg) {
+            alert("Send failed！");
+        }
+    });
+
+}
+
+//接收URL参数
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}

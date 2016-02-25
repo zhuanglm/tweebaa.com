@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    	<title>Your Tweebaa submission has advanced toTest-Sale!</title>
+         <link href="#url#/Css/index.css" rel="stylesheet" type="text/css" />
+</head>
+<body bgcolor="#90E4FD">
+<table width="700" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;color: #666;font-family: 'open_sansregular';">
+  <tr>
+    <td style="background-color: #fff;">
+    	   <div style="margin: 0 20px;border-bottom:1px solid #E1E1E1;padding: 15px 0;">
+            <a href="#"><img src="#url#/images/logo.png" alt="" style="margin: 0 10px;"></a> 
+         </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #fff;">
+         <div style="margin:0 40px;line-height:14px;padding-bottom:15px;">
+              <p style="font-size:18px;line-height:18px;margin:20px 0;">Dear  #username#,</p>
+         
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px;">You're one step closer!  Our Tweebaa Evaluation is complete, and we couldn't be happier to share the news.  Your suggestion for <a href="#url#Product/presaleBuy.aspx?id=#proid#">#proname#</a> has met our criteria to advance to the Test-Sale stage.   </p>
+
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px;">During the Test-Sale stage, shoppers can purchase the product at www.tweebaa.com.  This is a limited-time opportunity, and all orders will be held (not shipped) until the target sales goal is met.  Once that goal is met, the product will pass Test-Sale and all those orders will be fulfilled.  More importantly, your product will be deemed a WINNER and offered for ongoing sales in the Tweebaa Shop!  You'll also receive a $30 cash prize in your Tweebaa account upon passing the Test-Sale stage.  
+</p>                  
+<p style="font-size:14px;line-height:18px;padding-bottom:8px;">We will notify you within 90 days whether your product has passed or failed the Test-Sale stage.  You can check Test-Sale progress by logging into your Tweebaa account.</p>
+
+              <p style="font-size:14px;line-height:18px;"><strong>TIP:</strong> Start sharing!  Use the "Share & Earn" link to tell your social network about the product.  Every purchase helps reach the sales goal…and you can also earn cash rewards! <a href="#url#College/College.aspx"> Learn more about sharing.</a></p>
+              
+              <p style="font-size:14px;line-height:18px;">If you have any questions, please reply to this email and we will have an account manager contact you<a href="#url#College/College.aspx">selling your product on Tweebaa.</a></p>
+              
+               <p style="font-size:14px;line-height:18px;margin-bottom:30px;">Warm Regards,<br>
+The Tweebaa Team
+</p>
+         </div>
+    </td>
+  </tr>
+ 
+</table>
+</body>
+</html>

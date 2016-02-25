@@ -1,0 +1,252 @@
+﻿
+/*遮罩背景*/
+.wnBoxBg
+{
+    position: fixed;
+    _position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    _height: expression(document.body.offsetHeight+"px");
+    background-color: #000;
+    filter: alpha(opacity=30);
+    -moz-opacity: 0.1;
+    opacity: .2;
+    z-index: 99998;
+}
+/*默认css整个box*/
+.wnBox
+{
+    position: absolute;
+    z-index: 99999;
+    overflow: hidden;
+    left: 50%;
+    top: 12%;
+    color: #fff;
+    padding: 1px;
+    position: fixed;
+    _position: absolute;
+}
+/*边框*/
+.wnBox .wnBorder
+{
+    position: absolute;
+    z-index: -1;
+    width: 1999px;
+    height: 1999px;
+    left: 0;
+    top: 0;
+    background-color: #93BCF5;
+}
+/*消息内容区*/
+.wnBox .wnBoxMain
+{
+    color: #000;
+    padding: 5px;
+    border: 0px solid #000;
+    background-color: #fff;
+}
+/*标题区*/
+.wnBox .wndrg
+{
+    cursor: move;
+}
+.wnBox .wnBoxTitle
+{
+    background-color: #93BCF5;
+    color: #fff;
+    text-indent: 10px;
+    border-bottom: solid 1px #93BCF5;
+    cursor: move;
+    line-height: 30px;
+}
+/*关闭*/
+.wnBox .close
+{
+    font-family: Helvetica,Arial;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    overflow: hidde;
+    z-index: 99999;
+    text-decoration: none;
+}
+.wnBox .close:hover
+{
+    color: Blue;
+}
+
+/*图标，内容区*/
+.wnBox .wnBoxMain_text
+{
+    display: block;
+    float: left;
+    line-height: 25px;
+    word-break: break-all;
+    padding-right: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+/****share 样式*****/
+.shareBox
+{
+    position: absolute;
+    z-index: 99999;
+    overflow: hidden;
+    left: 50%;
+    top: 12%;
+    color: #fff;
+    position: fixed;
+    _position: absolute;
+    padding: 5px; /*这里改边框宽*/
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+/*边框*/
+.shareBox .wnBorder
+{
+    position: absolute;
+    z-index: -1;
+    width: 1999px;
+    height: 1999px;
+    left: 0;
+    top: 0;
+    background-color: #666666; /*这里改边框颜色*/
+}
+/*消息内容区*/
+.shareBox .wnBoxMain
+{
+    color: #000;
+    padding: 5px;
+    border: 0px solid #000;
+    background-color: #fff;
+}
+/*标题区*/
+.shareBox .wndrg
+{
+    cursor: move;
+}
+.shareBox .wnBoxTitle
+{
+    background-color: #F2F2F2;
+    color: #666666;
+    text-indent: 10px;
+    border-bottom: solid 1px #E8E8E8;
+    cursor: move;
+    line-height: 30px;
+    font-size: 12px;
+}
+.shareBox .close
+{
+    font-family: Helvetica,Arial;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    overflow: hidde;
+    z-index: 99999;
+    text-decoration: none;
+}
+.shareBox .close:hover
+{
+    color: blue;
+}
+.shareBox .rigth, .shareBox .wrong
+{
+    background: url(images/popu_bg.png) no-repeat;
+    width: 80px;
+    height: 80PX;
+}
+.shareBox .wrong
+{
+    background-position: -181px -5px;
+}
+/*图标，内容区*/
+.shareBox .wnBoxMain_text
+{
+    display: block;
+    float: left;
+    line-height: 25px;
+    word-break: break-all;
+    padding-right: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.shareBox .wnBoxMain_text ul li
+{
+    display: block;
+    float: left;
+    font-size: 14px;
+}
+.shareBox .wnBoxMain_text b
+{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    margin: 0px;
+    padding-left: 0px;
+}
+
+/*边距为30弹出框*/
+.marg30 .wnBoxMain_text
+{
+    margin: 30px;
+}
+/*边距为5弹出框*/
+.marg5 .wnBoxMain_text
+{
+    margin: 5px;
+}
+/*边距为10弹出框*/
+.marg10 .wnBoxMain_text
+{
+    margin: 10px;
+}
+/*loading框*/
+.pupuloading
+{
+    height: 40px;
+    line-height: 38px;
+    vertical-align: middle;
+    top: 52px;
+    text-indent: 40px;
+    background: url(images/ug_loading1.gif) no-repeat;
+}
+.pupuloading .close
+{
+    display: none;
+}
+/*没关闭*/
+.noclose .close
+{
+    display: none;
+}
+
+/*下面的长按钮*/
+a.alink, a.alink:hover
+{
+    display: block;
+    width: 275px;
+    height: 40px;
+    text-align: center;
+    background-color: #00AEEF;
+    color: #fff;
+    line-height: 38px;
+    vertical-align: middle;
+    margin-top: 20px;
+}
+a.alink:hover
+{
+    background-color: #56C3E1;
+}

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{19B942FD-672B-4185-AD14-A93F95F5724E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Twee.Mgr</RootNamespace>
+    <AssemblyName>Twee.Mgr</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Maticsoft.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Maticsoft.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Twee.DataMgr, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Twee.DataMgr\bin\Debug\Twee.DataMgr.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="accountBindMgr.cs" />
+    <Compile Include="AccountBindVerfyCodeMgr.cs" />
+    <Compile Include="AdminstratorMgr.cs" />
+    <Compile Include="AlipayConfig.cs" />
+    <Compile Include="AlipayCore.cs" />
+    <Compile Include="AlipayNotify.cs" />
+    <Compile Include="AlipaySubmit.cs" />
+    <Compile Include="AnalysisMgr.cs" />
+    <Compile Include="ArticleMgr.cs" />
+    <Compile Include="ArticleTypeMgr.cs" />
+    <Compile Include="CityMgr.cs" />
+    <Compile Include="CountryMgr.cs" />
+    <Compile Include="DistrictMgr.cs" />
+    <Compile Include="ExpressCompanyMgr.cs" />
+    <Compile Include="FavoriteMgr.cs" />
+    <Compile Include="FileMgr.cs" />
+    <Compile Include="IndexMgr.cs" />
+    <Compile Include="knowTweeWayMgr.cs" />
+    <Compile Include="MD5.cs" />
+    <Compile Include="mgrProStatusLogMgr.cs" />
+    <Compile Include="mgrProStatusReasonMgr.cs" />
+    <Compile Include="MoneyMgr.cs" />
+    <Compile Include="OrderMgr.cs" />
+    <Compile Include="PatentMgr.cs" />
+    <Compile Include="payaccountbindMgr.cs" />
+    <Compile Include="paybindverfycodeMgr.cs" />
+    <Compile Include="PicbgMgr.cs" />
+    <Compile Include="PrdCateMgr.cs" />
+    <Compile Include="PrdColorMgr.cs" />
+    <Compile Include="PrdMgr.cs" />
+    <Compile Include="PrdPriceMgr.cs" />
+    <Compile Include="PrdSpecMgr.cs" />
+    <Compile Include="PrdStoragMgr.cs" />
+    <Compile Include="proDetailOtherMgr.cs" />
+    <Compile Include="proDetailsMgr.cs" />
+    <Compile Include="ProfitMgr.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="proPriceAreaMgr.cs" />
+    <Compile Include="proPriceMgr.cs" />
+    <Compile Include="proRulesMgr.cs" />
+    <Compile Include="ProvinceMgr.cs" />
+    <Compile Include="PublistGradeParamMgr.cs" />
+    <Compile Include="PurchaseOrder.cs" />
+    <Compile Include="PurchaseOrderMgr.cs" />
+    <Compile Include="ReviewgradeparamMgr.cs" />
+    <Compile Include="ReviewMgr.cs" />
+    <Compile Include="SendAreaMgr.cs" />
+    <Compile Include="SharegradeparamMgr.cs" />
+    <Compile Include="ShareMgr.cs" />
+    <Compile Include="SharePrdMgr.cs" />
+    <Compile Include="ShareSaveMgr.cs" />
+    <Compile Include="ShoppingcartMgr.cs" />
+    <Compile Include="StoragMgr.cs" />
+    <Compile Include="SupplyInforMgr.cs" />
+    <Compile Include="TemplateMgr.cs" />
+    <Compile Include="UploadProduct.cs" />
+    <Compile Include="UserAddressMgr.cs" />
+    <Compile Include="UserGradeCalMgr.cs" />
+    <Compile Include="UserMgr.cs" />
+    <Compile Include="userQianDaoMgr.cs" />
+    <Compile Include="WarehouseMgr.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Twee.Comm\Twee.Comm.csproj">
+      <Project>{7238477B-CEE8-4433-A6DE-B521B193F4AE}</Project>
+      <Name>Twee.Comm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Twee.Model\Twee.Model.csproj">
+      <Project>{043B94A8-F045-4946-869B-2A97BB3F5139}</Project>
+      <Name>Twee.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

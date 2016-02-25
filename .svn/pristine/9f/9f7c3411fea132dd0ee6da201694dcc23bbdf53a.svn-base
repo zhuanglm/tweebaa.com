@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> 
+<html lang="en"> <!--<![endif]-->  
+<head>
+    <title>Tweebaa | Welcome...</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/shop.style.css">
+    <link rel="stylesheet" href="/css/style.css">
+     
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/scrollbar/src/perfect-scrollbar.css">
+
+    <!-- CSS Page Style -->    
+    <link rel="stylesheet" href="/css/pages/page_faq1.css">
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v5.css"> 
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v6.css"> 
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v7.css"> 
+     <link rel="stylesheet" href="/css/pages/pricing/pricing_v2.css"> 
+
+    <!-- Style Switcher -->
+    <link rel="stylesheet" href="/css/plugins/style-switcher.css">
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="/css/theme-colors/default.css" id="style_color">
+    <link rel="stylesheet" href="/css/pages/blog_magazine.css">
+
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+
+<body>
+<i class="style-switcher-btn2"><img class="img-responsive" src="/images/event_tweebot/order_now.png" alt="" width=""></i>
+<div class="wrapper">
+    <!--=== Header v4 ===-->    
+    <div class="header-v4">
+        <!-- Topbar -->
+        <div class="topbar-v1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-inline top-v1-contacts">
+                            <li>
+                                <i class="fa fa-envelope"></i> Email: <a href="mailto:info@htmlstream.com">info@htmlstream.com</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"></i> Hotline: (1) 396 4587 99
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6">
+                        <ul class="list-inline top-v1-data">
+                         
+                            <li><a href="#"><i class="fa fa-globe"></i></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                           
+                        </ul>
+                    </div>
+                </div>        
+            </div>
+        </div>
+        <!-- End Topbar -->
+    
+        <!-- Navbar -->
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="navbar-brand" style="padding:0px;" href="index-2.html">
+                                <img id="logo-header" src="/images/event_tweebot/tweebot_logo.png" alt="Logo" width="360">
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <a href="#"><img class="header-banner img-responsive" src="/images/event_tweebot/adds.jpg" width="834" alt=""></a>
+                        </div>
+                    </div>    
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="full-width-menu">Menu Bar</span>
+                        <span class="icon-toggle">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </span>    
+                    </button>
+                </div>
+            </div>    
+
+            <div class="clearfix"></div>
+
+    
+        </div>            
+        <!-- End Navbar -->
+    </div>
+    <!--=== End Header v4 ===-->    
+
+    <!--=== Content Part ===-->
+    <div class="container content">
+        <div class="row magazine-page">
+            <!-- Begin Content -->
+            <div class="col-md-7">
+                
+                <!-- Magazine Slider -->
+                
+                <div class="carousel slide carousel-v1 margin-bottom-40" id="myCarousel-1">
+                    <div class="carousel-inner">
+                    
+                        <div class="item active">
+                  
+                            <img alt="" src="/images/posts/1.jpg">
+                           
+                            </div>
+                      
+                    </div>
+                    
+                 
+                </div>
+                <!-- End Magazine Slider -->
+               
+            </div>
+            <!-- End Content -->
+
+            <!-- Begin Sidebar -->
+            <div class="col-md-5">
+            
+              <!-- Vimeo Video -->                          
+                        <div class="responsive-video margin-bottom-20">
+                            <iframe width="100%" src="http://www.youtube.com/embed/4dmt7tQG1-w" frameborder="0" allowfullscreen></iframe>
+                     
+                    </div>
+                    <!-- End Vimeo Video -->
+                <!-- Magazine Posts -->
+               
+                <div class="row margin-bottom-40">
+                  <div class="magazine-posts col-md-12 col-sm-6 margin-bottom-10">
+                      
+                     <img class="img-responsive" src="/images/event_tweebot/price.jpg" alt="">
+                      
+                    </div>
+                  
+                          
+                </div>
+                <!-- End Magazine Posts -->
+
+            
+
+            </div>
+            <!-- End Sidebar -->
+        </div>
+        
+        
+            <!-- Magazine News -->
+                <div class="magazine-news">
+                    <div class="row">
+                    <div class="heading heading-v2 margin-bottom-20">
+                        <h2>TweeBot Features</h2>
+                 
+                    </div>
+                        <div class="col-md-3">
+                            <div class="magazine-news-img">
+                                <a href="#"><img class="img-responsive" src="/images/event_tweebot/feature-1.jpg" alt=""></a>
+                                <span class="magazine-badge label-red">Travel</span>                                    
+                            </div>
+                            <h4>USE on bicycle as a bluetooth speaker</h4>
+                    
+                        </div>
+                        <div class="col-md-3">
+                            <div class="magazine-news-img">
+                                <a href="#"><img class="img-responsive" src="/images/event_tweebot/feature-2.jpg" alt=""></a>
+                                <span class="magazine-badge label-blue">Event</span>
+                            </div>
+                            <h4>Answer & make calls Play music</h4>
+                    
+                          
+                        </div>
+                         <div class="col-md-3">
+                            <div class="magazine-news-img">
+                                <a href="#"><img class="img-responsive" src="/images/event_tweebot/feature-3.jpg" alt=""></a>
+                                <span class="magazine-badge label-blue">Event</span>
+                            </div>
+                            <h4>USE  Ask questions / get answers</h4>
+                    
+                        </div>
+                         <div class="col-md-3">
+                            <div class="magazine-news-img">
+                                <a href="#"><img class="img-responsive" src="/images/event_tweebot/feature-4.jpg" alt=""></a>
+                                <span class="magazine-badge label-blue">Event</span>
+                            </div>
+                            <h4>Answer & make calls</h4>
+                    
+                        </div>
+                    </div>
+                </div>
+                <!-- End Magazine News -->
+    </div><!--/container-->     
+    <!-- End Content Part -->
+
+
+   
+        <!-- Footer Version 3 -->
+        <div class="footer-v3">
+        <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <!-- Terms Info-->
+                        <div class="col-md-7">
+                            <p>
+                                2014 &copy; Copyright: 2012-2015 Tweebaa Inc.<br/>
+                               <a href="＃">Contact Us</a> | <a href="/College/Privacy_Policy.aspx">Privacy Policy</a> | <a href="/College/Genernal_Terms_ofUse.aspx">Terms
+                            and Conditions</a> | <a href="＃">FAQ</a>
+                            </p>
+                        </div>
+                        <!-- End Terms Info-->
+
+                        <!-- Social Links -->
+                        <div class="col-md-5">  
+                            <ul class="social-icons pull-right">
+                                <li><a href="https://www.facebook.com/tweebaa" target="_blank" data-original-title="Facebook" class="rounded-x social_facebook"></a></li>
+                                <li><a href="https://twitter.com/tweebaa" target="_blank" data-original-title="Twitter" class="rounded-x social_twitter"></a></li>
+                                <li><a href="https://www.google.com/+Tweebaa" target="_blank" data-original-title="Goole Plus" class="rounded-x social_googleplus"></a></li>
+                                <li><a href="https://www.linkedin.com/company/tweebaa-inc-" target="_blank" data-original-title="Linkedin" class="rounded-x social_linkedin"></a></li>
+                                <li><a href="https://www.pinterest.com/tweebaa/" target="_blank" data-original-title="Pinterest" class="rounded-x social_pintrest"></a></li>
+                                    <li><a href="https://instagram.com/tweebaa/" target="_blank" data-original-title="Instagram" class="rounded-x social_instagram "></a></li>
+                            </ul>
+                        </div>
+                        <!-- End Social Links -->
+                    </div>
+                </div> 
+            </div>
+     </div>
+
+</body>
+
+</html> 
+<!-- JS Global Compulsory -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery-migrate.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script src="/plugins/back-to-top.js"></script>
+<script src="/plugins/owl-carousel/owl-carousel/owl.carousel.js"></script>
+<script src="/plugins/scrollbar/src/jquery.mousewheel.js"></script>
+<script src="/plugins/scrollbar/src/perfect-scrollbar.js"></script>
+<script src="/plugins/jquery.parallax.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<!-- JS Customization -->
+<script src="/js/custom.js"></script>
+<!-- JS Page Level -->
+<script src="/js/shop.app.js"></script>
+<script src="/js/plugins/owl-carousel.js"></script>
+<script src="/js/plugins/revolution-slider.js"></script>
+<script type="text/javascript" src="/js/plugins/style-switcher.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        App.init();
+        App.initParallaxBg();
+        OwlCarousel.initOwlCarousel();
+        RevolutionSlider.initRSfullWidth();
+        StyleSwitcher.initStyleSwitcher();      
+});
+</script>
+<!--[if lt IE 9]>
+    <script src="plugins/respond.js"></script>
+    <script src="plugins/html5shiv.js"></script>
+    <script src="js/plugins/placeholder-IE-fixes.js"></script>
+<![endif]-->

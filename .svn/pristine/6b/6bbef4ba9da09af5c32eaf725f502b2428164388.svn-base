@@ -1,0 +1,260 @@
+﻿<%@ Page Title=""  Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="College.aspx.cs" Inherits="TweebaaWebApp2.College.College" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+  <!-- CSS Page Style -->    
+    <link rel="stylesheet" href="/css/pages/page_faq1.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v5.css"> 
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v6.css"> 
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v7.css"> 
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v2.css"> 
+
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+    window.$zopim || (function (d, s) {
+        var z = $zopim = function (c) { z._.push(c) }, $ = z.s =
+d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+    z.set.
+_.push(o)
+}; z._ = []; z.set._ = []; $.async = !0; $.setAttribute("charset", "utf-8");
+        $.src = "//v2.zopim.com/?3SkhL2CFelNy1xITHgs9PrwP0JnHNM52"; z.t = +new Date; $.
+type = "text/javascript"; e.parentNode.insertBefore($, e)
+    })(document, "script");
+</script>
+<!--End of Zopim Live Chat Script-->
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+
+ <!--=== Breadcrumbs v4 ===-->
+    <div class="breadcrumbs-v4 education_back">
+        <div class="container">
+          
+            <h1> <span class="shop-education"> Earning </span> with Tweebaa is fun...</h1>
+<p>Earn cash and points for evaluating new products!</p>
+            <ul class="breadcrumb-v4-in">
+                <li><a href="/index.aspx">Home</a></li>
+                <li><a href="#">Education</a></li>
+                <li class="active">Welcome</li>
+            </ul>
+        </div><!--/end container-->
+    </div> 
+    <!--=== End Breadcrumbs v4 ===-->
+    
+    <!--=== FAQ Page ===-->
+    
+    <div class="container faq-page content-sm">
+               <div class="title-v1">
+                <h2>Earn with Tweebaa</h2>
+                <p>The Tweebaa network is made of people just like you who want to earn!</p>                
+            </div>                 
+           <!-- Pricing Table v2-->
+        <div class="row pricing-table-v2 no-space-pricing">
+            <div class="col-md-3">
+                <div class="pricing-v2 pricing-v2-blue ">
+                        <div class="pricing-v2-head text-center">
+                         <i class="icon-custom icon-color-blue rounded-x fa fa-pencil-square-o"></i>
+                        <h4 class="heading-md">SUGGEST</h4>
+                       <h5 class="text-center"><i>We welcome all kinds of good products <br>If your product advances to the Tweebaa Shop</i></h5>
+                    </div>
+                    <ul class="list-unstyled pricing-v2-content text-center">
+                         <li>$30 Commission</li>
+                        <li>Lifetime Commission</li>
+                    </ul>
+                    <div class="pricing-v2-footer text-center">
+                        <a href="../Product/SubmitForm.aspx" class="btn-u btn-u-blue rounded">Suggest Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="pricing-v2 pricing-v2-light-green">
+                    <div class="pricing-v2-head text-center">
+                      <i class="icon-custom icon-color-light-green rounded-x fa fa-check-square-o"></i>
+                       <h4 class="heading-md">EVALUATE</h4>
+                       <h5 class="text-center"><i>help us identify new products for the Tweebaa Shop. <br>Evaluators assist in the growth and popularity of products</i></h5>
+ 
+                    </div>
+                    <ul class="list-unstyled pricing-v2-content text-center">
+                       <li>$30 Commission</li>
+                       <li>Lifetime Commission</li>
+                    </ul>
+                    <div class="pricing-v2-footer text-center">
+                        <a href="../Product/prdReviewAll.aspx" class="btn-u btn-u-light-green rounded">Evaluate Now</a>
+                    </div>
+                    </div>
+                </div>
+            <div class="col-md-3">
+                <div class="pricing-v2 pricing-v2-red">
+                    <div class="pricing-v2-head text-center">
+                      <i class="icon-custom icon-color-red rounded-x fa fa-shopping-cart"></i>
+                        <h4 class="heading-md">SHOP</h4>
+                        <h5 class="text-center"><i>Shop fast... each Test-Sale lasts only 60 days!<br>Shop fast... each Test-Sale lasts only 60 days!</i></h5>
+                    </div>
+                    <ul class="list-unstyled pricing-v2-content text-center">
+                            <li>$30 Commission</li>
+                            <li>Lifetime Commission</li>
+                    </ul>
+                    <div class="pricing-v2-footer text-center">
+                        <a href="../Product/prdSaleAll.aspx" class="btn-u btn-u-red rounded">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="pricing-v2 pricing-v2-orange rounded-3">
+                    <div class="pricing-v2-head text-center">
+                        <i class="icon-custom icon-color-orange rounded-x fa fa-share-alt"></i>
+                        <h4 class="heading-md">SHARE</h4>
+                        <h5 class="text-center"><i>Sharing great products with your friends and earning income.<br>Sharing great products with your friends and earning income </i></h5> 
+                    </div>
+                    <ul class="list-unstyled pricing-v2-content text-center">
+                    <li>$30 Commission</li>
+                            <li>Lifetime Commission</li>
+                    </ul>
+                    <div class="pricing-v2-footer text-center">
+                        <a href="../Product/prdSingleShare.aspx" class="btn-u btn-u-orange rounded">Share Now</a>
+                    </div>
+                </div>
+            </div>
+        </div><!--/row-->
+        <!-- End Pricing Table v2--> 
+    
+        </div>            
+     
+        
+        <!-- tweebaa process -->
+           <div class="about-image bg-grey">  
+        <div class="container margin-bottom-60">
+         <div class="title-v1">
+                    <h1>The Tweebaa Process</h1>
+                    <p>Earn cash and membership points along the way.</p>                
+                </div>
+    
+             <div class="img-center margin-bottom-40">
+                    <img class="img-responsive" src="/images/college/graphic.png">
+                </div>           
+    
+        </div>
+        </div>
+          <!-- tweebaa process end-->
+          
+      <!-- Services Section -->
+    <section id="services">
+        <div class="container content-lg">
+            <div class="title-v1">
+                <h2>Our Commission SYSTEM</h2>
+                <p>Earn Cash and Points – For every product sold on Tweebaa,
+Suggesters, Evaluators and Sharers can earn!</p>                
+            </div>            
+    
+            <div class="row service-box-v1">
+                <div class="col-md-4">
+                    <div class="service-block service-block-default">
+                        <i class="icon-custom icon-lg icon-bg-purple rounded-x icon-trophy"></i>
+                        <h2 class="heading-sm">ZONE REWARD POINTS</h2>
+                        <p>Zone reward points determine the commission percentage you earn in each Zone by Suggesting,
+Evaluating and Sharing products.</p>
+                        <ul class="list-unstyled">
+                            <li><a href="/College/comission_chart.aspx">Commission Chart</a> </li>
+                       <!--     <li><a href="/College/shopping_reward.aspx">Referral rewards</a></li>-->
+                           
+                        </ul>                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-block service-block-default">
+                        <i class="icon-custom icon-lg icon-bg-purple rounded-x icon-line fa fa-money"></i>
+                        <h2 class="heading-sm">Commission rewards </h2>
+                        <p>When Tweebaa members contribute to product success through suggesting, evaluating, and/or sharing… 
+they can earn EARN TWEEBUCKS which can be redeemed for cash rewards!</p>
+                        <ul class="list-unstyled">
+                    <li><a href="/College/submitter_comission.aspx">Suggest Commission</a> </li>
+                    <li><a href="/College/evaluate_comission.aspx">Evaluate Commission</a></li>
+                    <li><a href="/College/sharer_commission.aspx">Share Commission</a></li>
+                <!--    <li><a href="/College/submitter_comission.aspx">Redeeming TweeBUCKS</a></li>-->
+                        </ul>                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-block service-block-default">            
+                        <i class="icon-custom icon-lg icon-bg-purple rounded-x icon-line fa fa-shopping-cart"></i>
+                        <h2 class="heading-sm">Shopping reward points</h2>
+                        <p>We value our members so much, you even earn when you shop!</p>
+                        <ul class="list-unstyled">
+                     
+                            <li><a href="/College/shopping_reward.aspx">Shopping Reward Points</a> </li>
+                            
+                        </ul>                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+                   
+    </section>
+    <!-- End Services Section -->     
+   
+    <!-- comssion Content -->
+   <div class="bg-grey content-sm">
+ <div class="container content faq-page">
+        <div class="title-v1">
+                    <h1>The Tweebaa Process</h1>
+                    <p>Earn cash and membership points along the way.</p>                
+                </div>
+        <div class="row job-content margin-bottom-40">
+            <div class="col-md-3 md-margin-bottom-40">
+                <ul class="list-unstyled categories">
+                    <h3 class="heading-md"><strong>Suggest Zone</strong></h3>
+                    <li><a href="/College/Suggest-zone.aspx#collapseOne">About the Suggest Zone</a></li>
+                      <li><a href="/College/Suggest-zone.aspx#collapseTwo">Suggest Zone Reward Points</a></li>
+                    <li><a href="/College/Suggest-zone.aspx#collapseFour">Suggest Detail</a></li>
+                    <li><a href="/College/Suggest-zone.aspx#collapseFive">How to select products for Tweebaa</a></li>
+                    <li><a href="/College/Suggest-zone.aspx#collapseSix">Preparing your suggestion</a></li>
+                    <li><a href="/College/Suggest-zone.aspx#collapseSeven">Suggest steps</a></li>
+                    <li><a href="/College/Suggest-zone.aspx#collapseEight">Product Guidelines</a></li>
+
+                </ul>
+            </div>
+            <div class="col-md-3 md-margin-bottom-40">
+                <ul class="list-unstyled categories">
+                    <h3 class="heading-md"><strong>Evaluate Zone</strong></h3>
+                    <li><a href="/College/evaluate-zone.aspx#collapseOne">About the EVALUATE Zone</a></li>
+                     <li><a href="/College/evaluate-zone.aspx#collapseTwo">Evaluate Zone Reward Points</a></li>
+                    <li><a href="/College/evaluate-zone.aspx#collapseFour">Gift Rewards</a></li>
+                    <li><a href="/College/evaluate-zone.aspx#collapseFive">How to Evaluate</a></li>
+                    <li><a href="/College/evaluate-zone.aspx#collapseSix">Become an "expert" Evaluator</a></li>
+                    <li><a href="/College/evaluate-zone.aspx#collapseSeven">Evaluator Rules</a></li>
+   
+                </ul>
+            </div>
+            <div class="col-md-3 md-margin-bottom-40">
+                <ul class="list-unstyled categories">
+                    <h3 class="heading-md"><strong>Shop Zone</strong></h3>
+                    <li><a href="/College/shop-zone.aspx#collapseOne">About the SHOP Zone</a></li>
+                    <li><a href="/College/shop-zone.aspx#collapseTwo">Shop Details</a></li>
+                    <li><a href="/College/shop-zone.aspx#collapseThree">More about “Test-Sale”</a></li>
+                    <li><a href="/College/shop-zone.aspx#collapseFour">Payment Options</a></li>
+                    <li><a href="/College/shop-zone.aspx#ollapseFive">Return Policies</a></li>
+                    <li><a href="/College/shop-zone.aspx#collapseSix">Cancellation Policy</a></li>
+                    <li><a href="/College/shop-zone.aspx#collapseEight">Wholesale Orders</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 ">
+          <ul class="list-unstyled categories">
+                    <h3 class="heading-md"><strong>Share Zone</strong></h3>
+                    <li><a href="/College/share-zone.aspx#collapseOne">About the SHARE Zone</a></li>
+                    <li><a href="/College/share-zone.aspx#collapseTwo">Share Zone Reward Points</a></li>
+                    <li><a href="/College/share-zone.aspx#collapseFour">What is Share & Earn？</a></li>
+                    <li><a href="/College/share-zone.aspx#collapseFive">How to Share a Purchase</a></li>
+                    <li><a href="/College/share-zone.aspx#collapseSix">Who else benefits from Sharing?</a></li>
+                    <li><a href="/College/share-zone.aspx#collapseSeven">Become an "Expert" Sharer</a></li>
+                    <li><a href="/College/share-zone.aspx#collapseEight">Share examples</a></li>
+                </ul>
+
+            </div>
+        </div>        
+        <!-- End comssion Job Content -->    
+
+  </div>
+  </div>
+</asp:Content>

@@ -1,0 +1,129 @@
+﻿$(function () {
+    $(".closeBtn").click(function () {
+        $(this).parents(".greybox").hide()
+    })
+
+});
+
+//加载验证码
+$(document).ready(function () {
+    // check if there is a reference email ( ?ref= )
+    // auto select friend if there is a reference email
+    var parm = location.search;
+    var refEmail = "";
+    if (parm != null && parm != "") {
+        var iPos = parm.indexOf("ref=");
+        if (iPos != -1) {
+            refEmail = parm.substring(iPos + 4, parm.length);
+        }
+    }
+    if (refEmail != "") {
+        $("#ddlway").val("-2");  // by friend
+        $("#firendDiv").show();
+        $("#txtReferrerEmail").val(refEmail);
+    }
+    CreateCode();
+});
+
+
+
+//注册事件
+function RegFuc() {
+    var Email = $("#txtEmail").val();
+    var LoginName = $("#txtLoginName").val();
+    var Pass = $("#txtPass").val();
+    var PassAgain = $("#txtPassAgain").val();
+    var Code = $("#ValiCode").val();
+
+    var tuijieEmail = $("#txtReferrerEmail").val();
+    var knowWay = $("#ddlway").val();
+    if (ValiInput(Email, LoginName, Pass, PassAgain, Code)) {
+        Apost(Email, LoginName, Pass, PassAgain,tuijieEmail,knowWay);
+    }
+}
+//注册请求
+function Apost(Email, LoginName, Pass, PassAgain,tuijieEmail,knowWay) {
+    $("#btnRegister").attr("disabled", "disabled");
+    $("#btnRegister").val("Working...");
+    var _data = 'Email=' + Email + "&LoginName=" + LoginName + "&Pass=" + Pass+"&TuiJieEmail="+tuijieEmail+"&KnowWay="+knowWay;
+    $.ajax({
+        type: "POST",
+        url: '../AjaxPages/registerAjax.aspx',
+        data: _data,
+        success: function (msg) {
+            if (msg == "1") {
+                $(".greybox").show();
+            }
+            else if (msg == "-1") {
+                alert("This E-mail address already regist, please try another one");
+                $("#btnRegister").removeAttr("disabled");
+                $("#btnRegister").val("Create Account");
+            }
+            else {
+                alert("Regist Failed, please try again later");
+                $("#btnRegister").removeAttr("disabled");
+                $("#btnRegister").val("Create Account");
+            }
+
+        },
+        error: function (msg) {
+            alert("Regist Failed, please try again later");
+            $("#btnRegister").removeAttr("disabled");
+            $("#btnRegister").val("Create Account");
+
+        }
+    });
+}
+
+
+//输入验证
+function ValiInput(Email, LoginName, Pass, PassAgain, code) {
+    if (!ValiEmail(Email)) {
+        $("#txtEmailTip").show();
+        return false;
+    }
+    if (LoginName == "") {
+        $("#txtLoginNameTip").show();
+        return false;
+    }
+    if (Pass == "") {
+        $("#txtPassTip").show();
+        return false;
+    }
+    if (Pass != PassAgain) {
+        $("#txtPassAgainTip").show();
+        return false;
+    }
+    if (code == "" || code.toUpperCase() != $("#code").text()) {
+        $("#txtCodeTip").show();
+        return false;
+    }
+    return true;
+}
+//生成验证码
+function CreateCode() {
+    var code = "";
+    var codeLength = 4; //验证码的长度  
+    //var checkCode = document.getElementById("code");
+    var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //随机数  
+    for (var i = 0; i < codeLength; i++) {//循环操作  
+        var index = Math.floor(Math.random() * 36); //取得随机数的索引（0~35）  
+        //alert(index);
+        code += random[index]; //根据索引取得随机数加到code上
+
+    }
+    //checkCode.innerText = code; //把code值赋给验证码
+    $("#code").html(code);
+    
+}
+
+//验证Email格式
+function ValiEmail(Email) {
+    var Regex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    if (Email == "" || !Regex.test(Email)) {
+        return false;
+    } else {
+        return true;
+    }
+}

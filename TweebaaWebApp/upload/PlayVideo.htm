@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+<!--flv,mp4视频播放器PlayerLite/代码开始-->
+<script type="text/javascript" src="Js/swfobject.js"></script>
+<div class="video" id="CuPlayer" style="margin:0 auto;">
+	</div>
+<script type="text/javascript">
+    var so = new SWFObject("PlayerLite.swf", "CuPlayerV4", "520", "325", "9", "#000000");
+    so.addParam("allowfullscreen", "true");
+    so.addParam("allowscriptaccess", "always");
+    so.addParam("wmode", "opaque");
+    so.addParam("quality", "high");
+    so.addParam("salign", "lt");
+    so.addVariable("videoDefault", "PlayVideo/Dream leg test video.mp4"); //视频文件地址
+    so.addVariable("autoHide", "true");
+    so.addVariable("hideType", "fade");
+    so.addVariable("autoStart", "false");
+    so.addVariable("holdImage", "start.jpg");
+    so.addVariable("startVol", "60");
+    so.addVariable("hideDelay", "60");
+    so.addVariable("bgAlpha", "75");
+    so.write("CuPlayer");
+</script>
+<!--网页flv,mp4视频播放器PlayerLite/代码结束-->
+</body>
+</html>

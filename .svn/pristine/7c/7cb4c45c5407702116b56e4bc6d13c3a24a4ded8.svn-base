@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProductCategory>
+  <category_1 category_guid="3ee6a6a4-933a-42ba-9c53-07f6aee27ed2" category_count="1385" category_name="Apparel &amp; Accessories">
+    <category_2 category_guid="01e4dc1e-63a1-49df-afc9-17ab326d3558" category_name="Bags &amp; Accessories">
+      <category_3 category_guid="17e9ddc4-1f38-4ce2-adaa-7afa61ac744d" category_name="Bags" />
+      <category_3 category_guid="97d9bb4f-12c7-4cbd-9832-21faa8d57d43" category_name="Men's Accessories" />
+      <category_3 category_guid="5d4b5a27-02b4-4975-ba31-48cffdf0e991" category_name="Unisex" />
+      <category_3 category_guid="14e8859e-ab2a-4cf7-ae74-e57019ec3165" category_name="Women's Accessories" />
+    </category_2>
+    <category_2 category_guid="284ae921-0f34-49a9-9721-22c8dfb20fc7" category_name="Clothing">
+      <category_3 category_guid="fe24707f-e6bf-4948-8554-619d9890229a" category_name="Children" />
+      <category_3 category_guid="376f72d5-4599-4827-9e09-b3b29e781113" category_name="Children" />
+      <category_3 category_guid="6fbc8f3f-433a-461f-8d22-6b9202decf3e" category_name="Men" />
+      <category_3 category_guid="9890747a-460b-445b-9026-89cd75c71974" category_name="Unisex" />
+      <category_3 category_guid="8f3e1273-e4b3-462b-9501-030af92dbd21" category_name="Women" />
+    </category_2>
+    <category_2 category_guid="73018ac3-a43e-4fb9-9b9f-c5caf3198b9d" category_name="Jewelry">
+      <category_3 category_guid="bd66ca19-f1b4-48cf-86ac-08ef6f12d076" category_name="Bracelets" />
+      <category_3 category_guid="a63583b4-b94a-4d85-b1e5-b7988f4ffe5b" category_name="Earrings" />
+      <category_3 category_guid="8fa11a95-533c-478a-b17b-6c1cb4ae7825" category_name="Jewelry sets" />
+      <category_3 category_guid="fa0bc39c-7e3b-4510-a1d1-13afa229da97" category_name="Necklaces" />
+      <category_3 category_guid="fda9809a-8eda-4832-bb6b-2d7f31b93edc" category_name="Rings" />
+    </category_2>
+    <category_2 category_guid="f20f08e6-71ce-4cc0-b151-b7fd172454d9" category_name="Shoes">
+      <category_3 category_guid="d887e16b-f62d-4fe7-bce6-97d5ecfcbeff" category_name="Children's Shoes" />
+      <category_3 category_guid="4a16bdc2-c0df-498f-bca8-1cd788caeeaa" category_name="Men's Shoes" />
+      <category_3 category_guid="eb228bdb-9a2b-410e-9373-679c46c113d6" category_name="Women's Shoes" />
+    </category_2>
+    <category_2 category_guid="34cf6bf8-b09c-41b4-a115-770397e3637f" category_name="Watches">
+      <category_3 category_guid="2089198e-d81e-4d3b-a6f2-812888d1025a" category_name="Men" />
+      <category_3 category_guid="0a1b5aa3-d454-440c-9305-e0dd82c841e2" category_name="Unisex" />
+      <category_3 category_guid="9af90afe-543a-408e-8ab7-e2313eb678c0" category_name="Women" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="b984bda6-a0a7-4cd2-9edd-6d1b33efc3ad" category_count="171" category_name="Arts, Crafts &amp; Party">
+    <category_2 category_guid="f621b98a-e1fe-4868-b962-a1ca7175ac68" category_name="Art Supplies">
+      <category_3 category_guid="ad1a7a88-2ffa-4310-b1a1-db5311ef538f" category_name="Art Supplies" />
+    </category_2>
+    <category_2 category_guid="728d834c-c17c-4563-992c-210ec326e39a" category_name="Costumes">
+      <category_3 category_guid="257a85d9-6e46-4e5c-bcb3-0876fa5ee409" category_name="Costumes" />
+    </category_2>
+    <category_2 category_guid="881c55bb-b481-4209-b7a6-b1d6fe06c974" category_name="Home Décor">
+      <category_3 category_guid="f2975a4c-3f44-4add-91dc-0173e2b85d09" category_name="Canvas Art Prints" />
+      <category_3 category_guid="ec67abd4-be4d-47e1-ac3b-f348fda47a7f" category_name="Handpainted Oil Painting" />
+    </category_2>
+    <category_2 category_guid="b6374ae3-3673-48e7-bf30-46fd383fd52c" category_name="Kids' Crafts">
+      <category_3 category_guid="6e3870d5-0c8e-492b-ae02-f95bb5c256f8" category_name="Kids' Crafts" />
+    </category_2>
+    <category_2 category_guid="025c6a4e-5df0-4363-b0a9-3e8c0b1043bb" category_name="Party Décor &amp; Favors">
+      <category_3 category_guid="ec5aa59f-8626-44e2-b776-39bcf9234e5f" category_name="Party Décor &amp; Favors" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="f5527740-ed0e-4f9b-b7b9-a8222e5ea31c" category_count="22" category_name="Automotive">
+    <category_2 category_guid="40766ea5-0759-4a32-95f5-2f05fc882117" category_name="Art Supplies">
+      <category_3 category_guid="a335b3fa-86c1-4bbb-af61-a30eeb7cd2dc" category_name="Art Supplies" />
+    </category_2>
+    <category_2 category_guid="ed6c9ca3-2830-4ee6-a567-1d4b30420a1f" category_name="Auto Repair &amp; Maintenance">
+      <category_3 category_guid="4686f1f1-e8e9-45d0-a6dd-afe3c7ac8503" category_name="Parts" />
+      <category_3 category_guid="0fd9ec91-e5d2-43d1-ac93-df7b2fae1320" category_name="Tools" />
+    </category_2>
+    <category_2 category_guid="de1da862-4828-49dd-a978-6274b173746f" category_name="Auto Safety &amp; Security">
+      <category_3 category_guid="38fc3d94-367f-4ca6-9279-f481dad580cb" category_name="Auto Safety" />
+      <category_3 category_guid="3e9b7906-ea75-4592-b231-6219ade0b5b5" category_name="Auto Security" />
+    </category_2>
+    <category_2 category_guid="c1a91d8d-dace-42ba-9c28-63a2ebe6eb2e" category_name="Car Detailing">
+      <category_3 category_guid="7e40b2c2-d18e-4dcb-87d7-7c888506c69d" category_name="Cleaning Accessories" />
+      <category_3 category_guid="c81047b1-4a42-4e91-bde9-e9f8c8361f8b" category_name="Cleaning Chemicals" />
+    </category_2>
+    <category_2 category_guid="26c3a2d9-3549-4b33-a1cd-997593479219" category_name="Exterior Accessories">
+      <category_3 category_guid="e0018a6c-2e10-4a4a-ae2e-715819c134f5" category_name="Cargo Management / Towing" />
+      <category_3 category_guid="17080555-e3a1-480c-8a54-bff9c62d428c" category_name="Exterior Décor" />
+      <category_3 category_guid="d2c674a7-ea84-47be-9f3e-c8420645746f" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="38158f8c-93b7-4f5d-b491-27e6953b8564" category_name="Interior Accessories">
+      <category_3 category_guid="48965d7b-c24b-4f72-937b-ef422c4ac6a1" category_name="Interior Décor" />
+      <category_3 category_guid="91986c4e-8197-4c8d-941e-1ff615cad609" category_name="Organization" />
+      <category_3 category_guid="c3e6560a-ad8e-491e-924b-afe1942776f1" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="bbf0d288-08f1-463e-898c-59a514fb714e" category_name="Kids' Crafts">
+      <category_3 category_guid="9bdbcaa6-695b-43d3-9133-6833b4cfdf32" category_name="Kids' Crafts" />
+    </category_2>
+    <category_2 category_guid="2074ccf3-21f5-44dc-907e-387bf1fa625b" category_name="Travel">
+      <category_3 category_guid="bdfb5061-688c-401b-a7bd-aed876cd0272" category_name="Travel" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="f66c02b2-3441-4d71-8328-5a5129e73d2a" category_count="38" category_name="Children/Infant">
+    <category_2 category_guid="d140722d-4681-45f4-9e87-3df99cac7d7e" category_name="Clothing">
+      <category_3 category_guid="bff16925-e66f-46c8-85af-d8e7e91cea5b" category_name="Children" />
+      <category_3 category_guid="c09807b2-fe3d-4fbd-9989-a4b840ae315f" category_name="Infant" />
+    </category_2>
+    <category_2 category_guid="aef05073-cdb2-4084-99a6-f093aaa4d53f" category_name="Gear">
+      <category_3 category_guid="b509b009-f70c-4b4f-9f97-f2c658db5ecd" category_name="Activities &amp; Toys" />
+      <category_3 category_guid="48293007-fd6c-49a5-9c25-b8c275744f9a" category_name="Equipment" />
+      <category_3 category_guid="d3a8338e-5811-41d9-8012-ff6cbc2356cf" category_name="Feeding" />
+      <category_3 category_guid="61b60fa7-072f-41b2-b31d-6c90bdd9a341" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="af18df2c-19ac-49c1-9f95-579f9a2dd364" category_name="Health &amp; Safety">
+      <category_3 category_guid="f3fbd1a6-54dc-4d78-a80c-fa31cfe78b88" category_name="Health &amp; Grooming" />
+      <category_3 category_guid="edea4d76-21f4-4843-94ac-ddecec1d22c0" category_name="Safety" />
+    </category_2>
+    <category_2 category_guid="29def37d-11ab-4df4-891c-d521e96d653d" category_name="Nursery">
+      <category_3 category_guid="bf2645be-3743-4f5f-b8d7-25169c2b052c" category_name="Décor" />
+      <category_3 category_guid="d432d686-ddf5-4210-9aa6-0f65f834147e" category_name="Furniture" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="7dee69e4-6103-4e16-a0cc-fb065473183d" category_count="57" category_name="Clean &amp; Organize">
+    <category_2 category_guid="c7d0cf80-f75d-4cd3-acc5-c789e61db3cf" category_name="Cleaning">
+      <category_3 category_guid="f8d2f7d3-ba3d-400c-a4d9-c979628dd1c8" category_name="Cleaning Chemicals" />
+      <category_3 category_guid="beebfe8d-f7ae-44c3-9180-9a303e8019fa" category_name="Cleaning Tools &amp; Accessories" />
+      <category_3 category_guid="51763369-db50-4738-97a1-09b38fccbfd9" category_name="Laundry" />
+    </category_2>
+    <category_2 category_guid="4ed8d81a-1466-4f40-a0e1-0c3bb24a8d5d" category_name="Organization">
+      <category_3 category_guid="56cf1e81-4234-48e9-9ddd-3b23b1e47d78" category_name="Garage Organization" />
+      <category_3 category_guid="2ab0eee9-510c-4975-8bfb-4f8a04efec22" category_name="Home Organization" />
+      <category_3 category_guid="2c0b81ad-60d9-41d3-8c9d-0b4093ffb992" category_name="Office Organization" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="1608ac1b-786a-4596-9dee-04fc45131332" category_count="400" category_name="Electronics">
+    <category_2 category_guid="1b58ebe9-ee81-49f8-ad74-4fa88a7c4349" category_name="Audio">
+      <category_3 category_guid="bfd9cf36-7be0-43f1-a6f8-73cfe7a86cee" category_name="Headphones" />
+      <category_3 category_guid="6434b626-27a6-4ffc-8246-efc4dd842860" category_name="Other" />
+      <category_3 category_guid="cb0479ae-c76e-4042-a2f9-9d532876c546" category_name="Speakers" />
+    </category_2>
+    <category_2 category_guid="fc8267c3-4887-4524-b945-3424e1e91aaa" category_name="Camera, Photo &amp; Video">
+      <category_3 category_guid="f3bb0027-4a0b-4219-9980-47abf9f8d972" category_name="Accessories" />
+      <category_3 category_guid="e67ebe0a-7cf4-428b-b604-151b0b580686" category_name="Bags &amp; Cases" />
+      <category_3 category_guid="9740fc49-00df-45b7-86ef-e66461af47be" category_name="Cameras" />
+      <category_3 category_guid="781bba5d-5ca6-432e-8712-e87bd8c0d100" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="263a6fbe-a5f3-49d9-b4c7-13bcce58c8c8" category_name="Cell Phone">
+      <category_3 category_guid="0895ceca-04e4-44b0-b062-68f34e842f4c" category_name="Cases" />
+      <category_3 category_guid="86559434-6cdd-459e-8284-b7d0cb2c3185" category_name="Chargers" />
+      <category_3 category_guid="4a3c491f-da00-45d0-ba6c-18f61a8353d5" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="76f8dc64-0ec6-407a-9c4c-c926327b3afc" category_name="Computer &amp; Tablet">
+      <category_3 category_guid="3d6f6b17-1965-442c-805f-2af349e77f9c" category_name="Accessories" />
+      <category_3 category_guid="284afdcb-afcf-4f01-b57f-acf93460c1a1" category_name="Cables" />
+      <category_3 category_guid="98d70ab2-e168-4575-b98f-3b032b3f1d97" category_name="Cases &amp; Bags" />
+      <category_3 category_guid="b5558b12-bf8f-4011-bab9-85f8a62ceeab" category_name="Chargers" />
+      <category_3 category_guid="acb64174-00cc-4849-b360-c501fb94c1bb" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="f21c5eb7-446c-4c50-94e0-0812a5aeb4b0" category_name="GPS &amp; Navigation">
+      <category_3 category_guid="7d58a3c7-446d-4078-a689-970250c8beaa" category_name="GPS &amp; Navigation" />
+    </category_2>
+    <category_2 category_guid="9f411de7-00cc-49ef-9195-c0fcdc57a737" category_name="Heating, Cooling and Air Purification">
+      <category_3 category_guid="ba5c37ff-d8bb-4a39-893b-10a79c85a3ce" category_name="Air Purifiers, Humidifiers, Other" />
+      <category_3 category_guid="8f8e492a-d0f9-4961-9177-235211439237" category_name="Fans and A/C devices" />
+      <category_3 category_guid="19840753-a8b5-48de-8bd6-4eb7f72f2e11" category_name="Heaters" />
+    </category_2>
+    <category_2 category_guid="ea1e4fa1-d07f-4e28-be56-aa8afbe3fa63" category_name="Other">
+      <category_3 category_guid="e6ecb540-3f43-4caf-9de9-6378d9e4f9b3" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="1bbc83be-c423-4bbd-bd37-40c5dcc96917" category_name="Small Kitchen Appliances">
+      <category_3 category_guid="b8b89edd-9ad1-418b-9077-d7daf5aa7940" category_name="Small Kitchen Appliances" />
+    </category_2>
+    <category_2 category_guid="9cc8fef7-2aea-4e55-8b83-065250c455bc" category_name="TV">
+      <category_3 category_guid="2e2aae18-5c7c-4029-949b-2bca2835ab8f" category_name="Accessories" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="4036d9bf-f178-45bb-94f0-1693923ae9b5" category_count="65" category_name="Garden &amp; Outdoor">
+    <category_2 category_guid="d0c8c627-2a3b-417b-a72e-9b0c992ae0a9" category_name="Gardening">
+      <category_3 category_guid="fb7fb824-2a82-4e38-b86a-27fde3230a68" category_name="Gardening Accessories" />
+      <category_3 category_guid="92ee8a2f-ca76-47aa-bb72-a511bca5e5e6" category_name="Gardening Tools" />
+      <category_3 category_guid="f567a3ad-b3c5-4039-a191-600f328ec88a" category_name="Other" />
+      <category_3 category_guid="847a75b4-3a64-4642-94f0-021b6a0051b1" category_name="Pots, Planters &amp; Accessories" />
+      <category_3 category_guid="39125406-f24a-4223-85d7-49717b378e8c" category_name="Wildlife" />
+    </category_2>
+    <category_2 category_guid="8441e5e8-b660-46a0-b976-e038beedaa4e" category_name="Grill / BBQ">
+      <category_3 category_guid="616d128f-fc6d-41b9-b50a-6b4f589968b5" category_name="Cleaning Products" />
+      <category_3 category_guid="cca82c5a-4cf5-47a5-a1f0-f057891c0f19" category_name="Grills &amp; Accessories" />
+    </category_2>
+    <category_2 category_guid="617a1170-24f1-43a5-b964-a00752195942" category_name="Landscaping">
+      <category_3 category_guid="0d6427a2-a682-4876-91e2-55f5aaa02faa" category_name="Lighting" />
+      <category_3 category_guid="1c1d03fd-5f9a-446e-a037-b4c3de84d131" category_name="Non-Power Tools" />
+      <category_3 category_guid="84bd05fc-b49e-4b06-a5f1-74bb79eb8d5a" category_name="Other" />
+      <category_3 category_guid="79151d10-5d6d-4620-805c-bf44735932c9" category_name="Patio Décor" />
+      <category_3 category_guid="99a7d236-fccf-4af0-a0b5-27b608d1b3e6" category_name="Power Tools" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="fdac6a4c-86d4-4dbb-857c-f52831f846b1" category_count="8" category_name="Green / Eco Products">
+    <category_2 category_guid="bb5071fe-01a2-4c2a-a1f0-09a34035391b" category_name="Indoors">
+      <category_3 category_guid="b832d2d6-d3b3-417d-9e86-3a9970b0475c" category_name="Indoors" />
+    </category_2>
+    <category_2 category_guid="8a2d3a59-2dac-4129-8efc-57e02391eeba" category_name="Outdoors">
+      <category_3 category_guid="9ad37b78-5ce7-433c-a251-861bc421391e" category_name="Outdoors" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="c781386b-dbd9-4257-9eb6-8d74ed61a9c1" category_count="57" category_name="Health &amp; Beauty">
+    <category_2 category_guid="ca6835a9-5c5e-428e-a485-f0e15ae965e4" category_name="Beauty">
+      <category_3 category_guid="f54aea93-d077-48e2-8e7b-db8aaaee2da9" category_name="Bath &amp; Body" />
+      <category_3 category_guid="48db3108-0ac4-494c-b837-e11b015cb4c3" category_name="Hair Care &amp; Accessories" />
+      <category_3 category_guid="0c26a801-b642-4490-a3c0-393337b0552c" category_name="Makeup &amp; Accessories" />
+      <category_3 category_guid="db299635-dc45-44aa-a370-9f0fde671491" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="5b133af0-2550-4afb-a8aa-a940407c7752" category_name="Health">
+      <category_3 category_guid="072a089d-9311-4678-96a0-622687a72727" category_name="Daily Living Aids &amp; Patient Care" />
+      <category_3 category_guid="99a2a322-a7fe-4d9f-bd14-f52b4399a287" category_name="First Aid" />
+      <category_3 category_guid="8af5ead7-4054-4eda-aaac-a1f6f4e67dbf" category_name="Health Other" />
+      <category_3 category_guid="b4ef150f-415b-4b15-90cc-81ed0184fae8" category_name="Therapeutic &amp; Massage" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="1382d416-6e2d-4708-8557-7f226edbdc13" category_count="1152" category_name="Household">
+    <category_2 category_guid="fb810dd4-e539-4819-bc80-f90d21f36d67" category_name="Bath">
+      <category_3 category_guid="006d8bd6-c562-47ae-9da8-343e1d5900ac" category_name="Other" />
+      <category_3 category_guid="063d218d-f3fe-4c28-b90e-8e32f2865e52" category_name="Storage &amp; Organization" />
+    </category_2>
+    <category_2 category_guid="a6a94373-471b-48e5-bbf9-74857eceba46" category_name="Décor">
+      <category_3 category_guid="d4f228a9-94b7-401a-8c42-7e0ae1fb44bd" category_name="Accessories" />
+      <category_3 category_guid="ce80b6b4-be18-45a9-a500-82f129ebf086" category_name="Bedding" />
+    </category_2>
+    <category_2 category_guid="9ab7213d-bc04-4714-9b15-b930330e4fce" category_name="Furniture">
+      <category_3 category_guid="a90db64a-45f1-439c-a278-f9ed8ca389a7" category_name="Furniture" />
+    </category_2>
+    <category_2 category_guid="e94f686c-0b6b-4378-b2cf-84e6c1df328a" category_name="Kitchen">
+      <category_3 category_guid="d952104e-d75c-49b4-972e-aded579ac676" category_name="Cookware &amp; Bakeware" />
+      <category_3 category_guid="0a3f346e-13b8-43b2-8007-01063a63e8b3" category_name="Gadgets" />
+      <category_3 category_guid="ad9d6d62-7d76-4b0c-b9e5-9d692353718c" category_name="Storage &amp; Organization" />
+      <category_3 category_guid="b8e188f3-c79a-4249-a3a3-9833dd35e0b3" category_name="Tabletop" />
+    </category_2>
+    <category_2 category_guid="7c5e0ec1-58ed-4da1-80d4-3d0cab8d36e3" category_name="Safety">
+      <category_3 category_guid="479810ff-37b9-48fe-9a2f-16430fa207c7" category_name="Safety" />
+    </category_2>
+    <category_2 category_guid="208c9f93-017b-4227-b99c-d0c7fa9b73d5" category_name="Small Appliances">
+      <category_3 category_guid="a2a99610-5da0-4e38-8c08-fd3cbd71f79c" category_name="Small Appliances" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="1e12e85a-f86c-4243-8446-c5f33b19e454" category_count="86" category_name="Office &amp; Stationery">
+    <category_2 category_guid="09748b2b-042d-49fa-ab6a-21067de8a7bb" category_name="Office">
+      <category_3 category_guid="2cf3614e-fd39-4527-a294-1e708760e9a4" category_name="Desk Accessories" />
+      <category_3 category_guid="6652d514-17d7-4f4e-9152-03a9e03abf0b" category_name="Equipment" />
+      <category_3 category_guid="0673bf6d-9f72-4386-8fd7-b78debb08708" category_name="General Office Supplies" />
+    </category_2>
+    <category_2 category_guid="e4f1d50b-9291-4c17-8bc1-8a1ce506441f" category_name="Stationery">
+      <category_3 category_guid="5623760e-e3ad-4db1-b7b8-bbf4c6b671af" category_name="Books &amp; Other Media" />
+      <category_3 category_guid="ea883848-8fa0-414b-9af5-8389f698f604" category_name="Paper Products" />
+      <category_3 category_guid="8ae9e164-9317-4491-a44a-1dcaeb5a043f" category_name="Writing Tools" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="1f728092-0771-431d-81b2-a9b7d3dde7fe" category_count="340" category_name="Pets">
+    <category_2 category_guid="655b80e4-d360-4d23-9bc5-45b24f21160a" category_name="Birds">
+      <category_3 category_guid="2fe1eb51-6aa0-4ae7-a70b-1c3b94f1d42f" category_name="Accessories" />
+      <category_3 category_guid="f00bbac6-dafa-46fa-9a02-d6ee5657dfea" category_name="Supplies" />
+    </category_2>
+    <category_2 category_guid="2dc5ce4d-9e99-4a26-b8fe-777c76f07ba7" category_name="Cat">
+      <category_3 category_guid="ae0fb0ac-e090-4bd0-b0a7-de504944aa7f" category_name="Collars, Leashes, Clothing" />
+      <category_3 category_guid="fbcff3ab-bec6-418e-9462-f4a518d6ed6d" category_name="Health &amp; Grooming" />
+      <category_3 category_guid="74cc5c77-58b9-44c3-b8fe-20c2d2d3f7c0" category_name="Other" />
+      <category_3 category_guid="3790cdd3-d822-4062-bfe4-e1cb37c62782" category_name="Toys" />
+    </category_2>
+    <category_2 category_guid="6d95bad1-706b-4fd9-b579-a740e7d3f246" category_name="Dog">
+      <category_3 category_guid="f03c9106-9429-4845-baba-308df2e4339f" category_name="Collars, Leashes, Clothing" />
+      <category_3 category_guid="d1c6762d-7561-418d-a9ef-49308a2dfb71" category_name="Health &amp; Grooming" />
+      <category_3 category_guid="9ebaa891-3802-4f83-bf96-93e78d1f1870" category_name="Other" />
+      <category_3 category_guid="ea6db909-1627-45ec-b874-6f4e9e1efbc4" category_name="Toys" />
+    </category_2>
+    <category_2 category_guid="a7b0b752-2ba6-47b6-948d-96d01be63afa" category_name="Fish &amp; Reptile">
+      <category_3 category_guid="da2449e3-f75f-41b6-b541-cb4916b93fe9" category_name="Accessories" />
+      <category_3 category_guid="ad3d94be-2c10-442d-b3e7-f4101ca3a74e" category_name="Supplies" />
+    </category_2>
+    <category_2 category_guid="4eab5477-3116-47ae-9a86-5f87609ea400" category_name="Other Critters">
+      <category_3 category_guid="ce64fc02-c0a2-4ff0-b0e3-de52cebdc2b6" category_name="Accessories" />
+      <category_3 category_guid="6217d325-085b-4eb9-bd1f-a3f8a1e7aa96" category_name="Supplies" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="ea786ce8-9664-48cc-a22d-b1bb5957f0e2" category_count="165" category_name="Sports &amp; Leisure">
+    <category_2 category_guid="dd7a148c-7733-4802-beb9-adac42ae21a8" category_name="Camping">
+      <category_3 category_guid="8bdf3bb3-4b68-4369-9136-670fb576e220" category_name="Equipment" />
+      <category_3 category_guid="50cbe500-ae94-4731-9307-673d21af748a" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="ba553e4d-4617-4c17-a8d0-9d7004d0633c" category_name="Hunting">
+      <category_3 category_guid="06f0451e-c752-410f-acfa-3c6dcd4dcefa" category_name="Apparel" />
+      <category_3 category_guid="c16cd882-91b2-4ac9-bfbf-f40dc60dd1f7" category_name="Equipment" />
+      <category_3 category_guid="034c5b59-48c0-4f1e-b509-a454951c429e" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="6fa06824-5e1f-42d8-88d9-a2e2d46931bc" category_name="Leisure">
+      <category_3 category_guid="383575f6-4ad2-4d04-8508-fab1d941a0df" category_name="Beach Products" />
+      <category_3 category_guid="da0fba7e-79c3-486d-8618-342001a22d02" category_name="Other" />
+      <category_3 category_guid="d826a37f-9301-42d3-9551-0635dfaca72c" category_name="Outdoor Toys &amp; Games" />
+    </category_2>
+    <category_2 category_guid="aec694b1-d146-437a-b177-f7dfb29ed7e7" category_name="Sports">
+      <category_3 category_guid="2b8b767e-0c27-49f3-af4e-643c8259ef14" category_name="Cycling" />
+      <category_3 category_guid="ef3595c8-96be-4695-809d-dd0cec72d88b" category_name="Exercise &amp; Fitness" />
+      <category_3 category_guid="431f1b6e-b6ed-4120-81b2-68e926886b0a" category_name="Other Sports" />
+      <category_3 category_guid="4bfe9927-fa4f-4343-a619-6ee830814a7d" category_name="Watersports" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="5d01eb4d-7e33-4381-b993-45988262cb92" category_count="50" category_name="Tools &amp; Hardware">
+    <category_2 category_guid="1f81d03b-187a-4071-93f5-04a98cdef9aa" category_name="Electrical">
+      <category_3 category_guid="53ff3a5c-faa7-4615-8834-2f621487ee66" category_name="Power Accessories" />
+      <category_3 category_guid="9f536ac8-4c99-4d47-be16-d9b06b9dcf95" category_name="Switches, Plates, Accessories" />
+    </category_2>
+    <category_2 category_guid="05b08587-7295-44b6-ad0e-0da0c53bad2f" category_name="For Professionals">
+      <category_3 category_guid="f94c76fa-34ac-4a26-9c2b-1c747217b95d" category_name="Building Materials &amp; Accessories" />
+      <category_3 category_guid="9804990b-3714-4b2a-bc34-bc583b21f90b" category_name="Tools for Tradesmen" />
+    </category_2>
+    <category_2 category_guid="891cc4c3-f0d3-41b5-a37f-78b962c7fd49" category_name="Hardware">
+      <category_3 category_guid="1e89d279-765d-4806-9735-6e588b762e7f" category_name="Hooks, Hangers, Wall Repair" />
+      <category_3 category_guid="6f86c0f9-71b9-4209-a76f-6bae99ec1fa6" category_name="Other" />
+    </category_2>
+    <category_2 category_guid="c9ec512e-881d-4f4e-89cf-0e51038b03d6" category_name="Household Tools">
+      <category_3 category_guid="95084d4d-d6ae-43c4-ac27-b2e77c536925" category_name="Hand Tools" />
+      <category_3 category_guid="0750bc8e-a974-4474-bab6-6c832610405f" category_name="Other" />
+      <category_3 category_guid="7bbdd5d0-3458-4e57-bc2c-8c35e3e3d2b4" category_name="Paint Tools &amp; Accessories" />
+      <category_3 category_guid="8e2d6c92-a3b4-4aa0-acba-0e8bbc0bc8b1" category_name="Power Tools" />
+    </category_2>
+  </category_1>
+  <category_1 category_guid="c9590d3c-f179-413a-ac5b-24db7eeb2a1a" category_count="81" category_name="Toys">
+    <category_2 category_guid="f28aca23-758a-4966-aa46-e796a8b7a8e2" category_name="Educational Toys">
+      <category_3 category_guid="2c94035e-2f8c-45f5-ad4e-06e5550851af" category_name="All Ages" />
+      <category_3 category_guid="d8d31bd8-a1a9-42a4-8f7c-96003e7fe4a1" category_name="Kids" />
+    </category_2>
+    <category_2 category_guid="134cc7d2-40a9-4b97-92cb-2824a8ea0523" category_name="Games">
+      <category_3 category_guid="6e48d9c9-7a53-46ed-aab6-96013ab86723" category_name="All Ages" />
+      <category_3 category_guid="a29b8353-ea79-4c9c-affe-5b37eb83720a" category_name="Kids" />
+    </category_2>
+    <category_2 category_guid="35aa4b37-dc98-4e78-8956-faf12607f1be" category_name="Outdoor Toys">
+      <category_3 category_guid="9c8baf9c-2630-437b-8b46-1b75d952fc60" category_name="All Ages" />
+      <category_3 category_guid="34132ebb-cd4b-4c1a-8c18-fccc1f34eea0" category_name="Kids" />
+    </category_2>
+  </category_1>
+</ProductCategory>

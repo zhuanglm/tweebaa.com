@@ -1,0 +1,745 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using log4net;
+using Twee.DataMgr;
+using System.Reflection;
+using System.Data;
+using Twee.Comm;
+using System.Data.SqlClient;
+using Twee.Model;
+
+
+namespace Twee.Mgr
+{
+    public class UserMgr
+    {
+        ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        UserDataMgr mgr = new UserDataMgr();
+
+        #region  BasicMethod
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool Exists(Guid guid, string email)
+        {
+            return mgr.Exists(guid, email);
+        }
+        //Add by Long for Social Media user check
+        public DataTable GetUserInfo4SNSLogin(string email)
+        {
+            return mgr.GetUserInfo4SNSLogin(email);
+        }
+        public bool ExistsBySNSLogin(string email, string SNS)
+        {
+            return mgr.ExistsBySNSLogin(email, SNS);
+        }
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public bool Add(Twee.Model.User model)
+        {
+            return mgr.Add(model);
+        }
+
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public bool Update(Twee.Model.User model)
+        {
+            return mgr.Update(model);
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(Guid guid, string email)
+        {
+
+            return mgr.Delete(guid, email);
+        }
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(Guid guid)
+        {
+            return mgr.Delete(guid);
+        }
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Twee.Model.User GetModel(Guid guid, string email)
+        {
+
+            return mgr.GetModel(guid, email);
+        }
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Twee.Model.User GetModel(Guid guid)
+        {
+
+            return mgr.GetModel(guid);
+        }
+
+        /// <summary>
+        /// 得到一个对象实体，从缓存中
+        /// </summary>
+        public Twee.Model.User GetModelByCache(Guid guid, string email)
+        {
+
+            string CacheKey = "wn_userModel-" + guid + email;
+            object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
+            if (objModel == null)
+            {
+                try
+                {
+                    objModel = mgr.GetModel(guid, email);
+                    if (objModel != null)
+                    {
+                        int ModelCache = Maticsoft.Common.ConfigHelper.GetConfigInt("ModelCache");
+                        Maticsoft.Common.DataCache.SetCache(CacheKey, objModel, DateTime.Now.AddMinutes(ModelCache), TimeSpan.Zero);
+                    }
+                }
+                catch { }
+            }
+            return (Twee.Model.User)objModel;
+        }
+
+        public string CheckCustomShippingFee(string prdGuid, string address, string sCity, string sState, string sCountry, string sZip)
+        {
+
+            return mgr.CheckCustomShippingFee(prdGuid, address, sCity, sState, sCountry, sZip);
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList(string strWhere)
+        {
+            return mgr.GetList(strWhere);
+        }
+        /// <summary>
+        /// 获得前几行数据
+        /// </summary>
+        public DataSet GetList(int Top, string strWhere, string filedOrder)
+        {
+            return mgr.GetList(Top, strWhere, filedOrder);
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public List<Twee.Model.User> GetModelList(string strWhere)
+        {
+            DataSet ds = mgr.GetList(strWhere);
+            return DataTableToList(ds.Tables[0]);
+        }
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public List<Twee.Model.User> DataTableToList(DataTable dt)
+        {
+            List<Twee.Model.User> modelList = new List<Twee.Model.User>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                Twee.Model.User model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = mgr.DataRowToModel(dt.Rows[n]);
+                    if (model != null)
+                    {
+                        modelList.Add(model);
+                    }
+                }
+            }
+            return modelList;
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetAllList()
+        {
+            return GetList("");
+        }
+
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public int GetRecordCount(string strWhere)
+        {
+            return mgr.GetRecordCount(strWhere);
+        }
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public DataSet GetListByPage(string strWhere, string orderby, int startIndex, int endIndex)
+        {
+            return mgr.GetListByPage(strWhere, orderby, startIndex, endIndex);
+        }
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        //public DataSet GetList(int PageSize,int PageIndex,string strWhere)
+        //{
+        //return mgr.GetList(PageSize,PageIndex,strWhere);
+        //}
+
+        public List<Job> GetJobList()
+        {
+            return mgr.GetJobList();
+        }
+
+        #endregion  BasicMethod
+
+        #region  ExtensionMethod
+
+        /// <summary>
+        /// 根据邮箱或手机查询是否存在该记录
+        /// </summary>
+        public bool Exists(string emailorphone)
+        {
+            return mgr.Exists(emailorphone);
+        }
+        /// <summary>
+        /// 根据用户数据库ID查询是否已经登录
+        /// </summary>
+        public bool IsLogionByID(string guid, string pwd, out User user)
+        {
+            return mgr.IsLogionByID(guid, pwd, out user);
+        }
+        /// <summary>
+        /// 根据用户数据库ID查询是否存在该记录
+        /// </summary>
+        public bool ExistsByID(string guid)
+        {
+            return mgr.ExistsByID(guid);
+        }
+        /// <summary>
+        /// 用户注册
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="strNameEmailTel"></param>
+        /// <param name="strPass"></param>
+        /// <returns></returns>
+        public string RegUser(string userName, string strNameEmailTel, string phone, string strPass,int countryId,int? knowwayid,string tuijieEmail, bool consent)
+        {
+            string intRes = "-100";//默认错误
+            string strLoginGuid = "";
+            //string sYzm = HttpContext.Current.Session["checkcode"] as string;                    
+
+            int Strength = (int)PasswordHelper.PasswordStrength(strPass);
+            strPass = PasswordHelper.ToUpMd5(strPass);
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.strConn))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Prc_User_Reg2]", conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter[] parameters = new SqlParameter[] { 
+                                new SqlParameter("@wnstat",SqlDbType.Int),
+                                new SqlParameter("@guid", SqlDbType.UniqueIdentifier),
+                                new SqlParameter("@email",CommHelper.GetString( strNameEmailTel,true)),
+                                new SqlParameter("@phone",phone),                               
+                                new SqlParameter("@strPass", CommHelper.GetString(strPass,true)),
+                                new SqlParameter("@Strength", Strength),
+                                new SqlParameter("@userName",SqlDbType.NVarChar,50),
+                                new SqlParameter("@countryId",SqlDbType.Int),
+                                new SqlParameter("@knowwayid",SqlDbType.Int),
+                                new SqlParameter("@tuijieEmail",SqlDbType.NVarChar),
+                                new SqlParameter("@consenttime",SqlDbType.DateTime),
+                            };
+                        parameters[0].Direction = ParameterDirection.Output;
+                        parameters[1].Direction = ParameterDirection.Output;
+                        parameters[6].Value = userName;
+                        parameters[7].Value = countryId;
+                        parameters[8].Value = knowwayid;
+                        parameters[9].Value = tuijieEmail;
+                        if (consent) parameters[10].Value = DateTime.Now;
+                        else parameters[10].Value = DBNull.Value;
+                        foreach (SqlParameter parameter in parameters)
+                        {
+                            cmd.Parameters.Add(parameter);
+                        }
+                        cmd.ExecuteNonQuery();                        
+                        intRes = parameters[0].Value.ToString(); //返回值:1成功，-1已存在
+                        strLoginGuid = parameters[1].Value.ToString();
+                        if (intRes=="1")
+                        {
+                            Mailhelper.SendRegEmail(strNameEmailTel, strLoginGuid,userName);                            
+                            System.Collections.ArrayList a = new System.Collections.ArrayList();
+                            a = MessageHelper.ReadHtmlFile("userActivation.htm", new string[2] { "#useremail#," + "", "#activeurl#," + "" +"#username#,"+userName});
+                            MessageHelper.AddMesage(a[0].ToString(), a[1].ToString(), strLoginGuid, strLoginGuid);                            
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        CommHelper.WrtLog(ex.Message);
+                        intRes = "-97";//代码级错误
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            string s = "{it:'" + intRes + "',strLoginGuid:'" + strLoginGuid + "'}";            
+            return s;
+        }
+
+        public string SNSRegUser(string userName, string strNameEmailTel, string phone, string strPass, int countryId, int? knowwayid, string tuijieEmail, bool consent)
+        {
+            string intRes = "-100";//默认错误
+            string strLoginGuid = "";
+            //string sYzm = HttpContext.Current.Session["checkcode"] as string;                    
+
+            int Strength = (int)PasswordHelper.PasswordStrength(strPass);
+            strPass = PasswordHelper.ToUpMd5(strPass);
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.strConn))
+            {
+                using (SqlCommand cmd = new SqlCommand("[spMobileAppRegister]", conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter[] parameters = new SqlParameter[] { 
+                                new SqlParameter("@wnstat",SqlDbType.Int),
+                                new SqlParameter("@guid", SqlDbType.UniqueIdentifier),
+                                new SqlParameter("@email",CommHelper.GetString( strNameEmailTel,true)),
+                                new SqlParameter("@phone",phone),                               
+                                new SqlParameter("@strPass", CommHelper.GetString(strPass,true)),
+                                new SqlParameter("@Strength", Strength),
+                                new SqlParameter("@userName",SqlDbType.NVarChar,50),
+                                new SqlParameter("@countryId",SqlDbType.Int),
+                                new SqlParameter("@knowwayid",SqlDbType.Int),
+                                new SqlParameter("@tuijieEmail",SqlDbType.NVarChar),
+                                new SqlParameter("@consenttime",SqlDbType.DateTime),
+                            };
+                        parameters[0].Direction = ParameterDirection.Output;
+                        parameters[1].Direction = ParameterDirection.Output;
+                        parameters[6].Value = userName;
+                        parameters[7].Value = countryId;
+                        parameters[8].Value = knowwayid;
+                        parameters[9].Value = tuijieEmail;
+                        if (consent) parameters[10].Value = DateTime.Now;
+                        else parameters[10].Value = DBNull.Value;
+                        foreach (SqlParameter parameter in parameters)
+                        {
+                            cmd.Parameters.Add(parameter);
+                        }
+                        cmd.ExecuteNonQuery();
+                        intRes = parameters[0].Value.ToString(); //返回值:1成功，-1已存在
+                        strLoginGuid = parameters[1].Value.ToString();
+                        //SNS 用户绑定，不用发送邮件
+                        /*
+                        if (intRes == "1")
+                        {
+                            Mailhelper.SendRegEmail(strNameEmailTel, strLoginGuid, userName);
+                            System.Collections.ArrayList a = new System.Collections.ArrayList();
+                            a = MessageHelper.ReadHtmlFile("userActivation.htm", new string[2] { "#useremail#," + "", "#activeurl#," + "" + "#username#," + userName });
+                            MessageHelper.AddMesage(a[0].ToString(), a[1].ToString(), strLoginGuid, strLoginGuid);
+                        }*/
+                    }
+                    catch (Exception ex)
+                    {
+                        CommHelper.WrtLog(ex.Message);
+                        intRes = "-97";//代码级错误
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            string s = "{it:'" + intRes + "',strLoginGuid:'" + strLoginGuid + "'}";
+            return s;
+        }
+        public string RegUserNoActivation(string userName, string strNameEmailTel, string phone, string strPass, int countryId, int? knowwayid, string tuijieEmail, bool consent)
+        {
+            string intRes = "-100";//默认错误
+            string strLoginGuid = "";
+            //string sYzm = HttpContext.Current.Session["checkcode"] as string;                    
+
+            int Strength = (int)PasswordHelper.PasswordStrength(strPass);
+            strPass = PasswordHelper.ToUpMd5(strPass);
+            using (SqlConnection conn = new SqlConnection(DbHelperSQL.strConn))
+            {
+                using (SqlCommand cmd = new SqlCommand("[spMobileAppCreateUser]", conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter[] parameters = new SqlParameter[] { 
+                                new SqlParameter("@wnstat",SqlDbType.Int),
+                                new SqlParameter("@guid", SqlDbType.UniqueIdentifier),
+                                new SqlParameter("@email",CommHelper.GetString( strNameEmailTel,true)),
+                                new SqlParameter("@phone",phone),                               
+                                new SqlParameter("@strPass", CommHelper.GetString(strPass,true)),
+                                new SqlParameter("@Strength", Strength),
+                                new SqlParameter("@userName",SqlDbType.NVarChar,50),
+                                new SqlParameter("@countryId",SqlDbType.Int),
+                                new SqlParameter("@knowwayid",SqlDbType.Int),
+                                new SqlParameter("@tuijieEmail",SqlDbType.NVarChar),
+                                new SqlParameter("@consenttime",SqlDbType.DateTime),
+                            };
+                        parameters[0].Direction = ParameterDirection.Output;
+                        parameters[1].Direction = ParameterDirection.Output;
+                        parameters[6].Value = userName;
+                        parameters[7].Value = countryId;
+                        parameters[8].Value = knowwayid;
+                        parameters[9].Value = tuijieEmail;
+                        if (consent) parameters[10].Value = DateTime.Now;
+                        else parameters[10].Value = DBNull.Value;
+                        foreach (SqlParameter parameter in parameters)
+                        {
+                            cmd.Parameters.Add(parameter);
+                        }
+                        cmd.ExecuteNonQuery();
+                        intRes = parameters[0].Value.ToString(); //返回值:1成功，-1已存在
+                        strLoginGuid = parameters[1].Value.ToString();
+                        if (intRes == "1")
+                        {
+                            Mailhelper.SendRegEmail(strNameEmailTel, strLoginGuid, userName);
+                            System.Collections.ArrayList a = new System.Collections.ArrayList();
+                            a = MessageHelper.ReadHtmlFile("userActivation.htm", new string[2] { "#useremail#," + "", "#activeurl#," + "" + "#username#," + userName });
+                            MessageHelper.AddMesage(a[0].ToString(), a[1].ToString(), strLoginGuid, strLoginGuid);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        CommHelper.WrtLog(ex.Message);
+                        intRes = "-97";//代码级错误
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            string s = "{it:'" + intRes + "',strLoginGuid:'" + strLoginGuid + "'}";
+            return s;
+        }
+        /// <summary>
+        /// 修改账户状态，用于用户激活、锁定、正常
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public bool UpdateState(int state, Guid guid)
+        {
+            return mgr.UpdateState(state, guid);
+        }
+        public bool UpdateState(int state, Guid guid, out Twee.Model.User user)
+        {
+            return mgr.UpdateState(state, guid, out user);
+        }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public bool UpdatePwd(string email, string pwd)
+        {
+            try
+            {
+                email.ThrowError("邮箱不能为空");
+                pwd.ThrowError("密码不能为空");
+                return mgr.UpdatePwd(email, CommHelper.GetString(pwd, true));
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+
+        }
+
+        /// <summary>
+        /// 通过用户数据库ID重置密码
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public bool UpdatePwdByID(string guid, string newPwd)
+        {
+            return mgr.UpdatePwdByID(guid, newPwd);
+        }
+
+        /// <summary>
+        /// 通过邮箱或电话重置密码
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public bool UpdatePwd(string emailorphone, string pwd, string type)
+        {
+            return mgr.UpdatePwd(emailorphone, pwd, type);
+        }
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public string UserLogin(string email, string pwd)
+        {
+            try
+            {
+                return mgr.UserLogin(email, pwd);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// get user guid by email and password
+        /// </summary>     
+        /// <param name="email">邮箱</param>
+        /// <param name="password">密码</param>
+        /// <returns></returns>
+        public string GetUserGuid(string sEmail, string sPassword)
+        {
+            return mgr.GetUserGuid(sEmail, sPassword);
+        }
+        /// <summary>
+        /// 验证用户登录
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public bool CheckLogion(Guid userguid, string pwd)
+        {
+            try
+            {
+                return mgr.CheckLogion(userguid, pwd);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 根据用户ID获取用户名称        
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public string GetUserNameByID(string guid)
+        {
+            return mgr.GetUserNameByID(guid);
+        }
+
+        /// <summary>
+        /// 更改头像
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <param name="headimg"></param>
+        /// <returns></returns>
+        public bool UpdateHeadImg(string guid, string headimg)
+        {
+            return mgr.UpdateHeadImg(guid, headimg);
+        }
+
+        /// <summary>
+        /// 更改邮箱
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public bool UpdateEmail(string guid, string email)
+        {
+            return mgr.UpdateEmail(guid, email);
+        }
+        #endregion  ExtensionMethod
+
+
+
+        #region 后台方法
+
+        /// <summary>
+        /// 是否存在该用户
+        /// </summary>
+        public bool MgeExists(string username)
+        {
+            try
+            {
+                return mgr.MgeExists(username);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public bool MgeAdd()
+        {
+            //StringBuilder strSql = new StringBuilder();
+            //strSql.Append("insert into wn_user(");
+            //strSql.Append("guid)");
+            //strSql.Append(" values (");
+            //strSql.Append("@guid)");
+            //SqlParameter[] parameters = {
+            //            new SqlParameter("@guid", SqlDbType.UniqueIdentifier,16)};
+            //parameters[0].Value = Guid.NewGuid();
+
+            //int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            //if (rows > 0)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+            return true;
+        }
+        /// <summary>
+        /// 更改用户状态
+        /// </summary>
+        public bool MgeUpdate(int state, string name, string phone, DateTime birth, string pwd, Guid guid)
+        {
+            try
+            {
+                return mgr.MgeUpdate(state, name, phone, birth, pwd, guid);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool MgeDelete(Guid guid)
+        {
+            try
+            {
+                return mgr.MgeDelete(guid);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+        }
+        /// <summary>
+        /// 批量删除数据
+        /// </summary>
+        public bool MgeDeleteList(string guidlist)
+        {
+            try
+            {
+                return mgr.MgeDeleteList(guidlist);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataTable MgeGetList(string strWhere)
+        {
+            try
+            {
+                return mgr.MgeGetList(strWhere);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+        }
+
+        public string GetCountryCode(string UserGuid)
+        {
+            return mgr.GetCountryCode(UserGuid);
+        }
+        /// <summary>
+        /// 获取记录总数
+        /// </summary>
+        public int MgeGetRecordCount(string strWhere)
+        {
+            try
+            {
+                return mgr.MgeGetRecordCount(strWhere);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+        }
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public DataTable MgeGetListByPage(string strWhere1, string strWhere2, string orderby, int startIndex, int endIndex)
+        {
+            try
+            {
+                return mgr.MgeGetListByPage(strWhere1, strWhere2, orderby, startIndex, endIndex);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw;
+            }
+
+        }
+
+        /// <summary>
+        /// 根据邮箱查询是否存在该记录
+        /// </summary>
+        public bool ExistsByEmail(string email)
+        {
+            return mgr.ExistsByEmail(email);
+        }
+
+        /// <summary>
+        /// 根据用户名查询是否存在该记录
+        /// </summary>
+        public bool ExistsByUserName(string userName)
+        {
+            return mgr.ExistsByUserName(userName);
+        }
+
+        /// <summary>
+        /// get user daily register count
+        /// </summary>
+        public DataTable MgeGetUserDailyRegisterCount()
+        {
+            return mgr.MgeGetUserDailyRegisterCount();
+        }
+   
+        /// <summary>
+        /// get activated user daily count
+        /// </summary>
+        public DataTable MgeGetActivatedUserDailyRegisterCount()
+        {
+            return mgr.MgeGetActivatedUserDailyRegisterCount();
+        }
+
+        #endregion
+    }
+}

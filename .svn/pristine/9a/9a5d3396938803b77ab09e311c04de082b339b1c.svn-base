@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Twee.Model
+{
+	/// <summary>
+	/// adminstrator:实体类(属性说明自动提取数据库字段的描述信息)
+	/// </summary>
+	[Serializable]
+	public partial class AdminstratorDoNotUsed   // do not user this class 2015/12/28 by Jack Cao
+	{
+        public AdminstratorDoNotUsed()
+		{}
+		#region Model
+		private Guid _guid;
+		private string _loginno;
+		private string _pass;
+		private int? _wnstat;
+        private int? _role;
+        private DateTime? _createtime;
+
+        public DateTime? createtime
+        {
+            set { _createtime = value; }
+            get { return _createtime; }
+        }
+		/// <summary>
+		/// 
+		/// </summary>
+		public Guid guid
+		{
+			set{ _guid=value;}
+			get{return _guid;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string loginNo
+		{
+			set{ _loginno=value;}
+			get{return _loginno;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string pass
+		{
+			set{ _pass=value;}
+			get{return _pass;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public int? wnstat
+		{
+			set{ _wnstat=value;}
+			get{return _wnstat;}
+		}
+
+        public int? role
+        {
+            set { _role = value; }
+            get { return _role; }
+        }
+		#endregion Model
+
+	}
+}
+

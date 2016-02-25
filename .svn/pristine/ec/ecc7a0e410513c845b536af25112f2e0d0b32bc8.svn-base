@@ -1,0 +1,428 @@
+﻿function SharePrd(id, name, img, page, desc, saleprice) {
+   // name = unescape(name);
+    var cur_url = window.location.href.toLowerCase();
+
+    name = unescape(name);
+    var tip = true;
+    var userid = $("#hiduserid").val();
+    var persent = $("#hidpersent").val();
+    if (persent == undefined || persent == NaN) {
+        $("#sharePercent").html("");
+    } else {
+        if (persent != "") {
+            var getP = saleprice * persent;
+            if (getP > 0) {
+                $("#sharePercent").html("$" + getP);
+            } else {
+                $("#sharePercent").html("");
+            }
+        } else {
+            $("#sharePercent").html("");
+        }
+    }
+    //SetShareLink(id, name, img, page, desc, product_short_desc)
+    if (SetShareLink(id, name, img, page, desc, saleprice) == true) {
+        /*
+        $("#share-tck2").parents(".greybox").show()
+        $("#share-tck2").animate({ top: "2%" }, 300)*/
+        $("#dialogShare").modal("show");
+    }
+}
+
+function SharePrd_ShortDesc(id, name, img, page, desc, product_short_desc, saleprice) {
+    // name = unescape(name);
+    var cur_url = window.location.href.toLowerCase();
+
+    name = unescape(name);
+    var tip = true;
+    var userid = $("#hiduserid").val();
+    var persent = $("#hidpersent").val();
+    if (persent == undefined || persent == NaN) {
+        $("#sharePercent").html("");
+    } else {
+        if (persent != "") {
+            var getP = saleprice * persent;
+            $("#sharePercent").html("$" + getP);
+        } else {
+            $("#sharePercent").html("$0");
+        }
+    }
+    //SetShareLink(id, name, img, page, desc, product_short_desc)
+    if (SetShareLink(id, name, img, page, desc, product_short_desc) == true) {
+        /*
+        $("#share-tck2").parents(".greybox").show()
+        $("#share-tck2").animate({ top: "2%" }, 300)*/
+        $("#dialogShare").modal("show");
+    }
+}
+
+function CloseShareDialog() {
+    $("#dialogShare").modal("hide");
+}
+function CheckUserLogin() {
+
+    var isUserLogin = false;
+    // check if user is login or not\
+    var _data = "{ action:'queryuserlogin'}";
+    $.ajax({
+        type: "POST",
+        url: '/AjaxPages/shareAjax.aspx',
+        async: false,
+        data: _data,
+        dataType: "text",
+        success: function (record) {
+            //alert(record);
+            if (record == "1") isUserLogin = true;
+        }
+    });
+    return isUserLogin;
+    //jctest
+    //return false;
+}
+
+
+
+function ReplaceHtmlTags(html, s) {
+    //return jQuery('<p>' + s + '</p>').text();
+    var regex = /(<([^>]+)>)/ig 
+    var result = html.replace(regex, s);
+    return result;
+}
+
+
+//分享接口
+function SaveShareUrl2DB(type, prdid, prdname, prdimg, page, desc) {
+
+    // replace each html tags by a space
+    desc = ReplaceHtmlTags(desc, " ");
+
+    var shareUrl = "";
+    var host = "https://tweebaa.com"; // modify by Long at 2016/01/08 as http redirect back has problem  window.location.host;
+    var title = encodeURIComponent(prdname);
+    //var link = host + "/Product/" + page + "?id=" + prdid;
+    var link = "https://tweebaa.com/Product/" + page + "?id=" + prdid;
+    var image = prdimg;
+    var _data = "{ action:'" + "share"
+                    + "',proid:'" + prdid
+                    + "',url:'" + link
+                    + "',type:'" + type + "'}";
+    $.ajax({
+
+        type: "POST",
+        url: '/AjaxPages/shareAjax.aspx',
+        data: _data,
+        async: false,
+        dataType: "text",
+        success: function (record) {
+            if (record == null)
+                return;
+
+            // It is a share without login if the reponse (record) is empty,
+            //var link = host + "/Product/presaleBuy.aspx?id=" + prdid + "_" + record;
+            if (record != "") link = host + "/Product/" + page + "?id=" + prdid + "_" + record;
+            else link = host + "/Product/" + page + "?id=" + prdid;
+            //alert(link);
+            shareUrl = generatShareEn(type, prdid, link, title, image, desc, record); //这个record是分享ID
+        }
+    });
+    return shareUrl;
+}
+
+//////
+function GetShortUrl(sFullUrl) {
+    var sShortUrl = "";
+    var _data = "{ action:'" + "GetShortUrl"
+                    + "',ShareUrl:'" + sFullUrl + "'}";
+    $.ajax({
+        type: "POST",
+        url: '/AjaxPages/prdShareAjax.aspx',
+        data: _data,
+        async: false,
+        dataType: "text",
+        success: function (response) {
+            sShortUrl = response;
+            return ;
+        }
+    });
+    return sShortUrl;
+}
+///////
+
+function ReplaceBig2Mid(img_src) {
+    var img = img_src.replace("/big/", "/mid/");
+    return img;
+}
+
+//分享接口
+function GetShareUrl(type, prdid, prdname, prdimg, page, desc) {
+
+    var shareUrl = "";
+    if (type == "facebook") {
+        $("#shareToFacebook").unbind("click");
+        $("#shareToFacebook").click(function () {
+            //(type, prdid, prdname, prdimg, page, desc) 
+            shareUrl = SaveShareUrl2DB(type, prdid, prdname, prdimg, page, desc);
+            shareUrl = ReplaceBig2Mid(shareUrl);
+            // Log4Debug(shareUrl);
+            //window.location.href = shareUrl;
+            window.open(shareUrl, '_blank');
+        });
+    }
+    if (type == "twitter") {
+        $("#shareToTwitter").unbind("click");
+        $("#shareToTwitter").click(function () {
+            shareUrl = SaveShareUrl2DB(type, prdid, prdname, prdimg, page, desc);
+            shareUrl = ReplaceBig2Mid(shareUrl);
+            window.open(shareUrl, '_blank');
+        });
+    }
+    if (type == "google") {
+        $("#shareToGoogle").unbind("click");
+        $("#shareToGoogle").click(function () {
+            shareUrl = SaveShareUrl2DB(type, prdid, prdname, prdimg, page, desc);
+            shareUrl = ReplaceBig2Mid(shareUrl);
+            console.log("share to google" + shareUrl);
+            window.open(shareUrl, '_blank');
+        });
+    }
+    if (type == "pinterest") {
+        $("#shareToPinterest").unbind("click");
+        $("#shareToPinterest").click(function () {
+            shareUrl = SaveShareUrl2DB(type, prdid, prdname, prdimg, page, desc);
+            shareUrl = ReplaceBig2Mid(shareUrl);
+            window.open(shareUrl, '_blank');
+        });
+    }
+    if (type == "email") {
+        $("#shareToEmail").unbind("click");
+        $("#shareToEmail").click(function () {
+            shareUrl = SaveShareUrl2DB(type, prdid, prdname, prdimg, page, desc);
+            //window.location.href = shareUrl;
+            window.open(shareUrl, '_blank');
+            // Log4Debug(shareUrl);
+        });
+    }
+/*
+    var shareUrl = "";
+    var host = window.location.host;
+    var title = encodeURIComponent(prdname);
+    //var link = host + "/Product/" + page + "?id=" + prdid;
+    var link = "http://www.tweebaa.com/Product/" + page + "?id=" + prdid;
+    var image = prdimg;
+    var _data = "{ action:'" + "share"
+                    + "',proid:'" + prdid
+                    + "',url:'" + link
+                    + "',type:'" + type + "'}";
+    $.ajax({
+
+        type: "POST",
+        url: '/AjaxPages/shareAjax.aspx',
+        data: _data,
+        async: false,
+        dataType: "text",
+        success: function (record) {
+            if (record == null)
+                return;
+
+            // It is a share without login if the reponse (record) is empty,
+            //var link = host + "/Product/presaleBuy.aspx?id=" + prdid + "_" + record;
+            if (record != "") link = host + "/Product/" + page + "?id=" + prdid + "_" + record;
+            else link = host + "/Product/" + page + "?id=" + prdid;
+            //alert(link);
+            shareUrl = generatShareEn(type, prdid, link, title, image, desc, record); //这个record是分享ID
+        }
+    });
+    return shareUrl;
+*/
+}
+
+//分享接口
+function UserLoginForShare(prdid) {
+
+    var curUrl = window.location.href.toLowerCase();
+    loginNow = false;
+    if (CheckUserLogin() == false) {
+        if (confirm("Thanks for sharing! Before you proceed, would you like to log in?\nYou can receive reward points and commission if you log in first.\n\n  Press [OK] to go to log in or register as a member.\n  Press [Cancel] to continue to share as a guest.")) {
+            loginNow = true;
+            if (curUrl.indexOf("prdsaleall") != -1) {
+                window.location.href = "../user/login.aspx?op=prdSaleAll";
+            } else if (curUrl.indexOf("prdsale") != -1) {
+                window.location.href = "../user/login.aspx?op=prdSale";
+            } else if (curUrl.indexOf("prdpresale") != -1) {
+                window.location.href = "../user/login.aspx?op=prdPreSale";
+            }
+            else if (curUrl.indexOf("submitreview") != -1) {
+                window.location.href = "../user/login.aspx?op=submitreview&id=" + prdid;
+            }
+            else if (curUrl.indexOf("presalebuy") != -1) {
+                window.location.href = "../user/login.aspx?op=preSaleBuy&id=" + prdid;
+            }
+            else if (curUrl.indexOf("salebuy") != -1) {
+                window.location.href = "../user/login.aspx?op=saleBuy&id=" + prdid;
+            }
+            else if (curUrl.indexOf("prdreviewall") != -1) {
+                window.location.href = "../user/login.aspx?op=prdReviewAll";
+            }
+            else if (curUrl.indexOf("prdsingleshare") != -1) {
+                window.location.href = "../user/login.aspx?op=prdSingleShare";
+            }
+            else if (curUrl.indexOf("/home/homesupply.aspx") != -1) {
+                window.parent.location.href = "../user/login.aspx?op=homeSupply";
+            }
+            else if (curUrl.indexOf("/home/homecollection.aspx") != -1) {
+                window.parent.location.href = "../user/login.aspx?op=homeCollection";
+            }
+            else if (curUrl.indexOf("/home/homeprofit.aspx") != -1) {
+                window.parent.location.href = "../user/login.aspx?op=homeProfit";
+            }
+            else if (curUrl.indexOf("index.aspx") != -1) {
+                window.location.href = "../user/login.aspx?op=index";
+            }
+            else {
+                // cannot come here
+                loginNow = fasle;
+            }
+        }
+        else loginNow = false;
+    }
+    return loginNow;
+}
+
+
+
+function SetShareLink(id, name, img, page, desc, product_short_desc) {
+    var shareUrl = ""
+
+    // when share from a shared link, the id contains two parts:
+    // prdID and previous share ID
+    // they are seperated by "_"
+
+    var prdid = id;
+    var iPos = id.indexOf("_");
+    if (iPos != -1) {
+        prdid = id.substring(0, iPos); 
+    }
+
+    var loginNow = UserLoginForShare(prdid);
+    if (loginNow == true ) return false;
+
+    shareUrl = GetShareUrl("facebook", prdid, name, img, page, product_short_desc);
+   //modify by long to fix save data to database beofre click $("#shareToFacebook").attr("href", shareUrl);
+
+    shareUrl = GetShareUrl("twitter", prdid, name, img, page, product_short_desc);
+    //modify by long to fix save data to database beofre click $("#shareToTwitter").attr("href", shareUrl);
+
+    shareUrl = GetShareUrl("google", prdid, name, img, page, product_short_desc);
+    //modify by long to fix save data to database beofre click $("#shareToGoogle").attr("href", shareUrl);
+
+    shareUrl = GetShareUrl("pinterest", prdid, name, img, page, product_short_desc);
+    //modify by long to fix save data to datab0ase beofre click $("#shareToPinterest").attr("href", shareUrl);
+
+    shareUrl = GetShareUrl("email", prdid, name, img, page, desc); //base on Shelley's Request 2015/11/27
+    //modify by long to fix save data to database beofre click $("#shareToEmail").attr("href", shareUrl);
+
+    return true;
+}
+
+                      //(type, link, title, image, desc, record)
+function generatShareEn(type, prdid, link, title, image, desc, record) {
+
+    // use a comm share link to share out 
+    // the common share link is /product/shareProduct.aspx
+    link = link.replace("submitReview", "shareProduct");
+    link = link.replace("presaleBuy", "shareProduct");
+    link = link.replace("saleBuy", "shareProduct");
+
+    var shareURL = "";
+    var facebookAppID = "1591110677840145";
+    //var descNoCR = desc.replace(/[\n\r]/g, "<br/>");
+
+    var parmRecord = "";
+    if (record != "") parmRecord = "&record=" + record;  // record = "" means it is share without login
+    if (type == "facebook") {
+        // always share big product image
+        image = image.replace("/mid/", "/big/");
+        image = image.replace("/mid2/", "/big/");
+        image = image.replace("/small/", "/big/");
+         
+        //shareUrl = "http://www.facebook.com/share.php?url=" + link + "&title=" + title + "&content=utf8&pic=" + image + parmRecord + "&isshare=true";
+        shareUrl = "https://www.facebook.com/dialog/feed?" +
+                    "app_id=1591110677840145" +
+                    "&display=page&caption=Everybody earns at Tweebaa - " + title +
+                    "&link=" + link +
+                    "&picture=" + image +
+                    "&description=" + desc +
+                    "&redirect_uri=http://www.tweebaa.com/CloseWindow.htm";
+                    //"&redirect_uri=http://www.tweebaa.com/ShareConfirmation.aspx"; 
+
+    }
+    else if (type == "twitter") {
+        var sShortLink = GetShortUrl(link);
+        //alert(sShortLink);
+        //shareUrl = "http://twitter.com/home/?status=" + sShortLink + "&title=" + title + "&pic=" + image + parmRecord + "&isshare=true";
+        shareUrl = "https://twitter.com/share?url=" + sShortLink + "&text=" + title + " -- ";
+        //alert(shareUrl);
+    }
+    else if (type == "google") {
+        $("meta[property='og:title']").attr("content", escape(title));
+        $("meta[property='og:image']").attr("content", escape(image));
+        $("meta[property='og:description']").attr("content", escape(desc));
+        shareUrl = "https://plus.google.com/share?url=" + link;
+    }
+    else if (type == "pinterest") {
+        var newImageUrl = image.replace("https://tweebaa.com/UploadImg/", "http://www.tweebaa.com/images801/");
+        // max length of pinterest description is 500 characters
+        var desc500 = title + " -- " + desc;
+        var desc500 = desc500.substring(0, 500);
+        shareUrl = "https://pinterest.com/pin/create/button/?url=" + link + "&description=" + desc500 +  "&media=" + escape(newImageUrl) + parmRecord + "&isshare=true";
+    }
+    //else if (type == "plurk") {
+    //    shareUrl = "http://plurk.com/?qualifier=shares&status=" + link + "&title=" + title + "&pic=" + image + parmRecord + "&isshare=true";
+    //}
+    else if (type == "email") {
+        shareUrl = "emailShare.aspx?id=" + link + "&name=" + title + "&img=" + escape(image);
+        if (window.location.href.indexOf("/product/") == -1 ) {
+            shareUrl = "../Product/emailShare.aspx?prdid=" + prdid + "&link=" + link + "&name=" + title + "&img=" + escape(image) + "&desc=" + escape(desc);
+        }
+    }
+
+    return shareUrl;
+}
+
+function generatShare(type, link, title, image, record) {
+    if (type == "sina") {
+        window.open("http://v.t.sina.com.cn/share/share.php?url=" + link + "&title=" + title + "&content=utf8&pic=" + image + "&record=" + record + "&isshare=true");
+    }
+    if (type == "tx") {
+        window.open("http://v.t.qq.com/share/share.php?url=" + link + "&title=" + title + "&pic=" + image + "&record=" + record + "&isshare=true");
+    }
+    if (type == "qzone") {
+        window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + link + "&title=" + title + "&pics=" + image + "&record=" + record + "&isshare=true");
+    }
+    if (type == "rr") {
+        window.open("http://widget.renren.com/dialog/share?resourceUrl=" + link + "&title=" + title + "&pic=" + image + "&record=" + record + "&isshare=true");
+    }
+    if (type == "douban") {
+        window.open("http://www.douban.com/recommend/?url=" + link + "&title=" + title + "&image=" + image + "&record=" + record + "&isshare=true");
+    }
+}
+
+//  <a href="javascript:void(0)" onclick="postToWb();" class="tmblog">腾讯微博</a>
+
+function postToWb() {
+    var _t = encodeURI('${(activity.intro)!}'); //'${(activity.intro)!}'这是取得Action穿过来的值，如果想取当前标题改为document.title
+    var _url = encodeURI(document.location);
+    var _appkey = encodeURI("appkey"); //你从腾讯获得的appkey
+    var _pic = encodeURI(''); //（列如：var _pic='图片url1|图片url2|图片url3....）
+    var _site = ''; //你的网站地址
+    var _u = 'http://v.t.qq.com/share/share.php?title=' + _t + '&url=' + _url + '&appkey=' + _appkey + '&site=' + _site + '&pic=' + _pic;
+    window.open(_u, '转播到腾讯微博', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no');
+}
+
+//新浪微博分享
+//<a href="javascript:void((function(s,d,e,r,l,p,t,z,c) {var%20f='http://v.t.sina.com.cn/share/share.php?appkey=962772401',u=z||d.location,p=['&url=',e(u),'& title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'& content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a() {if(!window.open([f,p].join(''),'mb', ['toolbar=0,status=0,resizable=1,width=600,height=500,left=',(s.width- 600)/2,',top=',(s.height-600)/2].join('')))u.href=[f,p].join('');}; if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();}) (screen,document,encodeURIComponent,'','','www.leziyou.com(如果此处为空会取当前页面网址)','写内容的地方','','utf-8'));" alt="分享到新浪微博" title="分享到新浪微博">新浪微博</a>  
+
+
+//网易微博分享
+//<a target="_self" onclick="(function(){var url = 'link=http://news.163.com/&amp;source='+ encodeURIComponent('网易新闻')+ '&amp;info='+ encodeURIComponent('${(activity.intro)!}') + ' ' + encodeURIComponent(document.location.href);window.open('http://t.163.com/article/user/checkLogin.do?'+url+'&amp;'+new Date().getTime(),'newwindow','height=330,width=550,top='+(screen.height-280)/2+',left='+(screen.width-550)/2+', toolbar=no, menubar=no, scrollbars=no,resizable=yes,location=no, status=no');})()" href="javascript:void(0);"><img height="19px" border="0" align="absMiddle" alt="分享到网易微博" title="分享到网易微博" />网易微博</a>
+//其中encodeuRIComponent('${(activity.intro)}')我取的是action传过来的值，如果想取当前页面标题改为encodeuRIComponent(document.title)

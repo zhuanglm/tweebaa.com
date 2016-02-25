@@ -1,0 +1,30 @@
+﻿.pages
+{
+    color: #999;
+    padding:2px;
+}
+.pages a, .pages .cpb
+{
+    text-decoration: none;
+    float: left;
+    padding: 2px 5px;
+    border: 1px solid #ddd;
+    background: #ffff;
+    margin: 0 2px;
+    font-size: 11px;
+    color: #000;
+}
+.pages a:hover
+{
+    background-color: #95B8E7;
+    color: #fff;
+    border: 1px solid #95B8E7;
+    text-decoration: none;
+}
+.pages .cpb
+{
+    font-weight: bold;
+    color: #fff;
+    background: #95B8E7;
+    border: 1px solid #95B8E7;
+}

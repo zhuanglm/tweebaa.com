@@ -1,0 +1,33 @@
+﻿
+ .tbtable
+        {
+            border: 1px solid #95B8E7;
+            border-collapse: collapse;
+            width:800px;
+            margin:2px;
+        }
+        .tbtable tr td
+        {
+            border: 1px solid #95B8E7;
+            border-collapse: collapse;
+            padding: 3px;
+        }
+        .title
+        {
+            background: #eff5ff;
+            font-weight: bold;
+            color: #0e2d5f;
+            width: 80px;
+            text-align:center;
+            border: 1px solid #95B8E7;
+        }
+        fieldset
+        {
+            padding: 3px;
+        }
+        fieldset legend
+        {
+            font-size: 13px;
+            color: #0e2d5f;
+            padding: 0px;
+        }

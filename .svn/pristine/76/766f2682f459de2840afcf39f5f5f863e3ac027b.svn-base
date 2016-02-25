@@ -1,0 +1,713 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="submitReview.aspx.cs" Inherits="TweebaaWebApp2.Product.submitReview" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+<%=_model.name%> - Tweebaa needs your opinion
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+<%=sMetaTag%>
+
+    <script src="../Js/util.js" type="text/javascript"></script>
+    <script src="../Js/xd.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../Css/scroll.css?v=1" />
+    <link href="../Js/jpager/pagination.css" rel="stylesheet" />
+    <link href="../Css/shareBox.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../Js/jquery.xScroller.js"></script>
+    <link rel="stylesheet" href="../Css/selectCss.css" />    
+    <script src="../MethodJs/favorite.js" type="text/javascript"></script>
+    <script src="../MethodJs/submitReview.js" type="text/javascript"></script>
+    <% // do not need to inlcude the prd.js 2015-11-10 by Jack Cao %>
+    <!--script src="../MethodJs/prd.js" type="text/javascript"></script-->
+    <script src="../MethodJs/share.js" type="text/javascript"></script>
+    <script src="../MethodJs/VisitTimer.js" type="text/javascript"></script>
+    <script src="../Js/swfobject.js" type="text/javascript"></script>
+    <script src="../MethodJs/videoPlay.js" type="text/javascript"></script>
+    <script src="../Js/jpager/jquery.pagination.js"></script>
+    <script src="../Js/jpager/members.js"></script>
+
+    <script src="../MethodJs/Product_May_like.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="/plugins/master-slider/quick-start/masterslider/style/masterslider.css" />
+    <link rel='stylesheet' href="/plugins/master-slider/quick-start/masterslider/skins/default/style.css" />
+
+    <!-- CSS Page Style -->    
+    <link rel="stylesheet" href="../css/pages/feature_timeline2.css" />
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+    <input type="hidden" id="hid_proid" value="<%=_proid %>" />
+    <input type="hidden" id="hiduserid" value="<%=_userid %>" />
+
+           <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Product Details</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="/index.aspx">Home</a></li>
+                <li><a href="prdReviewAll.aspx">Evaluate</a></li>
+                <li class="active">Product Details</li>
+            </ul>
+        </div><!--/container-->
+    </div><!--/breadcrumbs-->
+    <!--=== End Breadcrumbs ===-->
+  <!--=== eval Product ===-->
+   <div class="shop-product">
+  <div class="container">
+            <div class="row">
+                <div class="col-md-6 md-margin-bottom-50">
+                    <div class="ms-showcase2-template">
+                        <!-- Master Slider -->
+                        <div class="master-slider ms-skin-default" id="masterslider">
+                            <div class="ms-slide">
+                                <img itemprop="image" class="ms-brd" src="<% =_imgUrl %>" id="imgBig1" data-src="<% =_imgUrl %>" alt="lorem ipsum dolor sit">
+                                <img class="ms-thumb" id="imgSmall1" src="/images/blank.gif" alt="thumb">
+                            </div>
+                            <div class="ms-slide">
+                                <img src="/images/blank.gif" id="imgBig2" data-src="<% =_imgUrl %>" alt="lorem ipsum dolor sit">
+                                <img class="ms-thumb" id="imgSmall2" src="/images/blank.gif" alt="thumb">
+                            </div>
+                            <div class="ms-slide">
+                                <img src="/images/blank.gif" id="imgBig3" data-src="<% =_imgUrl %>" alt="lorem ipsum dolor sit">
+                                <img class="ms-thumb"  id="imgSmall3" src="/images/blank.gif" alt="thumb">
+                            </div>
+                             <div class="ms-slide">
+                                <img class="ms-brd" src="/images/blank.gif" id="imgBig4" data-src="<% =_imgUrl %>" alt="lorem ipsum dolor sit">
+                                <img class="ms-thumb" id="imgSmall4" src="/images/blank.gif" alt="thumb">
+                            </div>
+                             <div class="ms-slide">
+                                <img class="ms-brd" src="/images/blank.gif" id="imgBig5" data-src="<% =_imgUrl %>" alt="lorem ipsum dolor sit">
+                                <img class="ms-thumb" id="imgSmall5" src="/images/blank.gif" alt="thumb">
+                            </div>
+                        </div>
+                        <!-- End Master Slider -->
+                    </div>
+                </div>
+
+                <div class="col-md-6 pingshen-main">
+                    <div class="eval-product-heading ">
+                        <h2>
+                          <strong>                     
+                       <label itemprop="name"  id="pro-name" ><% =System.Web.HttpUtility.HtmlEncode(_model.name)%>
+                        </label>
+                    </strong>
+                        </h2>
+                        
+                   
+                    </div><!--/end shop product social-->     
+                    <p> <!-- submiter information -->
+      <label id="pro-user"> </label>&nbsp;Suggested on&nbsp; <label id="pro-time"></label>
+
+                    </p>  <!-- submiter information EOF-->   
+                    
+  
+              <ul class="list-inline shop-product-prices margin-bottom-10 row">
+                        <li class="col-md-4 shop-green">$<span id="pro-price"></span></li>
+                      
+                     <li class="col-md-8" id="reviewProgress" style="display:none"> 
+                                    <h3 class="heading-xs"> <span class="pull-right"><% =_passCount %> Voted</span>Need 300 votes</h3>
+                                    <div class="progress progress-u progress-sm rounded">
+                                        <div class="progress-bar progress-bar-light-green" role="progressbar" aria-valuenow="<% =_iProgress %>" aria-valuemin="0" aria-valuemax="100" style="width: <% =_iProgress%>%">
+                                        </div>
+                                 </div> 
+                                  </li>
+                     
+                     
+                    </ul>
+     <p itemprop="description" id="pro-jl"><% =System.Web.HttpUtility.HtmlEncode(_model.txtjj) %> </p>
+           
+                    
+      <!--    <div class="jdt fr" id="reviewProgress" style="display:none">
+                       <div class="jdt-line pr">
+                          <b style="left: <%//=_leftMargin%>;">
+                          <span id="reviewCount" style="<%//=_styleMarginLeft%>"><%//=_passCount %> Evaluations </span></b>
+                        </div>
+                        <div class="price-number">
+                           <span class="span1">0</span><span class="span2">100</span>
+                           <span class="span3">200</span>
+                           <span class="span4">300+</span>
+                        </div>
+                     </div>
+                 
+                     <span class="fr des-txt" id="lblCurrentStatus" style="display:none" >
+						Current Status:
+		 </span> -->
+         <form action="#" class="sky-form">
+                    <div class="row">
+ <section class="col">  
+ 
+  <label class="label evacolor" style="<% =_sHideAlreadyEvaluated %>">Please evaluate this product.</label>
+  <div class="margin-bottom-10"></div>   
+  <div id="divAlreadyEvaluated" style="<% =_sDispAlreadyEvaluated %>"> <label class="label evacolor"><% =_sAlreadyEvaluatedMsg %></label> </div>
+  <div class="inline-group">
+ <lable class="txtinline ">Would you purchase this product? </lable>
+       <script type="text/javascript">
+           function chkFuc(id1, id2, errorid) {
+               var i = $("#" + id1).attr("checked");
+               if (i == "checked") {
+                   $('#' + id2).removeAttr('checked')
+               }
+               // hide error when user check
+               $('#' + errorid).hide();
+           }
+                                </script>
+  <label class="checkbox"> <input type="checkbox"  value="1" id="ckb1" <% =_sYesNoArr[0] %> <%=_disabled %> onclick="chkFuc('ckb1','ckb2', 'ckb12Error')"  /><i></i>Yes</label>
+ <label class="checkbox"><input type="checkbox"  value="2" id="ckb2" <% =_sYesNoArr[1] %> <%=_disabled %> onclick="chkFuc('ckb2', 'ckb1', 'ckb12Error')"><i></i>No</label>
+ </div>
+ <div class="note note-error" id="ckb12Error" style="display: none">Please select Yes or No.</div>
+ 
+       
+  <div class="inline-group">
+  <lable class="txtinline"><span class="fl" >Do you feel this product is unique?</lable>
+    
+ <label class="checkbox"> <input type="checkbox" value='3' id="ckb3" <% =_sYesNoArr[2] %> <%=_disabled %> onclick="chkFuc('ckb3', 'ckb4', 'ckb34Error')" /><i></i>Yes</label>
+ <label class="checkbox"> <input type="checkbox" value='4' id="ckb4" <% =_sYesNoArr[3] %> <%=_disabled %> onclick="chkFuc('ckb4', 'ckb3', 'ckb34Error')" /><i></i>No</label>
+</div><div class="note note-error"  id="ckb34Error" style="display: none">Please select Yes or No.</div>
+
+ <div class="inline-group">
+  <lable class="txtinline"><span class="fl" >Do you feel this product is needed?</lable>
+    
+ <label class="checkbox"><input type="checkbox" value='5' id="ckb5" <% =_sYesNoArr[4] %> <%=_disabled %> onclick="chkFuc('ckb5', 'ckb6', 'ckb56Error')" /><i></i>Yes</label>
+ <label class="checkbox"><input type="checkbox" value='6' id="ckb6" <% =_sYesNoArr[5] %> <%=_disabled %> onclick="chkFuc('ckb6', 'ckb5', 'ckb56Error')" /><i></i>No</label>
+</div>
+<div class="note note-error"  id="ckb56Error" style="display: none">Please select Yes or No.</div> 
+<div class="inline-group">
+  <lable class="txtinline"><span class="fl" >This product will go to Tweebaa Shop eventually?</lable>
+    
+ <label class="checkbox"><input type="checkbox" value='7' id="ckb7" <% =_sYesNoArr[6] %> <%=_disabled %> onclick="chkFuc('ckb7', 'ckb8', 'ckb78Error')" /><i></i>Yes</label>
+ <label class="checkbox"><input type="checkbox" value='8' id="ckb8" <% =_sYesNoArr[7] %> <%=_disabled %> onclick="chkFuc('ckb8', 'ckb7', 'ckb78Error')" /><i></i>No</label>
+</div>
+<div class="note note-error"  id="ckb78Error" style="display: none">Please select Yes or No.</div>
+
+<label class="textarea">
+<textarea rows="3" id="reason-case"  name="message" maxlength="200" placeholder="<%=_placeholder %>" <%=_disabled %> onkeyup="DoMsgKeyup();"></textarea>
+ </label>
+<div class="note note-error"  id="msgError" style="display: none;top:0px;">Please input your reason or suggestion</div></div>
+
+ <div class="margin-bottom-10"></div>
+ <div class="form-group">
+                                <label class="col-lg-1 control-label" style="padding-left:0px;"><h5>Verify</h5></label>
+                                <div class="col-lg-2">
+                                    <input type="text" style="width:80px;height:32px;" id="txtVerify" name="txtVerify" maxlength="6" />
+                                </div>
+                                  <div class="col-lg-3">
+                                   <img  id="imgWaterMark" src="/product/WaterMark.aspx?pn=SubmitReview" />
+                                </div>
+                                <div class="col-lg-5">
+                               <a href="javascript:void(0)" onclick="ReloadWaterMark();return false;"><button class="btn btn-default rounded" type="button">Get another code</button></a>
+                                </div>
+                            </div>
+                         
+                         <div class="margin-bottom-15"></div>
+
+                
+                                <input type="button" class="btn-u btn-u-green rounded btn-u-lg"  value="Evaluate" id="product-release"
+                                    onclick="SubmitReview()" <%=_disabled %> />    
+                                <button type="button" class="btn-u btn-u-default rounded btn-u-lg" style="<% =_sHideAlreadyEvaluated %>" onclick="DoClear(); return false;">Clear</button>            
+                                  
+                                <!--input type="button" class="to-examine  fr" value="Delete" id="Button1" onclick="Delete()" style="display:none;" />
+                                <div class="fl chklist chklist5" style="position: relative; left: 0; top: 8px; margin-left: 0; display:none;">
+                                    <div style="padding: 0px; margin-top: -15px;">
+                                        <div>
+                                            <input type="checkbox" value="1" checked="checked" />
+                                            <label>
+                                                I read and agreed with the terms and conditions in</label></div>
+                                        <div class="fl" style="margin-top: -20px;">
+                                            <a href="#" class="chakan">《Evaluation Agreement》</a></div>
+                                    </div>
+                                </div-->
+               
+ <div class="margin-bottom-15"></div>
+
+   <ul class="list-inline add-to-myevaluate add-to-wishlist-brd">
+                        <li class="wishlist-in">
+                        <% string favoriteHeart = "fa-heart-o";
+                            if (_favorite) favoriteHeart = "fa-heart";
+                        %>
+
+                            <a href="javascript:void(0)" onclick="FavoritePrdOnOff('<%=_proid %>', '#classFavorite');"><i id="classFavorite" class="fa <% =favoriteHeart %>"></i>Favorite</a>
+                        </li>
+                        <li class="compare-in">
+                            <a href="javascript:void(0)" id="hrefShare1"><i class="fa fa-share-alt"></i>share</a>
+                        </li>
+                    </ul>
+                    </section>
+                    </div>     
+            </form>        
+                    </div>
+               
+                    <!--
+               
+                    <p class="myevaluate-category"><strong>Categories:</strong> <a href="#">Clothing,</a> <a href="#">Shoes</a></p>
+                    -->
+                </div>
+            </div><!--/end row-->
+        </div>    
+    </div>
+    <!--=== End Shop Product ===--> 
+     <!--=== Content Medium ===-->
+    <div class="content-md container">
+        <div class="tab-v6">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#description" role="tab" data-toggle="tab">Description</a></li>
+               <li><a href="#reviews" role="tab" data-toggle="tab">Reviews (<label id="comment_count"></label>)</a></li>  
+            </ul>
+
+            <div class="tab-content">
+                <!-- Description -->
+                <div class="tab-pane fade in active" id="description">
+                  <div class="col-md-7">
+                    <div class="des_img" id="pro-info" >
+
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="responsive-video">
+                      <div class="tc">
+                        <iframe id="videoFrame" src=""  frameborder="5" width="400" height="400"></iframe> 
+                          <div class="video" id="CuPlayer" style="margin: 0 auto;">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Description -->
+
+                <!-- Reviews -->   
+                <!-- not review right now   -->           
+                <div class="tab-pane fade" id="reviews">
+                    <div class="product-comment margin-bottom-40" >
+                        <div class="product-comment-in">
+                                <div class="product-comment-dtl" id="ulCommentsList">
+                                </div>
+                                <div class="page tr" id="CommentsPage">
+				                </div>
+                        </div>
+                       <!--
+                        <div class="product-comment-in">
+                            <img class="product-comment-img rounded-x" src="images/team/01.jpg" alt="">
+                            <div class="product-comment-dtl">
+                                <h4>Mickel <small>22 days ago</small></h4>
+                                <p>I like the green colour, it's very likeable and reminds me of Hollister. A little loose though but I am very skinny</p>
+                                <ul class="list-inline evluate-ratings">
+                                    <li class="reply"><a href="#">Reply</a></li>
+                                    <li class="pull-right">
+                                        <ul class="list-inline">
+                                            <li><i class="rating-selected fa fa-star"></i></li>
+                                            <li><i class="rating-selected fa fa-star"></i></li>
+                                            <li><i class="rating-selected fa fa-star"></i></li>
+                                            <li><i class="rating fa fa-star"></i></li>
+                                            <li><i class="rating fa fa-star"></i></li>
+                                        </ul>
+                                    </li>    
+                                </ul>
+                            </div>
+                        </div>   --> 
+                    </div>
+                    <!--
+                    <h3 class="heading-md margin-bottom-30">Add a review</h3>
+                    <form action="http://htmlstream.com/preview/unify-v1.6-production/Shop-UI/assets/php/demo-contacts-process.php" method="post" id="sky-form3" class="sky-form sky-changes-4">
+                        <fieldset>
+                            <div class="margin-bottom-30">
+                                <label class="label-v2">Name</label>
+                                <label class="input">
+                                    <input type="text" name="name" id="name">
+                                </label>
+                            </div>    
+                            
+                            <div class="margin-bottom-30">
+                                <label class="label-v2">Email</label>
+                                <label class="input">
+                                    <input type="email" name="email" id="email">
+                                </label>
+                            </div>    
+                            
+                            <div class="margin-bottom-30">
+                                <label class="label-v2">Review</label>
+                                <label class="textarea">
+                                    <textarea rows="7" name="message" id="message"></textarea>
+                                </label>
+                            </div>    
+                        </fieldset>    
+                            
+                        <footer class="review-submit">
+                            <label class="label-v2">Review</label>
+                            <div class="stars-ratings-eval">
+                                <input type="radio" name="stars-rating" id="stars-rating-5">
+                                <label for="stars-rating-5"><i class="fa fa-star"></i></label>
+                                <input type="radio" name="stars-rating" id="stars-rating-4">
+                                <label for="stars-rating-4"><i class="fa fa-star"></i></label>
+                                <input type="radio" name="stars-rating" id="stars-rating-3">
+                                <label for="stars-rating-3"><i class="fa fa-star"></i></label>
+                                <input type="radio" name="stars-rating" id="stars-rating-2">
+                                <label for="stars-rating-2"><i class="fa fa-star"></i></label>
+                                <input type="radio" name="stars-rating" id="stars-rating-1">
+                                <label for="stars-rating-1"><i class="fa fa-star"></i></label>
+                            </div>
+                            <button type="button" class="btn-u btn-u-sm btn-u-green pull-right">Submit</button>
+                        </footer>
+                    </form> -->
+                </div>  
+                <!-- End Reviews -->                
+            </div>
+        </div></div>
+        
+         <!--=== Illustration v2 ===-->
+    <div class="container">
+        <div class="heading heading-v1 margin-bottom-20">
+            <h2>Product you may like</h2>
+           
+        </div>
+
+        <div class="illustration-v2 margin-bottom-60">
+            <div class="customNavigation margin-bottom-25">
+                <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
+                <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+            </div>
+
+            <ul class="list-inline owl-slider-v4" id="prd_may_like_listings">
+<script type="text/javascript">
+
+    function ReloadWaterMark() {
+        var milliseconds = new Date().getTime();
+        $("#imgWaterMark").attr("src", "/product/WaterMark.aspx?pn=SubmitReview&v=" + milliseconds);
+        //DoEvaluateSuccess();
+    }
+
+    Load_Product_May_like();
+</script>
+
+
+<!--
+                <li class="item">
+                    <a href="#"><img class="img-responsive" src="images/thumb/07.jpg" alt=""></a>
+                    <div class="product-description-v3">
+                        <div class="margin-bottom-5">
+                            <h4 class="title-price"><a href="#">Double-breasted</a></h4>
+                            <span class="title-price">$60.00</span>
+                            <span class="title-price line-through">$95.00</span>
+                        </div>    
+                        <ul class="list-inline evluate-ratings">
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                        </ul>    
+                    </div>
+                </li>
+                <li class="item">
+                    <a href="#"><img class="img-responsive" src="images/thumb/08.jpg" alt=""></a>
+                    <div class="product-description-v3">
+                        <div class="margin-bottom-5">
+                            <h4 class="title-price"><a href="#">Double-breasted</a></h4>
+                            <span class="title-price">$95.00</span>
+                        </div>    
+                        <ul class="list-inline evluate-ratings">
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><em class="rating fa fa-star"></em></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                        </ul>    
+                    </div>
+                </li>
+                <li class="item">
+                    <a href="#"><img class="img-responsive" src="images/thumb/06.jpg" alt=""></a>
+                    <div class="product-description-v3">
+                        <div class="margin-bottom-5">
+                            <h4 class="title-price"><a href="#">Double-breasted</a></h4>
+                            <span class="title-price">$95.00</span>
+                        </div>    
+                        <ul class="list-inline evluate-ratings">
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                        </ul>    
+                    </div>
+                </li>
+                <li class="item">
+                    <a href="#"><img class="img-responsive" src="images/thumb/04.jpg" alt=""></a>
+                    <div class="product-description-v3">
+                        <div class="margin-bottom-5">
+                            <h4 class="title-price"><a href="#">Double-breasted</a></h4>
+                            <span class="title-price">$95.00</span>
+                        </div>    
+                        <ul class="list-inline evluate-ratings">
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                        </ul>    
+                    </div>
+                </li>
+                <li class="item">
+                    <a href="#"><img class="img-responsive" src="images/thumb/03.jpg" alt=""></a>
+                    <div class="product-description-v3">
+                        <div class="margin-bottom-5">
+                            <h4 class="title-price"><a href="#">Double-breasted</a></h4>
+                            <span class="title-price">$95.00</span>
+                        </div>    
+                        <ul class="list-inline evluate-ratings">
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating-selected fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                            <li><i class="rating fa fa-star"></i></li>
+                        </ul>    
+                    </div>
+                </li>    
+-->
+            </ul>
+        </div> 
+    </div>    
+    <!--=== End Illustration v2 ===-->
+
+
+ <%-- 分享弹出ydf--%>
+     <div class="greybox">
+        <div id="share-tck2" class="tck">
+            <a href="#" class="closeBtn" title="Close"></a>
+            <h2 class="t">
+                <span>Share & Earn</span>
+            </h2>
+             <div class="box">
+                <div class="sharebox clearfix my-dietu">
+                    <span class="fl t ">Share to </span>
+                    <div class="bdsharebuttonbox fl">                          
+                        <% // include all share method  %>        
+                        <!--#include file="../include/sharemethod.inc" -->
+                    </div>                  
+                    <a href="#" style="display:none;" class="share-media-set">Share Binding setting</a>
+                </div>
+                <div class="ps clearfix">
+                    <span class="fr"><a href="#"></a></span><span class="fl">Invite your friends to support this product by taking a short survey.</span>
+                </div>
+            </div>         
+        </div>
+    </div> 
+
+
+<!-- 评审成功 -->
+   <!--div class="greybox">
+		<div id="ps-ok" class="ps-ok">
+			<div class="ps-ok pr">
+				<a href="prdReviewAll.aspx" class="closeBtn2"></a>
+                <br /> <br />
+				<h1 class="tc fb l3">Thank you for your evaluation<br /><span style=" font-size:12px;">You can review the status of all your Evaluations by logging on to your account.<br />If you want to support this product so it ultimately reaches the Tweebaa Shop, <br />try sharing it with your network.</span></h1>
+				<ol class="clearfix">
+					<li class=" on">
+						<em class="s"></em>						
+					</li>
+					<li>
+						<em class="s"></em>
+						
+					</li>
+                 
+					<li class="third">
+						<em>
+							<b class="fb l3">Free Gift</b>
+						</em>
+						<i>
+							<b class="fb l3">Commission</b>
+						</i>
+					</li>	
+					
+				</ol>
+				<div class="clear"></div>
+				<div class="txt">
+					<span style="padding-left:70px;">Evaluate</span><span style="padding-left:10px;">Evaluating Passed</span><span style="padding-left:35px;">Test-Sale Passed</span><span style="padding-left:80px;">Shop - Buy Now</span>
+				</div>
+
+			</div>
+			<div class="hui" style=" font-size:12px;">
+				<span class="ckfb">
+					<a href="prdReviewAll.aspx">Evaluate More</a>
+				</span>
+				<!--span class="jxfb">
+					<a href="javascript:void(0)" onclick="$('#pingshenClose').click();cancelSetInterval(); refesh();">All Evaluations</a>
+				</span-->
+				<!--span class="fx">
+					<a href="/Home/HomeReview.aspx">My Evaluations</a>
+				</span-->
+                <script type="text/javascript">
+                    function refesh() {
+                        //location.reload();
+                        window.location.href = window.location.href + "&reviewe=all";
+                    }
+                </script>
+			</div>
+			<div class="return-index" style="display:none;">
+				<a href="prdReviewAll.aspx" class="l3">Back to Evaluate homepage</a>
+			</div>
+			<div class="dao321 tc" style="display:none;">
+				<b class="dao15">25</b> seconds，automatically returns to homepage 			</div>
+		</div>
+   </div-->
+<!-- new 评审成功 -->
+   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h2 id="myModalLabel" class="modal-title color-sea"> Thank you for your evaluation</h2><p>You can review the status of all your Evaluations by logging on to your account.<br>If you want to support this product so it ultimately reaches the Tweebaa Shop, <br />try sharing it with your network.</p>
+            </div>
+            <div class="modal-body">
+                                        
+                          
+                <ul class="timeline-v2">
+                    <li>
+                      <time class="cbp_tmtime"><span></span></time>
+                      <em class="cbp_tmicon cbp_eva rounded-x hidden-xs"></em>
+                      <div class="cbp_tmlabel cbp_evaluate">
+                        <h2><a href="/Product/prdReviewAll.aspx"><i class="icon-custom rounded-x fa fa-check-square-o icon-color-sea"></i></a>Evaluate</h2>
+                      </div>
+                    </li>
+                     <li>
+                      <time class="cbp_tmtime"><span></span></time>
+                      <em class="cbp_tmicon rounded-x hidden-xs"></em>
+                      <div class="cbp_tmlabel">
+                            <h2><a href="/Product/prdReviewAll.aspx"><i class="icon-custom rounded-x fa fa-check-square-o"></i></a>Evaluation Passed</h2>    
+                        </div>
+                    </li>
+                    
+                       <li>
+                      <time class="cbp_tmtime"><span style="color:#18ba9b;">FREE</span><span>Gift</span></time>
+                      <em class="cbp_tmicon rounded-x hidden-xs"></em>
+                      <div class="cbp_tmlabel">
+                            <h2><a href="/Product/prdSaleAll.aspx"><i class="icon-custom rounded-x icon-basket-loaded"></i></a>Test-Sale Passed</h2>    
+                        </div>
+                    </li>
+                             <li>
+                      <time class="cbp_tmtime"><span style="color:#18ba9b;">Whole Life</span><span>Commission</span></time>
+                      <em class="cbp_tmicon rounded-x hidden-xs"></em>
+                      <div class="cbp_tmlabel">
+                            <h2><a href="/Product/prdSaleAll.aspx"><i class="icon-custom rounded-x fa fa-shopping-cart"></i></a>Tweebaa Shop</h2>    
+                        </div>
+                    </li>
+                </ul>
+            
+          
+                      
+                </div>
+                <div class="modal-footer">
+                <button data-dismiss="modal" class="btn-u btn-u-default rounded" type="button"  onclick="location.href='/index.aspx';">Back to Home</button>
+                <button class="btn-u rounded btn-u-sea" type="button"  onclick="location.href='/Product/prdReviewAll.aspx';">Evaluate Another</button>
+                                        
+                    <button class="btn-u rounded btn-u-green" type="button" onclick="location.href='/Home/HomeReview.aspx';">See My Evaluations</button>
+                        <p>Returning to homepage in <span id="spnWait15" class="color-red">15</span> seconds.</p>    
+                
+                </div>
+                </div>
+        </div>
+    </div>  
+
+
+    <script type="text/javascript">
+        //表单提示
+        $('input,textarea').placeholder();
+
+
+        var setIntervalID; //ydf       
+
+        //发布
+        function DoEvaluateSuccess() {
+            //obj.parents(".greybox").show()
+            //obj.animate({ top: "5%" }, 300)
+            $("#myModal").modal("toggle");
+ 
+            //倒计时开始
+            setIntervalID = setInterval(function () {
+                var wait15 = parseInt($("#spnWait15").html());
+                wait15--;
+                $("#spnWait15").html(wait15);
+                if (wait15 == 0) {
+                    window.location.assign("/index.aspx");
+                };
+            }, 1000);
+         
+            //倒计时开始
+            //            setIntervalID = setInterval(function () {
+            //                var dao123 = parseInt(obj.find(".dao15").html())
+            //                dao123--;
+            //                obj.find(".dao15").html(dao123)
+            //                if (dao123 == 0) {
+            //                    window.location.assign(urllink)
+            //                };
+            //            }, 1000)
+        }
+
+        //取消定时 ydf
+        function cancelSetInterval() {
+            window.clearInterval(setIntervalID);
+        }
+
+        $('.closeBtn,.want-gh a').click(function (event) {
+            $("#fabu-ok,#ps-ok").animate({
+                top: "-500px"
+            },
+				300, function () {
+				    $(this).parents(".greybox").hide()
+				});
+            return false;
+        });
+
+
+        //详情和评价切换
+        /*
+        $(".pingshen-box").qTab({
+            tabT: ".tab a", //tab title
+            tabCon: ".itembox"//tab Con
+        })*/
+        //阅读前面的input
+        //$('#chklist,.chklist').hcheckbox();
+
+        //$('#product-release').click(function () {
+
+        //})
+
+        //确定发送弹出提示
+        //$("#submit-product").click(function () {
+            //fubuFun($("#fabu-ok"), "summit-welcome.html")
+        //})
+
+
+
+        //查看协议
+        $(".chakan").click(function (event) {
+            var objClick = $(this)
+            $("#tck2").parents(".greybox").show()
+            $("#tck2").animate({ top: "2%" }, 300)
+            objClick.siblings().find(".checkbox").addClass('checked')
+        });
+        //关闭弹出框
+        $('.iknow,.closeBtn,.iagree').click(function (event) {
+            var obj2 = $(this).parents(".tck")
+            obj2.animate({
+                top: "-500px"
+            },
+				300, function () {
+				    obj2.parents(".greybox").hide()
+
+				});
+
+            if ($(this).is(".iagree")) {
+                $(".tijiao .chklist > input").attr('checked', true);
+                $(".tijiao .checkbox").addClass('checked')
+            };
+
+            return false;
+        });
+
+        $(document).ready(function () {
+            LoadCommentsTotal();
+        });
+    </script>
+
+
+<!-- Master Slider -->
+<script src="/plugins/master-slider/quick-start/masterslider/masterslider.min.js"></script>
+<script src="/plugins/master-slider/quick-start/masterslider/jquery.easing.min.js"></script>
+<script src="/js/plugins/master-slider.js"></script>
+
+</asp:Content>

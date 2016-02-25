@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Twee.Comm;
+using Newtonsoft.Json.Linq;
+
+namespace TweebaaWebApp2.AjaxPages
+{
+    public partial class logionAjax : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Request["Email"]) && !string.IsNullOrEmpty(Request["Pwd"]))
+            {
+                string eamil = Request["Email"].ToString();
+                string pwd = Request["Pwd"].ToString();
+                pwd = PasswordHelper.ToUpMd5(pwd);
+                Twee.Mgr.UserMgr mgr = new Twee.Mgr.UserMgr();
+                string resu = mgr.UserLogin(eamil, pwd);
+
+                JObject json = JObject.Parse(resu); //"{email:'" + email + "',userGuid:'" + userGuid + "'}";  
+                string email = json["email"].ToString();
+                string state = json["state"].ToString();
+                string userGuid = json["userGuid"].ToString();
+                Response.Clear();
+                if (state=="0")
+                {                  
+                    Response.Write("0");
+                    return;
+                }
+                if (!string.IsNullOrEmpty(userGuid) && !string.IsNullOrEmpty(email))
+                {
+                    //CookiesHelper cook = new CookiesHelper();
+                    //bool b1 = cook.createCookie("jZvJvvjqCILHX7zjBWskQA", userGuid, 30);
+                    //bool b2 = cook.createCookie("jZvJvvjqCILHX7zjBWskQB", email, 30);
+                    //bool b3 = cook.createCookie("jZvJvvjqCILHX7zjBWskQC", pwd,1);
+                    //if (b1&&b2)
+                    if (CommUtil.SetUserLoginCookie(userGuid, email, pwd))
+                    {                        
+                        Response.Write("success");  
+                    }
+                    else
+                    {
+                        Response.Write("success");
+                    }
+                }
+                else
+                {
+                    Response.Write("error");             
+                }                
+            }
+            else if (!string.IsNullOrEmpty(Request["Action"]))
+            {
+                //退出登录
+                CookiesHelper cook = new CookiesHelper();
+                bool b = cook.createCookie("jZvJvvjqCILHX7zjBWskQC", "", -1);                
+            }
+        }
+    }
+}

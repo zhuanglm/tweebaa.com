@@ -1,0 +1,271 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Text;
+using Twee.Comm;
+using Twee.Mgr;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+namespace TweebaaWebApp2.MasterPages
+{
+    public partial class Main : System.Web.UI.MasterPage
+    {
+        public string _popbox = "none;";
+        public string _sCurVer = "0";
+        public int iNeedMenu = 1;
+        public bool _IsUserCenter = false;
+  //      static Regex MobileCheck = new Regex(@"android|(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+ //       static Regex MobileVersionCheck = new Regex(@"1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+        public int MobileBrowserFlag = 0;
+        public string browserName; /* Chrome/Safari/Firefox */
+        /*
+        <meta name="keywords" content="">
+<meta name="description" content=""> */
+
+        /*
+        public static bool fBrowserIsMobile()
+        {
+           // Debug.Assert(HttpContext.Current != null);
+
+            if (HttpContext.Current.Request != null && HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"] != null)
+            {
+                var u = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"].ToString();
+
+                if (u.Length < 4)
+                    return false;
+
+                if (MobileCheck.IsMatch(u) || MobileVersionCheck.IsMatch(u.Substring(0, 4)))
+                    return true;
+            }
+
+            return false;
+        }  */      
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            //Expires: Fri, 30 Oct 1998 14:19:41 GMT
+            //Cache-Control: max-age=3600, must-revalidate
+            /*
+             *  <meta http-equiv="Expires" content="<%=_sCurVer %>">
+                <meta http-equiv="Cache-Control" content="no-cache">
+             * 
+             CultureInfo ciUSA = new CultureInfo("en-US");
+             _sCurVer = DateTime.Now.AddDays(7).ToString("dddd, MMMM dd, yyyy h:mm:ss tt", ciUSA); //CommUtil.GetCurrentVersion();
+             */
+           // if (fBrowserIsMobile()) MobileBrowserFlag = 1;
+            System.Web.HttpBrowserCapabilities myBrowserCaps = Request.Browser;
+            browserName = myBrowserCaps.Browser;
+            if (((System.Web.Configuration.HttpCapabilitiesBase)myBrowserCaps).IsMobileDevice)
+            {
+                MobileBrowserFlag = 1;
+            }
+            string a = Environment.MachineName;
+            /*
+ StringBuilder strb = new StringBuilder();
+         strb.AppendFormat ( "User Agent: {0}{1}", Request.ServerVariables["http_user_agent"].ToString(), Environment.NewLine );
+         strb.AppendFormat ( "Browser: {0}{1}", Request.Browser.Browser.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Version: {0}{1}", Request.Browser.Version.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Major Version: {0}{1}", Request.Browser.MajorVersion.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Minor Version: {0}{1}", Request.Browser.MinorVersion.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Platform: {0}{1}", Request.Browser.Platform.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "ECMA Script version: {0}{1}", Request.Browser.EcmaScriptVersion.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Type: {0}{1}", Request.Browser.Type.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "-------------------------------------------------------------------------------{0}",  Environment.NewLine );
+         strb.AppendFormat ( "ActiveX Controls: {0}{1}", Request.Browser.ActiveXControls.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Background Sounds: {0}{1}", Request.Browser.BackgroundSounds.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "AOL: {0}{1}", Request.Browser.AOL.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Beta: {0}{1}", Request.Browser.Beta.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "CDF: {0}{1}", Request.Browser.CDF.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "ClrVersion: {0}{1}", Request.Browser.ClrVersion.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Cookies: {0}{1}", Request.Browser.Cookies.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Crawler: {0}{1}", Request.Browser.Crawler.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Frames: {0}{1}", Request.Browser.Frames.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Tables: {0}{1}", Request.Browser.Tables.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "JavaApplets: {0}{1}", Request.Browser.JavaApplets.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "JavaScript: {0}{1}", Request.Browser.JavaScript.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "MSDomVersion: {0}{1}", Request.Browser.MSDomVersion.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "TagWriter: {0}{1}", Request.Browser.TagWriter.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "VBScript: {0}{1}", Request.Browser.VBScript.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "W3CDomVersion: {0}{1}", Request.Browser.W3CDomVersion.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Win16: {0}{1}", Request.Browser.Win16.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "Win32: {0}{1}", Request.Browser.Win32.ToString ( ), Environment.NewLine );
+         strb.AppendFormat ( "-------------------------------------------------------------------------------{0}", Environment.NewLine );
+         strb.AppendFormat ( "MachineName: {0}{1}", Environment.MachineName, Environment.NewLine );
+         strb.AppendFormat ( "OSVersion: {0}{1}", Environment.OSVersion, Environment.NewLine );
+         strb.AppendFormat ( "ProcessorCount: {0}{1}", Environment.ProcessorCount, Environment.NewLine );
+         strb.AppendFormat ( "UserName: {0}{1}", Environment.UserName, Environment.NewLine );
+         strb.AppendFormat ( "Version: {0}{1}", Environment.Version, Environment.NewLine );
+         strb.AppendFormat ( "UserInteractive: {0}{1}", Environment.UserInteractive, Environment.NewLine );
+         strb.AppendFormat ( "UserDomainName: {0}{1}", Environment.UserDomainName, Environment.NewLine );
+             * ;*/
+            //for test
+            //MobileBrowserFlag = 1;
+
+            string url = Request.RawUrl;
+
+            if(url.ToLower().IndexOf("shoppingcart.aspx")>=0 ||
+                url.ToLower().IndexOf("checkoutshipping.aspx") >= 0 ||
+                url.ToLower().IndexOf("checkoutconfirmation.aspx") >= 0 ||
+                url.ToLower().IndexOf("checkoutpayment.aspx") >= 0)
+            {
+                iNeedMenu = 0;
+            }
+
+            if (url.ToLower().IndexOf("/home/") >= 0)
+            {
+                _IsUserCenter = true;
+            }
+            if (url.IndexOf("Buy") > 0)
+            {
+                HttpCookie myCookie = new HttpCookie("ShopersPopup");
+                myCookie = Request.Cookies["ShopersPopup"];
+
+                try
+                {
+                    // Read the cookie information and display it.
+
+                    if (myCookie != null && int.Parse(myCookie.Value.ToString()) > 0)
+                    {
+                        //design_id = myDesignID.Value.ToString();
+                        _popbox = "none;";
+                    }
+                    else
+                    {
+                        _popbox = "block;";
+                    }
+                }
+                catch (Exception e1)
+                {
+
+                }
+                // _popbox = "block;";
+            }
+
+            CookiesHelper ck = new CookiesHelper();
+            string userGuid = ck.getCookie("jZvJvvjqCILHX7zjBWskQA");
+            string userEmail = ck.getCookie("jZvJvvjqCILHX7zjBWskQB");
+            string pwd = ck.getCookie("jZvJvvjqCILHX7zjBWskQC");
+            string keyShopCart = System.Configuration.ConfigurationManager.AppSettings["cookieShopCart"].ToString();
+            string shopCartCookie = ck.getCookie(keyShopCart);
+            int cartQtyCount = 0;
+            int loginCount = 0;
+
+            if (!string.IsNullOrEmpty(userGuid) && !string.IsNullOrEmpty(pwd))
+            {
+                UserMgr mgr = new UserMgr();
+                Twee.Model.User user;
+                bool islogion = mgr.IsLogionByID(userGuid, pwd, out user);
+                if (islogion == true && user != null)
+                {
+                    if (url.IndexOf("Buy") > 0)
+                    {
+                        _popbox = "none;";
+                    }
+
+                    userName.InnerText = user.username;
+                    spanLogion1.Visible = false;
+                    //hrfSupply.HRef = "../Product/prdReviewStep2.aspx?step=supply";
+
+                    ShoppingcartMgr cart = new ShoppingcartMgr();
+                    cart.RemoveCookieCartToDataBase(userGuid.ToGuid(), shopCartCookie);
+                    // loginCount = cart.GetRecordCount("userguid='" + userGuid + "'");
+                    loginCount = cart.GetShoppingCartQtyCount("userguid='" + userGuid + "'");
+                    labCartCount.Text = loginCount.ToString();
+                }
+                else
+                {
+                    //用户没有登录，但还有cookie,  这时候也应该显示Shopping Cart Count?
+                    // 由于所有的后面操作都是当做没有用户来处理，故这里也应该这样
+                    // Add by Long 2015/11/30
+                    if (!string.IsNullOrEmpty(shopCartCookie))
+                    {
+                        ShoppingcartMgr cart = new ShoppingcartMgr();
+                        if (shopCartCookie.Substring(0, 1) != "'") shopCartCookie = "'" + shopCartCookie;
+                        if (shopCartCookie.Substring(shopCartCookie.Length - 1, 1) != "'") shopCartCookie = shopCartCookie + "'";
+
+                        cartQtyCount = cart.GetShoppingCartQtyCount(" TT.guid in (" + shopCartCookie + ") and userGuid='" + CommUtil.GetDummyGuid() + "'");
+                        labCartCount.Text = cartQtyCount.ToString();
+                    }
+                    else
+                    {
+                        labCartCount.Text = loginCount.ToString(); //???这里是原来的代码，不明白
+                    }
+                    //////////////EOF 
+
+                     
+                    spanLogion2.Visible = false;
+
+
+
+                    //hrfSupply.HRef = "../Product/supplyLogin.aspx";
+                }
+            }
+            else
+            {
+                spanLogion2.Visible = false;
+                //hrfSupply.HRef = "../Product/supplyLogin.aspx";
+
+                if (!string.IsNullOrEmpty(shopCartCookie))
+                {
+                    ShoppingcartMgr cart = new ShoppingcartMgr();
+                    if (shopCartCookie.Substring(0, 1) != "'") shopCartCookie = "'" + shopCartCookie;
+                    if (shopCartCookie.Substring(shopCartCookie.Length - 1, 1) != "'") shopCartCookie = shopCartCookie + "'";
+
+                    cartQtyCount = cart.GetShoppingCartQtyCount( " TT.guid in (" + shopCartCookie + ") and userGuid='" +  CommUtil.GetDummyGuid() + "'");
+                }
+                labCartCount.Text = cartQtyCount.ToString();
+            }
+            //labCartCount.Text = (cookCount + loginCount).ToString();
+            if (labCartCount.Text == "0")
+            {
+                hrefCart.HRef = "../Product/shoppCartEmpty.aspx.";
+            }
+            /* 为啥 出现 shoppCartEmpty page 还显示非0 */
+            if (url.IndexOf("shoppCartEmpty") > 0)
+            {
+                labCartCount.Text = "0";
+            }
+            //CookiesHelper cook = new CookiesHelper();
+            //if (string.IsNullOrEmpty(cook.getCookie("hshoppingcartcookguid")))
+            //{
+            //    string strguid = Guid.NewGuid().ToString();
+            //    if (cook.createCookie("hshoppingcartcookguid", strguid, 30))
+            //    {
+            //        hshoppingcartcookguid.Value = strguid;
+            //        hshoppingcartcookguid2.Value = WN.ToolBox.PasswordHelper.Md5Sign(strguid);
+            //    }
+            //    else
+            //        Response.Redirect("error.aspx");
+            //}
+            //else
+            //{
+            //    hshoppingcartcookguid.Value = cook.getCookie("hshoppingcartcookguid");
+            //    hshoppingcartcookguid2.Value = WN.ToolBox.PasswordHelper.Md5Sign(cook.getCookie("hshoppingcartcookguid"));
+            //}
+        }
+
+        protected void logionOut_click(object sender, EventArgs e)
+        {
+            CookiesHelper cook = new CookiesHelper();
+            bool b = cook.createCookie("jZvJvvjqCILHX7zjBWskQC", "", -1);
+            Response.Redirect("../User/login.aspx");
+
+            //HttpCookie aCookie;
+            //string cookieName;
+            //int limit = Request.Cookies.Count;
+            //for (int i = 0; i < limit; i++)
+            //{
+            //    cookieName = Request.Cookies[i].Name;
+            //    aCookie = new HttpCookie(cookieName);
+            //    aCookie.Expires = DateTime.Now.AddDays(-1);
+            //    Response.Cookies.Add(aCookie);
+            //}
+
+        }
+
+
+    }
+}

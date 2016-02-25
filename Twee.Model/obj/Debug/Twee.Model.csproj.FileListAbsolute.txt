@@ -1,0 +1,4 @@
+D:\tweebaa.com\Twee.Model\bin\Debug\Twee.Model.dll
+D:\tweebaa.com\Twee.Model\bin\Debug\Twee.Model.pdb
+D:\tweebaa.com\Twee.Model\obj\Debug\Twee.Model.dll
+D:\tweebaa.com\Twee.Model\obj\Debug\Twee.Model.pdb

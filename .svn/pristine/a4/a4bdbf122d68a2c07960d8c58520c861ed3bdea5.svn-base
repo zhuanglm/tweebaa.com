@@ -1,0 +1,540 @@
+@charset "utf-8";
+
+.w950
+{
+	width: 941px;
+	min-width: 950px;
+	margin: 0 auto
+}
+
+
+/*发布*/
+.fabubox { }
+.fabubox h1
+{
+	height: 77px;
+	line-height: 77px;
+	margin-bottom: 30px
+}
+.fabubox h1 strong
+{
+	display: inline-block;
+	font-size: 18px;
+	color: #09f;
+	padding-left: 40px;
+/*	background: url(../images/cpfb19.png) 5px center no-repeat*/
+}
+.fabubox h1 span.fr a
+{
+	color: #09f;
+	padding-left: 47px;
+	font-size: 14px;
+	display: inline-block;
+	height: 77px
+}
+.fabubox h1 span.fr a:hover
+{
+	color: #02b2ca;
+	text-decoration: none
+}
+.fabubox h1 .important
+{
+	display: inline-block;
+	color: #f00;
+	padding-left: 15px;
+	background: url(../images/important.png) 0 center no-repeat;
+	font-size: 14px
+}
+.fabubox h1 .ys
+{
+	background: url(../images/fbys.png) 20px center no-repeat;
+	color: #09f;
+	text-decoration: underline
+}
+.fabubox h1 .help { background: url(../images/help.png) 50px center no-repeat }
+.fabubox .tips
+{
+	height: 42px;
+	line-height: 42px;
+	border-radius: 5px;
+	color: #fff;
+	background: url(../images/wh2.png) 18px center no-repeat #02b2ca;
+	padding-left: 55px;
+	margin-bottom: 33px
+}
+.fabubox span.title
+{
+	display: inline-block;
+	background-color: #f8f8f8;
+	color: #09f;
+	padding: 0 15px;
+	font-size: 18px;
+	margin-top: -15px;
+	text-align: center
+}
+.fabubox table { font-size: 14px }
+.fabubox table img { vertical-align: middle }
+.fabubox table td
+{
+	padding: 10px 0 5px;
+	vertical-align: top
+}
+.fabubox table td.t
+{
+	text-align: right;
+	font-size: 14px;
+	color: #666;
+	width: 120px;
+	padding-right: 15px;
+	line-height: 30px
+}
+.fabubox table td.t b { color: #f00 }
+.fabubox table input.text
+{
+	font-size: 12px;
+	width: 605px;
+	height: 12px;
+	line-height: 12px;
+	border: 1px solid #e3e4e8;
+	border-radius: 5px;
+	padding: 10px 60px 10px 10px
+}
+.fabubox table textarea
+{
+	width: 96%;
+	height: 42px;
+	line-height: 20px;
+*height:38px;
+	border: 1px solid #e3e4e8;
+	border-radius: 5px;
+	padding: 0 2%
+}
+.fabubox table textarea
+{
+	height: 90px;
+	max-width: 605px;
+	position: relative;
+	z-index: 10;
+	background: transparent
+}
+.fabubox table .showbox
+{
+	display: inline-block;
+	cursor: pointer;
+	position: relative;
+	z-index: 100;
+	background: url(../images/wh.png) center bottom no-repeat;
+	width: 17px;
+	height: 25px;
+	font-style: normal;
+	float: left;
+	line-height: 35px
+}
+.fabubox .thistips
+{
+	display: none;
+	position: absolute;
+	left: -42px;
+	bottom: 28px;
+	width: 305px;
+	padding: 5px;
+	border: 1px solid #17b5f0;
+	border-radius: 3px;
+	background-color: #cdebfa;
+	font-size: 12px
+}
+.fabubox .thistips i
+{
+	display: block;
+	width: 14px;
+	height: 8px;
+	overflow: hidden;
+	background: url(../images/sjx.png) 0 0 no-repeat;
+	position: absolute;
+	left: 42px;
+	bottom: -8px
+}
+.fabubox .thistips p { line-height: 20px }
+.fabubox i.icon-btn
+{
+	display: block;
+	width: 45px;
+	height: 33px;
+	border-left: 1px solid #e3e4e8;
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: center center no-repeat;
+*top:2px
+}
+.fabubox i.bianji { background-image: url(../images/bi.png) ; }
+.fabubox i.dui { background-image: url(../images/gou.png) }
+.fabubox i.cuo { background-image: url(../images/x3.png) }
+.fabubox .line
+{
+	position: relative;
+	text-align: left;
+	width: 80px;
+	height: 30px;
+	overflow: hidden;
+	margin-right: 15px
+}
+.fabubox .line span.span
+{
+	float: left;
+	padding-top: 2px
+}
+.fabubox .file
+{
+	position: absolute;
+	left: 0;
+	width: 250px;
+	top: 0;
+	height: 30px;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	cursor: pointer
+}
+.fabubox .line i.icon-btn { display: none }
+.fabubox .file1
+{
+	float: left;
+	z-index: 1;
+	width: 79px;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	text-align: center;
+	border-radius: 5px;
+	background-color: #09f;
+	cursor: pointer
+}
+.fabubox .inputstyle
+{
+	border: 1px solid #bebebe;
+	width: 170px;
+	float: left;
+	height: 23px;
+	line-height: 23px;
+	background: #fff;
+	z-index: 99
+}
+.fabubox .fengmian .imglink
+{
+	display: block;
+	width: 62px;
+	height: 62px;
+	overflow: hidden;
+	border: 1px solid #e1e1e1
+}
+.fabubox .fengmian dd
+{
+	float: left;
+	_display: inline;
+	margin-right: 10px;
+	width: 64px;
+	background: url(../images/fmdt2.gif) 0 0 no-repeat
+}
+.fabubox .fengmian .first { background: url(../images/fmdt.gif) 0 0 no-repeat }
+.fabubox .fengmian .btn-group
+{
+	height: 12px;
+	padding: 7px 2px;
+	overflow: hidden;
+	text-align: center
+}
+.fabubox .fengmian .btn-group a
+{
+	display: block;
+	background: url(../images/fmdt3.png) 0 0 no-repeat
+}
+.fabubox .fengmian .btn-group .moveLeft
+{
+	width: 14px;
+	height: 12px
+}
+.fabubox .fengmian .btn-group .moveRight
+{
+	width: 14px;
+	height: 12px;
+	background-position: -43px 0
+}
+.fabubox .fengmian .btn-group .delthis
+{
+	width: 12px;
+	height: 12px;
+	display: inline-block;
+	background-position: -24px 0
+}
+
+
+
+/*发布结果 按钮*/
+
+.result { padding-bottom: 65px }
+.result a:hover { text-decoration: none }
+.result .yulanbtn
+{
+	display: inline-block;
+	width: 142px;
+	height: 39px;
+	line-height: 39px;
+	text-align: center;
+	color: #fff;
+	background-color: #09f;
+	border-radius: 5px;
+	font-size: 18px
+}
+.result .btn
+{
+	font-size: 12px;
+	height: 20px;
+	line-height: 20px;
+	padding-left: 25px
+}
+.result .btn:hover { color: #21a6fe }
+.result .return-btn { background: url(../images/return.png) 0 3px no-repeat }
+.result .return-btn:hover { background-position: 0 -19px }
+.result .clear-btn { background: url(../images/clear.png) 0 0 no-repeat }
+.result .clear-btn:hover { background-position: 0 -20px }
+.result .save-btn
+{
+	margin-right: 10px;
+	background: url(../images/save.png) 0 0 no-repeat
+}
+.result .save-btn:hover { background-position: 0 -22px }
+#tese
+{
+	position: relative;
+	z-index: 3
+}
+/*发布信息单元框*/
+.basic-infor
+{
+	border: 1px solid #0074ba;
+	border-radius: 15px;
+	padding: 0 65px 0 25px;
+	margin-bottom: 30px;
+	position: relative
+}
+.basic-infor p.tishi
+{
+	font-size: 12px;
+	width: 540px;
+	left: 10px;
+	top: 10px;
+	position: absolute;
+	z-index: 2;
+	color: #ccc
+}
+.basic-infor .txtnumertips { color: #999 }
+#zxzz
+{
+	width: 43px;
+	height: 44px;
+	background-color: #f8f8f8;
+	border: 1px solid #00aeef;
+	text-align: center;
+	color: #0bb1ef;
+	text-decoration: none;
+	line-height: 18px;
+	padding-top: 41px;
+	background: url(../images/zxzx.png) center 8px no-repeat;
+	position: fixed;
+	_position: absolute;
+	z-index: 100;
+	right: 67px;
+	top: 200px
+}
+/*价格框*/
+.price-infor { margin-bottom: 18px }
+.price-infor .price1 { width: 80px }
+.price-infor .tag_select { width: 50px }
+.price-infor ul.tag_options
+{
+	width: 72px;
+	overflow: hidden
+}
+.price-infor ul.tag_options li { width: 100% }
+.price-infor .wz
+{
+	line-height: 30px;
+	padding: 0 15px 0 10px
+}
+.price-infor .price2 { width: 130px }
+.price-infor .price2 .tag_select { width: 100px }
+.price-infor .price2 ul.tag_options
+{
+	width: 122px;
+	overflow: hidden
+}
+.price-infor .price2 ul.tag_options li { width: 100% }
+.price-infor .sale-price
+{
+	width: 78px;
+	height: 34px;
+	line-height: 34px;
+*height:30px;
+*line-height:30px;
+	border: 1px solid #e3e4e8;
+	border-radius: 5px;
+	padding: 0 8px
+}
+.price-infor .add-sale-btn
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 70px
+}
+.price-infor .add-sale-btn a
+{
+	display: block;
+	font-size: 14px;
+	color: #999;
+	height: 30px;
+	line-height: 30px;
+	text-indent: -9999px;
+	width: 35px;
+	float: left
+}
+.price-infor .add-sale-btn a:hover { text-decoration: none }
+.price-infor .add-sale-btn .jia { background: url(../images/jia.png) 0 center no-repeat }
+.price-infor .add-sale-btn .jian { background: url(../images/jian.png) 0 center no-repeat }
+.price-infor .price-section
+{
+	position: relative;
+	margin-bottom: 8px;
+	display: none
+}
+#price-section .h0 { z-index: 20 }
+#price-rmb { width: 400px }
+#price-rmb .icon-btn { right: 240px }
+#tishi { background-color: #fff }
+#tishi .icon-btn
+{
+	display: none;
+	border-left: 0
+}
+
+/*发布描述*/
+.greybox
+{
+	position: fixed;
+	_position: absolute;
+	width: 100%;
+	height: 100%;
+	_height: 2000px;
+	left: 0;
+	top: 0;
+	background: url(../images/tm44.png);
+	z-index: 999;
+	display: none
+}
+.fabu-des h1
+{
+	margin-bottom: 45px;
+	font-weight: bold
+}
+.fabu-des span.title
+{
+	font-weight: bold;
+	margin-top: -15px;
+	font-size: 18px
+}
+.fabu-des table td.t { width: 100px }
+.fabu-des .tag_select { width: 160px }
+.fabu-des ul.tag_options
+{
+	width: 180px;
+	overflow: hidden
+}
+.fabu-des ul.tag_options li { width: 100% }
+.btn-group
+{
+	padding: 0;
+	padding-bottom: 63px;
+	text-align: center
+}
+.btn-group .btn
+{
+	width: 190px;
+	height: 55px;
+	line-height: 55px;
+	background-color: #a0a0a0;
+	text-align: center;
+	font-size: 18px;
+	border: 0;
+	cursor: pointer;
+	border-radius: 4px;
+	outline: none;
+	color: #fff;
+	margin-right: 15px
+}
+.btn-group .btn:hover { background-color: #0065a8 }
+.btn-group .btn.blue { background-color: #01b2ca }
+
+/*注册*/
+.zhunze { margin-bottom: 25px }
+.zhunze a { font-weight: bold }
+.zhunze label.checkbox { background-image: url(../images/checkbox3.png) }
+
+
+/*表单提示*/
+.formtips
+{
+	position: absolute;
+	left: 285px;
+	top: 0;
+	z-index: 5;
+	display: block;
+	width: 200px
+}
+.onError { color: #f00 }
+.onSuccess { color: #008000 }
+.clearAllInfor
+{
+	width: 272px;
+	height: 85px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	_top: 150px;
+	padding-top: 23px;
+	margin-left: -136px;
+	background-color: #fff;
+	border: 1px solid #959595;
+	padding: 25px 0 15px;
+	margin-top: -62px
+}
+/*清除所有信息*/
+.clearAllInfor p { padding: 0 25px }
+.clearAllInfor .cancel-btn, .clearAllInfor .enter-btn
+{
+	display: inline-block;
+	background-color: #09f;
+	width: 73px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	color: #fff;
+	border-radius: 5px;
+	margin: 0 5px
+}
+.clearAllInfor .enter-btn { background-color: #959595 }
+.clearAllInfor div.tc { padding-top: 8px }
+.clearAllInfor div.tc a:hover
+{
+	text-decoration: none;
+	background-color: #09f
+}
+.clearAllInfor .closeBtn
+{
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: url(../images/x16.png) 0 0 no-repeat;
+	position: absolute;
+	right: 10px;
+	top: 10px
+}

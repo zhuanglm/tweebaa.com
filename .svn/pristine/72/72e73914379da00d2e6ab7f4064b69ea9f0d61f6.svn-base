@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<home>
+  <config id="1" value="300" description="会员中心申请提现的限额"></config>
+</home>

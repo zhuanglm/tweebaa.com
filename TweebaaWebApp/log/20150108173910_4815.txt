@@ -1,0 +1,2 @@
+注册发送email时：参数“addresses”不能是空字符串。
+参数名: addresses

@@ -1,0 +1,4 @@
+D:\tweebaa.com\Twee.Server\bin\Debug\Twee.Server.dll
+D:\tweebaa.com\Twee.Server\bin\Debug\Twee.Server.pdb
+D:\tweebaa.com\Twee.Server\obj\Debug\Twee.Server.dll
+D:\tweebaa.com\Twee.Server\obj\Debug\Twee.Server.pdb

@@ -1,0 +1,307 @@
+﻿
+
+function Load_Product_May_like() {
+    var focusCateIDs = [];
+    var orderby = "";
+ // get/show paging data list
+    $.ajax({
+        type: "Post",
+        url: "/AjaxPages/prdSaleAjax.aspx",
+        data: "{'action':'prdMayLike','cate':'" + ""
+                    + "','prdName':'" + ""
+                    + "','state':'" + ""
+                    + "','focusCateIDs':'" + focusCateIDs
+                    + "','prdCate1':'" + ""
+                    + "','prdCate2':'" + ""
+                    + "','prdCate3':'" + ""
+                    + "','orderby':'"
+                    + orderby + "','page':'"
+                    + "1"
+                    + "'}",
+        success: function (resu) {
+            if (resu == "") {
+                return;
+            }
+            var obj = eval("(" + resu + ")");
+            sHtml = "";
+            for (var i = 0; i < obj.length; i++) {
+                var prd = obj[i];
+
+                var ishot = "none;";
+                var IsFreeShipping = "none";
+                var IsLimitedTime = "none";
+                var IsComingSoon = "none";
+                //alert(prd.IsFreeShipping); alert(prd.IsLimitedTime); alert(prd.IsComingSoon);
+                if (prd.hottip == "yes")
+                    ishot = "block;";
+                if (prd.IsFreeShipping == true)
+                    IsFreeShipping = "block;";
+                if (prd.IsLimitedTime == true)
+                    IsLimitedTime = "block;";
+                if (prd.IsComingSoon == true)
+                    IsComingSoon = "block;";
+
+                var tagIco = '<i class="hot"  style="display:' + ishot + '"></i><i class="freeship" style="display:' + IsFreeShipping + '"></i><i class="limited" style="display:' + IsLimitedTime + '"></i><i class="comesoon" style="display:' + IsComingSoon + '"></i>';
+
+                var prdid = "'" + prd.prdGuid + "'";
+                var prdname = "'" + escape(prd.name) + "'";
+                var imgPath = picPath + prd.fileurl.replace("big", "mid2");
+                var prdimg = "'" + imgPath + "'";
+                //var presaleendtime = prd.presaleendtime.replace(/-/g, '/').substring(0, 10);
+                var time = prd.presaleendday;
+                if (time == null || time == "") { time = "0"; }
+                var prdState = prd.wnstat;
+                var estimateprice = prd.estimateprice.toFixed(2);
+                var saleprice = prd.saleprice.toFixed(2);
+                if (estimateprice == null) { estimateprice = 0.00; }
+                if (saleprice == null) { saleprice = 0.00; }
+
+                var minfinalsaleprice = 0.00;
+                if (prd.minfinalsaleprice != null) {
+                    minfinalsaleprice = prd.minfinalsaleprice.toFixed(2);
+                }
+                var html = "";
+                var urlPage = "'presaleBuy.aspx'";
+
+                var prdDesc = "'" + escape(prd.txtjj) + "'";
+                if (prdState == "2") {
+                    //预售中
+                    /*
+                    // progress
+                    var testSaleProgress = (prd.saleCount / prd.presaleForward) * 100;
+                    if (testSaleProgress < 1) testSaleProgress = 1;
+                    if (testSaleProgress > 100) testSaleProgress = 100;
+                    var testSaleLeftCount = prd.presaleForward - prd.saleCount;
+
+                    // left days
+                    var leftDays = "";
+                    if (time <= 0) leftDays = " Time Over";
+                    else leftDays = " Days left: " + time ;
+
+                    html = '<div class="item presale-ing">'
+                    html += '<div class="box"><div class="pic-box">';
+                    html += '<a href="presaleBuy.aspx?id=' + prd.prdGuid + '"   class="imglink">';
+                    html += '<img src="' + imgPath + '" alt=""></a><div class="floatDiv">';
+                    html += '<a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')"  title="Favorite">Favorite</a> ';
+                    html += '<a href="#" style="display:none;" class="down" title="Download">Download</a> ';
+                    html += '<a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ')" class="share" title="Share & Earn">Share</a>';
+                    html += '</div></div><div class="row row1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '">' + prd.name + '</a></div>';
+                    html += '<div class="row row2">'
+                    html += '<a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div>';
+                    html += '<div class="row row3 clearfix"><div class="zt1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="gotoShopCar" title="Add to Cart">Add to Cart</a>';
+                    html += '<del>$' + estimateprice + '</del> <strong class="color">$' + saleprice + '</strong><img src="../Images/hour-glass.png" style="float:right; margin-right:7px;" /></div></div><div class="row row4 clearfix"><div class="zt1"><div class="jdt"><span style="width:' + testSaleProgress + '%"></span></div><span class="fr">' + leftDays + '</span> <span class="fl">Test-Sale Units left: ' + testSaleLeftCount + '</span> </div></div>' + tagIco + '</div></div>';
+                    html += '';
+                    */
+                }
+
+                else if (prdState == "6") {
+                    //等待上架中
+                    //html = '<div class="item sale-success"><div class="box"><div class="pic-box"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"   class="imglink"><img src="' + imgPath + '" alt=""></a><div class="floatDiv" style="top:-110px"><a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')" title="Favorite">Favorite</a> <a href="#" style="display:none;" class="down" title="Download">Download</a> <a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ',' + saleprice + ')" class="share" title="Share">Share</a></div></div><div class="row row1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '">' + prd.name + '</a></div><div class="row row2"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div><div class="row row3 clearfix"><div class="zt1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="gotoShopCar" title="Add to Cart">Add to Cart</a> <del>$' + estimateprice + '</del> <strong class="color">$' + saleprice + '</strong></div></div><div class="row row4 clearfix"><div class="zt1"><div class="jdt"><span style="width:100%"></span></div><span class="fr">Waiting to be listed</span> <span class="color fl">Test-Sale Successful</span></div></div>' + tagIco + '</div></div>';
+                }
+
+                else if (prdState == "7") {
+                    //Test-Sale Failed     
+                    // html = '<div class="item sale-failure"><div class="box"><div class="pic-box"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink"><img src="' + imgPath + '" alt=""></a><div class="floatDiv" style="top:-110px"><a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')" title="Favorite">Favorite</a> <a href="#" style="display:none;" class="down" title="Download">Download</a> <a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ',' + saleprice + ')"  class="share" title="Share">Share</a></div></div><div class="row row1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '">' + prd.name + '</a></div><div class="row row2"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '" class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div><div class="row row3 clearfix"><div class="zt2"><a class="fr waiting-btn" href="#">Contact</a> <del>$' + estimateprice + '</del> <strong class="color">$' + estimateprice + '</strong></div></div><div class="row row4 clearfix"><div class="zt2"><div class="jdt"><span></span></div><span class="fl">Test-Sale Failed</span></div></div>' + tagIco + '</div></div>';
+
+                }
+                else if (prdState == "3") {
+                    urlPage = "'saleBuy.aspx'";
+                    //销售中               
+                    var priceMSRP = '&nbsp;&nbsp;<del style="color:grey">$' + estimateprice + '</del>';
+                    if (parseFloat(estimateprice) == parseFloat(minfinalsaleprice)) priceMSRP = "";
+
+                    //html = '<div class="item sales-ing"><div class="box"><div class="pic-box"><a href="saleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink"><img src="' + imgPath + '" alt=""></a><div class="floatDiv"><a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')"  title="Favorite">Favorite</a> <a href="#" style="display:none;" class="down" title="Download">Download</a> <a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ',' + minfinalsaleprice + ')" class="share" title="Share & Earn">Share</a></div></div><div class="row row1"><a href="#">' + prd.name + '</a></div><div class="row row2"><a href="saleBuy.aspx?id=' + prd.prdGuid + '" class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div><div class="row row3 clearfix"><div class="zt2"><a href="saleBuy.aspx?id=' + prd.prdGuid + '"  class="gotoShopCar" title="Add to Cart">Add to Cart</a>' + priceMSRP + '<strong class="color">$' + minfinalsaleprice + '</strong></div></div><div class="row row4 clearfix"><div class="zt2"><span class="fr"><a href="javascript:;" class="loveNumber" title="like">' + prd.favoriteCount + '</a></span> <span class="fl">Sold：' + prd.saleCount + ' pieces</span><a href="saleBuy.aspx?id=' + prd.prdGuid + '"><span class="color">Buy Now</span></a></div></div>' + tagIco + '</div></div>';
+                    //html = '<div class="item sales-ing"><div class="box"><div class="pic-box"><a href="saleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink"><img src="' + imgPath + '" alt=""></a><div class="floatDiv"><a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')"  title="Favorite">Favorite</a> <a href="#" style="display:none;" class="down" title="Download">Download</a> <a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ',' + minfinalsaleprice + ')" class="share" title="Share & Earn">Share</a></div></div><div class="row row1"><a href="saleBuy.aspx?id=' + prd.prdGuid + '">' + prd.name + '</a></div>
+                    //<div class="row row2"><a href="saleBuy.aspx?id=' + prd.prdGuid + '" class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div><div class="row row3 clearfix"><div class="zt2"><a href="saleBuy.aspx?id=' + prd.prdGuid + '"  class="gotoShopCar" title="Add to Cart">Add to Cart</a>' + priceMSRP + '<strong class="color">$' + minfinalsaleprice + '</strong></div></div><div class="row row4 clearfix"><div class="zt2"><span class="fr"><a href="javascript:;" class="loveNumber" title="like">' + prd.favoriteCount + '</a></span><a href="saleBuy.aspx?id=' + prd.prdGuid + '"><span class="color">Buy Now</span></a></div></div>' + tagIco + '</div></div>';
+
+                    sHtml = sHtml + '<li class="item">';
+                    sHtml = sHtml + '<a href="saleBuy.aspx?id=' + prd.prdGuid + '"><img class="img-responsive" src="' + imgPath + '" alt=""></a>';
+                    sHtml = sHtml + '<div class="product-description-v3">';
+                    sHtml = sHtml + '<div class="margin-bottom-5">';
+                    sHtml = sHtml + '        <h4 class="title-price"><a href="saleBuy.aspx?id=' + prd.prdGuid + '">' + GetShortDescEx(prd.name,20) + '</a></h4>';
+                    sHtml = sHtml + '        <span class="title-price"><strong class="color" style="color:red">$' + minfinalsaleprice + '</strong>' + priceMSRP + '</span>';
+                    sHtml = sHtml + '    </div>';
+                    /*
+                    sHtml=sHtml+'    <ul class="list-inline evluate-ratings">';
+                    sHtml=sHtml+'        <li><i class="rating-selected fa fa-star"></i></li>';
+                    sHtml=sHtml+'        <li><i class="rating-selected fa fa-star"></i></li>';
+                    sHtml=sHtml+'        <li><i class="rating-selected fa fa-star"></i></li>';
+                    sHtml=sHtml+'        <li><i class="rating fa fa-star"></i></li>';
+                    sHtml=sHtml+'        <li><i class="rating fa fa-star"></i></li>';
+                    sHtml=sHtml+'    </ul>';   */
+                    sHtml = sHtml + '</div>';
+                    sHtml = sHtml + '</li>';
+                }
+
+
+
+            }
+            $("#prd_may_like_listings").html(sHtml);
+            OwlCarousel.initOwlCarousel();
+            //LoadPresaleMouseOver();
+        },
+        error: function (obj) {
+            //alert("Load failed");
+        }
+    });
+
+
+
+
+
+
+}
+
+
+
+function Load_Product_May_like_in_category(cate_id) {
+    var focusCateIDs = [];
+    var orderby = "";
+    // get/show paging data list
+    $.ajax({
+        type: "Post",
+        url: "/AjaxPages/prdSaleAjax.aspx",
+        data: "{'action':'prdMayLike','cate':'" +cate_id+ ""
+                    + "','prdName':'" + ""
+                    + "','state':'" + ""
+                    + "','focusCateIDs':'" + focusCateIDs
+                    + "','prdCate1':'" + ""
+                    + "','prdCate2':'" + ""
+                    + "','prdCate3':'" + cate_id+""
+                    + "','orderby':'"
+                    + orderby + "','page':'"
+                    + "1"
+                    + "'}",
+        success: function (resu) {
+            if (resu == "") {
+                return;
+            }
+            var obj = eval("(" + resu + ")");
+            sHtml = "";
+            for (var i = 0; i < obj.length; i++) {
+                var prd = obj[i];
+
+                var ishot = "none;";
+                var IsFreeShipping = "none";
+                var IsLimitedTime = "none";
+                var IsComingSoon = "none";
+                //alert(prd.IsFreeShipping); alert(prd.IsLimitedTime); alert(prd.IsComingSoon);
+                if (prd.hottip == "yes")
+                    ishot = "block;";
+                if (prd.IsFreeShipping == true)
+                    IsFreeShipping = "block;";
+                if (prd.IsLimitedTime == true)
+                    IsLimitedTime = "block;";
+                if (prd.IsComingSoon == true)
+                    IsComingSoon = "block;";
+
+                var tagIco = '<i class="hot"  style="display:' + ishot + '"></i><i class="freeship" style="display:' + IsFreeShipping + '"></i><i class="limited" style="display:' + IsLimitedTime + '"></i><i class="comesoon" style="display:' + IsComingSoon + '"></i>';
+
+                var prdid = "'" + prd.prdGuid + "'";
+                var prdname = "'" + escape(prd.name) + "'";
+                var imgPath = picPath + prd.fileurl.replace("big", "mid2");
+                var prdimg = "'" + imgPath + "'";
+                //var presaleendtime = prd.presaleendtime.replace(/-/g, '/').substring(0, 10);
+                var time = prd.presaleendday;
+                if (time == null || time == "") { time = "0"; }
+                var prdState = prd.wnstat;
+                var estimateprice = prd.estimateprice.toFixed(2);
+                var saleprice = prd.saleprice.toFixed(2);
+                if (estimateprice == null) { estimateprice = 0.00; }
+                if (saleprice == null) { saleprice = 0.00; }
+
+                var minfinalsaleprice = 0.00;
+                if (prd.minfinalsaleprice != null) {
+                    minfinalsaleprice = prd.minfinalsaleprice.toFixed(2);
+                }
+                var html = "";
+                var urlPage = "'presaleBuy.aspx'";
+
+                var prdDesc = "'" + escape(prd.txtjj) + "'";
+                if (prdState == "2") {
+                    //预售中
+                    /*
+                    // progress
+                    var testSaleProgress = (prd.saleCount / prd.presaleForward) * 100;
+                    if (testSaleProgress < 1) testSaleProgress = 1;
+                    if (testSaleProgress > 100) testSaleProgress = 100;
+                    var testSaleLeftCount = prd.presaleForward - prd.saleCount;
+
+                    // left days
+                    var leftDays = "";
+                    if (time <= 0) leftDays = " Time Over";
+                    else leftDays = " Days left: " + time ;
+
+                    html = '<div class="item presale-ing">'
+                    html += '<div class="box"><div class="pic-box">';
+                    html += '<a href="presaleBuy.aspx?id=' + prd.prdGuid + '"   class="imglink">';
+                    html += '<img src="' + imgPath + '" alt=""></a><div class="floatDiv">';
+                    html += '<a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')"  title="Favorite">Favorite</a> ';
+                    html += '<a href="#" style="display:none;" class="down" title="Download">Download</a> ';
+                    html += '<a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ')" class="share" title="Share & Earn">Share</a>';
+                    html += '</div></div><div class="row row1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '">' + prd.name + '</a></div>';
+                    html += '<div class="row row2">'
+                    html += '<a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div>';
+                    html += '<div class="row row3 clearfix"><div class="zt1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="gotoShopCar" title="Add to Cart">Add to Cart</a>';
+                    html += '<del>$' + estimateprice + '</del> <strong class="color">$' + saleprice + '</strong><img src="../Images/hour-glass.png" style="float:right; margin-right:7px;" /></div></div><div class="row row4 clearfix"><div class="zt1"><div class="jdt"><span style="width:' + testSaleProgress + '%"></span></div><span class="fr">' + leftDays + '</span> <span class="fl">Test-Sale Units left: ' + testSaleLeftCount + '</span> </div></div>' + tagIco + '</div></div>';
+                    html += '';
+                    */
+                }
+
+                else if (prdState == "6") {
+                    //等待上架中
+                    //html = '<div class="item sale-success"><div class="box"><div class="pic-box"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"   class="imglink"><img src="' + imgPath + '" alt=""></a><div class="floatDiv" style="top:-110px"><a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')" title="Favorite">Favorite</a> <a href="#" style="display:none;" class="down" title="Download">Download</a> <a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ',' + saleprice + ')" class="share" title="Share">Share</a></div></div><div class="row row1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '">' + prd.name + '</a></div><div class="row row2"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div><div class="row row3 clearfix"><div class="zt1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="gotoShopCar" title="Add to Cart">Add to Cart</a> <del>$' + estimateprice + '</del> <strong class="color">$' + saleprice + '</strong></div></div><div class="row row4 clearfix"><div class="zt1"><div class="jdt"><span style="width:100%"></span></div><span class="fr">Waiting to be listed</span> <span class="color fl">Test-Sale Successful</span></div></div>' + tagIco + '</div></div>';
+                }
+
+                else if (prdState == "7") {
+                    //Test-Sale Failed     
+                    // html = '<div class="item sale-failure"><div class="box"><div class="pic-box"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink"><img src="' + imgPath + '" alt=""></a><div class="floatDiv" style="top:-110px"><a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')" title="Favorite">Favorite</a> <a href="#" style="display:none;" class="down" title="Download">Download</a> <a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ',' + saleprice + ')"  class="share" title="Share">Share</a></div></div><div class="row row1"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '">' + prd.name + '</a></div><div class="row row2"><a href="presaleBuy.aspx?id=' + prd.prdGuid + '" class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div><div class="row row3 clearfix"><div class="zt2"><a class="fr waiting-btn" href="#">Contact</a> <del>$' + estimateprice + '</del> <strong class="color">$' + estimateprice + '</strong></div></div><div class="row row4 clearfix"><div class="zt2"><div class="jdt"><span></span></div><span class="fl">Test-Sale Failed</span></div></div>' + tagIco + '</div></div>';
+
+                }
+                else if (prdState == "3") {
+                    urlPage = "'saleBuy.aspx'";
+                    //销售中               
+                    var priceMSRP = '&nbsp;&nbsp;<del style="color:grey">$' + estimateprice + '</del>';
+                    if (parseFloat(estimateprice) == parseFloat(minfinalsaleprice)) priceMSRP = "";
+
+                    //html = '<div class="item sales-ing"><div class="box"><div class="pic-box"><a href="saleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink"><img src="' + imgPath + '" alt=""></a><div class="floatDiv"><a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')"  title="Favorite">Favorite</a> <a href="#" style="display:none;" class="down" title="Download">Download</a> <a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ',' + minfinalsaleprice + ')" class="share" title="Share & Earn">Share</a></div></div><div class="row row1"><a href="#">' + prd.name + '</a></div><div class="row row2"><a href="saleBuy.aspx?id=' + prd.prdGuid + '" class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div><div class="row row3 clearfix"><div class="zt2"><a href="saleBuy.aspx?id=' + prd.prdGuid + '"  class="gotoShopCar" title="Add to Cart">Add to Cart</a>' + priceMSRP + '<strong class="color">$' + minfinalsaleprice + '</strong></div></div><div class="row row4 clearfix"><div class="zt2"><span class="fr"><a href="javascript:;" class="loveNumber" title="like">' + prd.favoriteCount + '</a></span> <span class="fl">Sold：' + prd.saleCount + ' pieces</span><a href="saleBuy.aspx?id=' + prd.prdGuid + '"><span class="color">Buy Now</span></a></div></div>' + tagIco + '</div></div>';
+                    //html = '<div class="item sales-ing"><div class="box"><div class="pic-box"><a href="saleBuy.aspx?id=' + prd.prdGuid + '"  class="imglink"><img src="' + imgPath + '" alt=""></a><div class="floatDiv"><a href="javascript:void(0)" class="love" onclick="FavoritePrd(' + prdid + ')"  title="Favorite">Favorite</a> <a href="#" style="display:none;" class="down" title="Download">Download</a> <a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ',' + prdDesc + ',' + minfinalsaleprice + ')" class="share" title="Share & Earn">Share</a></div></div><div class="row row1"><a href="saleBuy.aspx?id=' + prd.prdGuid + '">' + prd.name + '</a></div>
+                    //<div class="row row2"><a href="saleBuy.aspx?id=' + prd.prdGuid + '" class="imglink">' + GetShortDesc(prd.txtjj) + '...Read more</a></div><div class="row row3 clearfix"><div class="zt2"><a href="saleBuy.aspx?id=' + prd.prdGuid + '"  class="gotoShopCar" title="Add to Cart">Add to Cart</a>' + priceMSRP + '<strong class="color">$' + minfinalsaleprice + '</strong></div></div><div class="row row4 clearfix"><div class="zt2"><span class="fr"><a href="javascript:;" class="loveNumber" title="like">' + prd.favoriteCount + '</a></span><a href="saleBuy.aspx?id=' + prd.prdGuid + '"><span class="color">Buy Now</span></a></div></div>' + tagIco + '</div></div>';
+
+                    sHtml = sHtml + '<li class="item">';
+                    sHtml = sHtml + '<a href="saleBuy.aspx?id=' + prd.prdGuid + '"><img class="img-responsive" src="' + imgPath + '" alt=""></a>';
+                    sHtml = sHtml + '<div class="product-description-v3">';
+                    sHtml = sHtml + '<div class="margin-bottom-5">';
+                    sHtml = sHtml + '        <h4 class="title-price"><a href="saleBuy.aspx?id=' + prd.prdGuid + '">' + GetShortDescEx(prd.name, 40) + '</a></h4>';
+                    sHtml = sHtml + '        <span class="title-price"><strong class="color" style="color:red">$' + minfinalsaleprice + '</strong>' + priceMSRP + '</span>';
+                    sHtml = sHtml + '    </div>';
+                    /*
+                    sHtml=sHtml+'    <ul class="list-inline evluate-ratings">';
+                    sHtml=sHtml+'        <li><i class="rating-selected fa fa-star"></i></li>';
+                    sHtml=sHtml+'        <li><i class="rating-selected fa fa-star"></i></li>';
+                    sHtml=sHtml+'        <li><i class="rating-selected fa fa-star"></i></li>';
+                    sHtml=sHtml+'        <li><i class="rating fa fa-star"></i></li>';
+                    sHtml=sHtml+'        <li><i class="rating fa fa-star"></i></li>';
+                    sHtml=sHtml+'    </ul>';   */
+                    sHtml = sHtml + '</div>';
+                    sHtml = sHtml + '</li>';
+                }
+
+
+
+            }
+            $("#prd_may_like_listings").html(sHtml);
+            OwlCarousel.initOwlCarousel();
+            //LoadPresaleMouseOver();
+        },
+        error: function (obj) {
+            //alert("Load failed");
+        }
+    });
+
+
+
+
+
+
+}

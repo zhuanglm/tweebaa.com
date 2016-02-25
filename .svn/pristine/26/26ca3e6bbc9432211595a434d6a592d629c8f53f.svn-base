@@ -1,0 +1,386 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="FAQ.aspx.cs" Inherits="TweebaaWebApp2.College.FAQ" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+
+      <!-- CSS Page Style -->    
+    <link rel="stylesheet" href="/css/pages/page_search_inner.css">
+
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+ <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">FAQ</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="/index.aspx">Home</a></li>
+                <li><a href="/College/College.aspx">Education</a></li>
+                <li class="active">FAQ</li>
+            </ul>
+        </div> 
+    </div><!--/breadcrumbs-->
+<div class="search-block-v2">
+        <div class="container">
+            <div class="col-md-6 col-md-offset-3">
+                <h2>Search What You Want Ask</h2>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search words with regular expressions ...">
+                    <span class="input-group-btn">
+                        <button class="btn-u" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+
+       <div class="container content">	
+ 
+                   <div class="row job-content">
+            <div class="col-md-3">
+            <button class="btn-u btn-brd rounded-2x btn-u-dark margin-bottom-10 btn-block" type="button">General</button>
+            </div>
+            <div class="col-md-3">
+                   <button class="btn-u btn-brd rounded-2x btn-u-dark btn-block margin-bottom-10" type="button">Zone</button>
+            </div> 
+            <div class="col-md-3">
+                   <button class="btn-u btn-brd rounded-2x btn-u-dark btn-block margin-bottom-10" type="button">Shop</button>
+            </div> 
+            
+           <div class="col-md-3">
+                   <button class="btn-u btn-brd rounded-2x btn-u-dark btn-block margin-bottom-10" type="button">Member account</button>
+            </div>  
+            
+            </div> 
+   
+               </div>
+
+      <!--=== Content Part ===-->
+    <div class="container content">	
+   <div class="row"> 
+
+   <!--new drop down catoryies
+    <div class="col-md-3">
+             
+                <div class="panel-group" id="accordion-v2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion-v2" href="#">
+                                 General
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </h2>
+                        </div>
+                  
+                            <div id="collapseCategory" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <ul class="nav nav-pills nav-stacked tree">
+                                <li class="active dropdown-tree open-tree">
+                                   <ul class="category-level-2 dropdown-menu-tree">
+               <li class="dropdown-tree open-tree"><a class="dropdown-tree-a" href="/College/Suggest-zone.aspx#collapseOne">
+                                         What is Tweebaa?</a>
+                                       
+                      <li><a data-parent="#accordion" data-toggle="collapse" href="/Page.aspx?id=3">How do I become a Tweebaa member?</a></li>
+                    <li><a data-parent="#accordion" data-toggle="collapse" href="#collapseFour">How do I make money on Tweebaa?</a></li>
+                    <li><a data-parent="#accordion" data-toggle="collapse" href="#collapseFive">How do I earn points on Tweebaa?</a></li>
+                    <li><a data-parent="#accordion" data-toggle="collapse" href="#collapseSix">Preparing your suggestion</a></li>
+                    <li><a data-parent="#accordion" data-toggle="collapse" href="#collapseSeven">Suggest steps</a></li>
+                    <li><a data-parent="#accordion" data-toggle="collapse" href="#collapseEight">Product Guidelines</a></li>
+                                       
+                                    </ul>
+                                </li>
+                            
+                               
+                            </ul>
+                        </div>
+                    </div>
+                      
+                    </div>
+                </div>
+               
+            </div>  -->
+			
+            <div class="col-md-12">
+		  <div class="headline"><h2>General Questions</h2></div>
+                <div class="panel-group acc-v1 margin-bottom-40" id="accordion">
+				
+                    <div class="panel panel-default">
+					
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                     <dt class="p4"><span class="icon"></span>What is Tweebaa?</dt>
+                                </a>
+                            </h4>
+                        </div>
+						
+                        <div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                     <p> Tweebaa is an e-commerce company with a great selection of products, and allows every member to earn additional income. Tweebaa members can suggest, evaluate, shop, or share products with their social media networks to earn extra money, reward points and even free gifts.</p>
+						
+
+							</div>
+                   </div>
+                 </div>
+
+					
+					
+					
+                    <div class="panel panel-default">
+					
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                <dt class="p4"><span class="icon"></span>How do I become a Tweebaa member?</dt>
+								</a>
+                            </h4>
+                        </div>
+						
+                        <div id="collapseTwo" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+
+							
+				<p>
+		There’s no cost or obligation to become a Tweebaa member, and you can start earning cash and rewards today!  If you are at least 18 years of age, just click the “Register” button on top-right corner of our homepage.    Fill out a few questions and select a user-ID to represent you within the Tweebaa community.  We’ll never disclose your real identity on the Tweebaa site, just your user-ID --- so you can feel secure in expressing thoughts, evaluations, etc.
+				</p>
+		
+
+				
+							
+                            </div>
+                        </div>
+						
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                    <dt class="p4"><span class="icon"></span>How do I make money on Tweebaa?</dt></a>
+                            </h4>
+                        </div>
+                        
+                        <div id="collapseFour" class="panel-collapse collapse">
+                            <div class="panel-body">
+                             <p>Help us select new items to add to the Tweebaa Shop by submitting products in the Suggest Zone and participating in simple surveys in the Evaluate Zone.  If you love to “shop ‘til you drop” you’ll earn discounts and Shopping Reward Points on all purchases, and when you share Tweebaa items with your friends, you can earn ongoing commissions with every purchase.</p>
+          
+                            </div>
+                        </div>
+                    </div>
+
+					
+					
+					
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                                    <dt class="p4"><span class="icon"></span>How do I earn points on Tweebaa?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapseFive" class="panel-collapse collapse">
+                            <div class="panel-body">
+							
+                                 <p>There are many ways to earn points on Tweebaa:</p>
+
+                <li class="p6">*  You can receive "Suggest Zone" points for each approved suggestion you submit, with the number of points increasing based on how far each product goes in the Evaluation process.
+                  
+                    <li class="p6">*  You will receive one point in every zone (Suggest, Evaluate, Share) just by logging in every day and clicking the “Daily Check-In” button.<br />
+              
+               <li class="p6">*  You will receive 30 points in every zone (Suggest, Evaluate, Share) for each new member that you refer.</li>
+                                
+                    <li class="p6">*  You will receive "Evaluate Zone" points for each evaluation survey that you complete.</li>    
+                    
+                   <li class="p6">*  If you suggest a product that eventually advances to "Test-Sale" you will earn 30 Suggest Zone points.</li> 
+                     <li class="p6">*  For every dollar you spend on Tweebaa.com, you will earn one Shopping Reward Point.</li> 
+                       <li class="p6">*  Play games on the Tweebaa APP to earn Share Zone points.</li> 
+                
+      
+                     </div>
+                        </div>
+                    </div>
+
+
+					
+					
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                                         <dt class="p4"><span class="icon"></span>What is a TweeBuck?</dt>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseSix" class="panel-collapse collapse">
+                            <div class="panel-body">
+
+                 <p >TweeBuck is Tweebaa's currency that allows you to convert your points into Cash (One TweeBuck = One US Dollar)</p>
+				
+					</div>
+				</div>
+			</div>
+
+					
+			
+					
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                                            <dt class="p4"><span class="icon"></span>How do I exchange TweeBucks for cash?</dt>
+								</a>
+                            </h4>
+                        </div>
+                        <div id="collapseSeven" class="panel-collapse collapse">
+                            <div class="panel-body">
+                 <p>As you accrue TweeBucks, they will be deposited into your Tweebaa account. When any purchase transaction is completed and TweeBucks are added, they will be listed as "pending status" until product has shipped to the customer and the return period has expired.  At that time, "Pending" TweeBucks will be transferred to "available" status and can be redeemed for cash or purchase credits.  To redeem for cash, all you need to do is create or link a PayPal account and click the "Redeem Now" button in your member account.</p>
+                            </div>
+                        </div>
+                    </div>
+					
+					 <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                         <dt class="p4"><span class="icon"></span>Is it necessary to set up PayPal account to be a Tweebaa member?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapseEight" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+                 <p>NO, it is not necessary, but if you earn TweeBucks on Tweebaa and wish to redeem them for cash, PayPal is the means by which we will send your payment.  You can always redeem your TweeBucks towards purchases at the Tweebaa shop.</p>
+                            
+							</div>
+                        </div>
+                    </div>
+		 <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse9">
+                         <dt class="p4"><span class="icon"></span>What is the minimum redemption of TweeBucks?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapse9" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+                 <p>The minimum withdrawl amount is $10 (10 TweeBucks) per transaction (maximum one transaction per week.
+                 
+                 </p>
+                            
+							</div>
+                        </div>
+                    </div>
+	 <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse10">
+                         <dt class="p4"><span class="icon"></span>Are there any fees to redeem?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapse10" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+                 <p>PayPal may charge a nominal transaction fee, which will be deducted from your redemption amount.
+                 
+                 </p>
+                            
+							</div>
+                        </div>
+                    </div>
+ <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse11">
+                         <dt class="p4"><span class="icon"></span>How long will it take to get the cash redemption?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapse11" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+                 <p>It will take up to 48 hours for review and approval of your cash redemption request before funds are deposited in your Paypal account.
+                 
+                 </p>
+                            
+							</div>
+                        </div>
+                    </div>
+ <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse12">
+                         <dt class="p4"><span class="icon"></span>How do I earn Shopping Reward points?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapse12" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+                 <p>For every dollar you spend at Tweebaa.com (excluding shipping fees and taxes), you will earn one Shopping Reward Point.  400 points have a redemption value of $5.00 at the Tweebaa shop.  Note:  You must be logged in to your account at checkout time, in order to earn the points (you will be prompted at checkout to register/log-in.
+                 </p>
+                            
+							</div>
+                        </div>
+                    </div>
+ <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse13">
+                         <dt class="p4"><span class="icon"></span>Do Shopping Reward points expire?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapse13" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+                 <p>Shopping Reward Points expire 6 months from purchase.
+                 
+                 </p>
+                            
+							</div>
+                        </div>
+                    </div>
+<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse14">
+                         <dt class="p4"><span class="icon"></span>Where is Tweebaa’s headquarters?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapse14" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+                 <p>Our Headquarters is located at 3601 Hwy 7 East , HSBC Tower Suite 302 , Markham , Ontario L3R 0M3 CANADA
+                 
+                 </p>
+                            
+							</div>
+                        </div>
+                    </div>
+<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse15">
+                         <dt class="p4"><span class="icon"></span>Does Tweebaa have a shopping App?</dt></a>
+                            </h4>
+                        </div>
+                        <div id="collapse15" class="panel-collapse collapse">
+						
+                            <div class="panel-body">
+                 <p>Not yet, we have a game app which can direct you to our website, but not a shopping App yet. Stay tuned! It is in the works!
+                 
+                 </p>
+                            
+							</div>
+                        </div>
+                    </div>
+
+                </div><!--/acc-v1-->
+    		</div><!--/col-md-9-->
+            
+            		
+        </div><!--/row-->
+
+    </div>	
+    <!--=== End Content Part ===-->
+</asp:Content>

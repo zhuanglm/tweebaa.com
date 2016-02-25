@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ 	<title>Your Product is added to Tweebaa Shop!</title>
+     <link href="../Css/index.css" rel="stylesheet" type="text/css" />
+</head>
+<body bgcolor="#90E4FD">
+	
+	
+<table width="700" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;color: #666;font-family: 'open_sansregular';">
+  <tr>
+    <td style="background-color: #fff;">
+    	   <div style="margin: 0 20px;border-bottom:1px solid #E1E1E1;padding: 15px 0;">
+            <a href="#"><img src="../images/logo.png" alt="" style="margin: 0 10px;"></a> 
+         </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #fff;">
+         <div style="margin:0 40px;line-height:14px;padding-bottom:15px;">
+              <p style="font-size:18px;line-height:18px;margin:20px 0;">Dear _____,</p>
+         
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px;">Congratulations!  We are pleased to inform you that the product you suggested to Tweebaa, <a href="#">product name</a>,  has been reviewed and approved for sale in the Tweebaa Shop where our members will provide free marketing to the global marketplace!  As part of our pre-launch special, your product was "fast-tracked" through the Tweebaa Suggest, Evaluate and Test-Sale zones, advancing directly for sale via our social e-commerce platform. The more product Tweebaa sells, the more you earn and the more our members earn!</p>
+
+             <p style="font-size:14px;line-height:24px;padding-bottom:8px;">The next step  is to complete our Supply Agreement and Supplier Form found
+at the links below:
+<br><a href="#" style="color:#0072C9">supply form<br>supply agreement</a>
+</p>
+<p style="font-size:14px;line-height:18px;padding-bottom:8px;">If you have any questions, please reply to this email and we will have an account manager contact you shortly.</p>
+
+              <p style="font-size:14px;line-height:18px;">We are excited to become your Zero Investment Partner and help you grow your sales virally around the world!</p>
+              
+               <p style="font-size:14px;line-height:18px;margin-bottom:30px;">Warm Regards,<br>
+The Tweebaa Team
+</p>
+         </div>
+    </td>
+  </tr>
+ 
+</table>
+
+
+
+
+</body>
+</html>

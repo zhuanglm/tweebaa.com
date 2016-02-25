@@ -1,0 +1,75 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="mstMyAdm.master.cs" Inherits="TweebaaWebApp.Manage.mstMyAdm" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="css/admin.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/thems/jquery.AxioGrid.css" rel="stylesheet" type="text/css" />
+    <script src="Js/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../js/comm.js" type="text/javascript"></script>
+    <script src="../plugins/jquery.AxioGrid.js" type="text/javascript"></script>
+    <link href="../plugins/thems/jquery.popup.css" rel="stylesheet" type="text/css" />
+    <script src="Js/jquery.popup.js" type="text/javascript"></script>
+    <script src="Js/jquery.ajaxpost.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="cphHead" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        .wnBoxTitle
+        {
+            background-color: #EFEFEF;
+            color: #000;
+            border-bottom-width: 0px;
+            font-size: 18px;
+        }
+        /*边框*/
+        .wnBorder
+        {
+            position: absolute;
+            z-index: -1;
+            width: 1999px;
+            height: 1999px;
+            left: 0;
+            top: 0;
+            background-color: #EFEFEF;
+        }
+        .wnBoxMain_text
+        {
+            font-size: 18px;
+        }
+       
+
+
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div style="background: #C9EDCC;">
+        <div class="tbSear">
+            <asp:ContentPlaceHolder ID="cphSearch" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+    <div style="margin-top: 50px; padding-left: 0px;">
+        <div id="maincont">
+            <b class="b1" id="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
+            <div id="main_c">
+                <asp:ContentPlaceHolder ID="cphGv" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <b class="b4b"></b><b class="b3b"></b><b class="b2b"></b><b class="b1b"></b>
+        </div>
+    </div>
+    <div>
+        <asp:ContentPlaceHolder ID="cphPage" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <div>
+        <asp:ContentPlaceHolder ID="cphOther" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <input id="hidRootUrl" type="hidden" runat="server" class="hidRootUrl" />
+    </form>
+</body>
+</html>

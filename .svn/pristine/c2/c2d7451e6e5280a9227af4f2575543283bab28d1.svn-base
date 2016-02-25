@@ -1,0 +1,126 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+using System.Text;
+using System.Web;
+using Twee.Comm;
+using System.Data;
+
+namespace TweebaaWebApp2.Mgr.orderMgr
+{
+    /// <summary>
+    /// order 的摘要说明
+    /// </summary>
+    public class order : IHttpHandler
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+
+            if (string.IsNullOrEmpty(context.Request["action"]))
+                context.Response.Write(string.Empty);
+            string action = context.Request["action"].ToString().Trim();
+            switch (action)
+            {
+                case "nopay":
+                    context.Response.Write(OrderNoPayGridData(context));
+                    break;
+                case "pay":
+                    context.Response.Write(OrderNoPayGridData(context));
+                    break;
+                case "":
+                    context.Response.Write(OrderNoPayGridData(context));
+                    break;
+
+                default:
+                    context.Response.Write(string.Empty);
+                    break;
+
+
+            }
+        }
+
+        //未支付订单
+        private string OrderNoPayGridData(HttpContext context)
+        {
+            int pageSize = int.Parse(context.Request["rows"]);
+            int index = int.Parse(context.Request["page"]) - 1;
+            int startId = pageSize * index + 1;
+            int endId = startId + pageSize - 1;
+            string proName = string.Empty;
+            string proUser = string.Empty;
+            string startTime = string.Empty;
+            string endTime = string.Empty;
+            string cate = string.Empty;
+            string state = string.Empty;//订单状态
+            string orderCode = string.Empty; //订单号         
+
+            if (!string.IsNullOrEmpty(context.Request["proName"]))
+                proName = context.Request["proName"].ToString().Trim();
+            if (!string.IsNullOrEmpty(context.Request["proUser"]))
+                proUser = context.Request["proUser"].ToString().Trim();
+            if (!string.IsNullOrEmpty(context.Request["startTime"]))
+                startTime = context.Request["startTime"].ToString().Trim();
+            if (!string.IsNullOrEmpty(context.Request["endTime"]))
+                endTime = context.Request["endTime"].ToString().Trim();
+            if (!string.IsNullOrEmpty(context.Request["cate"]))
+                cate = context.Request["cate"].ToString().Trim();
+            if (!string.IsNullOrEmpty(context.Request["state"]))
+                state = context.Request["state"].ToString().Trim();
+            if (!string.IsNullOrEmpty(context.Request["orderCode"]))
+                orderCode = context.Request["orderCode"].ToString().Trim();
+
+            Func<string, string, string> saleTotalFuc = (count, price) =>
+            {
+                if (string.IsNullOrEmpty(count) || string.IsNullOrEmpty(price))
+                    return "0.00";
+                if (string.IsNullOrEmpty(count.Trim()) || string.IsNullOrEmpty(price.Trim()))
+                    return "0.00";
+                return (decimal.Parse(count) * decimal.Parse(price)).ToString();
+            };
+
+            Twee.Mgr.OrderMgr mgr = new Twee.Mgr.OrderMgr();
+            int totalCount = 0;
+
+            string revive = "";
+            var dt = mgr.MgeGetListAll(proName,startTime, endTime, orderCode, proUser, revive, "", state, startId, endId);
+            totalCount = mgr.MgeGetRecordCount(proName,startTime, endTime, orderCode, proUser, revive, state);
+
+
+            StringBuilder json = new StringBuilder();
+            foreach (DataRow row in dt.Rows)
+            {
+                json.AppendFormat(",{0}  \"guid\":\"{2}\",\"guidno\":\"{3}\",\"address1\":\"{4}\",\"reciveName\":\"{5}\",\"addtime\":\"{6}\",\"wnstat\":\"{7}\",\"logisticscost\":\"{8}\",\"sumProMoney\":\"{9}\"  {1}", "{", "}"
+                    , row["guid"]._ObjToString(),
+                    row["guidno"]._ObjToString(),
+                    row["address1"]._ObjToString(),
+                    row["reciveName"]._ObjToString(),
+                    row["addtime"]._ObjToString(),
+                    row["wnstat"]._ObjToString(),
+                    row["logisticscost"]._ObjToString(),
+                    //row["name"]._ObjToString(),
+                    row["sumProMoney"]._ObjToString()
+                    );
+            }
+            string temp_json = string.Empty;
+            if (!string.IsNullOrEmpty(json.ToString()))
+                temp_json = json.ToString().Substring(1);
+            string res = "{\"total\":" + totalCount + ",\"rows\":[" + temp_json + "]}";
+            return res;
+
+
+        }
+
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

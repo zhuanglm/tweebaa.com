@@ -1,0 +1,517 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Twee.Model
+{
+	/// <summary>
+	/// prd:实体类(属性说明自动提取数据库字段的描述信息)
+	/// </summary>
+	[Serializable]
+	public partial class Prd
+	{
+        public Prd()
+		{}
+		#region Model
+		private Guid _prdguid;
+		private Guid _categuid;
+		private Guid _userguid;
+		private string _name;
+		private DateTime? _edttime= DateTime.Now;
+		private DateTime? _addtime= DateTime.Now;
+		private decimal? _estimateprice;
+        private decimal? _saleprice;
+        private decimal? _minfinalsaleprice;
+ 		private string _videourl;
+        private string _videoembed;
+		private int? _wnstat;
+		private int _idx;
+		private string _txttag;
+		private string _txtinfo;
+		private DateTime? _reviewendtime;
+        private DateTime? _presaleendtime;
+        
+		private string _txtjj;
+		private string _question;
+		private string _answer;
+        private string _fileurl;//产品主图（扩展字段）
+        private int _reviewCount;//评审总数 
+        private int _saleCount;//销售总数
+        private int _presaleForward;//presale target
+        private string _username;//扩展字段
+        private string _pics;//扩展字段
+        private string _catename;//扩展字段
+        private int? _presaleendday;//扩展字段
+        private int? _reviewendday;//扩展字段
+        private int? _shareCount; //扩展字段
+        private int? _favoriteCount; //扩展字段
+        private string _favoriteGuid; //扩展字段
+
+        private decimal? _supplyPrice;
+        private decimal? _minAdvertisedPrice;
+
+
+        private int? _moq;
+        private int? _isSupplier;
+        private string _supplierName;
+        private string _supplierWebsite;
+        private string _supplierPhone;
+        private string _supplierEmail;
+        private string _supplierAddress;
+        private int _isUseTemp;
+        private string _hottip;
+        private bool _isFreeShipping;
+        private int _ranking;
+        private int? _AllowCollage;
+        private int _uploadBatchNo;
+
+
+        ///Add by Long For SKU/Ship To Country
+
+        private string _TweebaaSKU;
+        private string _ShipToCountry;
+        private string _IsCustomerFreeShip;
+        
+        //Add by Long for Featured Product 2015/11/30
+        private string _IsFeatured;
+
+        // 2016-01-18 added by Jack Cao to control the display of spec name/color of product
+        private int _DisplaySpecName;       // 1:Display 0:not display
+        private int _DisplaySpecColor;      // 1:Display 0:not display
+
+
+        public int DisplaySpecName
+        {
+            set { _DisplaySpecName = value; }
+            get { return _DisplaySpecName; }
+        }
+
+        public int DisplaySpecColor
+        {
+            set { _DisplaySpecColor = value; }
+            get { return _DisplaySpecColor; }
+        }
+
+        public string IsFeatured
+        {
+            set { _IsFeatured = value; }
+            get { return _IsFeatured; }
+        }
+        //EOF
+        public string IsCustomerFreeShip
+        {
+            set { _IsCustomerFreeShip = value; }
+            get { return _IsCustomerFreeShip; }
+        }
+        public string TweebaaSKU
+        {
+            set { _TweebaaSKU = value; }
+            get { return _TweebaaSKU; }
+        }
+        public string ShipToCountry  //
+        {
+            set { _ShipToCountry = value; }
+            get { return _ShipToCountry; }
+        }
+        ////////////////Add by Long For SKU/Ship To Country EOF
+        public int UpLoadBatchNo
+        {
+            get { return _uploadBatchNo; }
+            set { _uploadBatchNo = value; }
+        }
+
+        public int Ranking
+        {
+            get { return _ranking; }
+            set { _ranking = value; }
+        }
+
+        public int? AllowCollage
+        {
+            get { return _AllowCollage; }
+            set { _AllowCollage = value; }
+        }
+
+
+        public bool IsFreeShipping
+        {
+            get { return _isFreeShipping; }
+            set { _isFreeShipping = value; }
+        }
+        private bool _isLimitedTime;
+
+        public bool IsLimitedTime
+        {
+            get { return _isLimitedTime; }
+            set { _isLimitedTime = value; }
+        }
+        private bool _isComingSoon;
+
+        public bool IsComingSoon
+        {
+            get { return _isComingSoon; }
+            set { _isComingSoon = value; }
+        }
+
+        private int _favoritecount;
+        public int favoritecount
+        {
+            set { _favoritecount = value; }
+            get { return _favoritecount; }
+        }
+        public string hottip
+        {
+            set { _hottip = value; }
+            get { return _hottip; }
+        }
+
+
+        public int? isSupplier
+        {
+            set { _isSupplier = value; }
+            get { return _isSupplier; }
+        }
+
+        public int presaleForward
+        {
+            set { _presaleForward = value; }
+            get { return _presaleForward; }
+        }
+
+        public int? reviewendday
+        {
+            set { _reviewendday = value; }
+            get { return _reviewendday; }
+        }
+
+        public string supplierName
+        {
+            set { _supplierName = value; }
+            get { return _supplierName; }
+        }
+
+        public string supplierWebsite
+        {
+            set { _supplierWebsite = value; }
+            get { return _supplierWebsite; }
+        }
+
+        public string supplierPhone
+        {
+            set { _supplierPhone = value; }
+            get { return _supplierPhone; }
+        }
+
+        public string supplierEmail
+        {
+            set { _supplierEmail = value; }
+            get { return _supplierEmail; }
+        }
+
+        public string supplierAddress
+        {
+            set { _supplierAddress = value; }
+            get { return _supplierAddress; }
+        }
+
+
+        /// <summary>
+        /// 最小起订量
+        /// </summary>
+        public int? moq
+        {
+            set { _moq = value; }
+            get { return _moq; }
+        }
+
+        /// <summary>
+        /// 供货建议价格
+        /// </summary>
+        public decimal? supplyPrice
+        {
+            set { _supplyPrice= value; }
+            get { return _supplyPrice; }
+        }
+
+
+        public decimal? MinAdvertisedPrice
+        {
+            set { _minAdvertisedPrice = value; }
+            get { return _minAdvertisedPrice; }
+        }
+
+
+        /// <summary>
+        /// 分享次数（扩展字段）
+        /// </summary>
+        public int? shareCount
+        {
+            set { _shareCount = value; }
+            get { return _shareCount; }
+        }
+
+        /// <summary>
+        /// 预售剩余天数（扩展字段）
+        /// </summary>
+        public int? presaleendday
+        {
+            set { _presaleendday = value; }
+            get { return _presaleendday; }
+        }
+
+        /// <summary>
+        /// 类别名称（扩展字段）
+        /// </summary>
+        public string catename
+        {
+            set { _catename = value; }
+            get { return _catename; }
+        }
+
+        /// <summary>
+        /// 发布者名称（扩展字段）
+        /// </summary>
+        public string userName
+        {
+            set { _username = value; }
+            get { return _username; }
+        }
+        /// <summary>
+        /// 产品图片（扩展字段）
+        /// </summary>
+        public string pics
+        {
+            set { _pics = value; }
+            get { return _pics; }
+        }
+        /// <summary>
+        /// 产品主图（扩展字段）
+        /// </summary>
+        public string fileurl
+        {
+            set { _fileurl = value; }
+            get { return _fileurl; }
+        }
+
+        /// <summary>
+        /// 评审总数（扩展字段）
+        /// </summary>
+        public int reviewCount
+        {
+            set { _reviewCount = value; }
+            get { return _reviewCount; }
+        }
+        /// <summary>
+        /// 评审总数（扩展字段）
+        /// </summary>
+        public int saleCount
+        {
+            set { _saleCount = value; }
+            get { return _saleCount; }
+        }
+        
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Guid prdGuid
+		{
+			set{ _prdguid=value;}
+			get{return _prdguid;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public Guid cateGuid
+		{
+			set{ _categuid=value;}
+			get{return _categuid;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public Guid userGuid
+		{
+			set{ _userguid=value;}
+			get{return _userguid;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string name
+		{
+			set{ _name=value;}
+			get{return _name;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public DateTime? edtTime
+		{
+			set{ _edttime=value;}
+			get{return _edttime;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public DateTime? addtime
+		{
+			set{ _addtime=value;}
+			get{return _addtime;}
+		}
+
+        /// <summary>
+        /// 建议零售价
+        /// </summary>
+        public decimal? estimateprice
+        {
+            set { _estimateprice = value; }
+            get { return _estimateprice; }
+        }
+
+        
+        /// <summary>
+		/// favorite count
+		/// </summary>
+		public int? favoriteCount
+		{
+            set { _favoriteCount = value; }
+            get { return _favoriteCount; }
+		}
+
+        /// <summary>
+        /// favorite guid of current login user
+        /// </summary>
+        public string favoriteGuid
+        {
+            set { _favoriteGuid = value; }
+            get { return _favoriteGuid; }
+        }
+ 
+        
+        /// <summary>
+        ///  售价
+        /// </summary>
+        public decimal? saleprice
+        {
+            set { _saleprice = value; }
+            get { return _saleprice; }
+        }
+        /// <summary>
+        ///  minimum price of all final sale prices 
+        /// </summary>
+        public decimal? minfinalsaleprice
+        {
+            set { _minfinalsaleprice = value; }
+            get { return _minfinalsaleprice; }
+        }
+        /// <summary>
+		/// 
+		/// </summary>
+		public string videoUrl
+		{
+			set{ _videourl=value;}
+			get{return _videourl;}
+		}
+        /// <summary>
+        /// 
+        /// </summary>
+        public string videoEmbed
+        {
+            set { _videoembed = value; }
+            get { return _videoembed; }
+        }
+
+        /// <summary>
+        /// 【屏蔽:-1】【草稿:0】【评审中(大众):1】【预售中:2】【销售中:3】；
+        /// 【评审中(推易吧):4】【评审失败(推易吧):5】【等待上架:6】【预售失败:7】
+        /// 【11：是指在进入大众评审前的审核】
+		/// </summary>
+		public int? wnstat
+		{
+			set{ _wnstat=value;}
+			get{return _wnstat;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public int idx
+		{
+			set{ _idx=value;}
+			get{return _idx;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string txtTag
+		{
+			set{ _txttag=value;}
+			get{return _txttag;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string txtinfo
+		{
+			set{ _txtinfo=value;}
+			get{return _txtinfo;}
+		}
+		/// <summary>
+		/// 评审结束时间
+		/// </summary>
+		public DateTime? reviewendtime
+		{
+			set{ _reviewendtime=value;}
+			get{return _reviewendtime;}
+		}
+        /// <summary>
+		/// 预售结束时间
+		/// </summary>
+        public DateTime? presaleendtime
+		{
+            set { _presaleendtime = value; }
+            get { return _presaleendtime; }
+		}
+
+        
+		/// <summary>
+		/// 
+		/// </summary>
+		public string txtjj
+		{
+			set{ _txtjj=value;}
+			get{return _txtjj;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string question
+		{
+			set{ _question=value;}
+			get{return _question;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
+		public string answer
+		{
+			set{ _answer=value;}
+			get{return _answer;}
+		}
+        /// <summary>
+        /// 
+        /// </summary>
+        public int isUseTemp
+        {
+            set { _isUseTemp = value; }
+            get { return _isUseTemp; }
+        }
+
+       
+
+		#endregion Model
+
+	}
+}
+

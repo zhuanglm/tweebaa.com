@@ -1,0 +1,423 @@
+﻿
+var iPrevPage = 1;
+var iTotalpage = 1;
+var classify="";
+var sdate="";
+var keyword="";
+var pageDiv=20;
+var video_img_root = "/upload/VideoImg/";
+
+
+
+function CreateShareUrl(type, prdid, prdname, prdimg, page, desc) {
+    var shareUrl = "";
+    var host = window.location.host;
+    var title = encodeURIComponent(prdname);
+    //var link = host + "/Product/" + page + "?id=" + prdid;
+    var link =  page + "?id=" + prdid;
+    var image = prdimg;
+    var record = prdid;
+    shareUrl = generatShareEn(type, prdid, link, title, image, desc, record); //这个record是分享ID
+    return shareUrl;
+}
+//////
+function GetShortUrl(sFullUrl) {
+    var sShortUrl = "";
+    var _data = "{ action:'" + "GetShortUrl"
+                    + "',ShareUrl:'" + sFullUrl + "'}";
+    $.ajax({
+        type: "POST",
+        url: '../AjaxPages/prdShareAjax.aspx',
+        data: _data,
+        async: false,
+        dataType: "text",
+        success: function (response) {
+            sShortUrl = response;
+            return;
+        }
+    });
+    return sShortUrl;
+}
+///////
+//(type, link, title, image, desc, record)
+function generatShareEn(type, prdid, link, title, image, desc, record) {
+
+    // use a comm share link to share out 
+    // the common share link is /product/shareProduct.aspx
+    link = link.replace("submitReview", "shareProduct");
+    link = link.replace("presaleBuy", "shareProduct");
+    link = link.replace("saleBuy", "shareProduct");
+
+    var shareURL = "";
+    var facebookAppID = "1591110677840145";
+    //var descNoCR = desc.replace(/[\n\r]/g, "<br/>");
+
+    var parmRecord = "";
+    if (record != "") parmRecord = "&record=" + record;  // record = "" means it is share without login
+    if (type == "facebook") {
+        // always share big product image
+        image = image.replace("/mid/", "/big/");
+        image = image.replace("/mid2/", "/big/");
+        image = image.replace("/small/", "/big/");
+
+        //shareUrl = "http://www.facebook.com/share.php?url=" + link + "&title=" + title + "&content=utf8&pic=" + image + parmRecord + "&isshare=true";
+        shareUrl = "https://www.facebook.com/dialog/feed?" +
+                    "app_id=1591110677840145" +
+                    "&display=page&caption=Everybody earns at Tweebaa - " + title +
+                    "&link=" + link +
+                    "&picture=" + image +
+                    "&description=" + desc +
+                    "&redirect_uri=http://www.tweebaa.com/CloseWindow.htm";
+        //"&redirect_uri=http://www.tweebaa.com/ShareConfirmation.aspx"; 
+
+    }
+    else if (type == "twitter") {
+        var sShortLink = GetShortUrl(link);
+        //alert(sShortLink);
+        //shareUrl = "http://twitter.com/home/?status=" + sShortLink + "&title=" + title + "&pic=" + image + parmRecord + "&isshare=true";
+        shareUrl = "https://twitter.com/share?url=" + sShortLink + "&text=" + title + " -- ";
+        //alert(shareUrl);
+    }
+    else if (type == "google") {
+        $("meta[property='og:title']").attr("content", escape(title));
+        $("meta[property='og:image']").attr("content", escape(image));
+        $("meta[property='og:description']").attr("content", escape(desc));
+        shareUrl = "https://plus.google.com/share?url=" + link;
+    }
+    else if (type == "pinterest") {
+        var newImageUrl = image.replace("https://tweebaa.com/UploadImg/", "http://www.tweebaa.com/images801/");
+        // max length of pinterest description is 500 characters
+        var desc500 = title + " -- " + desc;
+        var desc500 = desc500.substring(0, 500);
+        shareUrl = "https://pinterest.com/pin/create/button/?url=" + link + "&description=" + desc500 + "&media=" + escape(newImageUrl) + parmRecord + "&isshare=true";
+    }
+    //else if (type == "plurk") {
+    //    shareUrl = "http://plurk.com/?qualifier=shares&status=" + link + "&title=" + title + "&pic=" + image + parmRecord + "&isshare=true";
+    //}
+    else if (type == "email") {
+        shareUrl = "emailShare.aspx?id=" + link + "&name=" + title + "&img=" + escape(image);
+        if (window.location.href.indexOf("/product/") == -1) {
+            shareUrl = "../product/emailShare.aspx?prdid=" + prdid + "&link=" + link + "&name=" + title + "&img=" + escape(image) + "&desc=" + escape(desc);
+        }
+    }
+
+    return shareUrl;
+}
+
+function Load_Videos(iPage) {
+    $.ajax({
+        type: "POST",
+        url: '/Events/Tweebot/DBHandler.ashx',
+        data: "{'action':'load_video"
+        + "','orderby':'" + ""
+        + "','page':'" + iPage
+        + "','pageDiv':'" + pageDiv
+        + "'}",
+        success: function (resu) {
+            //make page
+            var sHtml = "";
+            if (resu == "") {
+                $("#suggestion_listings").html("");
+                return;
+            }
+            var obj = eval("(" + resu + ")");
+            for (var i = 0; i < obj.length; i++) {
+                var item = obj[i];
+                console.log("video =" + video_url);
+                var video_url = item.video_url;
+                var n = video_url.lastIndexOf(".");
+                var img_url = video_img_root + video_url.substring(0, n) + ".jpg";
+                //remove extennsion
+                sHtml = sHtml + '<li class="cbp-item motion">';
+                sHtml = sHtml + '<a href="/Events/Tweebot/vote_details.aspx?id=' + item.tweebot_video_id + '" class="cbp-caption">';
+                sHtml = sHtml + '<div class="cbp-caption-defaultWrap">';
+                sHtml = sHtml + '<img src="' + img_url + '" alt="" width="100%">';
+                sHtml = sHtml + '</div>';
+                sHtml = sHtml + '                <div class="cbp-caption-activeWrap">';
+                sHtml = sHtml + '                    <div class="cbp-l-caption-alignCenter">';
+                sHtml = sHtml + '                        <div class="cbp-l-caption-body">';
+                sHtml = sHtml + '                            <div class="cbp-l-caption-text">' + item.video_title + '</div>';
+                sHtml = sHtml + '                            <p class="cbp-l-caption-desc">Uploader: ' + item.username + ' <br> Submit Time: ' + item.create_time + '</p>';
+                sHtml = sHtml + '                            <button class="btn btn-default" type="button">Vote</button>';
+                sHtml = sHtml + '                            <p class="cbp-l-caption-desc">' + item.total_vote + ' voted</p>';
+                sHtml = sHtml + '                            <hr>';
+                sHtml = sHtml + '                            <div>';
+                sHtml = sHtml + '                           <button class="btn rounded btn-xs btn-twitter fa-fixed"><i class="fa fa-twitter"></i> </button>';
+                sHtml = sHtml + '                           <button class="btn rounded btn-xs btn-facebook fa-fixed"><i class="fa fa-facebook"></i></button>';
+                sHtml = sHtml + '                           <button class="btn rounded btn-xs btn-youtube fa-fixed"><i class="fa fa fa-youtube-play"></i></button>';
+                sHtml = sHtml + '                           </div>';
+                sHtml = sHtml + '                        </div>';
+                sHtml = sHtml + '                    </div>';
+                sHtml = sHtml + '                </div>';
+                sHtml = sHtml + '</a>';
+                sHtml = sHtml + '</li>';
+            }
+            $("#video_listings").html(sHtml);
+            InitCubeportFolio();
+
+        },
+        error: function (obj) {
+            // prdSaleInfo = "";
+        }
+    });
+}
+
+function submit_vote(video_id) {
+    //check login first
+    var txtUserGuid = $("#UserGuid").val();
+    var txtComment = $("#txtComment").val();
+    if (txtUserGuid == null) {
+        alert("Please Login First!");
+        window.location.href = "/User/login.aspx?op=tweebot_vote&id=" + video_id;
+        return;
+    }
+    //
+    $.ajax({
+        type: "POST",
+        url: '/Events/Tweebot/DBHandler.ashx',
+        data: "{'action':'post_vote"
+        + "','video_id':'" + video_id
+        + "','txtComment':'" + txtComment
+        + "','txtUserGuid':'" + txtUserGuid
+         + "'}",
+        success: function (resu) {
+            // prdSaleInfo = resu;
+            if (resu == "1") {
+                alert("Thanks for voting, you've earned 5 Share Points today. You may continue to browse and vote OTHER videos. You will be eligible for 5 more points if you come back tomorrow!");
+                window.location.href = "/Events/Tweebot/Vote.aspx";
+            } else if (resu == "0") {
+                alert("You already vote this Video, you can NOT vote second time");
+
+            }
+            //return resu;
+        },
+        error: function (obj) {
+            // prdSaleInfo = "";
+        }
+    });
+
+}
+
+function Load_Hotest_Video() {
+    $.ajax({
+        type: "POST",
+        url: '/Events/Tweebot/DBHandler.ashx',
+        data: "{'action':'Load_Hotest_Video"
+         + "'}",
+        success: function (resu) {
+            if (resu.length > 10) {
+                $("#divHotestVideo").html(resu);
+            }
+            /*
+            <div class="item">
+            <a href="#">
+            <em class="overflow-hidden">
+            <img class="img-responsive" src="/images/main/2.jpg" alt="">
+            </em>    
+            <span>
+            <strong>Award Winning Agency</strong>
+            <i>Responsive Bootstrap Template</i>
+            </span>
+            </a>    
+            </div>
+            */
+            OwlRecentWorks.initOwlRecentWorksV1();
+        },
+        error: function (obj) {
+            // prdSaleInfo = "";
+        }
+    });
+
+}
+function PostAVideo(txtVideoName, txtVideoUrl, txtDescription, txtUserGuid) {
+    $.ajax({
+        type: "POST",
+        url: '/Events/Tweebot/DBHandler.ashx',
+        data: "{'action':'post_video"
+        + "','txtVideoName':'" + txtVideoName
+        + "','txtVideoUrl':'" + txtVideoUrl
+        + "','txtUserGuid':'" + txtUserGuid
+        + "','txtDescription':'" + txtDescription
+         + "'}",
+        success: function (resu) {
+            // prdSaleInfo = resu;
+            if (resu == "1") {
+                alert("Your post saved, Thanks for submit,");
+                window.location.href = "/Events/Tweebot/Vote.aspx";
+            }
+            //return resu;
+        },
+        error: function (obj) {
+            // prdSaleInfo = "";
+        }
+    });
+
+}
+
+function Load_video_total() {
+    $.ajax({
+        type: "POST",
+        url: '/Events/Tweebot/DBHandler.ashx',
+        data: "{'action':'load_video_total"
+         + "'}",
+        success: function (resu) {
+            //make page
+            iTotalpage = Math.ceil(resu / pageDiv);
+            if (iTotalpage > 0) {
+                var i = 0; var html = '<li><a href="#" onclick="Prev_page()"><i class="fa fa-angle-left"></i></a></li>';
+
+                for (i = 1; i <= iTotalpage; i++) {
+                    if (i == 1) {
+                        html += '<li id="PN_' + i + '" class="active"><a href="#"  onclick="PageNavigate(' + i + ')" >' + i + '</a></li>';
+                    } else {
+
+                        html += '<li id="PN_' + i + '"><a href="#"  onclick="PageNavigate(' + i + ')">' + i + '</a></li>';
+                    }
+                }
+
+                html += '<li><a href="#" onclick="Next_page()"><i class="fa fa-angle-right"></i></a></li>';
+                $("#pageNav").html(html);
+            } else {
+                $("#pageNav").html("");
+            }
+           // Load_Videos(1);
+        },
+        error: function (obj) {
+            // prdSaleInfo = "";
+        }
+    });
+
+}
+function GetClassify(type_id){
+      if(type_id==0) return "Out fit";
+      if(type_id==1) return "Sound";
+      if(type_id==2) return "Alice";
+      if(type_id==3) return "Anastasia";
+      if(type_id==4) return "Avelina";
+}
+function Prev_page() {
+    var ipage = iPrevPage - 1;
+    if (ipage < 1) ipage = 1;
+    ProductPageNavigate(ipage);
+}
+function Next_page() {
+    var ipage = iPrevPage + 1;
+    if (ipage > iTotalpage) ipage = iTotalpage;
+    ProductPageNavigate(ipage);
+}
+function PageNavigate(iPage) {
+    $("#PN_" + iPrevPage).removeClass("active");
+    LoadProductByPage(iPage);
+    $("#PN_" + iPage).addClass("active");
+    iPrevPage = iPage;
+}
+function Load_Suggestions(iPage) {
+    $.ajax({
+        type: "POST",
+        url: '/Events/Tweebot/DBHandler.ashx',
+        data: "{'action':'load_suggestion"
+        + "','classify':'" + classify
+        + "','date':'" + sdate
+        + "','keyword':'" + keyword
+        + "','page':'" + iPage
+        + "','pageDiv':'" + pageDiv
+        + "'}",
+        success: function (resu) {
+            //make page
+            var sHtml="";
+            if (resu == "") {
+                $("#suggestion_listings").html("");
+                return;
+            }
+            var obj = eval("(" + resu + ")");
+            for (var i = 0; i < obj.length; i++) {
+                var suggestion = obj[i];
+
+                sHtml=sHtml+' <tr>';
+                sHtml=sHtml+'<td>';
+                sHtml=sHtml+ GetClassify(suggestion.type_id);
+                sHtml=sHtml+'</td>';
+                sHtml=sHtml+'<td class="td-width">';
+                sHtml = sHtml + '<h3><a href="/Events/Tweebot/Suggestion_Details.aspx?id=' + suggestion.suggestion_id + '">' + suggestion.suggestion_title + '</a></h3>';
+                sHtml = sHtml + '' + suggestion.suggestion_description + '</td>';
+                sHtml=sHtml+' <td>';
+                sHtml = sHtml + '' + suggestion.username;
+                sHtml=sHtml+'</td>';
+                sHtml = sHtml + '<td>';
+                sHtml = sHtml + '' + suggestion.create_time;
+                sHtml=sHtml+' </td>';
+                sHtml = sHtml + '</tr>';
+            }
+            $("#suggestion_listings").html(sHtml);
+        },
+        error: function (obj) {
+            // prdSaleInfo = "";
+        }
+    });
+
+}
+function Load_Suggestions_total() {
+    $.ajax({
+        type: "POST",
+        url: '/Events/Tweebot/DBHandler.ashx',
+        data: "{'action':'load_suggestion_total"
+        + "','classify':'" + classify
+        + "','date':'" + sdate
+        + "','keyword':'" + keyword
+         + "'}",
+        success: function (resu) {
+            //make page
+            iTotalpage = Math.ceil(resu / pageDiv);
+            if (iTotalpage > 0) {
+                var i = 0; var html = '<li><a href="#" onclick="Prev_page()"><i class="fa fa-angle-left"></i></a></li>';
+
+                for (i = 1; i <= iTotalpage; i++) {
+                    if (i == 1) {
+                        html += '<li id="PN_' + i + '" class="active"><a href="#"  onclick="PageNavigate(' + i + ')" >' + i + '</a></li>';
+                    } else {
+
+                        html += '<li id="PN_' + i + '"><a href="#"  onclick="PageNavigate(' + i + ')">' + i + '</a></li>';
+                    }
+                }
+
+                html += '<li><a href="#" onclick="Next_page()"><i class="fa fa-angle-right"></i></a></li>';
+                $("#pageNav").html(html);
+            } else {
+                $("#pageNav").html("");
+            }
+            Load_Suggestions(1);
+        },
+        error: function (obj) {
+            // prdSaleInfo = "";
+        }
+    });
+
+}
+
+
+function PostASuggestion( idClassify, txtTitle, txtDescription, txtUserGuid) {
+    //var endTime = "";
+    $.ajax({
+        type: "POST",
+        url: '/Events/Tweebot/DBHandler.ashx',
+        data: "{'action':'post_suggestion"
+        + "','idClassify':'" + idClassify
+        + "','txtTitle':'" + txtTitle
+        + "','txtUserGuid':'" + txtUserGuid
+        + "','txtDescription':'" + txtDescription
+         + "'}",
+        success: function (resu) {
+           // prdSaleInfo = resu;
+            if (resu == "1") {
+                alert("Your post saved, Thanks for submit,");
+                window.location.href = "/Events/Tweebot/Improvement.aspx";
+            }
+            //return resu;
+        },
+        error: function (obj) {
+           // prdSaleInfo = "";
+        }
+    });
+}
+
+

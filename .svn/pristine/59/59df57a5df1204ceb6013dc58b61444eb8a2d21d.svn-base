@@ -1,0 +1,59 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+     <link href="#url#/Css/index.css" rel="stylesheet" type="text/css" />
+	<title>Thank you for Registering with Tweebaa</title>
+  
+</head>
+<body bgcolor="#90E4FD"  style="font-family:gillsans-lightlight;">
+	
+	
+<table width="700" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;color: #666;font-family:gillsans-lightlight; ">
+  <tr>
+    <td style="background-color: #fff;">
+    	   <div style="margin: 0 20px;border-bottom:1px solid #E1E1E1;padding: 15px 0;">
+            <a href="#"><img src="#url#/images/logo2.png" alt="" style="margin-left: 10px;"></a> 
+         </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #fff;">
+         <div style="margin:0 40px;line-height:14px;padding-bottom: 15px;">
+              <p style="font-size:18px;line-height:18px;margin:20px 0;">Dear  #userename#,</p>
+         
+              <p style="font-size:20px;padding:10px 0;line-height:20px;">Welcome to Tweebaa!</p>
+
+              <p style="font-size:12px;line-height: 18px;">To complete your registration, please click the following link: <br>
+                  <a href="#activeurl#" style="color:#0072C9">
+                     #activeurl#
+                  </a>
+              <br>
+             (If the above link doesn't open automatically, try copying/pasting it into your browser.)</p>
+
+              <p style="font-size:12px;padding:5px 0 10px">If you did not register on Tweebaa, please ignore this email. </p>
+
+              <p style="font-size:12px;line-height:18px;">Everybody Earns. Tweebaa.<br>(This is an automated message, please do not reply)</p>
+         </div>
+    </td>
+  </tr>
+  <tr>
+    <td>  <div style="font-size:12px;color: #333;line-height:14px;margin: 0 40px;">
+            <p></p>
+            <p>Follow Us 
+               <a href="https://www.facebook.com/tweebaa"><img src="#url#/images/flat-circles_03s.png" alt="" style="vertical-align: middle;margin:0 5px"></a>
+               <a href="https://twitter.com/tweebaa"><img src="#url#/images/flat-circles_05s.png" alt="" style="vertical-align: middle;margin:0 5px"></a>
+               <a href="https://www.linkedin.com/company/tweebaa-inc-"><img src="#url#/images/txwb25x25.png" alt="" style="vertical-align: middle;margin:0 5px"></a>
+               <a href="https://twitter.com/tweebaa"><img src="#url#/images/flat-circles_13s.png" alt="" style="vertical-align: middle;margin:0 5px"></a>
+            </p>
+        </div>
+    </td>
+  </tr>
+</table>
+
+
+
+
+</body>
+</html>

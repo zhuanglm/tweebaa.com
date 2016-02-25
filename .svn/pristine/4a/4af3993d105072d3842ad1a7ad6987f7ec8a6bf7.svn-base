@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+    <link href="../Css/selectCss.css" rel="stylesheet" type="text/css"/>
+    <link href="../Css/index.css" rel="stylesheet" type="text/css" >
+    <link href="../Css/college-new.css" rel="stylesheet" type="text/css" />
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.placeholder.js"></script>
+    <script src="../js/jquery-hcheckbox.js"></script>
+    <script src="../js/selectNav.js"></script>
+    <script src="../js/homePage.js"></script>
+    <script src="../js/selectCss.js"></script>
+    <script src="../js/public.js"></script>
+    <script src="../js/home-safe.js"></script>
+    <script src="../js/custom.js"></script>
+</head>
+<body>
+<div class="top">
+		<div class="w clearfix">
+			<div class="fr">
+				<p class="tr"><a href="#" class="language">中文</a> / <a href="#" class="language">English</a>
+				<!-- 登陆前 -->	
+				<span style="display:none"><a href="#" class="login">Login</a>/<a href="#" class="reg">Register</a></span>
+				<!-- 登陆后 -->	
+				<!-- 登陆后 -->
+				<span class="login-ok pr font1">
+					<b>Hi！snow</b>
+					<span class="login-lv2">
+						<a href="#">My Income</a>
+						<a href="#">My Orders</a>
+						<a href="#">Share Binding</a>
+						<a href="#">Logout</a>
+						<a href="#">Change Account</a>
+					</span>
+				</span>
+				<!-- 登陆后 -->
+				<span class="msn pr">
+					<b class="dxx">100</b>
+					<span class="msn-lv2">
+						<a href="#"><font>30</font>Unread messages</a>
+						<a href="#"><font>4</font>Unread subscription messages</a>
+					</span>
+				</span>
+				<a href="#" class="car car2">100</a>
+				</p>
+				<ul>                                                  
+					<li>
+						<a href="#">Home</a>
+					</li>
+					
+						<li><a href="summit-welcome.html">Submit</a>
+					</li>
+					<li class="active">
+						<a href="#">Evalute</a>
+					</li>
+					<li>
+						<a href="#">Share</a>
+					</li>
+					<li>
+						<a href="#">Shop</a>
+					</li>
+					<li>
+						<a href="#">Teaching</a>
+					</li>
+				</ul>
+			</div>
+			<a href="#" class="logo"><img src="images/logo.png" alt="" /></a>
+		</div>
+</div>
+
+
+<!-- 学院首页banner -->
+<div class="college-banner"><ul><li><img src="Images/college-banner.jpg" width="295" height="129" alt=""/></li>
+<li class="p1">Earning with Tweebaa is fun...</li><li class="p2">Learn how you can maximize your earning potential!</li></ul></div>
+
+
+<form action="">
+<div class="edufc">
+<ul><li class="cr"><img src="../Images/Layer_247-5.png" width="49" height="50" alt=""/></li>
+<li class="c1 ed">Education
+</li>
+<li class="c3">Please explore our Education pages for more information and discover how <br>YOU CAN EARN WITH TWEEBAA</li>
+</ul>
+</div>
+<div class="emain clearfix">
+<ul>
+<li > <a href="#" class="bli" >About Tweebaa </a></li>
+<li> <a href="#" class="bli" >Becoming a Tweebaa member</a></li>
+<li> <a href="#" class="bli" >Earn with Tweebaa</a></li>
+<li > <a href="#" class="bli" >Cash rewards </a></li>
+<li> <a href="#" class="bli" >Zone reward points</a></li>
+<li> <a href="#" class="bli" >Shopping reward points</a></li>
+<li > <a href="#" class="bli" >Referral rewards</a></li>
+<li> <a href="#" class="bli" >Submit Zone</a></li>
+<li> <a href="#" class="bli" >Evaluate Zone</a></li>
+<li > <a href="#" class="bli" >Share Zone </a></li>
+<li> <a href="#" class="bli" >Shop Zone</a></li>
+<li> <a href="#" class="bli" >Supply Zone</a></li>
+<li> <a href="#" class="bli" >Your Member Account </a></li>
+</ul>
+<div class="every"> <a href="#" ></a></div>
+</div>
+
+
+</form>
+
+
+
+
+
+
+<!-- foot -->
+<div class="footer">
+	<div class="w clearfix">
+		<div class="box">
+			<div class="clearfix">
+				<span class="fr tr">
+					<br />
+				</span>
+				<span class="fl">
+					<a href="#">About Us</a>｜<a href="#">Contact Us</a>｜<a href="#">Privacy Policy</a>｜<a href="#">Terms and Conditions</a>｜<a href="#">FAQ</a>｜<a href="#">Customer Services</a> </span>
+			</div>
+			<div class="clearfix p pr">
+				<p>Copyright: 2012-2015 Tweebaa Inc.</p>
+				<p></p>
+				<p class="gz">Follow Us<a href="#"><img src="images/wb25x25.png" alt="" /></a><a href="#"><img src="images/wx25x25.png" alt="" /></a><a href="#"><img src="images/txwb25x25.png" alt="" /></a><a href="#"><img src="images/renren25x25.png" alt="" /></a><a href="#"><img src="images/dou25x25.png" alt="" /></a></p>
+				<div class="erweima">
+					<img src="images/erweima.png" alt="" />
+				</div>
+			</div>
+		</div>	 
+	</div>
+</div>
+
+</body>
+
+
+
+
+
+
+<!-- 弹出注册成功窗口 -->
+<div class="greybox" style="display: none;">
+	<div class="reg-ok-box">
+		<div class="box pr">
+			<a href="#" class="closeBtn" title="Close"></a>
+			<h2>Registration Successful</h2>
+			<p>
+				An verifcation email had been sent， <br />
+				for security purpose please activate via your email！
+			</p>
+			<div>
+				<a href="#" class="returnLogin">Verified, back to login</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(function() {
+
+		//查看协议
+		$(".chakan").click(function(event) {
+			var objClick=$(this)
+			$("#tck2").parents(".greybox").show()
+			$("#tck2").animate({top: "2%"},300)
+			objClick.siblings().find(".checkbox").addClass('checked')
+		});
+
+		//Close弹出框
+		$('.iknow,.closeBtn,.iagree').click(function(event) {
+			var obj2=$(this).parents(".tck")
+			obj2.animate({
+				top:"-500px"},
+				300, function() {
+				
+				obj2.parents(".greybox").hide()
+			});
+			return false;
+		});
+
+		//表单美化
+		$('.chklist').hcheckbox();
+		$('#radiolist').hradio();
+	});
+</script>
+
+
+<script type="text/javascript">
+	window.onload=window.onresize=function(){
+
+		$('.scr_con').scroller({  //改变类名调用
+		   scrollCon  : '#dv_scroll',  
+		   scrollArea : '#dv_scroll_text', 
+		   scrollBar  : '#dv_scroll_bar', 
+		   scroller   : '.Scrollbar-Handle' 
+	});
+	}
+	
+</script>
+
+
+</html>

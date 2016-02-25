@@ -1,0 +1,61 @@
+﻿.gridData
+{
+   width:100%;   
+   color:#333333; 
+ 
+   /*Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None"*/
+}
+.headerStyle 
+{   
+     
+}
+.rowStyle 
+{
+      background-color:#EFF3FB;
+}
+.alternatingRowStyle 
+{
+     background-color:White;
+}
+.editRowStyle 
+{
+     background-color:#2461BF;
+}
+.selectedRowStyle 
+{
+     background-color:#669999;
+     color:White;
+     font-weight:bold;    
+}
+.footerStyle 
+{
+     background-color:#507CD1;
+     color:White;
+     font-weight:bold;  
+}
+.pagerStyle 
+{
+     background-color:#2461BF;
+     color:White;
+     text-align:center;   
+}
+.sortedAscendingCellStyle 
+{
+    background-color:#F5F7FB;
+ 
+}
+.sortedAscendingHeaderStyle 
+{
+    background-color:#6D95E1;  
+}
+.sortedDescendingCellStyle 
+{
+    background-color:#E9EBEF;    
+}   
+.sortedDescendingHeaderStyle 
+{
+    background-color:#4870BE;   
+}
+   
+
+  

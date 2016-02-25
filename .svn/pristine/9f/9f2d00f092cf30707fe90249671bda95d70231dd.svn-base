@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  有关如何配置 ASP.NET 应用程序的详细消息，请访问
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+
+<configuration>
+  <configSections>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler,log4net"/>
+    <section name="RewriterConfig"  type="URLRewriter.Config.RewriterConfigSerializerSectionHandler, URLRewriter" />
+  </configSections>
+
+  <RewriterConfig>
+    <Rules>
+      <!--<RewriterRule>
+        <LookFor>~/detail/([0-9]*)/([0-9]*).html</LookFor>
+        <SendTo>~/admin/detail.aspx?type=$1&amp;id=$2</SendTo>      
+      </RewriterRule>-->
+      <RewriterRule>
+        <LookFor>~/register.html</LookFor>
+        <SendTo>~/User/register.aspx</SendTo>
+      </RewriterRule>
+
+      <!--<RewriterRule>
+        <LookFor> ~/User/register.html</LookFor>
+        <SendTo> ~/User/register.aspx</SendTo>
+      </RewriterRule >-->
+
+    </Rules>
+  </RewriterConfig>
+
+  <system.web>
+
+
+    <compilation debug="true" targetFramework="4.0" />
+    <authentication mode="Windows"/>
+
+    <httpHandlers>
+      <add path="ajaxpro/*.ashx" verb="POST,GET" type="AjaxPro.AjaxHandlerFactory, AjaxPro.2"/>
+
+    </httpHandlers>
+    <httpModules>
+      <!--<add name ="ScriptModule" type ="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />-->
+    </httpModules>
+
+    <httpRuntime requestValidationMode="2.0" maxRequestLength="512000" executionTimeout="120" />
+    <pages validateRequest="false"></pages>
+
+
+
+  </system.web>
+
+  <log4net>
+    <!--定义输出到文件中-->
+    <appender name="LogFileAppender" type="log4net.Appender.FileAppender">
+      <!--定义文件存放位置-->
+      <file value="E:/log/log4netfile.txt" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <datePattern value="yyyyMMdd-HH:mm:ss" />
+      <layout type="log4net.Layout.PatternLayout">
+        <!--每条日志末尾的文字说明-->
+        <footer value="" />
+        <!--输出格式-->
+        <!--样例：2008-03-26 13:42:32,111 [10] INFO  Log4NetDemo.MainClass [(null)] - info-->
+        <conversionPattern value="记录时间：%date 线程ID:[%thread] 日志级别：%-5level 出错类：%logger property:[%property{NDC}] - 错误描述：%message%newline" />
+      </layout>
+    </appender>
+    <root>
+      <!--文件形式记录日志-->
+      <appender-ref ref="LogFileAppender" />
+    </root>
+  </log4net>
+
+
+  <connectionStrings>
+    <!--<add name="strConn" connectionString="Data Source=192.168.1.14;  Initial Catalog=TweeBaaEn;User Id=sa;Password=Tweebaawebapp2014" providerName="System.Data.SqlClient"></add>-->
+    <add name="strConn" connectionString="Data Source=67.224.94.82,4108; Initial Catalog=TweeBaaEn;User Id=wnTweebaa;Password=Tweebaawebapp2014" providerName="System.Data.SqlClient"></add>
+    <!--<add name="strConn" connectionString="Data Source=.; Initial Catalog=TweeBaaEn;User Id=sa;Password=123456" providerName="System.Data.SqlClient"></add>-->
+  </connectionStrings>
+
+
+  <!--邮箱帐号-->
+  <appSettings>
+
+    <!-- database connection information for crystal report-->
+    <!-- all info must be same as the connecction String -->
+    <add key="DBServerName" value ="leivaire-server"/>
+    <add key="DBName" value ="TweebaaEn"/>
+    <add key="DBUserName" value="wnTweebaa"/>
+    <add key="DBUserPassword" value="Tweebaawebapp2014"/>
+
+    <!--邮箱帐号-->
+    <add key="strKey" value="BF0C4A1B-8289-4D25-A946-5D8FAE05B850"/>
+    <add key="rootUrl" value="http://www.tweebaa.com/"/>
+    <add key="EncryptKey" value="tweebaa_1"/>
+    <add key="mailFrm" value="service@tweebaa.com"/>
+    <add key="mailHost" value="smtp.gmail.com"/>
+    <add key="mailPwd" value="netx1170"/>
+
+    <!--<add key="mailFrm" value="827090105@qq.com" />
+    <add key="mailHost" value="smtp.qq.com" />
+    <add key="mailPwd" value="199088ai627" />
+    <add key="mailCC" value="827090105@qq.com" />-->
+
+    <!--cookies key-->
+    <add key="cookieUserID" value="jZvJvvjqCILHX7zjBWskQA"/>
+    <add key="cookieUserPWD" value="jZvJvvjqCILHX7zjBWskQC"/>
+    <add key="cookieshareUrl" value="jZvJvvjqCILHX7zjBWskQB"/>
+    <add key="cookieShopCart" value="jZvJvvjqCILHX7zjBWskQD"/>
+    <add key="cookieAddress" value="jZvJvvjqCILHX7zjBWskQE"/>
+
+    <!--短信接口-->
+    <add key="serverIP" value="api.ucpaas.com"/>
+    <!--服务器地址-->
+    <add key="serverPort" value="443"/>
+    <!--服务器端口-->
+    <add key="accountSid" value="7c13d6c3f03d69f6a556c61f7e55be70"/>
+    <!--用户sid-->
+    <add key="accountToken" value="31d148a81daf8b3e6df2fb259749f7bf"/>
+    <!--用户sid对应的token-->
+    <add key="appId" value="2f881a1fdf3349eaa2ef3fcd52583143"/>
+    <!--对应的应用ID-->
+    <add key="toPhone" value="13684939641"/>
+    <add key="templatedId" value="1424"/>
+    <!--验证码模板ID-->
+    <add key="isWriteLog" value="true"/>
+    <!--是否开启日志-->
+    <add key="param" value="service@tweebaa.com"/>
+
+    <!--仓库-->
+    <add key="AppKey" value="1900001"/>
+    <add key="AppSecret" value="wangyingapp130705"/>
+    <add key="OwnerId" value="260136"/>
+    <add key="StockId" value="220038"/>
+    <add key="ShopId" value="250091"/>
+    <add key="WarehouseUser" value="111111"/>
+    <add key="WarehousePwd" value="`123"/>
+
+    <!--产品图片域名-->
+    <!--<add key ="prdImgDomain" value="http://192.168.1.10/"/>-->
+    <!--<add key ="prdImgDomain" value="https://tweebaa.com/"/>-->
+    <add key="webAppDomain"  value="http://localhost:28156/"/>
+    <add key="prdImgDomain"  value="http://localhost:36584/"/>
+
+
+    <!--工具文件夹-->
+    <add key="ffmpeg" value="upload/Ffmpeg/ffmpeg.exe"/>
+    <add key="mencoder" value="upload/Mencoder/mencoder.exe"/>
+    <add key="mplayer" value="upload/Mencoder/mplayer.exe"/>
+    <!--上传文件的路径-->
+    <add key="upfile" value="upload/UploadVideo"/>
+    <!--上专文件图片路径-->
+    <add key="imgfile" value="upload/VideoImg"/>
+    <!--上传文件图片大小-->
+    <add key="CatchFlvImgSize" value="240x180"/>
+    <add key="widthSize" value="600"/>
+    <!--400-->
+    <add key="heightSize" value="600"/>
+    <!--350-->
+    <!--转换后文件路径-->
+    <add key="playfile" value="upload/PlayVideo"/>
+
+    <add key="UploadRoot" value="upload/UploadImg/"/>
+    <add key="UploadExtension" value=".jpg,.jpeg,.gif,.png/"/>
+    <add key="UploadSizeB" value="2097152"/>
+    <!--<add key="UploadWH" value="68_68_G,290_215_W"/>-->
+    <!--<add key="UploadWH" value="68_68_G,224_224_W"/>-->
+    <add key="UploadWH" value="68_68_G,224_224_W,400_400_M"/>
+    <add key="strKey" value="BF0C4A1B-8289-4D25-A946-5D8FAE05B850"/>
+  </appSettings>
+
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="BasicHttpBinding_IUploadPicService" messageEncoding="Mtom" transferMode="Streamed" />
+      </basicHttpBinding>
+    </bindings>
+    <client>
+      <endpoint address="http://192.168.1.10:81/UploadPicService.svc"
+        binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IUploadPicService"
+        contract="UploadFile.IUploadPicService" name="BasicHttpBinding_IUploadPicService" />
+    </client>
+  </system.serviceModel>
+
+
+
+</configuration>

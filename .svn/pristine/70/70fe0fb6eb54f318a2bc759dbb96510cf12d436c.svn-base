@@ -1,0 +1,456 @@
+﻿说明： Status 分为 idle, working (working by xx), DONE, Help 4个部分，缺省为idle，当有人开始工作时，请置为working, 完成后请置为为DONE
+统一使用/MasterPages/Home.Master 作为Masterpage
+另外，如果大家有其他的工作需要协调帮忙，请在下面填上,status 为Help
+
+------------------------------------------------
+incoming to do
+
+1) coupon system
+
+
+6) Promotion System (back End) " Featured Product / Best Seller ?? / Hot Sales "
+
+
+9) xx% checkout for winner for App  ( 暂时不做）
+
+
+
+由于时间关系code 没实现部分，请大家帮忙
+
+11) prdShare.js / prdSale.js 状态 (prdState)  (2,3 is done,other ??)
+
+
+15) saleBuy page 显示Shipping Fee
+
+
+35) shop page need category page ?? TBD
+
+
+38) SHOPPING REWARDS 没有更新after purchase
+
+46)  Member center -- My evaluations - Total Commission - not implemnted ( commented out) 
+
+
+48) shopping point /Tweebuck (Shopping Reward Points EXPIRE) expiration 
+
+
+61) 当用户取消订单后，相应要扣除shopping points及 Commission  --30 Days
+
+63) Backend syatem - Cash Withdraw management  implement paypal when accepting user cash withdraw  -- not implement
+
+
+66) share --back from other website
+
+
+70) Shop-Limited time product details   Working by Jack Cao
+   * Specs display not correct     Done by Long
+   * should auto select the first specs  Done by Jack Cao 2015-10-05
+   * select color and its box does not match
+
+
+77) Shop search by category
+    Search count does not match the displayed number of product when double click third level category. --Need more test
+
+78) Shop serach after searching one category, cannot back to search all categories.
+
+80) show category at shop page (how????) 
+
+83) evaluate use different paging methods with shop and share
+
+
+93) not in shipping country issue
+    1) shipping fee inquire 后台？custom shipping fee
+	2) show custom dialog -->OK
+	3) redirect to inqury page --> OK
+	4) send e-mail to service@tweebaa.com --> OK
+	5) user return and click shopping cart ,checkout page to show the shipping fee ?
+	6) salebuy.aspx page allow return user to add to cart -->OK
+	   /AjaxPages/shopCartAjax.aspx  (AddShopCart)
+
+
+
+95)  增加Empty Shopping Cart ??
+    
+
+102)  1. SHOPPING REWARD POINTS don’t transfer to ACTUAL until 30 days after delivery (not 7)  ,need to check
+
+104)  Suggest Image Crop ( zoom out ) and scroll bar
+
+105)  shopping cart delievery address:  user first/last name  do not include spacial characters
+
+106) 当用户在登录的情况下，增加了一个产品，然后，退出登录，在不登录的情况下，加同样的产品，则会显示Shopping Card Empty (好像没有问题了）
+
+107) 防止用户恶意点击Share Link来骗积分 (share points)
+
+
+109) admin group -->后台权限及前台删Collage / comments (working by Raymond)
+
+
+
+112) Remove pending shopping points when return order
+
+113) 数据库同步问题
+(http://www.evget.com/article/2012/12/13/18272.html) ?? 购买 ? 破解 ？？
+
+
+115) presalebuy page 跟 salebuy page 要一样？ 
+
+116) Category page ??  DONE by Long 2015/12/29
+
+117)  用户登录cookie 会突然 exipired,有时候就出现不正常，应该在用户每次登录后，reset cookie ??
+
+118)   Tweebaa.com 检测用户登录经常有问题，已经显示登录了，但进My Account，还是提示登录, Proxy Server 问题 ??
+
+119) collage 横向列表显示不起作用 https://tweebaa.com/Product/CollageShare.aspx#
+
+120)  C# MSSQL caching
+http://www.c-sharpcorner.com/uploadfile/hgvyas123/sql-server-caching/
+http://stackoverflow.com/questions/16383513/how-to-use-sqlcachedependency
+
+
+121) submit page upload video can use youtube link
+
+122)
+
+123)
+
+124)
+
+125)
+
+126)
+
+127)
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------DONE-------------------------------------------------------------------------
+
+2) share zone points reward system at checkout page (RQ109 Mockup by Edmund)
+  1) Redeem main page
+  2) Redeem at Checkout page
+  3) load data, search data
+  4) table (wn_SharePointRedeemHistory) / store procedure design (spShopUseSharePointRedeem)  --DONE, need to copy to Live
+  5) whole checkout process   --DONE
+  6) can shopping point,Tweebuck,Share reward point use together ?  DONE
+  7) orderhead (table updated --add a field: useSharePointAmount	decimal(18, 2)	Checked ,model update) DONE, need to update Live Database
+  8) show redeem amount at order summary  ??
+  9) SharePoint / Money =100/1
+
+
+3) display SKU /Shipping Country (working by Long)
+   dispaly SKU/shipping country at salebuy page --DONE
+   when user change product attribute, need to change SKU --DONE
+   display SKU at shopping cart page --DONE
+   popup message to limit use checkout when shopping cart contain product not ship to user's country
+   1) if user login, then check it at salebuy "Addtocart" button --DONE
+   2) if not,check it at shoporder page --DONE
+   display free shipping at salebuy page
+
+4) Supply Zone (PUP)    ---removed
+  Mockup:
+  67.224.94.82/product_upload_portal_1.html
+  67.224.94.82/product_upload_portal_2.html
+  67.224.94.82/product_upload_portal_3.html
+
+5) CMS system (News Release)  --DONE by Jack
+
+7) Video Contest  (working by Long)
+   ---VideoNotFound.aspx --mockup
+   --Video  details  (DONE)
+   --vote and vote limit (DONE)
+   --submit your vote text (DONE)
+   -->hotest video list (DONE)
+   -->share at Twitter/fb/youtube
+   -->start date limit
+   -->dean line limit
+
+
+
+
+
+
+1）wholesale inquire at shop page   DONE by Long
+2) /User/loginGuest.aspx  DONE by Long
+3) /Home/Shopping_Points.aspx  search by date                          DONE by Jack Cao
+4) /Home/AccountSettings.aspx  edit profile 部分, upload image  DONE by Long
+6) /Product/prdSingleShare.aspx Share & Earn   Done by Jack Cao
+7) /Product/saleBuy.aspx Share & Earn		   Done by Jack Cao	
+8) Homepage my favorite							DONE by Long
+9) /Home/Index page 没做，daily checkin/browse shop/full week check in (??) DONE by Long
+10) /shopOrder.aspx?type=guest   DONE by Long
+13) /home/homeOrderInfo.aspx  没有做完   DONE by Long
+13) daily check in 没有刷新 Full Week Check In Image (BindImage要在前台刷新) DONE by Long --Force Reload
+14) ShopOrder page 取的Shoppingh Reward Points 不对  --DONE by Long
+
+16) browse 10 product 好像没有+5 points   Done By Jack Cao 2015-09-29
+17) ShopOrder page Shipping Fee有问题  --It is ok
+18) 系统到Paypal页面，直接点击Back，shopping cart empty  (DONE by Long)
+    -->DeletShopCartList(cartIDs);//创建订单后删除购物车 at payMoneyPaypalAjax.aspx.cs ????为啥在这里  (Removed)
+	-->move DeletShopCartList(cartIDs);到OrderConfirmation page ??
+	-->update table wn_checkout_tmp checkout_shoppingCartID	nvarchar(50)	Checked
+
+19) share of test sale product in shop and share pages.  (Jack Cao done 2015-09-24)
+20) unify "SKU#" and "Product Code"  (Done by Long)
+21) Shopping cart  -- add delete ( Jack Cao Done 2015-9-24) 
+22) Check out ( tax display percentage, add $,  solve null, set billing email/phone ) Jack Cao Done 2015-9-24
+23) Member center - my account - my shipping address	2015-09-24 Done By Jack Cao
+    * unify my address and my shipping adress			2015-09-24 Done By Jack Cao
+	* edit should not add								2015-09-24 Done By Jack Cao
+	* set/display default								2015-09-24 Done By Jack Cao
+	* "Add Address" button style should be changed		2015-09-24 Done By Jack Cao
+24) Unify the displaying of the Sale price and MSRP ( display order and color). Done by Jack Cao 2015-10-05
+    salprice first (red) - then marketing price ( grey)
+
+25) Remove "Time Over" of Product page												Done 2015-09-25 by Jack Cao
+26) Master page My account and logout are too close. --DONE by Long
+27) Search by Caregories and By Focus - ^ buttons do not work						Done 2015-09-25 by Jack Cao
+28) [Quick view] with black background affects the good looking of prodct image at the shop page.  Remove "Quick View" from home/evaluate/shop/share pages Done 2015-09-25 by Jack Cao 
+29) Evaluate Search by Category - ^ button does not work							Done 2015-09-25 by Jack Cao
+30) Share Search by Category - ^ button does not work								Done 2015-09-25 by Jack Cao
+31) By Focus - evaluate/shop/share should display the same content from database    Done 2015-09-25 by Jack Cao
+32) Shop page display "Shop" but evaluate and share does not display "Evaluate" and "Share" Done 2015-09-25 by Jack Cao (remove the shop from shop page) 
+33) Home page ... -- change "Submit now" to "Suggest Now" and ...				    Done 2015-09-25 by Jack Cao
+
+34) checkout page change credit card logo to "Confirm Order and Process Payment" ?? wait for Colleen confirm  --DONE by Long
+36) Product page, when adjust the page's width, the Youtube video dispears.  DONE by Long
+37) Product detail page, detailed description is not displayed.   Done By Jack Cao 2015-09-29
+40) Evaluate product page -- After Evaluate -- not correct  Done By Long
+41) Evaluate product page -- some products get system error ( no sku3) Done by Jack Cao  
+
+42) Member Center - my evaluation  working by Jack Cao
+    * product price not implemmented					Done by Jack Cao 2015-9-29
+	* "submit" ==> "Suggest"							Done by Jack Cao 2015-9-29
+	* submit time" == "Evaluate Date" & date format		Done by Jack Cao 2015-9-29
+	* Progress bar not implemented						Done by Jack Cao 2015-9-29
+	* Do not need the "delete" button					Done by Jack Cao 2015-9-29
+	* share button not implemented						Done by Jack Cao 2015-9-30
+	* Search does not work								Done by Jack Cao 2015-9-29
+	* Start Date/End Date do not work					Done by Jack Cao 2015-9-29
+43)  Member Center - my evaluation -  Successful Rate /Earn GIfts/Total Commission not implemented Done by Jack Cao 2015-9-30
+
+47)  /Home/Index page SHOPPING REWARDS -->显示的是总订单完成了的消费金额，文字应该如何描述?  DONE by Long
+49) Tweebuck Withdraw change to send e-mail to service@tweebaa.com first, backend need to create a WithDraw Request to let customer service to confirm
+    and pay to the user  Done by Jack Cao 2015-10-02
+	- Add type to wn_ProfitOut Table 0:Cash Withdraw 1:Use For Shopping
+	- Define type in ConfigParameter  ProfitOutType
+    - Change AddProfitOut() Method
+	- change stored procedure of using tweebucks for shopping
+
+
+51) order confirmation e-mail have "Use Shopping Reward Points?" ???  --DONE by Long
+52) ShopOrder page shopping reward point not correct  DONE by Long
+
+53) Guest Checkout did not test yet  
+    - Country/Province selection font is different with others
+	- Shipling fee did not displayed after save delivery address  Done by Jack Cao 2015-10-02
+54) /salebuy.aspx page when put a number at quantity, there is a popup, need to remove it  --DONE by Long
+
+55) shopping reward points redeem doesn't work  --redeem 后没有减少，用户可以重复使用 --DONE by Long
+
+56) Tweebuck redeem not test yet  --test by Long
+
+57) Need to Show pending shopping reward points  --DONE by Long
+59) browser product ,如果这个Product 今天已经 Browse，不应该显示计数 ???   Done by Jack Cao 2015-10-02
+62) discount 不能是全额 ?????  ---Add Limit by Long
+/*Discount amount associated with an item. 
+It must be less than the selling price of the item. If you specify discount_amount and discount_amount2 is not defined, then this flat amount is applied regardless of the quantity of items purchased. 
+*/
+
+64) 将大部分数据请求 cache 为xml/json 文件 (daily / hourly 更改） 来减少对数据库的压力 ，请参考/AjaxPages/index.aspx
+   * Cache by focus category								Done by Jack Cao 2015-10-13
+   * Cache product category layer 0							Done by Jack Cao 2015-10-13
+   * Cache Shop/share first page sort by ranking desc		Done by Jack Cao 2015-10-13 
+   * Cache evaluate first page sort by ranking desc			Done by Jack Cao 2015-10-13	
+
+代码如下
+
+1)using Twee.Comm;
+
+2) XMLCache xmlCache = new XMLCache();
+
+3) JSon:       
+               string sCacheFile = sGet + "_" + xmlCache.GetDateString() + "_" + context.Request.QueryString["keyword"].ToString() + "_" + context.Request.QueryString["page"].ToString();
+                        //string sWebCache=Server.MapPath("~" + "/cache/"+sCacheFile+".xml");
+                        //Twee.Comm.CommHelper.WrtLog("cache=" + sCacheFile);
+                        if (xmlCache.IsJsonFileExists(sCacheFile))
+                        {
+                            // Twee.Comm.CommHelper.WrtLog("111111111");
+                            xmlCache.ReadCacheJson(context, sCacheFile);
+                        }
+                        else
+                        {
+							//database Access
+						
+						
+							//write and save
+							xmlCache.WriteJsonFile(context,json_string, sCacheFile);
+						}
+
+65) Login in check out -  should get the user's default shipping address  Done by Jack Cao 2015-10-02
+67） server site watermark   
+   ---dynamic create image							Done by Jack Cao 2015-10-06
+   -- Add watermark verify to evaluate page			Done by Jack Cao 2015-10-06
+
+68）Contact Us page 加water mark,来防止用户攻击	Done By Jack Cao 2015-10-06 ( long added error message and CSS adjustment)
+
+69）Limit shopping cart quantity to 999 ( 3 digits) 
+   * buy now						Done by Jack Cao 2015-10-05
+   * test sale (limited-time)		Done by Jack Cao 2015-10-05
+   * shopping cart					Done by Jack Cao 2015-10-05
+71) Member center -- my rewards -- Reward Points - submit, submission change           Done by Jack Cao 2015-10-05
+
+72) Member center -- my order -- view												Done By Jack Cao 2015-10-05
+    * price format should be "#0.00"												Done By Jack Cao 2015-10-05
+	* total.tax/Shipping/SubTotal align right and should use format of "#0.00"		Done By Jack Cao 2015-10-05
+	* date format yyyy/mm/dd --> mm/dd/yyyy											Done By Jack Cao 2015-10-05
+39) Shop page - Limited Time -- hour glass/Units left/Day left are not aligned properly  Done by Jack Cao 2015-10-06
+45)  Home Page -- products need share button and share function					Done by Jack Cao 2015-10-06
+50)  table wn_ShipFrom field ShipFrom_ShipToCountries can't be NULL --check Live Database   
+   set "shipping to countries" to USA     Done by Jack 2015-10-05 
+73) member center -- my activity -- my Evaluation
+    Product link is not set correctly.							Done by Jack Cao 2015-10-07
+74) Home Page -- Featred Products								Done by Jack Cao 2015-10-07
+    * do not display cross price if it is the same as sale price		Done by Jack Cao 2015-10-07
+	* Should display product name as bold								Done by Jack Cao 2015-10-07
+	* for test-sale products, price should use two decimal points		Done by Jack Cao 2015-10-07
+
+75) Evaluate/Shop/share detail list							Done by Jack Cao 2015-10-07
+    * share & earn does not work							Done by Jack Cao 2015-10-07
+	* display both sale price and marketing sale price		Done by Jack Cao 2015-10-07
+	* test sale - align test sale info and hour glass		Done by Jack Cao 2015-10-07 
+	* Change "Share to Earn" to "Share & Earn"				Done by Jack Cao 2015-10-07
+	* test sale products -- display product description just under the product name   Done by Jack Cao 2015-10-07
+	* put the product link to the product description		Done by Jack Cao 2015-10-07
+79) shop page after searching one category, keyword search has problem --DONE by Long
+
+81) Shop -- total two pages -- click next page -- display two many pages ( pages does not match search count)   Done by Jack Cao 2015-10-09
+
+82) share - total two pages -- click next page -- display two many pages ( pages does not match search count) Done by Jack Cao 2015-10-09
+    -- Show page size does not work												Done by Jack Cao 2015-10-09
+	-- do not display marketing sale price if it is the same sale price			Done by Jack Cao 2015-10-09
+
+
+84) show (page size 60,40,20,10) in shop is different with evaluate and share( 20, 10, 5, 3)  Done by Jack Cao 2015-10-13
+    Change page size 60,40,20,10 of shop to 20, 10, 5, 3
+
+85) suggest page tips for product name and tags do not work    Done by Jack Cao 2015-10-13 
+
+
+86) Evaluate show 20,10,5,3 does not work  Done by Jack Cao 2015-10-13 
+
+87) Product Suggest page -- clear does not work well - characters do not recovery when clear  Done by Jack Cao 2015-10-13  
+
+5) /Product/presaleBuy.aspx  Done by Jack Cao at the end of October
+12） submitReview.aspx Evalute (Yes/No) 没有使用Snow的Mockup   Done BY JAck Cao 2015-10-22
+
+100) Search by tweebaa sku # at shop and share product list pages  Done By Jack 2015-11-03
+
+88) Change  position of share/favorite icon for main/shop/share/evaluate  Done By Jack Cao 2015-10-29 
+
+89) shopping cart 相同产品但数量不增加的问题，在Chrome里增加tweebot，然后在Firfox重现login,再增加tweebot，这样，产品就会增加为2个，而且每个产品数量都是一个.(Snow说的问题)
+    Done by Jack Cao 2015-10-30
+
+76) Shop/share -- test sale products - detail list                    Done by Jack Cao 2015-10-28
+    there is a vertical bar at the the end of hour glass - ????
+44)  Member Center - my evaluation -  share button color is not correct  Done by Jack Cao
+
+60) Customer Order Confirmation Email
+    - Here are your order details: !   -- should no "!"  --Done by Long
+    - Order Number: Twee10000264 !  -- should no "!"  -- should have a nest  --Done by Long
+    - Order Date: 10/1/2015! --  -- should no "!" -- should have a nest  --Done by Long
+	- price, shipping method and shippping fee are not aligned properly  --Done by Long
+	- Use Shopping Reward Points?  -- not aligned properly
+
+90) share link 购买需要6% discount  + extra shopping points  -->DONE by Long
+
+91)  增加一个MSSQL Job， 把pending tweebuck变成Tweebuck   --DONE by Long
+
+92) 在手机上面浏览时，把左边的商品分类菜单默认设置未关闭  -->OK
+
+96)  Guest Checkout 用户接收不到邮件 --DONE by Long
+
+97)  Collage Review page
+    1) Load design  -->OK
+	2) Load Products --> OK
+	3) Load Comments -->OK
+	4) Add Comments --> OK
+	5) My Favorite --> OK
+
+	6) Share --> OK
+	7) My Favorite at UserCenter -->OK
+	  1) Load -->OK
+	  2) Search -->OK
+	  3) Share --> OK
+	  4) Delete -->OK
+	  5) Share / Delete Icon like My Favorite Products-->OK
+	8) My Share at UserCenter
+	  1) Load List --> Buyer
+	  2) Total Click
+	  3) Total Sold
+	  4) Total Commission
+	  5) Search
+	9) comments format-->OK
+
+98) Collage Share page
+    1) Load List -->OK
+	2) Share  -->图太大？
+	3) Add Favorite -->OK
+	4) Search  -->OK
+	5) Show 21/12/6/3 -->OK
+	6) Sort by -->OK
+	7) Grid / List -->OK
+	8) Share popup dialog can't close
+
+99) Collage Share Commission
+	1) Store Produce  -->OK
+	2) test   -->OK
+	3) update live database -->OK
+	4) E-mail Share Template (Colleen)
+100) /Home/HomeIntegral.aspx -->分页不对？
+101) /Product/saleBuy.aspx --> when no color do not display "None"  -- Done by Jack Cao 2015-11-06
+
+94) 新会员注册成功 + 50 点   ---DONE by Long
+    1) stored procedures +50  -->ok
+	2) registerAjax +50   --> ok
+
+8) 抽奖系统 （老虎机)  --working by Long
+
+http://www.sourcecodester.com/tutorials/c/7382/creating-slot-machine-game-c.html
+
+
+https://github.com/josex2r/jQuery-SlotMachine
+http://josex2r.github.io/jQuery-SlotMachine/
+   1)UserDataMgr -- SlotMachine_WriteSpin  (写流水表）
+   2)UserDataMgr -- SlotMachine_WriteSpinLucky (写中奖表)  -->安全问题
+
+   3) 3个一起滚动  -->ok
+   4) 中奖号码？
+   5) 20 个图片 
+
+10）Timer的整合
+
+
+103)  Redirect product detail page to corresponding page by product status     Done By Jack Cao 2015-11-09
+      Review/PreSale/Sale    ==>  submitReview.aspx /presaleBuy.aspx / saleBuy.aspx
+
+108) Add tracking link to customer email and page, https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=9261299998944536473586&cntry_code=us
+     add DHL and Fedex tracking link to customer email and page Done by Jack 2015-12-09
+
+
+110) unifiy dropshipper return  details to Fosdick returnt details    Doing by Jack Cao  
+111) unifiy dropshipper shipment details to Fosdick shipment details  Done by Jack Cao 20015-12-10
+
+114) Collage Share to facebook  Done by Long 20015-12-28
+	1)http-->should be https  (OK)
+	2)close no function? http ? (OK)
+	3) unenspect contents (OK)
+	4) image too big (??)  fb:470x246 ??

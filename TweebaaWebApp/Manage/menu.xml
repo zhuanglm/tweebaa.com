@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<wnData>
+  <m1 title="会员管理">
+    <m2  title="会员列表" src="admUser.aspx" img="m2.png" />
+  </m1>
+  <m1 title="产品管理">
+    <m2  title="分类列表" src="admPrdCate2.aspx" img="m3.png" />
+    <m2  title="添加分类" src="admPrdCateAdd.aspx" img="m3.png" />
+    <m2  title="产品列表" src="admPrd.aspx" img="m1.png" />
+  </m1>
+  <m1 title="订单管理">
+    <m2  title="订单处理" src="admOrder.aspx" img="m4.png" />
+  </m1>
+  <m1 title="佣金申领">
+    <m2  title="积分记录" src="admPointLst.aspx" img="m5.png" />
+    <m2  title="佣金记录" src="admCashLst.aspx" img="m6.png" />
+  </m1>
+  <m1 title="产品分享">
+    <m2  title="所有分享" src="admShare.aspx" img="m7.png" />
+  </m1>
+  <m1 title="产品评审">
+    <m2  title="所有评审" src="admPrdReviewMain.aspx" img="m7.png" />
+  </m1>
+  <m1 title="专利管理">
+    <m2  title="专利管理" src="admPatent.aspx" img="m7.png" />
+  </m1>
+  <m1 title="等级管理">
+    <m2  title="发布区等级管理" src="admPublistGradeParam.aspx" img="m7.png" />
+    <m2  title="评审区等级管理" src="admReviewgradeparam.aspx" img="m7.png" />
+    <m2  title="分享区等级管理" src="admSharegradeparam.aspx" img="m7.png" />
+
+  </m1>
+  <m1 title="仓库管理">
+    <m2  title="物流区域" src="AdmimManageArea.aspx" img="m7.png" />
+    <m2  title="仓库配送" src="AdmimManageStorage.aspx" img="m7.png" />
+    <m2  title="产品库存" src="AdmimPrdStorage.aspx" img="m7.png" />
+    <m2  title="推送产品" src="admSendPrdToStorge.aspx" img="m7.png" />
+  </m1>
+
+  <m1 title="文章管理">
+    <m2  title="文章内容" src="Article/admArticle.aspx" img="m7.png" />
+    <m2  title="文章类别" src="Article/admArticleType.aspx" img="m7.png" />
+     
+  </m1>
+  
+  
+</wnData>

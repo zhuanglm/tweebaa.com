@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Tweebaa Order Confirmation #order_number#</title>
+</head>
+<body bgcolor="#90E4FD">
+<table width="700" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;color: #666;font-family: 'open_sansregular';">
+  <tr>
+    <td style="background-color: #fff;">
+    	   <div style="margin: 0 20px;border-bottom:1px solid #E1E1E1;padding: 15px 0;">
+            <a href="#"><img src="http://tweebaa.com/images/logo2.png" alt="" style="margin: 0 10px;"></a> 
+         </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #fff;">
+         <div style="margin:0 40px;line-height:14px;padding-bottom:15px;">
+              <p style="font-size:18px;line-height:18px;margin:20px 0;">Dear #useremail# ,</p>
+         
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px;">Thank you for your order !<br/>
+              Here are your order details : <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Order Number: #order_number# <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Order Date: #order_date#<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Payment Method: Paypal<br/><br/>
+<br/><br/>
+</p>
+
+<table style="width:100%; " ><tr><td>
+<div style="width:100%; background-color:#ccc; text-align:center; font-size:10px;" >
+<table>
+<tr>
+                                   <th class="pro-infor">Product Information</th>
+                                   <th>Quantity</th>
+                                   <th style="display:none">Shipping Fee</th>
+                                   <th>Unit Price</th>
+                                   <th>Shipping Method</th>
+                                   <th>Sub-Total</th>
+                                   <th style="display:none">Shipping Partner</th>
+                                   </tr>
+<tbody>
+  #order_details#
+</tbody>
+</table>
+
+ </div>
+ </td></tr>
+
+ <tr><td>             
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px; text-align:left;">
+     
+              
+Ship address:<br>
+#shipping_address# <br>
+</td></tr>
+
+ <tr><td align="left">
+<br><br>
+Tweebaa members: You can check order status at any time; simply log in to your Member Account <a href="http://tweebaa.com/Home/Index.aspx?page=homeorder"> here</a><br>
+
+Questions? Visit our <a href="http://tweebaa.com/College/College.aspx">Education page</a> or <a href="mailto:service@tweebaa.com">contact us directly</a>.<br>
+
+ </td></tr>
+</table>
+<br>
+
+              </p>
+
+
+              <p style="font-size:14px;margin-bottom:30px;">Everybody Earns.  Tweebaa. </p>
+
+              <p style="font-size:14px;line-height:18px;">(This is an automated message, please do not reply)</p>
+         </div>
+    </td>
+  </tr>
+ 
+</table>
+
+</body>
+</html>

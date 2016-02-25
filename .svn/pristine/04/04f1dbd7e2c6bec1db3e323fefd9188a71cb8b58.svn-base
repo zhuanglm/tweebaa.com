@@ -1,0 +1,491 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data.SqlClient;
+using Twee.Comm;
+using System.Data;
+
+namespace Twee.DataMgr
+{
+    public class AdministratorDataMgr
+    {
+        #region  BasicMethod
+
+        /// <summary>
+        /// 是否存在该记录
+        /// </summary>
+        public bool Exists(int iMgrUserID)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) from wn_MgrUser");
+            strSql.Append(" where MgrUser_ID = " + iMgrUserID.ToString());
+            return DbHelperSQL.Exists(strSql.ToString());
+        }
+
+        public bool Exists(string sUserName,string sPassword)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) from wn_MgrUser");
+            strSql.Append(" where  MgrUser_Name = @Name and MgrUser_Password=@Password and MgrUser_Active = 1");
+            SqlParameter[] parameters = {
+					new SqlParameter("@Name", SqlDbType.NVarChar,50),
+                    new SqlParameter("@Password", SqlDbType.NVarChar,50),
+                                     };
+            parameters[0].Value = sUserName;
+            parameters[1].Value = sPassword;
+
+            return DbHelperSQL.Exists(strSql.ToString(), parameters);
+        }
+
+
+        /// <summary>
+        /// 增加一条数据
+        /// </summary>
+        public bool Add(Twee.Model.MgrUser model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            DB db = new DB();
+            db.DBConnectBeginTrans();
+            int iNewMgrUserID = db.DBGetSeq("MgrUserID");
+            model.iID = iNewMgrUserID;
+            
+            strSql.Append("insert into wn_MgrUser(");
+            strSql.Append("MgrUser_ID, MgrUser_Name, MgrUser_Password, MgrUser_Active, MgrUser_CreateDate)");
+            strSql.Append(" values (");
+            strSql.Append("@ID,@Name,@Password,@Active,getdate())");
+            SqlParameter[] parameters = {
+					new SqlParameter("@ID", SqlDbType.Int, 4),
+					new SqlParameter("@Name", SqlDbType.NVarChar,50),
+					new SqlParameter("@Password", SqlDbType.NVarChar,50),
+					new SqlParameter("@Active", SqlDbType.TinyInt, 1)};
+            parameters[0].Value = iNewMgrUserID;
+            parameters[1].Value = model.sName;
+            parameters[2].Value = model.sPassword;
+            parameters[3].Value = model.iActive;
+
+            int rows = db.DBExecute(strSql.ToString(), parameters);
+            db.DBDisconnectCommitTrans();
+            return true;
+        }
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        public bool Update(Twee.Model.MgrUser model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update wn_MgrUser set ");
+            strSql.Append("MgrUser_Name=@Name,");
+            strSql.Append("MgrUser_Password=@Password,");
+            strSql.Append("MgrUser_Active=@Active");
+            strSql.Append(" where MgrUser_ID=@ID ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@Name", SqlDbType.NVarChar,50),
+					new SqlParameter("@Password", SqlDbType.NVarChar,50),
+					new SqlParameter("@Active", SqlDbType.TinyInt, 1),
+					new SqlParameter("@ID", SqlDbType.Int,4)};
+            parameters[0].Value = model.sName;
+            parameters[1].Value = model.sPassword;
+            parameters[2].Value = model.iActive;
+            parameters[3].Value = model.iID;
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 删除一条数据
+        /// </summary>
+        public bool Delete(int iUserID)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from wn_MgrUser ");
+            strSql.Append(" where MgrUser_ID=" +  iUserID.ToString());
+
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 批量删除数据
+        /// </summary>
+        public bool DeleteList(string sUserIDList)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from wn_MgrUser ");
+            strSql.Append(" where MgrUser_ID in (" + sUserIDList + ")  ");
+            int rows = DbHelperSQL.ExecuteSql(strSql.ToString());
+            if (rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Twee.Model.MgrUser GetModel(int iUSerID)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select  top 1 * from wn_MgrUser ");
+            strSql.Append(" where MgrUser_ID =" + iUSerID.ToString());
+
+            Twee.Model.MgrUser model = new Twee.Model.MgrUser();
+            DataSet ds = DbHelperSQL.Query(strSql.ToString());
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return DataRowToModel(ds.Tables[0].Rows[0]);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// 得到一个对象实体
+        /// </summary>
+        public Twee.Model.MgrUser DataRowToModel(DataRow row)
+        {
+            Twee.Model.MgrUser model = new Twee.Model.MgrUser();
+            if (row != null)
+            {
+                if (row["MgrUser_ID"] != null)
+                {
+                    model.iID = row["MgrUser_ID"].ToString().ToInt();
+                }
+                if (row["MgrUser_Name"] != null)
+                {
+                    model.sName = row["MgrUser_Name"].ToString();
+                }
+                if (row["MgrUser_Password"] != null)
+                {
+                    model.sPassword = row["MgrUser_Password"].ToString();
+                }
+                if (row["MgrUser_Active"] != null )
+                {
+                    model.iActive = int.Parse(row["MgrUser_Active"].ToString());
+                }
+                if (row["MgrUser_CreateDate"] != null && row["MgrUser_CreateDate"].ToString() != "")
+                {
+                    model.dtCreateDate = Convert.ToDateTime(row["MgrUser_CreateDate"].ToString());
+                }
+            }
+            return model;
+        }
+
+        /// <summary>
+        /// 获得数据列表
+        /// </summary>
+        public DataSet GetList(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * ");
+            strSql.Append(" FROM wn_MgrUser");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        public Twee.Model.MgrUser GetSingle(string sUserName, string sPassword)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select * ");
+            strSql.Append(" FROM wn_MgrUser ");
+            strSql.Append(" where  MgrUser_Name=@Name and MgrUser_Password=@Password and MgrUser_Active=1");
+            SqlParameter[] parameters = {
+					new SqlParameter("@Name", SqlDbType.NVarChar,50),
+                    new SqlParameter("@Password", SqlDbType.NVarChar,50),
+           };
+            parameters[0].Value = sUserName;
+            parameters[1].Value = sPassword;
+            Twee.Model.MgrUser model = new Twee.Model.MgrUser();
+            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                return DataRowToModel(ds.Tables[0].Rows[0]);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获得前几行数据
+        /// </summary>
+        public DataSet GetList(int Top, string strWhere, string filedOrder)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select ");
+            if (Top > 0)
+            {
+                strSql.Append(" top " + Top.ToString());
+            }
+            strSql.Append(" * ");
+            strSql.Append(" FROM wn_MgrUser ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            strSql.Append(" order by " + filedOrder);
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 获取记录总数
+        /// </summary>
+        public int GetRecordCount(string strWhere)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select count(1) FROM wn_MgrUser ");
+            if (strWhere.Trim() != "")
+            {
+                strSql.Append(" where " + strWhere);
+            }
+            object obj = DbHelperSQL.GetSingle(strSql.ToString());
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(obj);
+            }
+        }
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public DataSet GetListByPage(string strWhere, string orderby, int startIndex, int endIndex)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT * FROM ( ");
+            strSql.Append(" SELECT ROW_NUMBER() OVER (");
+            if (!string.IsNullOrEmpty(orderby.Trim()))
+            {
+                strSql.Append("order by T." + orderby);
+            }
+            else
+            {
+                strSql.Append("order by T.MgrUser_ID desc");
+            }
+            strSql.Append(")AS Row, T.*  from wn_MgrUser T ");
+            if (!string.IsNullOrEmpty(strWhere.Trim()))
+            {
+                strSql.Append(" WHERE " + strWhere);
+            }
+            strSql.Append(" ) TT");
+            strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
+            return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /*
+        /// <summary>
+        /// 分页获取数据列表
+        /// </summary>
+        public DataSet GetList(int PageSize,int PageIndex,string strWhere)
+        {
+            SqlParameter[] parameters = {
+                    new SqlParameter("@tblName", SqlDbType.VarChar, 255),
+                    new SqlParameter("@fldName", SqlDbType.VarChar, 255),
+                    new SqlParameter("@PageSize", SqlDbType.Int),
+                    new SqlParameter("@PageIndex", SqlDbType.Int),
+                    new SqlParameter("@IsReCount", SqlDbType.Bit),
+                    new SqlParameter("@OrderType", SqlDbType.Bit),
+                    new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
+                    };
+            parameters[0].Value = "wn_adminstrator";
+            parameters[1].Value = "guid";
+            parameters[2].Value = PageSize;
+            parameters[3].Value = PageIndex;
+            parameters[4].Value = 0;
+            parameters[5].Value = 0;
+            parameters[6].Value = strWhere;	
+            return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
+        }*/
+
+        public DataTable GetUserFunctionList(int iMgrUserID)
+        {
+            StringBuilder sSql = new StringBuilder();
+
+            sSql.Append("select distinct a.MgrFunction_ID from wn_MgrUserGroupFunction a");
+            sSql.Append(" inner join wn_MgrUserGroup b on a.MgrUserGroupType_ID = b.MgrUSerGroupType_ID");
+            sSql.Append(" inner join wn_MgrUserGroupType c on c.MgrUserGroupType_ID = b.MgrUSerGroupType_ID");
+            sSql.Append(" where b.MgrUser_ID=" +  iMgrUserID.ToString());
+            sSql.Append("   and c.MgrUserGroupType_Active = 1");
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            if (ds != null && ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
+
+        public int AddGroup(string sName, string sDesc, bool bActive, out string sErrMsg) {
+            
+            sErrMsg = string.Empty;
+            StringBuilder sSql = new StringBuilder();
+            DB db = new DB();
+            db.DBConnect();
+            sSql.Append("select count(*) from wn_MgrUserGroupType where MgrUserGroupType_Name = N'" + CommUtil.Quo(sName) + "'"); 
+            int iCnt=  db.DBQueryCount(sSql.ToString());
+            if (iCnt > 0)
+            {
+                db.DBDisconnect();
+                sErrMsg = "Group: " + sName + " has already existed";
+                return -1;
+            }
+
+            db.DBBeginTrans();
+            int iNewGroupID = db.DBGetSeq("MgrUserGroupTypeID");
+
+            sSql.Clear();
+            sSql.Append("insert wn_MgrUserGroupType(MgrUserGroupType_ID, MgrUserGroupType_Name, MgrUserGroupType_Description, MgrUserGroupType_Active)");
+            sSql.Append(" VALUES(");
+            sSql.Append(iNewGroupID.ToString() + ",");
+            sSql.Append("N'" + CommUtil.Quo(sName) + "',");
+            sSql.Append("N'" + CommUtil.Quo(sDesc) + "',");
+            sSql.Append(bActive ? "1)" : "0)");
+            iCnt = db.DBExecute(sSql.ToString());
+
+            db.DBCommitTrans();
+            db.DBDisconnect();
+
+            return iNewGroupID;
+        }
+
+        public int DeleteGroup(int iGroupID)
+        {
+
+            StringBuilder sSql = new StringBuilder();
+            sSql.Append("update wn_MgrUserGroupType set MgrUserGroupType_Active = 0 where MgrUserGroupType_ID ="  + iGroupID.ToString()) ;
+            int iCnt = DbHelperSQL.ExecuteSql(sSql.ToString());
+            return iCnt;
+        }
+
+        public int SetGroupFunctionList(int iGroupID,  List<int> iFuncIDList)
+        {
+            StringBuilder sSql = new StringBuilder();
+            DB db = new DB();
+            db.DBConnect();
+            db.DBBeginTrans();
+            
+            // delete all function of this group
+            sSql.Append("delete from wn_MgrUserGroupFunction where  MgrUserGroupType_ID = " + iGroupID.ToString() );
+            int iCnt = db.DBExecute(sSql.ToString());
+            
+            // insert all functin id of this group
+            iCnt = 0;
+            foreach ( int iFuncID in iFuncIDList) {
+                sSql.Clear();
+                sSql.Append("insert into wn_MgrUserGroupFunction(MgrUserGroupType_ID, MgrFunction_ID)");
+                sSql.Append(" values(");
+                sSql.Append(iGroupID.ToString() + ",");
+                sSql.Append(iFuncID.ToString() + ")");
+                iCnt += db.DBExecute(sSql.ToString());
+            }
+            db.DBCommitTrans();
+            db.DBDisconnect();
+            return iCnt;
+        }
+
+
+        public DataTable GetGroupList()
+        {
+            StringBuilder sSql = new StringBuilder();
+
+            sSql.Append("select * from wn_MgrUserGroupType where  MgrUserGroupType_Active = 1");
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            if (ds != null && ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
+        public DataTable GetGroupFunctionList(int iGroupID)
+        {
+            StringBuilder sSql = new StringBuilder();
+
+            sSql.Append("select a.MgrFunction_ID from wn_MgrUserGroupFunction a ");
+            sSql.Append(" inner join wn_MgrUserGroupType b on b.MgrUserGroupType_ID = a.MgrUserGroupType_ID");
+            sSql.Append(" where b.MgrUserGroupType_Active = 1");
+            sSql.Append(" and a.MgrUserGroupType_ID =" + iGroupID.ToString());
+
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            if (ds != null && ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
+        public DataTable GetUserGroupList(int iMgrUserID)
+        {
+            StringBuilder sSql = new StringBuilder();
+
+            sSql.Append("select a.MgrUserGroupType_ID from wn_MgrUserGroup a ");
+            sSql.Append(" inner join wn_MgrUserGroupType b on b.MgrUserGroupType_ID = a.MgrUserGroupType_ID");
+            sSql.Append(" where b.MgrUserGroupType_Active = 1");
+            sSql.Append(" and a.MgrUser_ID =" + iMgrUserID.ToString());
+
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            if (ds != null && ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+
+        public int SetUserGroupList(int iMgrUserID, List<int> iGroupIDList)
+        {
+            StringBuilder sSql = new StringBuilder();
+            DB db = new DB();
+            db.DBConnect();
+            db.DBBeginTrans();
+
+            // delete all group id's of this user
+            sSql.Append("delete from wn_MgrUserGroup where  MgrUser_ID = " + iMgrUserID.ToString());
+            int iCnt = db.DBExecute(sSql.ToString());
+
+            // insert all Group ID of this user
+            iCnt = 0;
+            foreach (int iGroupID in iGroupIDList)
+            {
+                sSql.Clear();
+                sSql.Append("insert into wn_MgrUserGroup(MgrUser_ID, MgrUserGroupType_ID)");
+                sSql.Append(" values(");
+                sSql.Append(iMgrUserID.ToString() + ",");
+                sSql.Append(iGroupID.ToString() + ")");
+                iCnt += db.DBExecute(sSql.ToString());
+            }
+            db.DBCommitTrans();
+            db.DBDisconnect();
+            return iCnt;
+        }
+
+        
+
+        #endregion  BasicMethod
+    }
+}

@@ -1,0 +1,766 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="collage.aspx.cs" Inherits="TweebaaWebApp2.Product.collage" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+
+<!-- Slider Form -->
+<script src="/plugins/sky-forms/version-2.0.1/js/jquery-ui.min.js"></script>
+<!-- JS Page Level -->
+<script src="/js/shop.app.js"></script>
+<script src="/js/plugins/owl-carousel.js"></script>
+<script src="/js/app.js"></script>
+<script type="text/javascript" src="/js/plugins/form-sliders.js"></script>
+<script type="text/javascript" src="/js/plugins/style-switcher.js"></script>
+
+ <script type="text/javascript" src="/js/jquery-ui.js" ></script>
+<script type="text/javascript" src="/js/html2canvas.js" ></script>
+<script type="text/javascript" src="/js/CollageDesign.js" ></script>
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+ <!--=== Content Part ===-->
+    <div class="content container">
+        <div class="row">
+          <div class="col-md-7">
+          <div class="row">
+          <div class="col-md-12">
+          <p>
+          <button class="btn btn-sm rounded btn-warning" type="button" data-toggle="modal" data-target="#publish">PUBLISH</button> 
+            <button class="btn btn-sm rounded btn-warning" type="button" data-toggle="modal" data-target=".createmodal">CREATE</button> 
+           
+              
+                     <button class="btn btn-sm rounded btn-warning" type="button">SAVE</button>
+                       <button class="btn btn-sm rounded btn-warning" type="button">DRAFT</button>
+                        <button class="btn btn-sm rounded btn-default" type="button">CLONE</button>
+              <button class="btn btn-sm rounded btn-default" type="button" data-toggle="modal" data-target=".clearmodal">CLEAR</button>
+                  
+                   
+                  
+                        </p>
+                  </div></div>   
+     <div class="row">
+          <div class="col-md-8">                
+    <p><button class="btn btn-xs rounded btn-default" type="button"><i class="fa fa-times"></i> Remove</button>
+    <button class="btn btn-xs rounded btn-default" type="button"><i class="fa fa-arrows-v"></i> Flip</button>
+     <button class="btn btn-xs rounded btn-default" type="button"><i class="fa fa-arrows-h"></i> Flop</button>
+     <button class="btn btn-xs rounded btn-default" type="button"><i class="fa fa-arrow-up"></i> Forward</button>
+      <button class="btn btn-xs rounded btn-default" type="button"><i class="fa fa-arrow-down"></i> Backward</button>
+       <button class="btn btn-xs rounded btn-default" type="button"><i class="fa fa-crosshairs"></i> Fit</button></p></div>
+ <div class="col-md-4">
+  <!-- Rounded Slider Forms -->
+   <form action="#" id="sky-form" class="sky-form">
+   <fieldset>
+   <section>
+  <div id="slider1-rounded"></div>
+                        </section>
+                
+                    </fieldset>
+                </form>
+                <!-- End Rounded Slider Forms -->
+            </div>
+   </div>                
+   <div class="panel panel-yellow margin-bottom-40" style="height:600px;">
+                           bbb
+                        </div>       
+          </div>
+   <div class="col-md-5"><div class="tab-v2">
+                    <ul class="nav nav-tabs orange">
+                        <li class="active"><a href="#cat-1" data-toggle="tab">Category</a></li>
+                        <li><a href="#dec-1" data-toggle="tab">Decoration</a></li>
+                      <!--  <li><a href="#bg-1" data-toggle="tab">Background</a></li> -->
+                         <li><a href="#text-1" data-toggle="tab">Text</a></li>
+                
+                    </ul>                
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="cat-1">
+                        <div class="row">
+                          <div class="col-md-2"><button class="btn btn-default" type="button"><i class="fa fa-angle-left"></i> Back</button></div>
+                        <div class="col-md-10">
+                          <div class="input-group margin-bottom-25">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-warning" type="button">Go!</button>
+                                    </span>
+                                </div> 
+                                </div>
+                                </div>
+                                <div id="ProductsList">
+                          <div class="row margin-bottom-20">
+                  <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('1608AC1B-786A-4596-9DEE-04FC45131332')"><img class="img-responsive" src="/images/main/Electronics.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                   <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('3EE6A6A4-933A-42BA-9C53-07F6AEE27ED2')"><img class="img-responsive" src="/images/main/Apparel.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                         
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('4036D9BF-F178-45BB-94F0-1693923AE9B5')"><img class="img-responsive" src="/images/main/Garden.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('C9590D3C-F179-413A-AC5B-24DB7EEB2A1A')"><img class="img-responsive" src="/images/main/Toys.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>  
+                     <div class="row margin-bottom-20">
+                  <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('5D01EB4D-7E33-4381-B993-45988262CB92')"><img class="img-responsive" src="/images/main/Tools.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                   <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('B984BDA6-A0A7-4CD2-9EDD-6D1B33EFC3AD')"><img class="img-responsive" src="/images/main/Arts.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                         
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('1382D416-6E2D-4708-8557-7F226EDBDC13')"><img class="img-responsive" src="/images/main/Household.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('F5527740-ED0E-4F9B-B7B9-A8222E5EA31C')"><img class="img-responsive" src="/images/main/AUTOMOTIVE.jpg" alt="automotive"></a>
+                                </div>
+                                               
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>  
+                 <div class="row margin-bottom-20">
+                  <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('1F728092-0771-431D-81B2-A9B7D3DDE7FE')"><img class="img-responsive" src="/images/main/pets.jpg" alt="pets"></a>
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                   <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('EA786CE8-9664-48CC-A22D-B1BB5957F0E2')"><img class="img-responsive" src="/images/main/Sports.jpg" alt="Sports"></a>
+                                </div>
+                                               
+                            </div>
+                         
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('1E12E85A-F86C-4243-8446-C5F33B19E454')"><img class="img-responsive" src="/images/main/Office.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('FDAC6A4C-86D4-4DBB-857C-F52831F846B1')"><img class="img-responsive" src="/images/main/Green.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>  
+                <div class="row margin-bottom-20">
+                  <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('7DEE69E4-6103-4E16-A0CC-FB065473183D')"><img class="img-responsive" src="/images/main/Clean.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                   <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('F66C02B2-3441-4D71-8328-5A5129E73D2A')"><img class="img-responsive" src="/images/main/Children.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                         
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_category('C781386B-DBD9-4257-9EB6-8D74ED61A9C1')"><img class="img-responsive" src="/images/main/health.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                        
+                        </div>
+                    </div>
+             
+                </div> 
+
+                </div>
+                <div class="text-center">
+                
+                        <ul class="pagination" id="ProductsPage">
+                        <!--
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li class="active"><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">»</a></li> -->
+                        </ul>                                                            
+                    </div>                       
+                        </div>
+                        <div class="tab-pane fade in" id="dec-1">
+                         <div class="row">
+                          <div class="col-md-2"><button class="btn btn-default" type="button"><i class="fa fa-angle-left"></i> Back</button></div>
+                        <div class="col-md-10">
+                          <div class="input-group margin-bottom-25">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-warning" type="button">Go!</button>
+                                    </span>
+                                </div> 
+                                </div>
+                                </div> 
+<div id="DecorationList">
+                                        <div class="row margin-bottom-20">
+                            <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_decoration(4)"><img class="img-responsive" src="/images/main/events.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                  <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_decoration(2)"><img class="img-responsive" src="/images/main/dec.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                     <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_decoration(3)"><img class="img-responsive" src="/images/main/arrows.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                     <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <a href="#" onclick="load_decoration(5)"><img class="img-responsive" src="/images/main/background.jpg" alt=""></a>
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                 
+        
+                </div>
+
+</div>
+
+                                <!--
+                        <div class="row margin-bottom-20">
+                  <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/flower.jpg" alt="">
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                     <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/flower.jpg" alt="">
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                     <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/flower.jpg" alt="">
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                     <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/flower.jpg" alt="">
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+        
+                </div>
+                              <div class="row margin-bottom-20">
+                  <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/flower.jpg" alt="">
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                     <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/flower.jpg" alt="">
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                     <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/flower.jpg" alt="">
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+                     <div class="col-sm-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/flower.jpg" alt="">
+                                </div>
+                                               
+                            </div>
+                  
+                        </div>
+                    </div>
+         
+             
+                </div> -->
+                <div class="text-center">
+                
+                        <ul class="pagination" id="DecorationPage">
+                        <!--
+                            <li><a href="#">«</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li class="active"><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">»</a></li>  -->
+                        </ul>                                                            
+                    </div>   
+                        </div>
+                       
+                      
+                        <div class="tab-pane fade in" id="text-1">
+                        <div class="row margin-bottom-25">
+                        <div class="col-md-12">
+                           <div class="btn-group ">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Font
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+<!--
+  <Font>
+    <Name>80db</Name>
+    <File>fonts/80db.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>A Damn Mess</Name>
+    <File>fonts/A Damn Mess.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>baidu</Name>
+    <File>fonts/baidu.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>ASMAN</Name>
+    <File>fonts/ASMAN.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>colour</Name>
+    <File>fonts/colour.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>contrast</Name>
+    <File>fonts/contrast.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>fast99</Name>
+    <File>fonts/fast99.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>froufrou</Name>
+    <File>fonts/froufrou.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>horrendo</Name>
+    <File>fonts/horrendo.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>leadcoat</Name>
+    <File>fonts/leadcoat.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>Marker Felt</Name>
+    <File>fonts/Marker Felt.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>sewer</Name>
+    <File>fonts/sewer.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>stocky</Name>
+    <File>fonts/stocky.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>valuoldcaps</Name>
+    <File>fonts/valuoldcaps.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>Humanst521 BT</Name>
+    <File>fonts/Humanst521 BT.ttf</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>HUM521B</Name>
+    <File>fonts/HUM521B.TTF</File>
+    <Description></Description>
+  </Font>
+  <Font>
+    <Name>ygyqmt</Name>
+    <File>fonts/ygyqianmt.ttf</File>
+    <Description></Description>
+  </Font>
+-->                       
+
+                            <li><a href="#">Font</a></li>
+                            <li><a href="#">Font</a></li>
+                            <li><a href="#">Font</a></li>
+                            <li><a href="#">Font</a></li>
+                         
+                        </ul>
+                    </div>
+                  <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Color
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><div class="panel-body">
+                               <ul class="list-inline product-color-list">
+                                <li><a href="#"><img src="/images/colors/08.jpg" alt=""></a></li>
+                                <li><a href="#"><img src="/images/colors/Color_3.jpg" alt=""></a></li>
+                                <li><a href="#"><img src="/images/colors/Color_4.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_5.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_6.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_7.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_8.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_9.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_10.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_11.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_12.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_13.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_14.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_15.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_16.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_17.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_18.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_19.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_20.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="/images/colors/Color_21.jpg" alt=""></a></li>
+                                </ul>
+
+                            </div></li>
+                    
+                         
+                        </ul>
+                    </div>
+                          <div class="btn-group ">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Size
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">12</a></li>
+                            <li><a href="#">14</a></li>
+                            <li><a href="#">16</a></li>
+                            <li><a href="#">18</a></li>
+                            <li><a href="#">24</a></li>
+                            <li><a href="#">30</a></li>
+                            <li><a href="#">36</a></li>
+                            <li><a href="#">48</a></li>
+                            <li><a href="#">60</a></li>
+                            <li><a href="#">72</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                     </div>
+                      <div class="row">
+                  <div class="col-md-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+
+                                     <button class="btn btn-sm rounded" type="button" data-toggle="modal" data-target=".textmodal"><img class="img-responsive" src="/images/main/font.png" alt=""></button> 
+                                </div>
+                                               
+                            </div>
+                          
+                        </div>
+                    </div> 
+                   <div class="col-md-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/font.png" alt="">
+                                </div>
+                                               
+                            </div>
+                          
+                        </div>
+                    </div> 
+                    <div class="col-md-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/font.png" alt="">
+                                </div>
+                                               
+                            </div>
+                          
+                        </div>
+                    </div> 
+                    <div class="col-md-3">
+                        <div class="thumbnails thumbnail-style thumbnail-kenburn">
+                            <div class="thumbnail-img">
+                                <div class="overflow-hidden">
+                                    <img class="img-responsive" src="/images/main/font.png" alt="">
+                                </div>
+                                               
+                            </div>
+                          
+                        </div>
+                    </div> 
+                </div>
+                        </div>
+                    </div>
+                </div></div>
+        </div><!--/end row-->
+    </div><!--/end container--> 
+    
+    
+    </div>
+ <div class="modal fade clearmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                        <h4 class="modal-title">Clear Collage</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure to clear this collage?</p>
+                                    </div>
+                                     <div class="modal-footer">
+                                        <button class="btn-u btn-u-default rounded" type="button">Clear</button>
+                                        <button class="btn-u rounded" type="button" data-dismiss="modal" >Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+   <div class="modal fade createmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                        <h4 class="modal-title">Create Collage</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to discard your changes?</p>
+                                    </div>
+                                     <div class="modal-footer">
+                                        <button class="btn-u btn-u-default rounded" type="button">Clear</button>
+                                        <button class="btn-u rounded" type="button" data-dismiss="modal" >Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+   <div class="modal fade" id="publish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Publish your collage</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h4>Enter title</h4>
+                                                <p><input class="form-control" type="text" /></p>
+                                                 <h4>Enter description</h4>
+                                                <p><textarea class="form-control" rows="5"></textarea></p>
+                                              
+                                            </div>
+                                            <div class="col-md-6">
+                                              <img src="images/tbot_event/sitns.png" width="70%" >
+                                      
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn-u btn-u-default rounded" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn-u btn-u-primary rounded">Publish</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+    
+    <div class="modal fade textmodal" id="textmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                        <h4 class="modal-title">Enter your text</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                       
+                                                <p><textarea class="form-control" rows="5"></textarea></p>
+                                    
+                                    </div>
+                                    
+                                     <div class="modal-footer">
+                              
+                                        <button class="btn-u rounded" type="button" data-dismiss="modal" >Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // get total count
+
+        //GetTotalCount();
+        // GetProductsList();
+        //Load background image and decoration
+        //LoadBackgroundImgTotal();
+        //LoadDecorationImgTotal();
+
+    });
+
+</script>
+</asp:Content>

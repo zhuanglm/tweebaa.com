@@ -1,0 +1,16 @@
+﻿.multiselect {
+    width:30em;
+    height:7em;
+    border:solid 1px #c0c0c0;
+    background-color:white;
+    overflow:auto;
+    z-index:999;
+    position:  relative;
+}
+.multiselect label {
+    display:block;
+}
+.multiselect-on {
+    color:#ffffff;
+    background-color:#000099;
+}

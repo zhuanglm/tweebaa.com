@@ -1,0 +1,646 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+
+using System.Net;
+using System.IO;
+using System.Text;
+
+using Twee.Mgr;
+using Twee.Comm;
+using System.Configuration;
+using Twee.Model;
+using log4net;
+using System.Reflection;
+using System.Data;
+
+namespace TweebaaWebApp2.Checkout
+{
+
+    public partial class OrderConfirmation : TweebaaWebApp2.MasterPages.BasePage
+    {
+        ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        public string out_trade_no;
+        public string strMessage = "No Message";
+        private Guid? userGuid;
+        public string messageDisplay = "display:block";
+        public string messageFreeClaim = "display:none";
+        public string strFreeClaim = "";
+
+        //for GTM e-commerce tracking
+        public float fOrderTotal = 0; 
+        public string strSuccess = "false"; //for 
+        public string strTransactionData = "";
+        private int IsSandbox = ConfigurationManager.AppSettings.Get("IsPaypal_Sandbox").ToInt();
+        
+        public string ReadCookie(string name)
+        {
+            if (HttpContext.Current.Response.Cookies.AllKeys.Contains(name))
+            {
+                var cookie = HttpContext.Current.Response.Cookies[name];
+                return cookie.Value;
+            }
+
+            if (HttpContext.Current.Request.Cookies.AllKeys.Contains(name))
+            {
+                var cookie = HttpContext.Current.Request.Cookies[name];
+                return cookie.Value;
+            }
+
+            return "";
+        }
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            /*
+            if (!string.IsNullOrEmpty(Request["order"]))
+            {
+                out_trade_no = Request["order"].Trim();
+            }
+            else
+            {
+                out_trade_no = "";
+            }*/
+            /*
+            TransactionData.id = "12345";
+            TransactionData.affiliate = "tweebaa";
+            TransactionData.revenue = "399.99";
+            TransactionData.shipping = "9.99";
+            TransactionData.tax = "19.99";     
+            TransactionData.items = new ItemData[1];
+            */
+            try
+            {
+                //From Free Product Claim ?
+                if (!string.IsNullOrEmpty(Request.Form["hidIsVirtualPay"]))
+                {
+                    string serial_no = Request.Form["hidSerialNo"].ToString();
+                    string hidGuidNo = Request.Form["hidGuidNo"].ToString();
+
+                    OrderMgr orderMgr = new OrderMgr();
+                    //check this claim first
+                    DataTable dtFreeProduct = orderMgr.GetFreeProductInfoBySerialNo(serial_no);
+                    if (dtFreeProduct == null)
+                    {
+                        strFreeClaim = "Sorry,No Record!";
+                    }
+                    else
+                    {
+                        if (hidGuidNo != dtFreeProduct.Rows[0]["OrderGuidNo"].ToString())
+                        {
+                            strFreeClaim = "Sorry,Order number not match database!";
+                        }
+                        else
+                        {
+                            if (dtFreeProduct.Rows[0]["OrderGuidNo"].ToString() == "1")
+                            {
+                                strFreeClaim = "Sorry,This Order already Claim!";
+                            }
+                            else
+                            {
+                                out_trade_no = hidGuidNo;
+                                int iState = orderMgr.GetOrderState(out_trade_no);
+                                if (iState == 0)
+                                {
+                                    ProcessOrder(orderMgr, out_trade_no, "Free Product");
+                                }
+                                orderMgr.UpdateFreeProductIsClaim(hidGuidNo);
+                                strFreeClaim = "<div class=\"error-v1\"><span>Thank you, your order has been placed.</span><span class=\"error-v1-title2\"> <img src=\"/images/mascot_confirm.png\"></span> <h3> An email confirmation has been sent to you.<br /> <br /> Order Number:" + out_trade_no + "<br /></h3></div>";
+                            }
+                        }
+                    }
+                    messageDisplay = "display:none;";
+                    messageFreeClaim = "display:block;";
+                   // return;
+                }
+                else
+                {
+
+                    if (string.IsNullOrEmpty(Request.Form["IsCreditCard"]))
+                    {
+
+                        //int IsSandbox = ConfigurationManager.AppSettings.Get("IsPaypal_Sandbox").ToInt();
+                        bool isLogion = CheckLogion(out userGuid);
+                        bool IsTestingGroup = Twee.Comm.CommUtil.IsTestingGroup(userGuid.ToString()); //如果是测试用户
+                        string strResponse;
+
+                        //int isSandbox = 0;
+                        string authToken = "";
+                        Twee.Comm.CommHelper.WrtLog("isLogion ==" + isLogion + " IsTestingGroup==" + IsTestingGroup);
+                        if (IsSandbox == 1 || (isLogion && IsTestingGroup))
+                        {
+                            authToken = "UBQI2Ev4Ad_oY5UYgkK8-x7m6bHIOyeGeeWEA8Cffro6_TmZ0st9FAlCM64";
+                        }
+                        else
+                        {
+                            authToken = "uRmpgJfPOdjvzdbesYpNtzQ1kbmEPNsg8Taoax3n9eAbhMHIzysr3tGuq28";
+                        }
+                        // Sandbox 
+                        //string authToken = "UBQI2Ev4Ad_oY5UYgkK8-x7m6bHIOyeGeeWEA8Cffro6_TmZ0st9FAlCM64";
+
+                        string txToken = Request.QueryString["tx"];
+                        string query = "cmd=_notify-synch&tx=" + txToken + "&at=" + authToken;
+
+                        //Post back to either sandbox or live  jctest
+                        string strPaypalGateway = "";
+                        if (IsSandbox == 1 || (isLogion && IsTestingGroup))
+                        {
+                            strPaypalGateway = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+                        }
+                        else
+                        {
+                            strPaypalGateway = "https://www.paypal.com/cgi-bin/webscr";
+                        }
+                        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(strPaypalGateway);
+
+                        //Set values for the request back
+                        req.Method = "POST";
+                        req.ContentType = "application/x-www-form-urlencoded";
+                        req.ContentLength = query.Length;
+
+
+                        //Send the request to PayPal and get the response
+                        StreamWriter streamOut = new StreamWriter(req.GetRequestStream(), System.Text.Encoding.ASCII);
+                        streamOut.Write(query);
+                        streamOut.Close();
+                        StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream());
+                        strResponse = streamIn.ReadToEnd();
+                        streamIn.Close();
+
+                        Dictionary<string, string> results = new Dictionary<string, string>();
+                        strMessage = strResponse;
+                        Twee.Comm.CommHelper.WrtLog("OrderConfirmation page:strResponse=" + strResponse);
+                        if (strResponse != "")
+                        {
+                            StringReader reader = new StringReader(strResponse);
+                            string line = reader.ReadLine();
+                            log.Info("line:" + line);
+                            if (line == "SUCCESS")
+                            {
+                                log.Info("line:" + reader.ReadLine());
+                                while ((line = reader.ReadLine()) != null)
+                                {
+                                    results.Add(line.Split('=')[0], line.Split('=')[1]);
+
+                                }
+                                //strMessage+="<p><h3>Your order has been received.</h3></p>";
+                                Twee.Comm.CommHelper.WrtLog("out_trade_no" + results["custom"]);
+                                out_trade_no = results["custom"];
+                                //check 
+
+
+                                //付款成功
+                                //检查付款状态
+                                //检查 txn_id 是否已经处理过
+                                //检查 receiver_email 是否是您的 PayPal 账户中的 EMAIL 地址
+                                //检查付款金额和货币单位是否正确
+                                //处理这次付款， 包括写数据库               
+
+                                //out_trade_no = HttpContext.Current.Request["item_number"].ToString().Trim();
+                                //strMessage += " out_trade_no " + out_trade_no;
+
+                                //检查这个订单是否已经付款
+                                OrderMgr orderMgr = new OrderMgr();
+                                int iState = orderMgr.GetOrderState(out_trade_no);
+                                //log debug message
+                                //if (IsSandbox == 1)
+                                {
+                                    //Twee.Comm.CommHelper.WrtLog("OrderConfirmation page order =" + out_trade_no + " state=" + iState);
+                                }
+                                //get session 
+                                int IsIPNPay = 0;
+                                string s = ReadCookie("out_trade_no");
+                                if (s.Length > 4 && s == out_trade_no) IsIPNPay = 1;
+
+                                Twee.Comm.CommHelper.WrtLog("OrderConfirmation page order =" + out_trade_no + " state=" + iState + " IsIPNPay=" + IsIPNPay + "  cookie=" + s);
+
+                                //clear session
+                                Session["out_trade_no"] = null; //clear it ??
+                                if (iState == 0 && IsIPNPay == 0)
+                                { //未付款
+                                    if (!string.IsNullOrEmpty(out_trade_no))
+                                    {
+                                        // CommHelper.WrtLog("orderconfirmation page out_trade_no=" + out_trade_no);
+                                        //1. 修改库存
+                                        ProcessOrder(orderMgr, out_trade_no, "Paypal");
+
+
+                                    }
+                                }
+                                else
+                                {
+                                    //CommHelper.WrtLog("out_trade_no null");
+                                }
+                            }
+                            else if (line == "FAIL")
+                            {
+                                // Log for manual investigation
+                                Response.Write("Unable to retrive transaction detail");
+                            }
+                        }
+                        else
+                        {
+                            //unknown error
+                            Response.Write("ERROR");
+
+                        }
+                    }
+                    else
+                    {
+                        //This is From Credit Card
+                        out_trade_no = Request.Form["txtGuidNO"].ToString();
+                        OrderMgr orderMgr = new OrderMgr();
+                        int iState = orderMgr.GetOrderState(out_trade_no);
+                        if (iState == 0)
+                        {
+                            ProcessOrder(orderMgr, out_trade_no, "Credit Card");
+                        }
+                    }
+                }
+            }
+            catch (Exception e1)
+            {
+
+                Twee.Comm.CommUtil.GenernalErrorHandler(e1);
+                //set order number
+                if(Request.QueryString.AllKeys.Contains("cm")){
+                    string txtOrderNumber = Request.QueryString["cm"];
+                    if (!string.IsNullOrEmpty(txtOrderNumber))
+                    {
+                        out_trade_no = txtOrderNumber;
+
+                    }
+                }
+                //http://67.224.94.82/Checkout/OrderConfirmation.aspx?tx=9DH11008WD428564Y&st=Completed&amt=15%2e49&cc=USD&cm=Twee10000885&item_number=
+
+            }
+
+
+            /*
+        
+            //创建回复的 request
+            //在 Sandbox 情况下， 设置：
+            // WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
+            HttpWebRequest req;
+                //WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
+
+            if(isSandbox==1){
+                req = (HttpWebRequest)WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
+            }else{
+                req = (HttpWebRequest)WebRequest.Create("https://www.paypal.com/cgi-bin/webscr");
+            }
+            //设置 request 的属性
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+            byte[] param = HttpContext.Current.Request.BinaryRead(
+            HttpContext.Current.Request.ContentLength);
+            strFormValues = Encoding.ASCII.GetString(param);
+            //建议在此将接受到的信息记录到日志文件中以确认是否收到 IPN 信息
+            strNewValue = strFormValues + "&cmd=_notify-validate";
+            req.ContentLength = strNewValue.Length;
+            //发送 request
+            StreamWriter stOut = new StreamWriter(req.GetRequestStream(),
+            System.Text.Encoding.ASCII);
+            stOut.Write(strNewValue);
+            stOut.Close();
+            //回复 IPN 并接受反馈信息
+            StreamReader stIn = new StreamReader(req.GetResponse().GetResponseStream());
+            strResponse = stIn.ReadToEnd();
+            stIn.Close();
+            CommHelper.WrtLog("strResponse=" + strResponse);
+            strMessage = strResponse;
+            //确认 IPN 是否合法
+            if (strResponse == "VERIFIED")
+            {
+                //付款成功
+                //检查付款状态
+                //检查 txn_id 是否已经处理过
+                //检查 receiver_email 是否是您的 PayPal 账户中的 EMAIL 地址
+                //检查付款金额和货币单位是否正确
+                //处理这次付款， 包括写数据库               
+
+                 out_trade_no = HttpContext.Current.Request["item_number"].ToString().Trim();
+
+
+                if (!string.IsNullOrEmpty(out_trade_no))
+                {
+                    CommHelper.WrtLog("out_trade_no=" + out_trade_no);
+                    //1. 修改库存
+                    PrdStoragMgr Storag = new PrdStoragMgr();
+                    OrderMgr orderMgr = new OrderMgr();
+                    bool b1 = orderMgr.UpdateOrderState(out_trade_no, 1);
+                    if (b1 == true)
+                    {
+                        CommHelper.WrtLog("update state ok");
+                        Response.Write("修改订单状态成功！");
+                    }
+                    else
+                    {
+                        CommHelper.WrtLog("update state failed");
+                        Response.Write("修改订单状态失败！");
+                    }
+
+                    bool b2 = Storag.UpdateStoragByOrder(out_trade_no.Trim());
+                    if (b2 == true)
+                    {
+                        Response.Write("修改库存成功！");
+                    }
+                    else
+                    {
+                        Response.Write("修改库存失败！");
+                    }
+
+
+                }
+                else
+                {
+                    CommHelper.WrtLog("out_trade_no null"  );
+                }
+
+            }
+            else if (strResponse == "INVALID")
+            {
+                //付款失败
+
+                //string paypalInfo = strFormValues;
+                //string dt = System.DateTime.Now.ToString();
+                //string sql = "insert into paypal (notify,createtime) values ('INVALID','" + dt + "')";
+                //Twee.Comm.DbHelperSQL.ExecuteSql(sql);
+
+                Application["test"] = "INVALID";
+                //Response.Redirect("~/weclome.aspx");
+            }
+            else
+            {
+                Application["test"] = "no data paypal";
+            }
+             * */
+        }
+
+        private void ProcessOrder(OrderMgr orderMgr, string out_trade_no, string strPaymentMethod)
+        {
+            PrdStoragMgr Storag = new PrdStoragMgr();
+
+            bool b1 = orderMgr.UpdateOrderState(out_trade_no, 1);
+            if (b1 == true)
+            {
+                CommHelper.WrtLog("update state ok");
+                strMessage += "修改订单状态成功！";
+            }
+            else
+            {
+                CommHelper.WrtLog("update state failed");
+                strMessage += "修改订单状态失败！";
+            }
+
+            bool b2 = Storag.UpdateStoragByOrder(out_trade_no.Trim());
+            if (b2 == true)
+            {
+                strMessage += "修改库存成功！";
+            }
+            else
+            {
+                strMessage += "修改库存失败！";
+            }
+
+            //Collage Share Split Commission
+            Twee.Mgr.CollageShareMgr shareMgr = new CollageShareMgr();
+            shareMgr.CollageSplitShareCommission(out_trade_no);
+
+
+            ///Add by Long for Share Point Redeem
+            ///
+            Twee.Mgr.UserGradeCalMgr gradeMgr = new UserGradeCalMgr();
+            ///???? 在那里运行??  gradeMgr.UpdateShopingPoint(out_trade_no); //以前为啥放在后台 ???
+            gradeMgr.SharePointRedeem(out_trade_no);
+            //////////////////
+            // submit shipping order  jctest
+            
+            //for testing purpose by Lance 2016-02-08
+            bool isLogion = CheckLogion(out userGuid);
+            bool IsTestingGroup = Twee.Comm.CommUtil.IsTestingGroup(userGuid.ToString()); //如果是测试用户            
+            if (IsSandbox == 0)
+            {
+                SubmitShipOrder(out_trade_no);
+            }
+
+            //Send E-mail 
+            Twee.Mgr.CheckoutTmpMgr mgr = new CheckoutTmpMgr();
+
+            Twee.Model.CheckoutTmp model = mgr.GetCheckoutTmp(out_trade_no);
+            string txt_useremail = model.shipping_useremail;
+            string txt_shipping_details = model.Shipping_details;
+            string txt_order_extra = "";
+            string txt_order_total = "";
+            string txt_username = model.shipping_username;
+            if (txt_username.Length < 10)
+            {
+                //guest checkout,we need to get their username as Shelley's Request
+                txt_username = orderMgr.GetGuestCheckoutUsernameByOrderno(out_trade_no);
+            }
+
+
+
+            //CommHelper.WrtLog("txt_order_extra=" + txt_order_extra);
+            /*
+            byte[] data = Convert.FromBase64String(txt_order_extra);
+            txt_order_extra = Encoding.UTF8.GetString(data);
+
+            // CommHelper.WrtLog("txt_order_total=" + txt_order_total);
+            byte[] data1 = Convert.FromBase64String(txt_order_total);
+            txt_order_total = Encoding.UTF8.GetString(data1);
+             **/
+            //remove <select
+            /*
+            while (txt_order_total.IndexOf("<select") > 0)
+            {
+                int i = txt_order_total.IndexOf("<select");
+                int j = txt_order_total.IndexOf("selected");
+                string s1 = txt_order_total.Substring(0, i);
+                string s2 = txt_order_total.Substring(j, txt_order_total.Length - j);
+                //删除</option>后面的所有内容
+                int k1 = s2.IndexOf("</option>");
+                if (k1 > 0)
+                    s2 = s2.Substring(0, k1);
+
+                s2 = s2.Replace("</option>", "");
+                s2 = s2.Replace("</select>", "");
+                //remove first >
+                int k = s2.IndexOf(">");
+                s2 = s2.Substring(k + 1, s2.Length - k - 1);
+                txt_order_total = s1 + s2;
+            }
+            */
+
+            //获取shipping fee
+            /*
+            string ss1 = "<td id=\"shipfee0\" class=\"pro-price\" style=\"display:none\">";
+            int ii = txt_order_total.IndexOf(ss1);
+            float fshipping_fee = 0.0f;
+            int jj = 0;
+            if (ii > 0)
+            {
+                jj = txt_order_total.IndexOf("</td>", ii);
+                if (jj > ii)
+                {
+                    string ss = txt_order_total.Substring(ii + ss1.Length, jj - ii - ss1.Length);
+                    fshipping_fee = float.Parse(ss.Replace("$", ""));
+                }
+            }
+            //将所有的option 列为一个数组
+
+
+
+            while (txt_order_total.IndexOf("<select") > 0)
+            {
+                //获取</select>后面的内容
+                string s6 = "</select>";
+                ii = txt_order_total.IndexOf(s6);
+                s6 = txt_order_total.Substring(ii + s6.Length, txt_order_total.Length - ii - s6.Length);
+
+                int i = txt_order_total.IndexOf("<select");
+                // int j = txt_order_total.IndexOf("selected");
+                string s1 = txt_order_total.Substring(0, i);
+                string s2 = txt_order_total.Substring(i, txt_order_total.Length - i);
+                //删除</option>后面的所有内容
+
+                string s3 = ""; string s4 = "";
+                while (s2.IndexOf("<option") > 0)
+                {
+                    //获取Value及Text
+                    s3 = "value=\"";
+                    ii = s2.IndexOf(s3);
+                    if (ii > 0)
+                    {
+                        jj = s2.IndexOf("\"", ii + s3.Length);
+                        if (jj > ii)
+                        {
+                            s4 = s2.Substring(ii + s3.Length, jj - ii - s3.Length);
+                            s2 = s2.Substring(jj, s2.Length - jj - 1);
+                            //检查这个是否为shipping fee
+                            string[] s5 = s4.Split(' ');
+                            if (s5.Length == 2)
+                            {
+                                if (float.Parse(s5[1]) == fshipping_fee)
+                                {
+                                    //获取shipping text
+                                    ii = s2.IndexOf("</option>");
+                                    s2 = s2.Substring(0, ii);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                int k = s2.IndexOf(">");
+                s2 = s2.Substring(k + 1, s2.Length - k - 1);
+                txt_order_total = s1 + s2 + s6;
+            }
+            /////////////////////////////////////
+            CommHelper.WrtLog(" sending e-mail");
+             **/
+            //Added by Lance, if it's not Free product, then add to record
+            if (!strPaymentMethod.Equals("Free Product"))
+            {
+                TransactionInfo transinfo = new TransactionInfo();             
+                strSuccess = "true";
+                transinfo = orderMgr.GetTransactionInfo4GA(out_trade_no);
+                fOrderTotal = transinfo.Revenue;
+
+                var serializer = new JavaScriptSerializer();
+                strTransactionData = JsonConvert.SerializeObject(transinfo.items);
+            }
+
+            txt_order_total = orderMgr.CreateOrderConfirmationEmailBody(out_trade_no);
+            Mailhelper.SendOrderConfirmationEmail(txt_useremail, out_trade_no, txt_shipping_details, txt_order_extra, txt_order_total, txt_username, strPaymentMethod);
+
+
+
+            //////Debug by Long for checkout lost cookie
+            try
+            {
+                string txt_carts_id = model.ShoppingCartID;
+                txt_carts_id = txt_carts_id.Replace("'", "");
+                CommHelper.WrtLog(" try to delete shopping carts" + txt_carts_id);
+                DeletShopCartList(txt_carts_id);
+
+            }
+            catch (Exception exception)
+            {
+                Twee.Comm.CommUtil.GenernalErrorHandler(exception);
+                //Twee.Comm.CommHelper.WrtLog("cookie2 = " + sErrorText);
+            }
+        }
+
+        private void DeletShopCartList(string cartGuids)
+        {
+            try
+            {
+                ShoppingcartMgr mgr = new ShoppingcartMgr();
+                Shoppingcart shoppingcart = new Shoppingcart();
+                mgr.DeleteList(cartGuids);
+            }
+            catch (Exception e)
+            {
+                Twee.Comm.CommUtil.GenernalErrorHandler(e);
+                //Response.Write("0");
+            }
+
+        }
+        private void SubmitShipOrder(string sOrderNo)
+        {
+            // one tweebaa purchase order may be shipped by multiple shipping order
+
+            try
+            {
+                string sShipErrMsg = string.Empty;
+                ShipAPI.ShipOrder shipOrder = new ShipAPI.ShipOrder();
+
+                List<ShipAPI.ShipOrderResult> shipOrderResultList = shipOrder.ShipPurchaseOrder(sOrderNo, false);
+                foreach (ShipAPI.ShipOrderResult shipOrderResult in shipOrderResultList)
+                {
+                    if (!string.IsNullOrEmpty(shipOrderResult.sErrMsg))
+                    {
+
+                        sShipErrMsg += "Shipping Order ID: " + shipOrderResult.iShipOrderID.ToString();
+                        sShipErrMsg += "Shipping Partner: " + shipOrderResult.iPartnerID.ToString() + " - " + shipOrderResult.sPartnerName;
+                        sShipErrMsg += "Error Message: " + shipOrderResult.sErrMsg;
+                    }
+                }
+                if (sShipErrMsg != string.Empty)
+                {
+                    sShipErrMsg = "Shipping Error <br/>Purchase Order :" + sOrderNo + "<br/>" + sShipErrMsg;
+
+                    // send an email to CSC
+                    string sEmailSubject = out_trade_no.Trim() + " Shipping Error";
+                    Mailhelper.SendMail(sEmailSubject, sShipErrMsg, "cscshipping@tweebaa.com");
+                }
+            }
+            catch (Exception ee)
+            {
+                Twee.Comm.CommUtil.GenernalErrorHandlerEx(ee, " sOrderNo=" + sOrderNo);
+            }
+
+        }
+        /*
+        private void DeletShopCartList(string cartGuids)
+        {
+            try
+            {
+                ShoppingcartMgr mgr = new ShoppingcartMgr();
+                Shoppingcart shoppingcart = new Shoppingcart();
+                mgr.DeleteList(cartGuids);
+            }
+            catch (Exception)
+            {
+                Response.Write("0");
+            }
+
+        }*/
+    }
+}

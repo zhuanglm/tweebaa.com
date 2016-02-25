@@ -1,0 +1,302 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Tweebot.master.cs" Inherits="TweebaaWebApp2.MasterPages.Tweebot" %>
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> 
+<html lang="en"> <!--<![endif]-->  
+<% 
+Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
+Response.AppendHeader("Expires", "0"); // Proxies.
+%>
+<head>
+
+      <title>
+        <asp:ContentPlaceHolder ID="WebTitle" runat="server">
+        </asp:ContentPlaceHolder>
+    </title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/shop.style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app.css">
+     
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/scrollbar/src/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.css">
+    <link rel="stylesheet" href="/css/plugins/brand-buttons/brand-buttons.css">
+    <link rel="stylesheet" href="/css/plugins/brand-buttons/brand-buttons-inversed.css">
+    <!--
+    <link rel="stylesheet" href="/plugins/owl-carousel/owl-carousel/owl.carousel.css"> 
+    -->
+
+
+    <!-- Style Switcher -->
+    <link rel="stylesheet" href="/css/plugins/style-switcher.css">
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="/css/theme-colors/default.css" id="style_color">
+    <link rel="stylesheet" href="/css/theme-skins/dark.css">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="/css/custom.css">
+    <script src="/MethodJs/logion.js" type="text/javascript"></script>
+    <script src="/Events/Tweebot/js/Tweebot.js"></script>
+      <asp:ContentPlaceHolder ID="WebCssAndJs" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body class="header-fixed">
+
+<!-- Google Tag Manager 
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N8594B"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({ 'gtm.start':
+new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-N8594B');</script>
+<!-- End Google Tag Manager -->
+
+<div class="wrapper">
+ <!--=== Header v5 ===-->   
+   <div class="header-v5 header-static">
+        <!-- Topbar v3 -->
+        <div class="topbar-v3">
+            <div class="search-open">
+                <div class="container">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="search-close"><i class="icon-close"></i></div>
+                </div>    
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- Topbar Navigation -->
+                        <ul class="left-topbar">
+                      <!--
+                            <li>
+                                <a>Language (EN)</a>
+                                <ul class="language">
+                                    <li class="active">
+                                        <a href="#">English (EN)<i class="fa fa-check"></i></a> 
+                                    </li>
+                                 
+                                </ul>
+                            </li>   -->
+                        </ul><!--/end left-topbar-->
+                    </div>
+                    <div class="col-sm-6">
+               <ul class="list-inline right-topbar pull-right">
+                        <!--
+                            <li><a href="#">Account</a></li>
+                        -->
+                            <li><span id="spanLogion1" runat="server"><a href="/User/login.aspx">Login</a> | <a href="/User/register.aspx">Register</a></span>
+                         <span id="spanLogion2" runat="server" class="login-ok pr font1"><b>Hello <a href="/Home/Index.aspx">
+                        <label id="userName" runat="server" onclick="window.location.href ='/Home/Index.aspx';">
+                        </label>
+                    </a></b><span class="login-lv2" style="margin-top: -5px;">
+                     <a href="/Home/Index.aspx?page=home2">My Account</a>
+                     <!--a href="../Home/Index.aspx">My Income</a>
+                     <a href="../Home/Index.aspx?page=homeorder">My Orders</a> 
+                     <a href="../Home/Index.aspx?page=homeCollection">My Favorites</a> 
+                     <a href="../Home/Index.aspx?page=homeShare">My Shares</a--> 
+                     <a href="#" onclick="LogionOut()">Logout</a> 
+                     <!--a href="../User/login.aspx">Change Account</a-->
+                    </span></span>
+                    <!-- 登陆后 -->   
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div><!--/container-->
+        </div>
+        <!-- End Topbar v3 -->
+        
+        <!-- Navbar -->
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/index.aspx">
+                        <img id="logo-header" src="/images/mascot_tweebaa.png" height="61" width="285" alt="Tweebaa earn $1000">
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                   
+
+                    <ul class="nav navbar-nav" style="float:right;">
+                         <li>
+                            <a href="#" onclick="window.location.href='http://tweebaa.com/Product/saleBuy.aspx?id=670bdf26-a935-4643-ac0e-ba24c2249107'" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
+                               BUY
+                            </a>
+                      
+                        </li>
+                       
+                         <li>
+                            <a href="#" onclick="window.location.href='/Events/Tweebot/Upload_Video.aspx'" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                               UPLOAD
+                            </a>
+                         <!--/end dropdown-menu-->
+                        </li>
+                     
+                        <!-- Submit -->
+                        <li>
+                            <a href="#" onclick="window.location.href='/Events/Tweebot/Vote.aspx'" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                                Vote
+                            </a>
+                     
+                        </li>
+                        <!-- End Submit -->
+
+                      <!--  Shop -->
+                        <li>
+                            <a href="#" onclick="window.location.href='/Events/Tweebot/Improvement.aspx'" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
+                             FEEDBACK
+                            </a>
+                      
+                        </li>
+                      
+
+                      
+                        <!--  Shop -->
+                        <li>
+                            <a href="#" onclick="window.location.href='/Events/Tweebot/rules.aspx'" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
+                               RULES
+                            </a>
+                      
+                        </li>
+                        <!-- End Shop -->
+                    
+                            <!-- Pages -->
+                        <li class="active">
+                            <a href="#" onclick="window.location.href='/Events/Tweebot/index.aspx'" >HOME</a>
+                         
+                        </li>
+                 
+                        <!-- End Pages -->
+                       
+                    </ul>
+                </div><!--/navbar-collapse-->
+            </div>    
+        </div>            
+        <!-- End Navbar -->
+        </div>
+        
+        </div>
+
+
+    <asp:ContentPlaceHolder ID="WebContent" runat="server">
+
+    </asp:ContentPlaceHolder>
+
+
+
+     <!-- Footer Version 3 -->
+        <div class="footer-v3">
+        <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <!-- Terms Info-->
+                        <div class="col-md-7">
+                            <p>
+                                &copy; Copyright: 2012-<script type="text/javascript" language="JavaScript"><!--
+
+                                                           var today = new Date();
+
+                                                           document.write(today.getFullYear());
+        //--></script> Tweebaa Inc.<br/>
+                               <a href="../College/AboutUs.aspx">About Us</a> | <a href="/College/ContactUs.aspx">Contact Us</a> | <a href="/College/Privacy_Policy.aspx">Privacy Policy</a> | <a href="/College/General_Terms_ofUse.aspx">Terms
+                            and Conditions</a> | <a href="/College/College.aspx#nav-faqq">FAQ</a>
+                            </p>
+                        </div>
+                        <!-- End Terms Info-->
+
+                        <!-- Social Links -->
+                        <div class="col-md-5">  
+                            <ul class="social-icons pull-right">
+                                <li><a href="https://www.facebook.com/tweebaa" target="_blank" data-original-title="Facebook" class="rounded-x social_facebook"></a></li>
+                                <li><a href="https://twitter.com/tweebaa" target="_blank" data-original-title="Twitter" class="rounded-x social_twitter"></a></li>
+                                <li><a href="https://www.google.com/+Tweebaa" target="_blank" data-original-title="Goole Plus" class="rounded-x social_googleplus"></a></li>
+                                <li><a href="https://www.linkedin.com/company/tweebaa-inc-" target="_blank" data-original-title="Linkedin" class="rounded-x social_linkedin"></a></li>
+                                <li><a href="https://www.pinterest.com/tweebaa/" target="_blank" data-original-title="Pinterest" class="rounded-x social_pintrest"></a></li>
+                                    <li><a href="https://instagram.com/tweebaa/" target="_blank" data-original-title="Instagram" class="rounded-x social_instagram "></a></li>
+                            </ul>
+                        </div>
+                        <!-- End Social Links -->
+                    </div>
+                </div> 
+            </div>
+     </div>
+
+</body>
+
+</html> 
+<!-- JS Global Compulsory -->
+
+<script src="/plugins/jquery/jquery-migrate.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script src="/plugins/back-to-top.js"></script>
+<script src="/plugins/owl-carousel/owl-carousel/owl.carousel.js"></script>
+<script src="/plugins/scrollbar/src/jquery.mousewheel.js"></script>
+<script src="/plugins/scrollbar/src/perfect-scrollbar.js"></script>
+<script src="/plugins/jquery.parallax.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<!-- JS Customization -->
+<script src="/js/custom.js"></script>
+<!-- JS Page Level -->
+<script src="/js/shop.app.js"></script>
+<!--
+<script src="/js/plugins/owl-carousel.js"></script> 
+
+ <script src="/js/plugins/revolution-slider.js"></script>  -->
+<script type="text/javascript" src="/js/plugins/style-switcher.js"></script>
+<script>
+    jQuery(document).ready(function () {
+    /*
+        App.init();
+        App.initParallaxBg();
+
+        RevolutionSlider.initRSfullWidth();
+        StyleSwitcher.initStyleSwitcher();*/
+
+        App.init();
+        App.initParallaxBg();
+       // OwlCarousel.initOwlCarousel();
+       // RevolutionSlider.initRSfullWidth();
+        StyleSwitcher.initStyleSwitcher();   
+    });
+</script>
+<!--[if lt IE 9]>
+    <script src="plugins/respond.js"></script>
+    <script src="plugins/html5shiv.js"></script>
+    <script src="js/plugins/placeholder-IE-fixes.js"></script>
+<![endif]-->
+

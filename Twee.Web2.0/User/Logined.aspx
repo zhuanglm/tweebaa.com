@@ -1,0 +1,38 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="Logined.aspx.cs" Inherits="TweebaaWebApp2.User.Logined" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+
+<!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Already Logged in</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="../index.aspx">Home</a></li>
+                <li class="active">Already Logged in</li>
+            </ul>
+        </div><!--/container-->
+    </div><!--/breadcrumbs-->
+    <!--=== End Breadcrumbs ===-->
+
+        <!-- log-reg-v3 -->
+    <div class="log-reg-v3 content margin-bottom-30">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <p style="font-size:18px;">
+                        You are already logined!
+                    </p>
+
+                </div>
+                <div class="col-sm-6">
+                    <a href="/index.aspx" >Back to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+</asp:Content>

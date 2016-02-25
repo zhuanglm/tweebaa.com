@@ -1,0 +1,331 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data.SqlClient;
+using System.Data;
+using Twee.Comm;
+
+namespace Twee.DataMgr
+{
+    public class FileDataMgr
+    {
+        public FileDataMgr()
+		{}
+		#region  BasicMethod
+
+		/// <summary>
+		/// 是否存在该记录
+		/// </summary>
+		public bool Exists(Guid prdguid)
+		{
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("select count(1) from wn_file");
+			strSql.Append(" where prdguid=@prdguid ");
+			SqlParameter[] parameters = {
+					new SqlParameter("@prdguid", SqlDbType.UniqueIdentifier,16)			};
+			parameters[0].Value = prdguid;
+
+			return DbHelperSQL.Exists(strSql.ToString(),parameters);
+		}
+
+
+		/// <summary>
+		/// 增加一条数据
+		/// </summary>
+		public bool Add(Twee.Model.File model)
+		{
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("insert into wn_file(");
+			strSql.Append("prtguid,prdguid,filename,fileurl,fileurl2,fileurl3,wntype,idx,addtime, ProductUploadImageURL, ProductUploadBatchNo)");
+			strSql.Append(" values (");
+            strSql.Append("@prtguid,@prdguid,@filename,@fileurl,@fileurl2,@fileurl3,@wntype,@idx,@addtime, @ProductUploadImageURL, @ProductUploadBatchNo)");
+            SqlParameter[] parameters = {
+					new SqlParameter("@prtguid", SqlDbType.UniqueIdentifier,16),
+                    new SqlParameter("@prdguid", SqlDbType.UniqueIdentifier,16),
+                    new SqlParameter("@filename", SqlDbType.NVarChar,50),
+                    new SqlParameter("@fileurl", SqlDbType.NVarChar,200),
+                    new SqlParameter("@fileurl2", SqlDbType.NVarChar,200),
+                    new SqlParameter("@fileurl3", SqlDbType.NVarChar,200),
+                    new SqlParameter("@wntype", SqlDbType.TinyInt),
+                    new SqlParameter("@idx", SqlDbType.Int),
+                    new SqlParameter("@addtime", SqlDbType.DateTime),
+                    new SqlParameter("@ProductUploadImageURL", SqlDbType.NVarChar,200),
+                    new SqlParameter("@ProductUploadBatchNo", SqlDbType.TinyInt)
+                                        };
+            parameters[0].Value = model.prdguid;
+            parameters[1].Value = model.prdguid;
+            parameters[2].Value = model.filename;
+            parameters[3].Value = model.fileurl;
+            parameters[4].Value = model.fileurl2;
+            parameters[5].Value = model.fileurl3;
+            parameters[6].Value = model.wntype;
+            parameters[7].Value = model.idx;
+            parameters[8].Value = DateTime.Now;
+            parameters[9].Value = model.UploadImageURL;
+            if (model.UpLoadBatchNo == null) model.UpLoadBatchNo = -1;
+            parameters[10].Value = model.UpLoadBatchNo;
+
+			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
+			if (rows > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		/// <summary>
+		/// 更新一条数据
+		/// </summary>
+		public bool Update(Twee.Model.File model)
+		{
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("update wn_file set ");
+			strSql.Append("prdguid=@prdguid");
+			strSql.Append(" where prdguid=@prdguid ");
+			SqlParameter[] parameters = {
+					new SqlParameter("@prdguid", SqlDbType.UniqueIdentifier,16)};
+			parameters[0].Value = model.prdguid;
+
+			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
+			if (rows > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// 删除一条数据
+		/// </summary>
+		public bool Delete(Guid prdguid)
+		{
+			
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("delete from wn_file ");
+			strSql.Append(" where prdguid=@prdguid ");
+			SqlParameter[] parameters = {
+					new SqlParameter("@prdguid", SqlDbType.UniqueIdentifier,16)			};
+			parameters[0].Value = prdguid;
+
+			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
+			if (rows > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		/// <summary>
+		/// 批量删除数据
+		/// </summary>
+		public bool DeleteList(string prdguidlist )
+		{
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("delete from wn_file ");
+			strSql.Append(" where prdguid in ("+prdguidlist + ")  ");
+			int rows=DbHelperSQL.ExecuteSql(strSql.ToString());
+			if (rows > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+
+		/// <summary>
+		/// 得到一个对象实体
+		/// </summary>
+		public Twee.Model.File GetModel(Guid prdguid)
+		{
+			
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("select  top 1 prdguid from wn_file ");
+			strSql.Append(" where prdguid=@prdguid ");
+			SqlParameter[] parameters = {
+					new SqlParameter("@prdguid", SqlDbType.UniqueIdentifier,16)			};
+			parameters[0].Value = prdguid;
+
+			Twee.Model.File model=new Twee.Model.File();
+			DataSet ds=DbHelperSQL.Query(strSql.ToString(),parameters);
+			if(ds.Tables[0].Rows.Count>0)
+			{
+				return DataRowToModel(ds.Tables[0].Rows[0]);
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+
+		/// <summary>
+		/// 得到一个对象实体
+		/// </summary>
+		public Twee.Model.File DataRowToModel(DataRow row)
+		{
+			Twee.Model.File model=new Twee.Model.File();
+			if (row != null)
+			{
+				if(row["prdguid"]!=null && row["prdguid"].ToString()!="")
+				{
+					model.prdguid= new Guid(row["prdguid"].ToString());
+				}
+                if (row["prtguid"] != null && row["prtguid"].ToString() != "")
+                {
+                    model.prtguid = new Guid(row["prtguid"].ToString());
+                }
+                if (row["filename"] != null && row["filename"].ToString() != "")
+                {
+                    model.filename = row["filename"].ToString();
+                }
+                if (row["fileurl"] != null && row["fileurl"].ToString() != "")
+                {
+                    model.fileurl = row["fileurl"].ToString();
+                }
+                if (row["fileurl2"] != null && row["fileurl2"].ToString() != "")
+                {
+                    model.fileurl2 = row["fileurl2"].ToString();
+                }
+                if (row["fileurl3"] != null && row["fileurl3"].ToString() != "")
+                {
+                    model.fileurl3 = row["fileurl3"].ToString();
+                }
+                if (row["idx"] != null && row["idx"].ToString() != "")
+                {
+                    model.idx = row["idx"].ToString().ToInt();
+                }
+                if (row["wntype"] != null && row["wntype"].ToString() != "")
+                {
+                    model.wntype = row["wntype"].ToString().ToInt();
+                }           
+
+			}
+			return model;
+		}
+
+		/// <summary>
+		/// 获得数据列表
+		/// </summary>
+		public DataSet GetList(string strWhere)
+		{
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("select * ");
+            strSql.Append(" FROM wn_file  ");
+			if(strWhere.Trim()!="")
+			{
+				strSql.Append(" where "+strWhere);
+			}
+            strSql.Append(" order by idx asc ");
+			return DbHelperSQL.Query(strSql.ToString());
+		}
+
+		/// <summary>
+		/// 获得前几行数据
+		/// </summary>
+		public DataSet GetList(int Top,string strWhere,string filedOrder)
+		{
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("select ");
+			if(Top>0)
+			{
+				strSql.Append(" top "+Top.ToString());
+			}
+			strSql.Append(" prdguid ");
+			strSql.Append(" FROM wn_file ");
+			if(strWhere.Trim()!="")
+			{
+				strSql.Append(" where "+strWhere);
+			}
+			strSql.Append(" order by " + filedOrder);
+			return DbHelperSQL.Query(strSql.ToString());
+		}
+
+		/// <summary>
+		/// 获取记录总数
+		/// </summary>
+		public int GetRecordCount(string strWhere)
+		{
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("select count(1) FROM wn_file ");
+			if(strWhere.Trim()!="")
+			{
+				strSql.Append(" where "+strWhere);
+			}
+			object obj = DbHelperSQL.GetSingle(strSql.ToString());
+			if (obj == null)
+			{
+				return 0;
+			}
+			else
+			{
+				return Convert.ToInt32(obj);
+			}
+		}
+		/// <summary>
+		/// 分页获取数据列表
+		/// </summary>
+		public DataSet GetListByPage(string strWhere, string orderby, int startIndex, int endIndex)
+		{
+			StringBuilder strSql=new StringBuilder();
+			strSql.Append("SELECT * FROM ( ");
+			strSql.Append(" SELECT ROW_NUMBER() OVER (");
+			if (!string.IsNullOrEmpty(orderby.Trim()))
+			{
+				strSql.Append("order by T." + orderby );
+			}
+			else
+			{
+				strSql.Append("order by T.prdguid desc");
+			}
+			strSql.Append(")AS Row, T.*  from wn_file T ");
+			if (!string.IsNullOrEmpty(strWhere.Trim()))
+			{
+				strSql.Append(" WHERE " + strWhere);
+			}
+			strSql.Append(" ) TT");
+			strSql.AppendFormat(" WHERE TT.Row between {0} and {1}", startIndex, endIndex);
+			return DbHelperSQL.Query(strSql.ToString());
+		}
+
+		/*
+		/// <summary>
+		/// 分页获取数据列表
+		/// </summary>
+		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
+		{
+			SqlParameter[] parameters = {
+					new SqlParameter("@tblName", SqlDbType.VarChar, 255),
+					new SqlParameter("@fldName", SqlDbType.VarChar, 255),
+					new SqlParameter("@PageSize", SqlDbType.Int),
+					new SqlParameter("@PageIndex", SqlDbType.Int),
+					new SqlParameter("@IsReCount", SqlDbType.Bit),
+					new SqlParameter("@OrderType", SqlDbType.Bit),
+					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
+					};
+			parameters[0].Value = "wn_file";
+			parameters[1].Value = "prdguid";
+			parameters[2].Value = PageSize;
+			parameters[3].Value = PageIndex;
+			parameters[4].Value = 0;
+			parameters[5].Value = 0;
+			parameters[6].Value = strWhere;	
+			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
+		}*/
+
+		#endregion  BasicMethod
+		#region  ExtensionMethod
+
+		#endregion  ExtensionMethod
+    }
+}

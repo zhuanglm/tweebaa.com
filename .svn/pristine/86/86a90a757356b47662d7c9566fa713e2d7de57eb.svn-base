@@ -1,0 +1,1406 @@
+﻿<%@ Page Title=""  Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="ExpressCheckout.aspx.cs" Inherits="TweebaaWebApp2.Product.ExpressCheckout" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+    
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/shop.style.css">
+     
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/scrollbar/src/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/plugins/jquery-steps/css/custom-jquery.steps.css">
+
+   <!-- <link rel="stylesheet" href="plugins/sky-forms/version-2.0.1/css/sky-forms.css"> -->
+    <link rel="stylesheet" href="/css/pages/log-reg-v3.css">  
+    <!-- Style Switcher -->
+    <link rel="stylesheet" href="/css/plugins/style-switcher.css">
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="/css/theme-colors/default.css" id="style_color">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="/css/custom.css">
+
+
+     <script src="../MethodJs/calculate.js" type="text/javascript"></script>
+    <script src="../MethodJs/buy.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/jquery.base64.js"></script>
+    <script src="/MethodJs/userAddress.js" type="text/javascript"></script>
+    <script src="/MethodJs/calculate.js" type="text/javascript"></script>
+    <script src="/MethodJs/order.js" type="text/javascript"></script>
+    <script src="/MethodJs/ExtraShipping.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/mycart-new.css" />
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+
+
+           <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Check out</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a href="/index.aspx">Home</a></li>
+                <li><a href="#">Product</a></li>
+                <li class="active">Shopping cart</li>
+            </ul>
+        </div><!--/container-->
+    </div><!--/breadcrumbs-->
+    <!--=== End Breadcrumbs ===-->
+
+         <!--=== Content Medium Part ===-->
+    <div class="content margin-bottom-30">
+        <div class="container"> <div class="col-md-12">
+            <form class="shopping-cart" action="#">
+                <div >
+                      <!--shopping cart-->
+                    <div class="header-tags">
+                     <div class="overflow-h">
+                            <h2>Shopping Cart</h2>
+                          <i class="fa fa-shopping-cart"></i>
+                        </div>    
+                    </div>
+                      <section>
+                       <div class="table-responsive">
+                        <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Product
+                                </th>
+                                <th>
+                                    SKU#
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                                <th>
+                                    Qty
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                                <tbody id="tabCart">
+                                <!--
+                                    <tr>
+                                        <td class="product-in-table">
+                                            <img class="img-responsive" src="images/shopimg.jpg" alt="">
+                                            <div class="product-it-in">
+                                                <h3>Double-Breasted </h3> 
+                                                <p class="shop-red">Test-sale <p> $ 160.00 </p></p>
+<span class="size-label-s">S</span><span class="color_label_s"></span>
+<span> <button class="btn btn-xs rounded btn-default" type="button">Favorite </button> </span>
+                                         
+                                            </div>    
+                                        </td>
+                                  
+                                        <td>
+                                            <button type='button' class="quantity-button" name='subtract' onclick='javascript: subtractQty1();' value='-'>-</button>
+                                            <input type='text' class="quantity-field" name='qty1' value="5" id='qty1'/>
+                                            <button type='button' class="quantity-button" name='add' onclick='javascript: document.getElementById("qty1").value++;' value='+'>+</button>
+                                        </td>
+                                        <td class="shop-red">$ 320.00</td>
+                                        <td>
+                                            <button type="button" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-in-table">
+                                            <img class="img-responsive" src="images/thumb/07.jpg" alt="">
+                                            <div class="product-it-in">
+                                                <h3>Vivamus ligula</h3>
+                                            <p class="shop-red">Test-sale</p>
+<span class="size-label-s">S</span><span class="color_label_s"></span>
+  <span> <button class="btn btn-xs rounded btn-default" type="button">Favorite </button> </span>
+                                            </div>    
+                                        </td>
+                                    
+                                        <td>
+                                            <button type='button' class="quantity-button" name='subtract' onclick='javascript: subtractQty2();' value='-'>-</button>
+                                            <input type='text' class="quantity-field" name='qty2' value="3" id='qty2'/>
+                                            <button type='button' class="quantity-button" name='add' onclick='javascript: document.getElementById("qty2").value++;' value='+'>+</button>
+                                        </td>
+                                        <td class="shop-red">$320.00</td>
+                                        <td>
+                                            <button type="button" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-in-table">
+                                            <img class="img-responsive" src="images/thumb/06.jpg" alt="">
+                                            <div class="product-it-in">
+                                                <h3>Vivamus ligula</h3>
+                                               <span class="size-label-s">S</span><span class="color_label_s"></span>
+  <span> <button class="btn btn-xs rounded btn-default" type="button">Favorite </button> </span>
+                                            </div>    
+                                        </td>
+                              
+                                        <td>
+                                            <button type='button' class="quantity-button" name='subtract' onclick='javascript: subtractQty3();' value='-'>-</button>
+                                            <input type='text' class="quantity-field" name='qty3' value="1" id='qty3'/>
+                                            <button type='button' class="quantity-button" name='add' onclick='javascript: document.getElementById("qty3").value++;' value='+'>+</button>
+                                        </td>
+                                        <td class="shop-red">$ 320.00</td>
+                                        <td>
+                                            <button type="button" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-in-table">
+                                            <img class="img-responsive" src="images/thumb/09.jpg" alt="">
+                                            <div class="product-it-in">
+                                                <h3>Vivamus ligula</h3>
+                                         <span class="size-label-s">S</span><span class="color_label_s"></span>
+  <span> <button class="btn btn-xs rounded btn-default" type="button">Favorite </button> </span>
+                                            </div>    
+                                        </td>
+                                        <td>
+                                            <button type='button' class="quantity-button" name='subtract' onclick='javascript: subtractQty4();' value='-'>-</button>
+                                            <input type='text' class="quantity-field" name='qty4' value="7" id='qty4'/>
+                                            <button type='button' class="quantity-button" name='add' onclick='javascript: document.getElementById("qty4").value++;' value='+'>+</button>
+                                        </td>
+                                        <td class="shop-red">$ 320.00</td>
+                                        <td>
+                                            <button type="button" class="close"><span>&times;</span><span class="sr-only">Close</span></button>
+                                        </td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                            
+                            <div class="col-sm-4 col-sm-offset-8">                        <!--Order Summery-->
+                                 <div class="cartMiniTable">
+                               <!--  <h3>Summery</h3>-->  
+                <table id="cart-summary" class="table">
+                    
+                     <tbody>
+                  
+                    <tr>
+                        <td class="tdn tdl"> Subtotal</td>
+                        <td class="shop-red tdn tdr" id="total-price"><label id="labPayMoney1"></label></td>
+                    </tr>
+                    </tbody>
+                  
+                </table>
+                
+                  
+            </div></div>
+                        </div>
+                      
+                      </section>
+                    <!--billing-->
+                    <div class="header-tags">
+                     <div class="overflow-h">
+                            <h2>Billing info</h2>
+                          <i class="fa fa-map-marker"></i>
+                        </div>    
+                    </div>
+                    <section class="billing-info">
+                        <div class="row">
+                            <div class="col-md-6 md-margin-bottom-40">
+                                <h2 class="title-type">Shipping Address</h2>
+                                
+                                <div class="billing-info-inputs checkbox-list">
+                                    <!--
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="name" type="text" placeholder="First Name" name="firstname" class="form-control required">
+                                            <input id="email" type="text" placeholder="Email" name="email" class="form-control required email">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="surname" type="text" placeholder="Last Name" name="lastname" class="form-control required">
+                                            <input id="phone" type="tel" placeholder="Phone" name="phone" class="form-control required">
+                                        </div>
+                                    </div>
+                                    <input id="billingAddress" type="text" placeholder="Address Line 1" name="address1" class="form-control required">
+                                    <input id="billingAddress2" type="text" placeholder="Address Line 2" name="address2" class="form-control required">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="city" type="text" placeholder="City" name="city" class="form-control required">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="zip" type="text" placeholder="Zip/Postal Code" name="zip" class="form-control required">
+                                        </div>
+                                    </div>
+                                    -->
+            <input type="hidden" id="hidAddressId" value="<%=_addressCartGudid %>" />
+        <!-- shop address -->
+        <div class="shop-address" >
+            <div class="fir-address-box">
+            <!--
+                <div class="title clearfix" style="text-align: left; padding-bottom: 0px; padding-top: 0px;">
+                    <h2 class="t">
+                        Delivery address
+                    </h2>
+                </div> -->
+                <table width="100%">
+                    <tr>
+                        <td class="t">
+                            First Name<span class="h">*</span>
+                        </td>
+                        <td>
+                            <input type="text" class="txt name" id="txtShipName" style="width: 150px;" placeholder="Input your first name" />
+                            <span class="error" id="errorNmae">Receiver name have to be 2-25 characters</span>
+                            <span class="ok">ok</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t">
+                            Last Name<span class="h">*</span>
+                        </td>
+                        <td>
+                            <input type="text" class="txt name" id="txtShipLastName" style="width: 150px;" placeholder="Input your last name" />
+                            <span class="error" id="errorlastName">Receiver name have to be 2-25 characters</span>
+                            <span class="ok">ok</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t">
+                            Address line 1<span class="h">*</span>
+                        </td>
+                        <td>
+                            <%--<textarea name="" class="txt areaall" id="txtShipAddress" placeholder="Choose from list, between 5-120 characters"></textarea>--%>
+                            <input type="text" class="txt2 areaall" id="txtShipAddress" placeholder="Input your address" />
+                            <span class="error" id="errorAddress">5-120 characters</span> <span class="ok">ok</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t">
+                            Address line2<%--<span class="h">*</span>--%>
+                        </td>
+                        <td>
+                            <%--<textarea name="" class="txt areaall" id="txtShipAddress2" placeholder="Choose from list, between 5-120 characters"></textarea>--%>
+                            <input type="text" class="txt2 areaall" id="txtShipAddress2" placeholder="Input your address" />
+                            <span class="error" id="Span1">5-120 characters</span> <span class="ok">ok</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t">
+                            City<span class="h">*</span>
+                        </td>
+                        <td>
+                            <input type="text" class="txt name" id="txtShipCity" placeholder="Input city name" />
+                            <span class="error" id="errorCity">Input city name</span> <span class="ok">ok</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t">
+                            Zip/Postal Code<span class="h">*</span>
+                        </td>
+                        <td>
+                            <input type="text" class="txt textZip" id="txtShipZip" />
+                            <span class="error" id="errorZip">Input zip/postal code</span> <span class="ok">ok</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t">
+                            Country<span class="h">*</span>
+                        </td>
+                        <td>
+                            <div class="clearfix" style="float: left;">
+                                <div class="selectBox pr fl">
+                                    <select name="" id="selectCountry" style="width: 150px;">
+                                    </select>
+                                </div>
+                                <div class="selectBox pr fl">
+                                    <select name="" id="selectProvince" style="width: 150px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <span class="error" id="errorArea" style="float: left;">Please select area</span><span
+                                class="ok">ok</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t">
+                            Phone<span class="h">*</span>
+                        </td>
+                        <td>
+                            <input type="text" class="txt phoneNum" id="txtShipPhone" placeholder="Area code + tel/mobile number" />
+                            <span class="error" id="errorPhone">Tel:(027-88888888)or Mobile:416 000 000 </span>
+                            <span class="ok">ok</span>
+                        </td>
+                    </tr>
+                     <% if (_IsGuestChecout)
+                           { %>
+                     <tr>
+                        <td class="t">
+                            Email<span class="h">*</span>
+                        </td>
+                        <td>
+                            <input type="text" class="txt phoneNum" id="txtShipEmail" placeholder="Email" />
+                            <span class="error" id="errorEmail">Input email</span>
+                            <span class="ok">ok</span>
+                        </td>
+                    </tr>
+                     <% } %>
+                    <tr style="display: none;">
+                        <td class="t">
+                            Set as Default
+                        </td>
+                        <td>
+                            <input type="checkbox" class="checkbox" id="ckbDefault" checked="checked" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t">
+                        </td>
+                        <td>
+                        <% if (_IsGuestChecout)
+                           { %>
+                            <input type="button" value="Save" id="btnSave" class="send" onclick="LoadCheckCart();" />
+                        <% }
+                           else
+                           { %>
+                            <input type="button" value="Save" id="btnSaveDeliveryAddr" class="send" onclick="SaveDeliveryAddress()" />
+                         <%} %>
+                            
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+<!-- shop address -->
+
+
+       <div class="saved-address" >
+                <%--<div class="header-tags">
+                    <div class="overflow-h">
+                        <h2>
+                            Shopping Cart</h2>
+                        <p>
+                            Review &amp; edit your product</p>
+                        <i class="rounded-x fa fa-check"></i>
+                    </div>
+                </div>--%>
+                <!--
+                <div class="title clearfix" style="text-align: left; padding-bottom: 0px; padding-top: 0px;">
+                    <h2 class="t">
+                        Delivery address
+                    </h2>
+                </div> -->
+
+                <section class="billing-info">
+                      <p id="pAddress">
+                <%--Jun cao<br />
+                1800 Edmund ave,<br />
+                toronto, Ontario, M3N2S5<br />
+                Canada<br />
+                Phone: 416229999<br />
+                Email: cjunjun@gmail.com--%>
+                <label id="labName">
+                </label>
+                <br />
+                <label id="labAddress">
+                </label>
+                <br />
+                <label id="labCountry">
+                </label>
+                <br />
+                <label id="labCountryID" style="display: none"></label>
+                <label id="labProvinceID" style="display: none"></label>
+                Zip: <label id="labZip"></label>
+                <br />
+                Phone: <label id="labPhone"></label>
+                <br />
+                Email: <label id="labEmail"></label>
+            </p>
+
+            <input type="button" value="Change" class="send" onclick="change()" />
+            <script type="text/javascript">
+                function change() {
+                    $(".saved-address").hide();
+                    $(".shop-address").show();
+                }
+                //                $(function () {
+                //                    var _displaySaved="<%=_displaySaved %>";                    
+                //                    if (_displaySaved=="none") {
+                //                        $(".saved-address").hide();
+                //                        $(".shop-address").show();
+                //                    }
+                //                    else {
+                //                        $(".saved-address").show();
+                //                        $(".shop-address").hide();
+                //                 }
+                //                 
+                //                });
+            
+            </script>
+            <!--
+                      <div class="row">
+                            <div class="col-md-6 md-margin-bottom-40">
+                                <h2 class="title-type">Billing Address</h2>
+                                <div class="billing-info-inputs checkbox-list">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="txtName" type="text" placeholder="First Name" name="firstname" class="form-control required" />
+                                            <input id="txtEmail" type="text" placeholder="Email" name="email" class="form-control required email" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="txtLastName" type="text" placeholder="Last Name" name="lastname" class="form-control required" />
+                                            <input id="txtPhone" type="tel" placeholder="Phone" name="phone" class="form-control required" />
+                                        </div>
+                                    </div>
+                                    <input id="txtAddress"  type="text" placeholder="Address Line 1" name="address1" class="form-control required" />
+                                    <input id="txtAddress2" type="text" placeholder="Address Line 2" name="address2" class="form-control required" />
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="txtCity" type="text" placeholder="City" name="city" class="form-control required" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="txtZip" type="text" placeholder="Zip/Postal Code" name="zip" class="form-control required" />
+                                        </div>
+                                    </div>
+                                    
+                                    <label class="checkbox text-left">
+                                        <input type="checkbox" name="checkbox"/>
+                                        <i></i>
+                                        Ship item to the above billing address
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="display:none;">
+                                <h2 class="title-type">Shipping Address</h2>
+                                <div class="billing-info-inputs checkbox-list">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="Text1" type="text" placeholder="First Name" name="firstname" class="form-control">
+                                            <input id="Text2" type="text" placeholder="Email" name="email" class="form-control email">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="Text3" type="text" placeholder="Last Name" name="lastname" class="form-control">
+                                            <input id="Tel1" type="tel" placeholder="Phone" name="phone" class="form-control">
+                                        </div>
+                                    </div>
+                                    <input id="Text4" type="text" placeholder="Address Line 1" name="address1" class="form-control">
+                                    <input id="Text5" type="text" placeholder="Address Line 2" name="address2" class="form-control">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="Text6" type="text" placeholder="City" name="city" class="form-control">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="Text7" type="text" placeholder="Zip/Postal Code" name="zip" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    -->   
+                </section>
+                
+                </div>
+                                    <label class="checkbox text-left">
+                                        <input type="checkbox" name="checkbox"/>
+                                        <i></i>
+                                        Ship item to the above billing address
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h2 class="title-type">Billing Address</h2>
+                                <div class="billing-info-inputs checkbox-list">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="name2" type="text" placeholder="First Name" name="firstname" class="form-control">
+                                            <input id="email2" type="text" placeholder="Email" name="email" class="form-control email">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="surname2" type="text" placeholder="Last Name" name="lastname" class="form-control">
+                                            <input id="phone2" type="tel" placeholder="Phone" name="phone" class="form-control">
+                                        </div>
+                                    </div>
+                                    <input id="shippingAddress" type="text" placeholder="Address Line 1" name="address1" class="form-control">
+                                    <input id="shippingAddress2" type="text" placeholder="Address Line 2" name="address2" class="form-control">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input id="city2" type="text" placeholder="City" name="city" class="form-control">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input id="zip2" type="text" placeholder="Zip/Postal Code" name="zip" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>       
+                    </section>
+                    
+                    <!-- shipping-->
+                     <div class="header-tags">
+                        <div class="overflow-h">
+                        <i class="fa fa-truck"></i>
+                            <h2>Shipping</h2>
+                           
+                        
+                        </div>    
+                    </div>
+                     <section>
+                     <div class="tag-box tag-box-v2 margin-bottom-40">
+                            <h2>Shipping to:</h2>
+                            <p class="title-type">Jun Cao (Leivaire Inc.)<br>3601 Hwy 7 East, Suite 302, HSBC Tower<br>Markham, Ontario<br> L3R 0M3 Canada</p>
+                        </div>
+                    
+             
+                      <form class="shopping-cart" action="#">
+               
+                        <div class="font-xs">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th >Unit Price</th>
+                                        <th>Qty</th>
+                                        <th >Discount</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="product-in-table">
+                                            <div class="product-it-in">
+                                                <h3>Double-Breasted </h3>  <span class="size-label-s">S</span><span class="color_label_s"></span>
+                                         
+                                            </div>    
+                                        </td>
+                                        <td >$320.00</td>
+                                        <td>1</td>
+                                        <td >10%</td>
+                                        <td class="shop-red">$320.00</td>                                
+                                    </tr>
+                             <!--shipping choose-->
+                                    <tr> <td colspan="3" class="product-in-table"> 
+                                   
+                                    <p>Choose your Prime delivery option</p>
+                           <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios"  value="option1" checked="">
+                           FREE Standard-Shipping (averages 3-5 business days)
+                        </label>
+                    </div>
+                   <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            FREE Express (averages 2-3 business days)
+                        </label>
+                    </div>
+                        <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            CDN$ 3.99/item Priority (averages 1-2 business days)
+                        </label>
+                    </div>
+                    
+                    </td>
+                    <td >Shipping Fee</td>
+                    <td >$22.22</td>
+                    </tr>
+                     <!--shipping choose end-->
+                      <tr>
+                       <td class="product-in-table">
+                       <div class="product-it-in">
+                       <h3>Double-Breasted </h3>  <span class="size-label-s">S</span><span class="color_label_s"></span>
+                       </div>    </td>
+                                        <td >$320.00</td>
+                                        <td>1</td>
+                                        <td >10%</td>
+                                        <td class="shop-red">$ 320.00</td>                                
+                                    </tr>
+                                    <!--shipping choose-->
+                                    <tr> <td colspan="3" class="product-in-table"> 
+                                   
+                                    <p>Choose your Prime delivery option</p>
+                           <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios"  value="option1" checked="">
+                           FREE Standard-Shipping (averages 3-5 business days)
+                        </label>
+                    </div>
+                   <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            FREE Express (averages 2-3 business days)
+                        </label>
+                    </div>
+                        <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            CDN$ 3.99/item Priority (averages 1-2 business days)
+                        </label>
+                    </div>
+                    
+                    </td>
+                    <td >Shipping Fee</td>
+                    <td >$22.22</td>
+                    </tr>
+                     <!--shipping choose end-->
+                                  <tr>
+                                        <td class="product-in-table">
+                                            <div class="product-it-in">
+                                                <h3>Double-Breasted </h3>  <span class="size-label-s">S</span><span class="color_label_s"></span>
+                                         
+                                            </div>    
+                                        </td>
+                                        <td >$320.00</td>
+                                        <td>1</td>
+                                        <td >10%</td>
+                                        <td class="shop-red">$ 320.00</td>                                
+                                    </tr>
+                         <!--shipping choose-->
+                                    <tr> <td colspan="3" class="product-in-table"> 
+                                   
+                                    <p>Choose your Prime delivery option</p>
+                           <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios"  value="option1" checked="">
+                           FREE Standard-Shipping (averages 3-5 business days)
+                        </label>
+                    </div>
+                   <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            FREE Express (averages 2-3 business days)
+                        </label>
+                    </div>
+                        <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            CDN$ 3.99/item Priority (averages 1-2 business days)
+                        </label>
+                    </div>
+                    
+                    </td>
+                    <td >Shipping Fee</td>
+                    <td >$22.22</td>
+                    </tr>
+                     <!--shipping choose end-->
+                              <tr>
+                                        <td class="product-in-table">
+                                            <div class="product-it-in">
+                                                <h3>Double-Breasted </h3>  <span class="size-label-s">S</span><span class="color_label_s"></span>
+                                         
+                                            </div>    
+                                        </td>
+                                        <td >$320.00</td>
+                                        <td>1</td>
+                                        <td >10%</td>
+                                        <td class="shop-red">$ 320.00</td>                                
+                                    </tr>
+                                    <!--shipping choose-->
+                                    <tr> <td colspan="3" class="product-in-table"> 
+                                   
+                                    <p>Choose your Prime delivery option</p>
+                           <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios"  value="option1" checked="">
+                           FREE Standard-Shipping (averages 3-5 business days)
+                        </label>
+                    </div>
+                   <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            FREE Express (averages 2-3 business days)
+                        </label>
+                    </div>
+                        <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios" value="option2">
+                            CDN$ 3.99/item Priority (averages 1-2 business days)
+                        </label>
+                    </div>
+                    
+                    </td>
+                    <td >Shipping Fee</td>
+                    <td >$22.22</td>
+                    </tr>
+                     <!--shipping choose end-->
+                                </tbody>
+                            </table>
+                            <div class="row">
+                            <div class="col-sm-4">
+                       <div class="cartMiniTable sm-margin-bottom-30">
+                                <h3>Shopping Reward Points</h3>
+                                <p>Avallable 0.00 points. Redemption Value:$0.00</p>
+                                       <div class="input-group">
+                                    <input type="text" class="form-control" value="Redemption Value:$0.00">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger" type="button">Apply</button>
+                                    </span>
+                            </div>
+                            </div> <!--End Shopping Reward-->
+                            
+                                   <!--Shopping Reward-->
+                            <div class="cartMiniTable sm-margin-bottom-30">
+                                <h3>Tweebucks</h3>
+                                <p>Current Balance $0.00</p>
+                                       <div class="input-group">
+                                    <input type="text" class="form-control" value="Redemption Value:$0.00">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger" type="button">Apply</button>
+                                    </span>
+                            </div>
+                            </div> <!--End Shopping Reward-->       
+                            
+                        </div>
+                        <div class="col-sm-4 col-sm-offset-4">                        <!--Order Summery-->
+                                 <div class="cartMiniTable">
+                               <!--  <h3>Summery</h3>-->  
+                <table id="cart-summary" class="table">
+                    
+                     <tbody>
+                    <tr>
+                        <td class="tdl">Sub-Total:</td>
+                        <td class="price tdr">$<label id="labPrdMoney"></label></td>
+                    </tr>
+                    <tr>
+                        <td class="tdl">Shipping</td>
+                        <td class="price tdr"><label id="lablogistics2">0.00</label></td>
+                    </tr>
+                
+                    <tr id="trTax">
+                        <td class="tdl">Tax&nbsp;<label id="labTaxRate" style="display:none;">
+                                            0%</label>:</td>
+                        <td class="price tdr" id="total-tax">$<label id="labTaxGST">0.00</label></td>
+                    </tr>
+
+                    <tr id="trTaxGST">
+                        <td class="tdl">GST&nbsp;<label id="labTaxGSTRate" style="display:none;">
+                                            0%</label>:</td>
+                        <td class="price tdr" id="Td1">$<label id="Label2">0.00</label></td>
+                    </tr>
+                    <tr id="trTaxHST">
+                        <td class="tdl">HST&nbsp;<label id="labTaxHSTRate" style="display:none;">
+                                            0%</label>:</td>
+                        <td class="price tdr" id="Td2">$<label id="labTaxHST">0.00</label></td>
+                    </tr>
+                    <tr id="trTaxQST">
+                        <td class="tdl">QST&nbsp;<label id="labTaxQSTRate" style="display:none;">
+                                            0%</label>:</td>
+                        <td class="price tdr" id="Td3">$<label id="labTaxQST">0.00</label></td>
+                    </tr>
+                    <tr>
+                        <td class="tdn tdl"> Discount:</td>
+                        <td class="shop-red tdn tdr" id="Td4">$<label id="labDiscount">0.00</label></td>
+                    </tr>
+                    <tr>
+                        <td class="tdn tdl"> Total:</td>
+                        <td class="shop-red tdn tdr" id="total-price">$<label id="labPayMoney2"></label></td>
+                    </tr>
+                    </tbody>
+                  
+                </table>
+                
+                  
+            </div></div>
+               </form> 
+                      </section>   
+                <!--pay ment -->       
+                    <div class="header-tags">
+                        <div class="overflow-h">
+                            <h2>Payment</h2>
+                            <i class="fa fa-money"></i>
+                        </div>    
+                    </div>
+                    <section>
+                        <div class="row">
+                             <!-- choose pay ment -->   
+                            <div class="col-md-6 md-margin-bottom-50">
+                                <h2 class="title-type">Choose a payment method</h2>
+                                <!-- Accordion -->
+                                <div class="accordion-v2">
+                                    <div class="panel-group" id="accordion">
+                                    <!--
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                        <i class="fa fa-credit-card"></i>
+                                                        Credit or Debit Card
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                <div class="panel-body cus-form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 no-col-space control-label">Cardholder Name</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control required" name="cardholder" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 no-col-space control-label">Card Number</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control required" name="cardnumber" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 no-col-space control-label">Payment Types</label>
+                                                        <div class="col-sm-8">
+                                                            <ul class="list-inline payment-type">
+                                                                <li><i class="fa fa-cc-paypal"></i></li>
+                                                                <li><i class="fa fa-cc-visa"></i></li>
+                                                                <li><i class="fa fa-cc-mastercard"></i></li>
+                                                                <li><i class="fa fa-cc-discover"></i></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4">Expiration Date</label>
+                                                        <div class="col-sm-8 input-small-field">
+                                                            <input type="text" name="mm" placeholder="MM" class="form-control required sm-margin-bottom-20">
+                                                            <span class="slash">/</span>
+                                                            <input type="text" name="yy" placeholder="YY" class="form-control required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 no-col-space control-label">CSC</label>
+                                                        <div class="col-sm-8 input-small-field">
+                                                            <input type="text" name="number" placeholder="" class="form-control required">
+                                                            <a href="#">What's this?</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                        <i class="fa fa-paypal"></i>
+                                                        Pay with PayPal
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo" class="panel-collapse collapse">
+                                                <div class="content margin-left-10">
+                                                    <a href="#"><img src="www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Accordion -->    
+                            </div>
+                
+                            <div class="col-md-6">
+                                <h2 class="title-type">Frequently asked questions</h2>
+                                <!-- Accordion -->
+                                <div class="accordion-v2 plus-toggle">
+                                    <div class="panel-group" id="accordion-v2">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseOne-v2">
+                                                        What payments methods can I use?
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne-v2" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseTwo-v2">
+                                                        Can I use gift card to pay for my purchase?
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo-v2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseThree-v2">
+                                                        Will I be charged when I place my order?
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree-v2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseFour-v2">
+                                                        How long will it take to get my order?
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseFour-v2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.    
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <!-- End Accordion -->    
+                            </div>
+                                
+
+                        </div>
+                    </section>
+
+                   
+                </div>
+            </form>
+    </div>  
+    
+    
+      </div><!--/end container-->
+    </div>
+    <!--=== End Content Medium Part ===-->     
+
+
+<script type="text/javascript" src="/plugins/sky-forms/version-2.0.1/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/plugins/jquery-steps/build/jquery.steps.js"></script>
+<!-- Master Slider -->
+<script type="text/javascript" src="/plugins/master-slider/quick-start/masterslider/masterslider.min.js"></script>
+<script src="/plugins/master-slider/quick-start/masterslider/jquery.easing.min.js"></script>
+<!-- Scrollbar -->
+<script src="/plugins/scrollbar/src/jquery.mousewheel.js"></script>
+<script src="/plugins/scrollbar/src/perfect-scrollbar.js"></script>
+<script src="/plugins/jquery.parallax.js"></script>
+
+<!-- JS Customization -->
+<script src="/js/custom.js"></script>
+<!-- JS Page Level -->
+<script src="/js/shop.app.js"></script>
+<script src="/js/forms/page_login.js"></script>
+<script src="/js/plugins/stepWizard.js"></script>
+<script src="/js/forms/product-quantity.js"></script>
+<script type="text/javascript" src="/js/plugins/style-switcher.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        App.init();
+        Login.initLogin();
+        StepWizard.initStepWizard();
+        StyleSwitcher.initStyleSwitcher();
+
+    });
+</script>
+<!--[if lt IE 9]>
+    <script src="plugins/respond.js"></script>
+    <script src="plugins/html5shiv.js"></script>
+    <script src="js/plugins/placeholder-IE-fixes.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+
+
+    function SaveDeliveryAddress() {
+        var guid = $("#hidAddressId").val();
+        if (guid == null || guid == "") {
+            AddShipAddress();
+        }
+        else {
+            UpdateShipAddress(guid);
+        }
+
+    }
+
+
+    $(".show-all-address").find("li").mouseenter(function (event) {
+        $(this).addClass('on')
+    }).mouseleave(function (event) {
+        $(this).removeClass('on')
+    });
+
+    //物流选择 
+    $(".select-wuliu .showUl").click(function (event) {
+        $(this).siblings('ul').show();
+    });
+
+    $(".select-wuliu").mouseleave(function (event) {
+        $(this).find("ul").hide();
+    });
+
+    function EnableGotoPayButton() {
+        $(".gotoPay").html("Agree & Proceed to Payment &nbsp;&nbsp;");
+        $(".gotoPay").removeAttr("disabled");
+        $("#btnCheckout").removeClass("btnDisabled");
+    }
+    //点击结算
+    $(".gotoPay").click(function (event) {
+
+        $(".gotoPay").html("Encrypting and processing");
+        $(".gotoPay").attr("disabled", "disabled");
+        $("#btnCheckout").addClass("btnDisabled");
+        //Add by Long to verify Shipping Country 
+        /*
+        var iVerify = 0;
+        for (i = 0; i < iTotalProduct; i++) {
+        var shipTo = $("#shipToCountry_" + i).val();
+        var labCountryID = $("#labCountryID").html();
+        var _data = "{ action:'" + "check_shipping_country" + "',shipToId:'" + shipTo + "',CountryID:'" + labCountryID + "'}";
+        $.ajax({
+        type: "POST",
+        url: '/AjaxPages/shopCartAjax.aspx',
+        data: _data,
+        async: false,
+        success: function (msg) {
+        if (msg == 0) {
+        //how to get user id
+        ExtraShippingHandleEx(products_in_cart[i], sku_in_cart[i], products_name_in_cart[i]);
+        //alert("Your cart contains item(s) that are not currently available for shipment to your country.\n Product name: " + products_in_cart[i] + " \n Please remove these item(s) from your cart in order to proceed. You may contact us at service@tweebaa.com for a shipping quote (on the item/s removed) to your destination.");
+        iVerify = 1;
+        EnableGotoPayButton();
+        return;
+        }
+
+        },
+        error: function (msg) {
+        //alert("Delete failed");
+        }
+        });
+        }
+        if (iVerify == 1) return;*/
+        var iVerify = 0;
+        var CustomShippingFee = 0;
+        for (i = 0; i < iTotalProduct; i++) {
+            var _data = "{ action:'" + "check_shipping_country_ex" + "',proId:'" + products_in_cart[i] + "',RulesID:'" + rulesID_in_cart[i] + "',prosku:'" + sku_in_cart[i] + "'}";
+            $.ajax({
+                type: "POST",
+                url: '/AjaxPages/shopCartAjax.aspx',
+                data: _data,
+                async: false,
+                success: function (msg) {
+                    if (msg == -1) {
+                        //how to get user id
+                        ExtraShippingHandleEx(products_in_cart[i], sku_in_cart[i], products_name_in_cart[i]);
+                        //alert("Your cart contains item(s) that are not currently available for shipment to your country.\n Product name: " + products_in_cart[i] + " \n Please remove these item(s) from your cart in order to proceed. You may contact us at service@tweebaa.com for a shipping quote (on the item/s removed) to your destination.");
+                        iVerify = 1;
+                        // EnableGotoPayButton();
+                        return;
+                    } else if (msg == -2) {
+                        alert("This item has shipping country limited.\n  Please setup your shipping address first.");
+                        window.location.href = "/Home/HomeAddress.aspx";
+                        iVerify = 1;
+                        return;
+                    }
+                    // CustomShippingFee = msg;
+
+                },
+                error: function (msg) {
+                    //alert("Delete failed");
+                }
+            });
+        }
+        if (iVerify == 1) return;
+        ////////////////////////Add by Long to verify Shipping Country EOF
+
+
+        var addressId = $("#hidAddressId").val();
+        if (addressId == "" || addressId == null) {
+            alert("Please fill and save your delivery address！");
+            return;
+        }
+        if (document.getElementById("Acknowledged").checked == false) {
+            alert("Please Acknowledge the reminder ！");
+            return;
+        }
+        var pointMoney = $("#txtPointMoney").val();
+        var tweebucks = $("#txtTweebuck").val();
+
+
+
+        //产品金额
+        var orderTotal = parseFloat($("#labPrdMoney").text()); // parseFloat($("#labPayMoney2").text());   
+        var sumTweebucks = parseFloat($("#labTweebucks").text());
+        var sumPointMoney = parseFloat($("#labPointMoney").text());
+        //alert(pointMoney); alert(sumPointMoney); alert(orderTotal);
+        if (pointMoney >= orderTotal || pointMoney > sumPointMoney) {
+            alert("Your input amount of shopping points is invalid, cannot be larger than or equal to the total amount or redemption value.");
+            return;
+        }
+        if (tweebucks >= orderTotal || tweebucks > sumTweebucks) {
+            alert("Your input tweebucks amount is invalid, cannot be larger than  or equal to the total amount or total tweebucks.");
+            return;
+        }
+
+        ////Add by Long for Share Points Redeem
+        var sharePointMoney = $("#txtSharePointMoney").val();
+        var sumSharePoint = parseFloat($("#labSharePointsMoney").text());
+        if (sharePointMoney >= orderTotal || sharePointMoney > sumSharePoint) {
+            alert("Your input Share Point amount is invalid, cannot be larger than  or equal to the total amount or total Share Points.");
+            return;
+        }
+        ////Add by Long for Share Points Redeem EOF
+        PayPalPay();
+
+    });
+
+    //支付方式里面的 去支付
+    $(".payment-methods .gotoPay").click(function (event) {
+        $(".payment-methods").hide()
+        if ($("#ckbPay1").attr("checked")) {
+            AliyPay(); //支付宝支付
+        }
+        if ($("#ckbPay2").attr("checked")) {
+            PayPalPay(); //paypal支付
+        }
+    });
+
+
+    //增加地址
+    $(".add-new-address > a").click(function (event) {
+        $(".greybox,.add-new-address-box").show();
+        $(".add-new-address-box").find('h2').text("Add delivery address")
+        $("#btnSave").unbind("click")
+        $("#btnSave").bind("click", function () { AddAddress() });
+        ClearForm();
+        return false;
+    });
+
+
+
+    function GoBack() {
+        window.location.href = "../Product/shopCart.aspx";
+    }
+    /*
+    $( document ).ready(function() {
+    <% if (_IsGuestChecout)
+    { %>
+    $(".saved-address").css("visibility","hidden");
+    $(".shop-address").css("visibility","visible");
+    <% }
+    else
+    { %>
+    $(".saved-address").css("visibility","visible");
+    $(".shop-address").css("visibility","hidden");
+    <%} %>
+    });
+    */
+    </script>
+    <script>
+        function UseTweebuck() {
+
+            $("#lab1").show();
+            $("#lab2").show();
+            $("#labTweebucks").show();
+            $("#txtUse").show();
+        }
+        function chgTweebuck() {
+            var used = $("#txtUse").val();
+            var sum = Number($("#labTweebucks").text());
+            var orderTotal = Number($("#labPayMoney2").text());
+            if (used > sum || used > orderTotal) {
+                $("#txtUse").val("")
+                return;
+            }
+            if (used <= sum && used > orderTotal) {
+                $("#txtUse").val("")
+                return;
+            }
+        }
+    </script>
+<script type="text/javascript">
+    function ApplySharePoint() {
+        var pointMoney = Number($("#txtSharePointMoney").val());
+        var orderTotal = Number($("#labPrdMoney").text());  //User Sub Total
+        if (pointMoney < 0) pointMoney = 0;
+        //if >15%
+        var _limit = Math.round(100 * orderTotal * 0.15) / 100; //Max
+        if (pointMoney > _limit) {
+            $("#txtSharePointMoney").val(_limit);
+            //$("#labDiscount").html("-" + _limit);
+            setTotalDiscount(_limit);
+            //reduct total
+            var a = getTotalMoney();
+            var b = parseFloat(a) - parseFloat(_limit);
+            $("#labPayMoney2").html(b.toFixed(2));
+        } else {
+            $("#txtSharePointMoney").val(pointMoney);
+            //$("#labDiscount").html("-" + pointMoney);
+            setTotalDiscount(pointMoney);
+            //reduct total
+            var a = getTotalMoney();
+            var b = parseFloat(a) - parseFloat(pointMoney);
+            $("#labPayMoney2").html(b.toFixed(2));
+        }
+    }
+    function ApplyAllSharePoint() {
+        var pointMoney = Number($("#labSharePointsMoney").text());
+        var orderTotal = Number($("#labPrdMoney").text());  //User Sub Total
+        if (pointMoney < 0) pointMoney = 0;
+        //if >15%
+        var _limit = Math.round(100 * orderTotal * 0.15) / 100; //Max
+        if (pointMoney > _limit) {
+            $("#txtSharePointMoney").val(_limit);
+            //$("#labDiscount").html("-" + _limit);
+            setTotalDiscount(_limit);
+            //reduct total
+            var a = getTotalMoney();
+            var b = parseFloat(a) - parseFloat(_limit);
+            $("#labPayMoney2").html(b.toFixed(2));
+        } else {
+            $("#txtSharePointMoney").val(pointMoney);
+            //$("#labDiscount").html("-" + pointMoney);
+            setTotalDiscount(pointMoney);
+            //reduct total
+            var a = getTotalMoney();
+            var b = parseFloat(a) - parseFloat(pointMoney);
+            $("#labPayMoney2").html(b.toFixed(2));
+        }
+    }
+</script>
+<script type="text/javascript">
+function ApplyTweebuck() {
+
+    var tweebucks = Number($("#txtTweebuck").val());
+    if (tweebucks < 0) tweebucks = 0;
+    var orderTotal = Number($("#labPrdMoney").text());
+    if (tweebucks <= orderTotal) {
+        $("#txtTweebuck").val(tweebucks);
+        //$("#labDiscount").html("-" + tweebucks);
+        setTotalDiscount(tweebucks);
+        //reduct total
+        var a = getTotalMoney();
+        var b = parseFloat(a) - parseFloat(tweebucks);
+        $("#labPayMoney2").html(b.toFixed(2));
+    }
+    else {
+        $("#txtTweebuck").val(orderTotal);
+        //$("#labDiscount").html("-" + orderTotal);
+        setTotalDiscount(orderTotal);
+        //reduct total
+        var a = getTotalMoney();
+        var b = parseFloat(a) - parseFloat(orderTotal);
+        $("#labPayMoney2").html(b.toFixed(2));
+    }
+}
+function ApplyAllTweebuck() {
+    var tweebucks = Number($("#labTweebucks").text());
+    if (tweebucks < 0) tweebucks = 0;
+    var orderTotal = Number($("#labPrdMoney").text());
+    if (tweebucks <= orderTotal) {
+        $("#txtTweebuck").val(tweebucks);
+        //$("#labDiscount").html("-" + tweebucks);
+        setTotalDiscount(tweebucks);
+        //reduct total
+        var a = getTotalMoney();
+        var b = parseFloat(a) - parseFloat(tweebucks);
+        $("#labPayMoney2").html(b.toFixed(2));
+    }
+    else {
+        $("#txtTweebuck").val(orderTotal);
+        //$("#labDiscount").html("-" + orderTotal);
+        setTotalDiscount(orderTotal);
+        //reduct total
+        var a = getTotalMoney();
+        var b = parseFloat(a) - parseFloat(orderTotal);
+        $("#labPayMoney2").html(b.toFixed(2));
+    }
+}
+</script>
+<script type="text/javascript">
+
+    function getTotalMoney() {
+        //sub-total + Tax + Shipping
+        var a1 = $("#labPrdMoney").text();
+        var a2 = $("#labTax").text();
+        /*
+        var a3 = $("#labTaxGST").text();
+        var a4 = $("#labTaxHST").text();
+        var a5 = $("#labTaxQST").text();*/
+        var a6 = $("#lablogistics2").text();
+        var a = Number(a1) + Number(a2) + Number(a6);
+
+        return a;
+    }
+
+    function setTotalDiscount(amount) {
+        /*
+        var p = $("#labDiscount").html();
+        var p1 = parseFloat(p.replace("-",""));
+        var p2 = p1 + amount;
+        p1 = p2.toFixed(2);*/
+        var p1 = $("#txtPointMoney").val();
+        var p2 = $("#txtTweebuck").val();
+        var p3 = $("#txtSharePointMoney").val();
+        if (p1 == "") p1 = "0";
+        if (p2 == "") p2 = "0";
+        if (p3 == "") p3 = "0";
+        var p4 = parseFloat(p1) + parseFloat(p2) + parseFloat(p3);
+        p4 = parseFloat(p4).toFixed(2);
+        $("#labDiscount").html("-" + p4);
+
+    }
+
+    function ApplyShoppingPoint() {
+        var pointMoney = Number($("#txtPointMoney").val());
+        if (pointMoney < 0) pointMoney = 0;
+        var orderTotal = Number($("#labPrdMoney").text());
+        if (pointMoney <= orderTotal) {
+            $("#txtPointMoney").val(pointMoney);
+            //$("#labDiscount").html("-" + pointMoney);
+            setTotalDiscount(pointMoney);
+            //reduct total
+            var a = getTotalMoney();
+            var b = parseFloat(a) - parseFloat(pointMoney);
+            $("#labPayMoney2").html(b.toFixed(2));
+        }
+        else {
+            $("#txtPointMoney").val(orderTotal);
+            //$("#labDiscount").html("-" + orderTotal);
+            setTotalDiscount(orderTotal);
+            //reduct total
+            var a = getTotalMoney();
+            var b = parseFloat(a) - parseFloat(orderTotal);
+            $("#labPayMoney2").html(b.toFixed(2));
+        }
+
+    }
+    function ApplyAllPoint() {
+        var pointMoney = Number($("#labPointMoney").text());
+        if (pointMoney < 0) pointMoney = 0;
+        var orderTotal = Number($("#labPrdMoney").text());
+        if (pointMoney <= orderTotal) {
+            $("#txtPointMoney").val(pointMoney);
+            //$("#labDiscount").html("-" + pointMoney);
+            setTotalDiscount(pointMoney);
+            //reduct total
+            var a = getTotalMoney();
+            var b = parseFloat(a) - parseFloat(pointMoney);
+            $("#labPayMoney2").html(b.toFixed(2));
+        }
+        else {
+            $("#txtPointMoney").val(orderTotal);
+            //$("#labDiscount").html("-" + orderTotal);
+            setTotalDiscount(orderTotal);
+            //reduct total
+            var a = getTotalMoney();
+            var b = parseFloat(a) - parseFloat(orderTotal);
+            $("#labPayMoney2").html(b.toFixed(2));
+        }
+
+    }
+</script>
+</asp:Content>

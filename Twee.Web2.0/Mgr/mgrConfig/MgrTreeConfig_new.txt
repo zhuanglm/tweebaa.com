@@ -1,0 +1,189 @@
+﻿ [
+   {
+		id:110,
+		text: 'System Management',
+		state: 'closed',
+		children: [{
+		    id:1101,
+			text: 'Administrator List',
+			attributes:{url:'sysManager/ManagerList.aspx'}
+		},{
+		    id:1102,
+			text: 'Add Administrator',
+			attributes:{url:'sysManager/Manager.aspx'}
+		}]
+	},
+    {
+		id:111,
+		text: 'Member Management',
+		state: 'closed',
+		children: [{
+		    id:1111,
+			text: 'Member List',
+			attributes:{url:'userMgr/users.aspx'}
+		}]
+	},{
+		id:121,
+		text: 'Category Management',
+		state: 'closed',
+		children: [{
+		    id:1211,
+			text: 'Add Category',
+			attributes:{url:'proTypeMgr/proCateAddMgr.aspx'}
+		},{
+		    id:1212,
+			text: 'View Category',
+			attributes:{url:'proTypeMgr/proTypeList.aspx'}
+		}]
+	},{
+		id:122,
+		text: 'By Focus Categories Management',
+		state: 'closed',
+		children: [{
+		    id:1221,
+			text: 'Manage By Focus',
+			attributes:{url:'ByFocusMgr/ByFocusCateMgr.aspx'}
+		},{
+		    id:1222,
+			text: 'Setup Product By Focus',
+			attributes:{url:'ByFocusMgr/SetupProductByFocus.aspx'}
+		}]
+	},{
+		id:123,
+		text: 'Product Management',
+		state: 'closed',
+		children: [
+		{
+		    id:1231,
+			text: 'Product SKU',
+			attributes:{url:'proManager/proSKUMgr.aspx'}
+		},{
+		    id:1232,
+			text: 'Initial Evaluation',
+			attributes:{url:'proManager/proCheck.aspx'}
+		},{
+		    id:1233,
+			text: 'Public Evaluation',
+			attributes:{url:'proManager/proPublicJudgeMgr.aspx'}
+		},{
+		    id:1234,  
+			text: 'Tweebaa Evaluation',
+			attributes:{url:'proManager/proTweeJudgeMgr.aspx'}
+		},{
+		    id:1235,
+			text: 'Test-Sales Zone',
+			attributes:{url:'proManager/proPreSaleMgr.aspx'}
+		},{
+		    id:1236,
+			text: 'Approved Zone',
+			attributes:{url:'proManager/proUpMgr.aspx'}
+		},{
+		    id:1237,
+			text: 'Buy Now Zone',
+			attributes:{url:'proManager/proSaleMgr.aspx'}
+		},{
+		    id:1238,
+			text: 'Removal Zone',
+			attributes:{url:'proManager/proDownMgr.aspx'}
+		}]
+	},{
+		id:131,
+		text: 'Supply Management',
+		state: 'closed',
+		children: [{
+		    id:1311,
+			text: 'Supply Search List',
+			attributes:{url:'Inventory/InventorySearch.aspx'}
+		}]
+	},{
+		id:132,
+		text: 'Order Management',
+		state: 'closed',
+		children: [{
+		    id:1321,
+			text: 'Unpaid Order',
+			attributes:{url:'orderMgr/orderNoPay.aspx'}
+		},{
+			id:1322,
+			text: 'Pending Order',
+			attributes:{url:''}
+		},{
+			id:1323,
+			text: 'Shipped Order',
+			attributes:{url:''}
+		},{
+			id:1324,
+			text: 'Completed Order',
+			attributes:{url:''}
+		},{
+			id:1325,
+			text: 'Cancelled Order',
+			attributes:{url:''}
+		}]
+	},{
+		id:134,
+		text: 'Shipping Order Management',
+		state: 'closed',
+		children: [{
+		    id:1341,
+			text: 'Shipping Orders',
+			attributes:{url:'ShipOrderMgr/ShipOrder.aspx'}
+		}]
+	},{
+		id:141,
+		text: 'Commission Management',
+		state: 'closed',
+		children: [{
+		    id:1411,
+			text: 'Claimed',
+			attributes:{url:'userMgr/userCash.aspx'}
+		},{
+		    id:1412,
+			text: 'Pay',
+			attributes:{url:'userMgr/payCash.aspx'}
+		}]
+	},{
+		id:142,
+		text: 'Product Share',
+		state: 'closed',
+		children: [{
+			id: 1421,
+			text: 'Share Record',
+			attributes:{url:'productShare/productShareRecord.aspx'}
+		},{
+			id:1422,
+			text: 'Share Statistics',
+			attributes:{url:''}
+		}]
+	},{
+		id:143,
+		text: 'Product Evaluation',
+		state: 'closed',
+		children: [{
+			id:1431,
+			text: 'Evaluation Record',
+			attributes:{url:''}
+		},{
+			id:1432,
+			text: 'Evaluation Statistics',
+			attributes:{url:''}
+		}]
+	},{
+		id:161,
+		text: 'Grade Management',
+		state: 'closed',
+		children: [{		
+		    id: 1611,   
+			text: 'Publish Grade',
+			attributes:{url:'userMgr/publistGradeParam.aspx'}
+		},{		
+		    id: 1612,   	
+			text: 'Review Grade',
+			attributes:{url:'userMgr/reviewGradeParam.aspx'}
+		},{			
+		    id: 1613,   
+			text: 'Share Grade',
+			attributes:{url:'userMgr/shareGradeParam.aspx'}
+		}]
+	}
+]

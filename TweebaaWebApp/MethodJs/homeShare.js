@@ -1,0 +1,409 @@
+﻿var picPath = "https://tweebaa.com/";
+
+var page = 1;
+var recordCount = 0;
+var pageCount = 0;
+var type = "";       // share type
+var begTime = "";
+var endTime = "";
+var totalProductShareVisitCount = 0;
+var totalProductShareSoldQuantity = 0;
+
+//for collage design
+//var page_collage = 1;
+var collage_recordCount = 0;
+var collage_pageCount = 0;
+
+$(document).ready(
+   function () {
+       DoSearchProductShare();
+
+       //       load_collage_design_Count(); //for collage design
+       //       
+       //       $('.select-list_collage').hide();
+       //       //add by long for collage design 
+       //       //ç«™å†…æ¶ˆæ¯
+       //       $("#s_data_collage").click(function (event) {
+       //           $(this).addClass('active').siblings('.select-list_collage').show();
+       //       })
+       //       $("#s_data_collage .select-box_collage").mouseleave(function (event) {
+       //           $(this).find('.select-list_collage').hide();
+       //           $("#s_data_collage").removeClass('active')
+       //       });
+       //       $(".select-list_collage a").click(function (event) {
+       //           $("#s_data_collage").attr('s-data', $(this).attr('s-data'))
+       //           $("#s_data_collage").text($(this).text())
+       //           $(this).parents(".select-list_collage").hide();
+       //           $("#s_data_collage").removeClass('active')
+       //           return false;
+       //       });
+       //       //
+
+   });
+
+ 
+
+   //获取总记录数、页数
+   function load_collage_design_Count() {
+       begTime = $("#txtCollageBegin").val();
+       endTime = $("#txtCollageEnd").val();
+       $.ajax({
+           type: "Post",
+           url: "../AjaxPages/shareAjax.aspx",
+           data: "{'action':'queryhomecount_collage','type':'" + type + "','begTime':'" + begTime + "','endTime':'" + endTime + "'}",
+           success: function (resu) {
+               if (resu == "") {
+                   return;
+               }
+               var arry = new Array();
+               arry = resu.split(",");
+               collage_recordCount = arry[0];
+               collage_pageCount = arry[1];
+               /*
+               kkpager.generPageHtml({
+               pagerid: 'dvCollage',
+               lang: {
+               firstPageText: 'First',
+               firstPageTipText: 'First',
+               lastPageText: 'Last',
+               lastPageTipText: 'Last',
+               prePageText: 'Prev',
+               prePageTipText: 'Prev',
+               nextPageText: 'Next',
+               nextPageTipText: 'Next'
+               }
+               ,
+               pno: 1,
+               total: collage_pageCount, //总页码
+               //总数据条数
+               totalRecords: collage_recordCount,
+               mode: 'click', //默认值是link，可选link或者click
+               click: function (n) {
+               page_collage = n;
+               loadCollageMeinv();
+               this.selectPage(n); //手动选中按钮
+               return false;
+               }
+               });
+               */
+
+               var iPerPage = collage_recordCount % collage_pageCount;
+               if (iPerPage == 0) {
+                   iPerPage = collage_recordCount / collage_pageCount;
+               } else {
+                   iPerPage = ceil(collage_recordCount / collage_pageCount);
+               }
+               $("#dvCollage").paging(collage_recordCount, { // make 1337 elements navigatable
+                   format: '[< ncnnn! >]', // define how the navigation should look like and in which order onFormat() get's called
+                   perpage: iPerPage, // show 10 elements per page
+                   lapping: 0, // don't overlap pages for the moment
+                   page: 1, // start at page, can also be "null" or negative
+                   onSelect: function (page) {
+                       // add code which gets executed when user selects a page, how about $.ajax() or $(...).slice()?
+                       //console.log(this);
+                       loadCollageMeinv(page)
+                   },
+                   onFormat: function (type) {
+                       switch (type) {
+                           case 'block': // n and c
+                               return '<a href="#">' + this.value + '</a>';
+                           case 'next': // >
+                               return '<a href="#">&gt;</a>';
+                           case 'prev': // <
+                               return '<a href="#">&lt;</a>';
+                           case 'first': // [
+                               return '<a href="#">first</a>';
+                           case 'last': // ]
+                               return '<a href="#">last</a>';
+                       }
+                   }
+               });
+              // loadCollageMeinv(1);
+
+           },
+           error: function (obj) {
+               // alert("Load failed");
+           }
+       });
+   }
+
+   function DoSearchProductShare() {
+       $("#divNoData").hide();
+       $("#kkpager").empty();
+
+       begTime = $("#txtBegin").val();
+       endTime = $("#txtEnd").val();
+
+       page = 1;
+       loadTotal();
+       loadMeinv();
+
+       // pno does not work, have to select page 1 here
+       if (recordCount > 0)  kkpager.selectPage(page);
+
+   }
+
+
+   function loadCollageMeinv(page_collage) {
+       $("#tblCollageDesignList").empty();
+       // $("#tableShare").append('<tr> <th width="80"> Date</th><th width="118">Product Name </th><th width="100">Promote Via </th> <th width="180">Website Link</th><th width="135">Income Amount($)</th><th> From</th></tr>');
+       //$("#tableShare").append('<tr> <th width="430">Product Name </th><th width="100">Website Link</th> <th width="180">Promote Via </th><th> Visits</th><th> Buyers</th><th width="60">Income($)</th></tr>');         
+       //$("#tableShare").append('<tr><th>Date</th><th>Product Name</th><th>Promote Via</th><th>Website Link</th><th>Income Amount（$</th><th>From</th></tr>
+       $("#tblCollageDesignList").append('<tr><th>Date</th><th>Design Name</th><th>Promote Via </th><th> Visits</th><th> Buyers</th><th>Income Amount($)</th><th> Copy Share Link</th></tr>');
+       begTime = $("#txtCollageBegin").val();
+       endTime = $("#txtCollageEnd").val();
+
+       var order = "";
+       $.ajax({
+           type: "Post",
+           url: "../AjaxPages/shareAjax.aspx",
+           data: "{'action':'query_collage','type':'" + type
+                    + "','beginTime':'" + begTime
+                    + "','endTime':'" + endTime
+                    + "','order':'" + order
+                    + "','page':'" + page_collage
+                    + "'}",
+           success: function (resu) {
+               if (resu == "") {
+                   return;
+               }
+
+               var obj = eval("(" + resu + ")");
+               for (var i = 0; i < obj.length; i++) {
+                   var prd = obj[i];
+                   var prdid = "'" + prd.prdguid + "'";
+                   var mymoney = prd.mymoney;
+                   if (mymoney == null) {
+                       mymoney = 0;
+                   }
+                   var time = prd.addtime.replace(/-/g, '/').substring(0, 10);
+                   var state = prd.wnstat;
+                   var prdUrl = "../Product/submitReview.aspx?id=" + prd.prdguid;
+                   var copyText = "'" + prd.shareurl + "'";
+                   if (state == 0) {
+                       prdUrl = "../Product/prdReview.aspx?id=" + prd.prdguid;
+                   }
+                   if (state == 2) {
+                       prdUrl = "../Product/presaleBuy.aspx?id=" + prd.prdguid;
+                   }
+                   if (state == 3) {
+                       prdUrl = "../Product/saleBuy.aspx?id=" + prd.prdguid;
+                   }
+
+                   //var html = '<tr><td><span class="text">' + time + '</span></td><td><span class="text"><a href="">' + prd.name + '</a></span></td><td><span class="icon"><a href=""><img src="../Images/ico_15.png" alt=""></a></span></td><td><span class="text"><a href="">' + prd.shareurl + '</a></span></td><td><span class="text">＋' + mymoney + '</span></td><td><span class="text">Earnings</span></td></tr>';
+                   //var html = '<tr><td><span class="text">' + time + '</span></td><td><span class="text"><a href="">' + prd.name + '</a></span></td><td><span class="icon">'+prd.sharetype+'</span></td><td><span class="text"><a href="">' + prd.shareurl + '</a></span></td><td><span class="text">＋' + mymoney + '</span></td><td><span class="text">Earnings</span></td></tr>';
+                   //var html = '<tr><td><a href="' + prd.shareurl + '" target="_blank" class="imglink fl"><img src="' + picPath + prd.fileurl.replace("big", "small") + '" alt="' + prd.name + '" /></a><div class="pro-title fl" style="width:120px; margin-left:20px;"><a href="' + prd.shareurl + '" target="_blank">' + prd.name + '</a><p>Submitted on：<br/>' + time + '</p></div></td><td><span class="text"><a href="' + prd.shareurl + '" target="_blank">' + prd.shareurl.substring(0, 35) + "..." + '</a></span></td><td><span class="icon">' + prd.sharetype + '</span></td><td><span class="text">' + prd.visitcount + '</span></td><td><span class="text">' + prd.successcount + '</span></td><td><span class="text">＋' + mymoney + '</span></td></tr>';
+                   // var html = '<tr><td><a href="' + prdUrl + '" target="_blank" class="imglink fl"><img src="' + picPath + prd.fileurl.replace("big", "small") + '" alt="' + prd.name + '" /></a><div class="pro-title fl" style="width:120px; margin-left:20px;"><a href="' + prdUrl + '" target="_blank">' + prd.name + '</a><p>Submitted on：<br/>' + time + '</p></div></td><td><span class="text"><a href="' + prd.shareurl + '" target="_blank">' + prd.shareurl.substring(0, 35) + "..." + '</a></span></td><td><span class="icon">' + prd.sharetype + '</span></td><td><span class="text">' + prd.visitcount + '</span></td><td><span class="text">' + prd.successcount + '</span></td><td><span class="text">＋' + mymoney + '</span></td></tr>';
+                   //html = '<tr><td><a href="' + prdUrl + '"  target="_blank" class="imglink fl"><img src="' + picPath + prd.fileurl + '" alt="' + prdname + '" /></a><div class="pro-title fl" style="width:120px; margin-left:20px;"><a href="' + prdUrl + '" target="_blank">' + prd.name + '</a><p>Submitted on：<br/>' + time + '</p></div></td><td style="width:200px;"><div class="state-ing">' + stateTxt + '</div><div class="jdt"><span style="width: 50%;"></span></div><div class="participant">	supporters : 0/' + reviewCount + '</div></td><td><div class="btn-group"><a href="javascript:void(0)" onclick="SharePrd(' + prdid + ',' + prdname + ',' + prdimg + ',' + urlPage + ')" class="share">Share</a><a href="../Product/issue.aspx?action=edit&id=' + prd.prdguid + '" target="_blank" >Edit</a><a href="javascript:void(0)" onclick=" DeletePrd(' + prdid + ')" >Delete</a></div></td></tr>';
+                   var html = "";
+                   html += '<tr><td>' + time + '</td>'
+                        + '<td style="width:30%;">' + prd.CollageDesing_Title + '</td>'
+                        + '<td>' + prd.sharetype + '</td>'
+                        + '<td>' + prd.visitcount + '</td>'
+                        + '<td>' + prd.successcount + '</td>'
+                        + '<td>' + mymoney + '</td>'
+                        + '<td style="width:130pxc" >&nbsp;&nbsp;<input type="button"  class="submit simple"  style="color:white;border:none;width:50px;height:25px;" value="Copy" onclick="CopyToClip(' + copyText + ')" /></td></tr>';
+                   $("#tblCollageDesignList").append(html);
+               }
+               //$("#tableShare").append("</tbody>");
+           },
+           error: function (obj) {
+               //alert("Load failed");
+           }
+       });
+   }
+   /////////////////////////////////////////////////////////////////////
+
+
+   function SetState(shareType) {
+       type = shareType;
+      
+       // need to search ALL share type again
+       if (shareType == -1) type = "";
+       DoSearchProductShare();    
+   }
+
+   //get total count, page, visit counts and sold quantity
+   function loadTotal() {
+       $.ajax({
+           type: "Post",
+           url: "../AjaxPages/shareAjax.aspx",
+           data: "{'action':'queryhomecount','type':'" + type + "','begTime':'" + begTime + "','endTime':'" + endTime + "'}",
+           async: false,
+           success: function (resu) {
+               if (resu == "") {
+                   return;
+               }
+
+               var arry = new Array();
+               arry = resu.split(",");
+               recordCount = arry[0];
+               pageCount = arry[1];
+               totalProductShareVisitCount = arry[2];
+               totalProductShareSoldQuantity = arry[3];
+               kkpager.generPageHtml({
+                   pno: 1,
+                   total: pageCount, //总页码
+                   totalRecords: recordCount,     //总数据条数
+                   lang: {
+                       firstPageText: 'First',
+                       firstPageTipText: 'First',
+                       lastPageText: 'Last',
+                       lastPageTipText: 'Last',
+                       prePageText: 'Prev',
+                       prePageTipText: 'Prev',
+                       buttonTipBeforeText: 'Page ',
+                       buttonTipAfterText: '',
+                       nextPageText: 'Next',
+                       nextPageTipText: 'Next'
+                   },
+                   mode: 'click', //默认值是link，可选link或者click
+                   click: function (n) {
+                       page = n;
+                       loadMeinv();
+                       this.selectPage(n); //手动选中按钮
+                       return false;
+                   }
+               });
+
+               // pno does not work, have to select page 1 here
+               //page = 1;
+               //kkpager.selectPage(page);
+           },
+           error: function (obj) {
+               // alert("Load failed");
+           }
+       });
+   }
+
+   function loadMeinv() {
+        $(".tb-list").empty();
+        var order = "";
+        $.ajax({
+            type: "Post",
+            url: "../AjaxPages/shareAjax.aspx",
+            data: "{'action':'query','type':'" + type
+                    + "','beginTime':'" + begTime
+                    + "','endTime':'" + endTime
+                    + "','order':'" + order
+                    + "','page':'" + page
+                    + "'}",
+            async: false,
+            success: function (resu) {
+                if (resu == "" || resu == "[]") {
+                    $("#kkpager").empty();
+                    $("#divNoData").show();
+                    return;
+                }
+
+                $("#shareTable tbody").html("");
+
+                // create head html and display it
+                var htmlHead = '<tr><th width="250">PRODUCT</th><th width="180">SOCIAL MEDIA</th><th width="100">CLICKS</th><th nowrap>QTY SOLD</th><th>COPY LINK</th></tr>';
+                $(".tb-list").append(htmlHead);
+
+                var obj = eval("(" + resu + ")");
+
+                // create total html and display it
+                // total data has been get when loading total
+                var htmlTotal = '<tr><td colspan=2 width="430" class="bc">TOTAL</td>><td width="100" class="bc">' + totalProductShareVisitCount + '</td><td class="bc">' + totalProductShareSoldQuantity + '</td><td class="bc"></td></tr>';
+                $(".tb-list").append(htmlTotal);
+
+                var i = 0;
+                while (i < obj.length) {
+                    // set previous product name
+                    var prdNamePrev = "";
+                    if (i > 0) prdNamePrev = obj[i - 1].name;
+
+                    var prd = obj[i];
+                    var prdGuid = prd.prdguid;
+                    var prdName = prd.name;
+                    var shareGuid = prd.ShareGuid;
+                    var shareClickCount = prd.VisitCountSum;
+                    var shareType = prd.sharetype;
+                    var soldQty = prd.SoldQuantitySum;
+                    var shareUrl = "https://tweebaa.com/product/ShareProduct.aspx?id=" + prdGuid + "_" + shareGuid;
+                    var copyText = "'" + shareUrl + "'";
+
+                    var prdClickSum = 0;
+                    var prdSoldQtySum = 0;
+                    var prdRowCount = 0;
+
+                    // calculate for sub-total the current product
+                    for (var j = i; j < obj.length; j++) {
+                        if (prdName != obj[j].name) break;
+                        prdClickSum = prdClickSum + obj[j].VisitCountSum;
+                        prdSoldQtySum = prdSoldQtySum + obj[j].SoldQuantitySum;
+                        prdRowCount += 1;
+                    }
+
+                    // create detail html for the current product
+                    var htmlDetail = '';
+                    for (var j = i; j < obj.length; j++) {
+                        if (prdName != obj[j].name) break;
+                        htmlDetail += '<tr id="tr' + j + '" style="display:none; "><div  class="details_tb clearfix">';
+                        if (j == i) htmlDetail += '<td rowspan="' + prdRowCount + '"></td>';
+                        htmlDetail += '<td>' + obj[j].sharetype + '</td>'
+                                 + '<td>' + obj[j].VisitCountSum + '</td>'
+                                 + '<td>' + obj[j].SoldQuantitySum + '</td>'
+                                 + '<td style="width:130px" ><a class="submit simple"  style="color:white;border:none;width:50px;height:25px;" onclick="void(0); CopyToClip(' + copyText + ')"> &nbsp;&nbsp;Copy&nbsp;&nbsp;</a></td>';
+                                //+'<td style="width:130px" ><input type="button"  class="submit simple"  style="color:white;border:none;width:50px;height:20px;" value="Copy" onclick="CopyToClip(' + copyText + ')" /></td>';
+                        htmlDetail += "</div></tr>";
+                    }
+
+                    // create sub-total html
+                    var htmlSubTotal = '<tr class="details_tb"><td style="width:30%;" ><a onclick="void(0); DoExpandShareDetail(' + i + ',' + prdRowCount + ')">' + prdName + '</a></td>'
+                        + '<td><strong>Sub-Total</strong></td>'
+                        + '<td>' + prdClickSum + '</td>'
+                        + '<td>' + prdSoldQtySum + '</td>'
+                        + '<td style="width:130px;" >&nbsp;</td></tr>';
+
+                    // display sub-total and details
+                    $(".tb-list").append(htmlSubTotal);
+                    $(".tb-list").append(htmlDetail);
+
+                    // next different product
+                    i = j;
+                } // end of lopp for each produc
+            }, // end of ajax success
+            error: function (obj) {
+                //alert("Load failed");
+            }
+      });
+    
+}
+//function CopyToClip(txtCopy) {
+//    alert(txtCopy);
+//    window.clipboardData.setData("text", txtCopy);
+//    alert("Has been copied to the clipboard");
+//}
+
+// Copy text as text
+function CopyToClip(txtCopy) {
+    var input = document.createElement('textarea');
+    document.body.appendChild(input);
+    input.value = txtCopy;
+    input.focus();
+    input.select();
+    document.execCommand('Copy');
+
+    var userAgent = navigator.userAgent;
+    if (userAgent.indexOf('Chrome') > 0) {
+        input.remove();
+    }
+    else {
+        input.style.display = "none";
+        //.hide();
+    }
+    alert("Share link has been copied to the clipboard.");
+}
+
+function DoExpandShareDetail(idx, detailCount) {
+    for (var i = 0; i < detailCount; i++) {
+        
+        var id = "#tr" + (i + idx).toString();
+        if ($(id).css("display") == "none") $(id).show();
+        else $(id).hide();
+    }
+    //else $(id).show();
+}

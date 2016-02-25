@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace TweebaaWebApp2.Mgr.CouponAdmin
+{
+    /// <summary>
+    /// Summary description for CouponAdminHandler
+    /// </summary>
+    public class CouponAdminHandler : IHttpHandler
+    {
+       
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //context.Response.Write("Hello World");
+
+            string sAction = context.Request.Form["action"].ToString();
+            if (sAction == "AddEdit")
+            { 
+                string coupon_id= context.Request.Form["coupon_id"].ToString();
+                string coupon_name= context.Request.Form["coupon_name"].ToString();
+                string coupon_amount= context.Request.Form["coupon_amount"].ToString();
+                string coupon_min_order= context.Request.Form["coupon_min_order"].ToString();
+                string coupon_free_ship= context.Request.Form["coupon_free_ship"].ToString();
+                string coupon_code= context.Request.Form["coupon_code"].ToString();
+                string coupon_uses_coupon= context.Request.Form["coupon_uses_coupon"].ToString();
+                string coupon_uses_user= context.Request.Form["coupon_uses_user"].ToString();
+                string coupon_products= context.Request.Form["coupon_products"].ToString();
+                string coupon_categories= context.Request.Form["coupon_categories"].ToString();
+                string coupon_start_date= context.Request.Form["coupon_start_date"].ToString();
+                string coupon_expire_date = context.Request.Form["coupon_expire_date"].ToString();
+
+                Twee.Model.Coupons coupon = new Twee.Model.Coupons();
+                coupon.CouponActive = 1;
+                coupon.CouponAmount = float.Parse(coupon_amount);
+                coupon.CouponName = coupon_name;
+                coupon.CouponMinimumOrder = float.Parse(coupon_min_order);
+                coupon.CouponID = int.Parse(coupon_id); 
+                if (int.Parse(coupon_free_ship) == 1)
+                {
+                    coupon.CouponType = 'F';
+                }
+                else
+                {
+                    coupon.CouponType = 'C';
+                }
+                if (coupon_code.Trim().Length < 1)
+                {
+                    coupon_code = Twee.Comm.CommUtil.GenerateCouponCode();
+                }
+                coupon.CouponCode = coupon_code;
+                coupon.UsesPerCoupon = short.Parse(coupon_uses_coupon);
+                coupon.UsesPerUser = short.Parse(coupon_uses_user);
+                if (coupon_products.Length > 0)
+                {
+                    coupon.IsRestrictToCustomers = 1;
+                    coupon.restrict_to_products = coupon_products;
+                }
+                if (coupon_categories.Length > 0)
+                {
+                    coupon.IsRestrictToCategories = 1;
+                    coupon.restrict_to_categories = coupon_categories;
+                }
+
+                coupon.CouponStartDate =  Convert.ToDateTime(coupon_start_date);
+                coupon.CouponExpireDate =  Convert.ToDateTime(coupon_expire_date);
+
+                Twee.Mgr.CouponMgr mgr = new Twee.Mgr.CouponMgr();
+                if (int.Parse(coupon_id) > 0)
+                {
+
+                    mgr.Update(coupon);
+                }
+                else
+                {
+                    mgr.CouponAdd(coupon);
+                }
+            }
+
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mgr>
+  <!--text is bili,count is the people count-->
+  <config id="1" value="publicTotweebaa" text="0.5" count="100" description="支持人数/(支持人数+反对人数的比例)大于等于50%"></config>
+</mgr>

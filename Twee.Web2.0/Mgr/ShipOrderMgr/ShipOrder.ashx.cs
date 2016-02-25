@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Text;
+using Twee.Comm;
+
+namespace TweebaaWebApp2.Mgr.ShipOrderMgr
+{
+    /// <summary>
+    /// Summary description for ShipOrder1
+    /// </summary>
+    public class ShipOrder1 : IHttpHandler
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            if (string.IsNullOrEmpty(context.Request["action"]))
+                context.Response.Write(string.Empty);
+            string sAction = context.Request["action"].ToString().Trim();
+            switch (sAction)
+            {
+                case "ShipOrderListDatagrid":
+                    context.Response.Write(ShipOrderListGridData(context));
+                    break;
+                default:
+                    context.Response.Write(string.Empty);
+                    break;
+            }
+        }
+
+        private string ShipOrderListGridData(HttpContext context)
+        {
+            int iPageSize = int.Parse(context.Request["rows"]);
+            int iPage = int.Parse(context.Request["page"]) - 1;
+            int iStartIdx = iPageSize * iPage + 1;
+            int iEndIdx = iStartIdx + iPageSize - 1;
+
+            Twee.Mgr.ShipOrderMgr mgr = new Twee.Mgr.ShipOrderMgr();
+            int iTotalCount = 0;
+
+
+            string sShipOrderID = context.Request["ShipOrderID"].ToString().Trim();
+            string sTweebaaOrderID = context.Request["TweebaaOrderID"].ToString().Trim();
+            string sPartnerOrderID = context.Request["PartnerOrderID"].ToString().Trim();
+            string sStartTime = context.Request["StartTime"].ToString().Trim();
+            string sEndTime = context.Request["EndTime"].ToString().Trim();
+            string sSuccess = context.Request["Success"].ToString().Trim();
+            string sOrderStartTime = context.Request["OrderStartTime"].ToString().Trim();
+            string sOrderEndTime = context.Request["OrderEndTime"].ToString().Trim();
+            string sCustomerFirstName = context.Request["CustomerFirstName"].ToString().Trim();
+            string sCustomerLastName = context.Request["CustomerLastName"].ToString().Trim();
+            string sShipToAddress = context.Request["ShipToAddress"].ToString().Trim();
+
+            DataTable dt = mgr.MgeGetShipOrderList(iStartIdx, iEndIdx, out iTotalCount, sShipOrderID, sTweebaaOrderID, sPartnerOrderID, sStartTime, sEndTime, sSuccess, sOrderStartTime, sOrderEndTime, sCustomerFirstName, sCustomerLastName, sShipToAddress);
+            if (dt == null || dt.Rows.Count == 0) return "{\"total\": 0,\"rows\":[]}";
+
+            StringBuilder sJson = new StringBuilder();
+            foreach (DataRow row in dt.Rows)
+            {
+                if (sJson.Length != 0) sJson.Append(",");
+                sJson.AppendFormat("{0} \"ShipOrderID\":\"{2}\",\"ShipOrder_ID\":\"{3}\",\"OrderHead_GuidNo\":\"{4}\",\"ShipPartner_Name\":\"{5}\", \"ShipOrder_Date\":\"{6}\", \"Order_Date\":\"{7}\"  ,\"ShipOrder_Success\":\"{8}\" ,\"ShipOrder_PartnerOrderID\":\"{9}\", \"ShipOrder_ErrMsg\":\"{10}\", \"ShipOrder_Status\":\"{11}\" {1}",
+                    "{",
+                    "}",
+                    row["ShipOrder_ID"]._ObjToString(),
+                    row["ShipOrder_ID"]._ObjToString(),
+                    row["OrderHead_GuidNo"]._ObjToString(),
+                    row["ShipPartner_Name"]._ObjToString(),
+                    row["ShipOrder_Date"]._ObjToString(),
+                    row["Order_Date"]._ObjToString(),
+                    (row["ShipOrder_IsSuccess"]._ObjToString() == "1") ? "Yes" : "",
+                    row["ShipOrder_PartnerOrderID"]._ObjToString(),
+                    row["ShipOrder_ErrMsg"]._ObjToString().Replace(',', '，').Replace("\"", "&quot;").Replace('\n', '.'),
+                    CommUtil.GetShipOrderStatusName(row["ShipOrder_Status"]._ObjToString().ToInt())
+                    );
+            }
+            string sRet = "{\"total\":" + iTotalCount.ToString() + ",\"rows\":[" + sJson + "]}";
+            return sRet;
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

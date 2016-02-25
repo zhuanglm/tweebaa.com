@@ -1,0 +1,8 @@
+D:\tweebaa.com\Twee.Comm\obj\Debug\Twee.Comm.csprojResolveAssemblyReference.cache
+D:\tweebaa.com\Twee.Comm\bin\Debug\Twee.Comm.dll
+D:\tweebaa.com\Twee.Comm\bin\Debug\Twee.Comm.pdb
+D:\tweebaa.com\Twee.Comm\bin\Debug\Newtonsoft.Json.dll
+D:\tweebaa.com\Twee.Comm\bin\Debug\Twee.Model.dll
+D:\tweebaa.com\Twee.Comm\bin\Debug\Twee.Model.pdb
+D:\tweebaa.com\Twee.Comm\obj\Debug\Twee.Comm.dll
+D:\tweebaa.com\Twee.Comm\obj\Debug\Twee.Comm.pdb

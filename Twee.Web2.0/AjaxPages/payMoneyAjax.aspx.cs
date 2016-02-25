@@ -1,0 +1,211 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using log4net;
+using System.Reflection;
+using TweebaaWebApp2.MasterPages;
+using System.Web.Script.Serialization;
+using Twee.Comm;
+using Twee.Model;
+using Twee.Mgr;
+
+/// <summary>
+/// 功能：即时到账交易接口接入页
+/// 版本：3.3
+/// 日期：2012-07-05
+/// 说明：
+/// 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
+/// 该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
+/// 
+/// /////////////////注意///////////////////////////////////////////////////////////////
+/// 如果您在接口集成过程中遇到问题，可以按照下面的途径来解决
+/// 1、商户服务中心（https://b.alipay.com/support/helperApply.htm?action=consultationApply），提交申请集成协助，我们会有专业的技术工程师主动联系您协助解决
+/// 2、商户帮助中心（http://help.alipay.com/support/232511-16307/0-16307.htm?sh=Y&info_type=9）
+/// 3、支付宝论坛（http://club.alipay.com/read-htm-tid-8681712.html）
+/// 
+/// 如果不想使用扩展功能请把扩展功能参数赋空值。
+/// </summary
+namespace TweebaaWebApp2.AjaxPages
+{
+    /// <summary>
+    /// 订单支付
+    /// </summary>
+    public partial class payMoneyAjax : BasePage
+    {
+        private Guid? userGuid;
+        ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static string action = "";
+        Dictionary<string, object> dic = null;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            bool isLogion = CheckLogion(out userGuid);
+            if (isLogion == false)
+            {
+                Response.Write("-1");
+                return;
+            }
+            else
+            {
+                System.IO.StreamReader sr = new System.IO.StreamReader(Request.InputStream);
+                string cartInfo = sr.ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                dic = js.Deserialize<Dictionary<string, object>>(cartInfo);
+                action = dic["action"].ToString();
+                if (action == "pay")
+                {
+                    string GuidNo = "";
+                    if (AddOrder(out GuidNo))
+                    {                       
+                        Alipay(GuidNo);
+                    }  
+                }
+                
+            }
+        }
+
+        /// <summary>
+        /// 支付
+        /// </summary>
+        private void Alipay(string GuidNo)
+        {
+            //请求参数
+
+            //支付类型 //必填，不能修改
+            string payment_type = "1";
+
+            //服务器异步通知页面路径//需http://格式的完整路径，不能加?id=123这类自定义参数          
+            string notify_url = "https://tweebaa.com/Product/prdReviewStep1.aspx?step=1";       
+
+            //页面跳转同步通知页面路径 //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/          
+            string return_url = "https://tweebaa.com/Alipay/return_url.aspx";
+
+            //卖家支付宝帐户//必填
+            string seller_email = "payment@tweebaa.cn";
+            //商户订单号//商户网站订单系统中唯一订单号，必填           
+            string out_trade_no = GuidNo;
+            //订单名称 //必填
+            string subject = dic["orderName"].ToString();
+            //付款金额  //必填
+            string total_fee = dic["orderMoney"].ToString();  
+            //订单描述
+            string body = dic["orderBody"].ToString();
+            //商品展示地址 //需以http://开头的完整路径，例如：http://www.xxx.com/myorder.html
+            string show_url = dic["orderWebUrl"].ToString();
+            //防钓鱼时间戳 //若要使用请调用类文件submit中的query_timestamp函数
+            string anti_phishing_key = "";           
+
+            //客户端的IP地址
+            string exter_invoke_ip = "";
+            //非局域网的外网IP地址，如：221.0.0.1            
+
+            //把请求参数打包成数组
+            SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
+            sParaTemp.Add("partner", Com.Alipay.Config.Partner);
+            sParaTemp.Add("_input_charset", Com.Alipay.Config.Input_charset.ToLower());
+            sParaTemp.Add("service", "create_direct_pay_by_user");
+            sParaTemp.Add("payment_type", payment_type);
+            sParaTemp.Add("notify_url", notify_url);
+            sParaTemp.Add("return_url", return_url);
+            sParaTemp.Add("seller_email", seller_email);
+            sParaTemp.Add("out_trade_no", out_trade_no);
+            sParaTemp.Add("subject", subject);
+            sParaTemp.Add("total_fee", total_fee);
+            sParaTemp.Add("body", body);
+            sParaTemp.Add("show_url", show_url);
+            sParaTemp.Add("anti_phishing_key", anti_phishing_key);
+            sParaTemp.Add("exter_invoke_ip", exter_invoke_ip);
+
+            //建立请求
+            string sHtmlText = Com.Alipay.Submit.BuildRequest(sParaTemp, "post", "确认");
+            Response.Write(sHtmlText);
+        
+        
+        }
+
+        /// <summary>
+        /// 从购物车选中支付数据添加到订单
+        /// </summary>
+        /// <param name="GuidNo">输出订单号</param>
+        /// <returns></returns>
+        private bool AddOrder(out string GuidNo)
+        {
+            GuidNo = "";
+            try
+            {
+                string cartGuids = CommHelper.GetStrDecode(dic["cartGuids"].ToString());                
+                if (cartGuids != "")
+                {
+                    string[] ids = cartGuids.Split(',');
+                    Orderhead orderHead = new Orderhead();
+                    orderHead.guid = Guid.NewGuid();
+                    orderHead.addressguid = dic["addressId"].ToString().ToGuid().Value;//订单收货地址guid
+                    orderHead.guidno = CommUtil.CreateOrderNum();//订单编号
+                    GuidNo = orderHead.guidno;
+                    orderHead.messageWord = dic["message"].ToString();//订单留言
+                    orderHead.userguid = userGuid.Value;//订单user
+                    orderHead.wnstat = 0;//订单状态
+                    List<OrderBody> listBody = new List<OrderBody>();
+                    ShoppingcartMgr mgr = new ShoppingcartMgr();
+                    proPriceAreaMgr price = new proPriceAreaMgr();                   
+                    for (int i = 0; i < ids.Length; i++)
+                    {
+                        string id = ids[i].ToString().Replace("'", "").Trim();
+                        Shoppingcart shoppingcart = mgr.GetModel(id.ToGuid().Value);
+                        OrderBody orderBody = new OrderBody();
+                        orderBody.guid = Guid.NewGuid();
+                        orderBody.headGuid = orderHead.guid;//订单id
+                        orderBody.prdGuid = shoppingcart.prdguid;//产品id
+                        orderBody.quantity = shoppingcart.quantity;//产品数量
+                        orderBody.idx = i;//该产品顺序号
+                        orderBody.ruleid = shoppingcart.ruleid;//订单产品规格
+                        //根据购买规格和数量获取对应销售价格
+                        orderBody.buydanJia = price.GetSalePrice(orderBody.ruleid.Value, orderBody.quantity.Value);
+                        orderBody.shareId = shoppingcart.shareId;//分享链接的id
+                        listBody.Add(orderBody);                      
+                    }
+                    OrderMgr orderMgr = new OrderMgr();
+                    bool b = orderMgr.AddOrder(orderHead, listBody);
+                    if (b)
+                    {
+                        DeletShopCartList(cartGuids);//创建订单后删除购物车
+                    }
+                    return b;
+                }
+                else
+                {
+                    GuidNo = "";
+                    return false;
+                }
+               
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+
+        /// <summary>
+        /// 批量删除购物车
+        /// </summary>
+        private void DeletShopCartList(string cartGuids)
+        {
+            try
+            {
+                ShoppingcartMgr mgr = new ShoppingcartMgr();
+                Shoppingcart shoppingcart = new Shoppingcart();             
+                mgr.DeleteList(cartGuids);              
+            }
+            catch (Exception)
+            {
+                Response.Write("0");
+            }
+
+        }
+    }
+}

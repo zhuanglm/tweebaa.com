@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MobileAppDoRegister">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sUserGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strNameEmailTel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPass" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="countryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="knowwayid" nillable="true" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="tuijieEmail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="consent" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MobileAppDoRegisterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="MobileAppDoRegisterResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveGameInformationAfterUserWin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="layer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plat_form" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="screen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLocalPoint" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sLevel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sVirtualProps" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="game1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="game2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="game3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="game4" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="game5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="game6" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveGameInformationAfterUserWinResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveGameInformationAfterUserWinResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSpinRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sMD5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sTime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSpinRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveSpinRequestResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSpin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sMD5" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sPrizeID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveSpinResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveSpinResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCollage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sDesignID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sTitle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDesignerGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CollageDesign_HTML" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sImg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="products" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveCollageResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SaveCollageEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sDesignID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sTitle" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sDesignerGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CollageDesign_HTML" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sImg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="products" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCollageExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveCollageExResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveFavour">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sDesignID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUserGuid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveFavourResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RemoveFavourResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveFavour">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sDesignID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sUserGuid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveFavourResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveFavourResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="MobileAppDoRegisterSoapIn">
+    <wsdl:part name="parameters" element="tns:MobileAppDoRegister" />
+  </wsdl:message>
+  <wsdl:message name="MobileAppDoRegisterSoapOut">
+    <wsdl:part name="parameters" element="tns:MobileAppDoRegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveGameInformationAfterUserWinSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveGameInformationAfterUserWin" />
+  </wsdl:message>
+  <wsdl:message name="SaveGameInformationAfterUserWinSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveGameInformationAfterUserWinResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveSpinRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveSpinRequest" />
+  </wsdl:message>
+  <wsdl:message name="SaveSpinRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveSpinRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveSpinSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveSpin" />
+  </wsdl:message>
+  <wsdl:message name="SaveSpinSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveSpinResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveCollageSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveCollage" />
+  </wsdl:message>
+  <wsdl:message name="SaveCollageSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveCollageResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveCollageExSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveCollageEx" />
+  </wsdl:message>
+  <wsdl:message name="SaveCollageExSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveCollageExResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveFavourSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveFavour" />
+  </wsdl:message>
+  <wsdl:message name="RemoveFavourSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveFavourResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveFavourSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveFavour" />
+  </wsdl:message>
+  <wsdl:message name="SaveFavourSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveFavourResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MobileAppDBWebServiceSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MobileAppDoRegister">
+      <wsdl:input message="tns:MobileAppDoRegisterSoapIn" />
+      <wsdl:output message="tns:MobileAppDoRegisterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveGameInformationAfterUserWin">
+      <wsdl:input message="tns:SaveGameInformationAfterUserWinSoapIn" />
+      <wsdl:output message="tns:SaveGameInformationAfterUserWinSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveSpinRequest">
+      <wsdl:input message="tns:SaveSpinRequestSoapIn" />
+      <wsdl:output message="tns:SaveSpinRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveSpin">
+      <wsdl:input message="tns:SaveSpinSoapIn" />
+      <wsdl:output message="tns:SaveSpinSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCollage">
+      <wsdl:input message="tns:SaveCollageSoapIn" />
+      <wsdl:output message="tns:SaveCollageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCollageEx">
+      <wsdl:input message="tns:SaveCollageExSoapIn" />
+      <wsdl:output message="tns:SaveCollageExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFavour">
+      <wsdl:input message="tns:RemoveFavourSoapIn" />
+      <wsdl:output message="tns:RemoveFavourSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveFavour">
+      <wsdl:input message="tns:SaveFavourSoapIn" />
+      <wsdl:output message="tns:SaveFavourSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MobileAppDBWebServiceSoap" type="tns:MobileAppDBWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MobileAppDoRegister">
+      <soap:operation soapAction="http://tempuri.org/MobileAppDoRegister" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveGameInformationAfterUserWin">
+      <soap:operation soapAction="http://tempuri.org/SaveGameInformationAfterUserWin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSpinRequest">
+      <soap:operation soapAction="http://tempuri.org/SaveSpinRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSpin">
+      <soap:operation soapAction="http://tempuri.org/SaveSpin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCollage">
+      <soap:operation soapAction="http://tempuri.org/SaveCollage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCollageEx">
+      <soap:operation soapAction="http://tempuri.org/SaveCollageEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFavour">
+      <soap:operation soapAction="http://tempuri.org/RemoveFavour" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveFavour">
+      <soap:operation soapAction="http://tempuri.org/SaveFavour" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MobileAppDBWebServiceSoap12" type="tns:MobileAppDBWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MobileAppDoRegister">
+      <soap12:operation soapAction="http://tempuri.org/MobileAppDoRegister" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveGameInformationAfterUserWin">
+      <soap12:operation soapAction="http://tempuri.org/SaveGameInformationAfterUserWin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSpinRequest">
+      <soap12:operation soapAction="http://tempuri.org/SaveSpinRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSpin">
+      <soap12:operation soapAction="http://tempuri.org/SaveSpin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCollage">
+      <soap12:operation soapAction="http://tempuri.org/SaveCollage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCollageEx">
+      <soap12:operation soapAction="http://tempuri.org/SaveCollageEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFavour">
+      <soap12:operation soapAction="http://tempuri.org/RemoveFavour" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveFavour">
+      <soap12:operation soapAction="http://tempuri.org/SaveFavour" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MobileAppDBWebService">
+    <wsdl:port name="MobileAppDBWebServiceSoap" binding="tns:MobileAppDBWebServiceSoap">
+      <soap:address location="http://localhost:52058/MobileAppDBWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MobileAppDBWebServiceSoap12" binding="tns:MobileAppDBWebServiceSoap12">
+      <soap12:address location="http://localhost:52058/MobileAppDBWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

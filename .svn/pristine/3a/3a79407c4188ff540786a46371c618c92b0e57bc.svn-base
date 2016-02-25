@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	 <link rel="stylesheet" href="../Css/index.css" />
+	<link rel="stylesheet" href="../Css/buyall.css" />
+	<link rel="stylesheet" href="../Css/mycart-new.css" />
+	<script src="../Js/jquery.min.js" type="text/javascript"></script>
+	<script src="../Js/qtab.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../Js/jquery-hcheckbox.js"></script>
+	<link rel="stylesheet" href="../Css/selectCss.css" />
+	<script src="../Js/jquery.placeholder.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../Js/selectNav.js"></script>
+	<script type="text/javascript" src="../Js/public.js"></script>
+	<script type="text/javascript" src="../Js/addnumber.js"></script>
+	<script type="text/javascript" src="../Js/pop-up-cart.js"></script>
+	<script type="text/javascript" src="../Js/shopcarFloat.js"></script>
+
+</head>
+<body>
+
+
+<!--  Items List -->
+<div class="w975  commodities-list">
+	<div class="title clearfix">
+		<h2 class="t">
+			 Items List
+		</h2>
+	</div>
+	<div class="list-t clearfix">
+		<span class="fl">
+			Ship From China
+		</span>	
+      <span class="fr">Pay only this seller</span>	
+	</div>
+	<div class="list-con clearfix">
+		<table>
+			<tr>
+				<th class="pro-infor" colspan="2">Product Information</th>
+				<th class="pro-zt">Status</th>
+                <th class="pro-num">Quantity</th>
+               <th class="pro-price">Unit Price</th>
+               <th class="pro-ship">Shipping day</th>
+               <th class="pro-price">Shipping fee</th>
+				<th class="pro-total">Sub-Total</th>
+			</tr>
+			<tr>
+				<td class="first">
+               
+					<a href="#" class="imglink fr">
+							<img src="images/80x80.jpg" alt="" width="55" height="55"/>
+						</a><br />
+                         <a href="#" class="delete fr" >Delete</a>
+				</td>
+				<td>
+					<div class="des-box">
+						<a href="#">New Fashion Leather Shoe...</a><br />
+							<span>Color：Black</span>    <span>Size：43</span>
+					</div>
+				</td>						
+				<td class="pro-zt">Test-Sale</td>
+   
+                <td class="pro-num">1</td>
+                <td class="pro-price">$599.00</td>
+                <td class="pro-ship"><div class="select-wuliu">
+				<i class="showUl"></i>
+				<h2>
+			 $35.70ea 15-40 days
+				</h2>
+				<ul>
+					<li>
+				$30.70ea 15-30 days
+					</li>
+					<li>
+				$25.70ea 15-20 days
+					</li>
+					<li>
+					$5.70ea 5-10 days
+					</li>
+				</ul>	
+			</div></td>
+                <td class="pro-price">$599.00</td>
+				<td class="pro-total"><strong>$</strong><strong>550.00</strong></td>
+			</tr>
+			<tr>
+				<td class="first">
+
+					<a href="#" class="imglink fr">
+							<img src="images/80x80.jpg" alt="" width="55" height="55"/></a><br />
+                         <a href="#" class="delete fr" >Delete</a>
+				</td>
+				<td>
+					<div class="des-box">
+						<a href="#">New Fashion Leather Shoe...</a><br />
+							<span>Color：Black</span>    <span>Size：43</span>
+					</div>
+				</td>
+				<td class="pro-zt">Test-Sale</td>
+                <td class="pro-num">1</td>
+                <td class="pro-price">$599.00</td>
+                <td class="pro-ship"><div class="select-wuliu">
+				<i class="showUl"></i>
+				<h2>
+			 $35.70ea 15-40 days
+				</h2>
+				<ul>
+					<li>
+				$30.70ea 15-30 days
+					</li>
+					<li>
+				$25.70ea 15-20 days
+					</li>
+					<li>
+					$5.70ea 5-10 days
+					</li>
+				</ul>	
+			</div></td>
+                <td class="pro-price">$599.00</td>
+				<td class="pro-total">$550.00</td>
+			</tr>
+		</table>
+
+		<!-- 备注 he 快递-->
+		<div class="beizhu clearfix">
+			<input type="text" class="beizhu-txt fr" placeholder="Buyer's remark"/>
+			
+			
+		
+		</div>
+
+	</div>
+	
+	<!-- 订单信息 -->
+	<div class="orderInfor clearfix">
+   
+			<div class="item1 fr">
+               <table width="100%" border="0">
+  <tbody>
+  <tr>
+      <td width="190">Subtotal (4 items): </td>
+      <td  class="td1">$102.11</td>
+    </tr>
+    <tr>
+      <td>Shipping cost:</td>
+      <td  class="td1">$10.95</td>
+    </tr>
+    <tr>
+      <td>Sales tax 13%:</td>
+      <td  class="td1">$4.76</td>
+    </tr>
+    <tr>
+      <td><strong>Order Total</strong></td>
+      <td  class="td1"><b>$1,541.63</b></td>
+    </tr>
+  </tbody>
+</table>	</div>
+			<div class="clear"></div>
+			<div class="item2 fr">
+				*Reminder：Your order contains Test-Sale item(s) which have a test period of 60 days.  If product(s) does not reach the Test-Sale goal, <br />your order for that item(s) will be cancelled and refunded 100%.  Check box to indicate your acceptance of these Test-Sale terms. <label>
+                	<input type="checkbox"   checked="checked"  />Acknowledged 
+                </label>
+			</div>
+
+			<div class="item3">
+				<a href="#" class="returnCar">Back to Cart</a>
+				<a href="#" ><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" alt="Check out with PayPal" class="gotoPay"/>
+				</a>
+			</div>
+	</div>
+</div></div>
+
+
+
+
+
+
+
+	
+
+<!-- 浮动在线咨询 -->
+<div id="floatALink">
+	<a href="#" class="zxzz">
+		Online<br>Help</a>
+	<a href="#" id="gotoTop">
+		Back<br>to Top</a>
+</div>
+<!-- 浮动在线咨询 -->
+
+
+<!-- 支付结果弹出kuang -->
+<div class="pay-result-tck">
+	<a href="javascript:;" class="closeBtn"></a>
+	<span class="item pay-ok fl">
+		<span class="icon">
+			
+			<strong>Payment Successful!</strong>
+		</span><br />
+		<a href="#" class="chakan-order">View Order</a>
+	</span>
+	<span class="item pay-no fr">
+		<span class="icon">
+			<strong>Payment Failed！</strong>
+		</span><br />
+		<a href="#" class="reset-pay">Reselect payment method</a><br />
+		<a href="#" class="pay-q">Payment problems</a>
+	</span>
+	<div class="clear"></div>
+	<div class="ps">
+		Share my purchase with all my friends！<a href="#" class="yellow-shareBtn">Share & Earn</a>
+	</div>
+
+</div>
+
+
+</body>
+
+<script type="text/javascript">
+		
+		$("input").placeholder()
+
+		// select 美化
+		$(".selects").selectCss(); 
+
+		//地址边框
+		$(".address-list").find("li").mouseenter(function(event) {
+			$(this).addClass('cur')
+		}).mouseleave(function(event) {
+			$(this).removeClass('cur')
+		});
+		
+		//Display all address
+		$(".show-all-address-btn").click(function(event) {
+			$(this).parent().siblings('ul').show();
+			return false;
+		});
+
+		$(".show-all-address").find("li").mouseenter(function(event) {
+			$(this).addClass('on')
+		}).mouseleave(function(event) {
+			$(this).removeClass('on')
+		});
+		
+		//Shipping Method 
+		$(".select-wuliu .showUl").click(function(event) {
+			$(this).siblings('ul').show();
+		});
+		$(".select-wuliu").find("li").mouseenter(function(event) {
+			$(this).addClass('on')
+		}).mouseleave(function(event) {
+			$(this).removeClass('on')
+		}).click(function(event) {
+			var THIS=$(this)
+			$(this).removeClass('on')
+			THIS.parent().siblings('h2').text(THIS.text())
+		});
+		$(".select-wuliu").mouseleave(function(event) {
+			$(this).find("ul").hide();
+		});
+		//
+		//点击Check Out。弹出支付方式
+		$(".orderInfor .gotoPay").click(function(event) {
+			$(".greybox").show();
+			$(".payment-methods").show();
+			return false;
+		});
+
+		//支付方式里面的 去支付
+		$(".payment-methods .gotoPay").click(function(event) {
+			$(".payment-methods").hide()
+			$(".pay-result-tck").show();
+		});
+
+
+		//增加地址
+		$(".add-new-address > a").click(function(event) {
+			$(".greybox,.add-new-address-box").show();
+			$(".add-new-address-box").find('h2').text("Add delivery address")
+			return false;
+		});
+		$(".send").click(function(event) {
+			$(".greybox,.add-new-address-box").hide();
+		});
+
+		//EditDelivery address
+		$(".change-address-btn").live('click', function(event) {
+			$(".add-new-address-box").find('h2').text("EditDelivery address")
+			$(".greybox,.add-new-address-box").show();
+			return false;
+		});
+
+</script>
+
+</html>

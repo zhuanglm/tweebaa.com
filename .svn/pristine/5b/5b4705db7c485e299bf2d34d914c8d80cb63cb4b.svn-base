@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>提交成功等待初审的邮件内容</title>
+     <link href="#url#/Css/index.css" rel="stylesheet" type="text/css" />
+</head>
+<body bgcolor="#90E4FD">
+<table width="700" border="0" cellspacing="0" cellpadding="0" style="margin:0 auto;color: #666;font-family: 'open_sansregular';">
+  <tr>
+    <td style="background-color: #fff;">
+    	   <div style="margin: 0 20px;border-bottom:1px solid #E1E1E1;padding: 15px 0;">
+            <a href="#"><img src="#url#/images/logo2.png" alt="" style="margin: 0 10px;"></a> 
+         </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #fff;">
+         <div style="margin:0 40px;line-height:14px;padding-bottom:15px;">
+              <p style="font-size:18px;line-height:18px;margin:20px 0;">Dear #username#</p>
+         
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px;">Thank you for suggesting to Tweebaa!  Please be patient as our team reviews your suggestion.<br>If we determine that your suggestion is a great fit for Tweebaa, it will enter the Tweebaa Evaluation stage (where our members can evaluate the product and vote on whether it advances to our Sales stage).</p>
+
+              <p style="font-size:14px;line-height:18px;padding-bottom:8px;">You may log back into your Tweebaa account at any time to check the status of your suggestion, or click the following link:<br>
+                  <a href="#url#/product/submitReview.aspx?id=#proid#" style="color:#0072C9">
+                      #url#product/submitReview.aspx?id=#proid#
+                  <br>(If the above link doesn't open, try copying/pasting the link into your browser).
+
+              </p>
+
+              <p style="font-size:14px;margin-bottom:30px;">Everybody Earns.  Tweebaa. </p>
+
+              <p style="font-size:14px;line-height:18px;">(This is an automated message, please do not reply)</p>
+         </div>
+    </td>
+  </tr>
+ 
+</table>
+
+</body>
+</html>

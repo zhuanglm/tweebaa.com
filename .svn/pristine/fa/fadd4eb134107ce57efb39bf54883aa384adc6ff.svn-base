@@ -1,0 +1,694 @@
+﻿<%@ Page Title=""  Language="C#" MasterPageFile="~/MasterPages/Home.Master" AutoEventWireup="true" CodeBehind="AccountSettings.aspx.cs" Inherits="TweebaaWebApp2.Home.AccountSettings" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+
+    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/home.css" />
+    <script src="../js/jquery.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.placeholder.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/jquery-hcheckbox.js"></script>
+    <script src="../js/selectNav.js" type="text/javascript"></script>
+    <script src="../js/homePage.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../css/selectCss.css" />
+    <script src="../js/selectCss.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/public.js"></script>
+    <script type="text/javascript" src="../js/home-safe.js"></script>
+    <script type="text/javascript" src="../MethodJs/register.js"></script>
+    <script src="../Js/reg.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../MethodJs/homeSafe.js"></script>
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+
+<div class="col-md-9">
+         <h2><span aria-hidden="true" class="glyphicon glyphicon-user"></span> Account Setting</h2> 
+  <div class="profile-body"> 
+     <div class="tab-v1">
+                            <ul class="nav nav-justified nav-tabs">
+                                <!--li class="active"><a data-toggle="tab" href="#profile">Edit Profile</a></li-->
+                                <li class="active"><a data-toggle="tab" href="#passwordTab">Security Setting</a></li>
+                                <li><a data-toggle="tab" href="#payment">Payment Options</a></li>
+                            <!--    <li><a data-toggle="tab" href="#settings">Notification Settings</a></li> -->
+                            </ul>          
+                            <div class="tab-content">
+                                <!--div id="profile" class="profile-edit tab-pane fade in active">
+                                    <h2 class="heading-md">Manage your Name, ID and Email Addresses.</h2>
+                                    <p>Below are the name and email addresses on file for your account.</p>
+                                    <br>
+                                    <dl class="dl-horizontal">
+                                        <dt><strong>Your name </strong></dt>
+                                        <dd>
+                                            Edward Rooster 
+                                            <span>
+                                                <a class="pull-right" href="#">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                        </dd>
+                                        <hr>
+                                        <dt><strong>Your ID </strong></dt>
+                                        <dd>
+                                            FKJ-032440 
+                                           
+                                        </dd>
+                                        <hr>
+                                        <dt><strong>Company name </strong></dt>
+                                        <dd>
+                                            Htmlstream 
+                                            <span>
+                                                <a class="pull-right" href="#">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                        </dd>
+                                        <hr>
+                                        <dt><strong>Primary Email Address </strong></dt>
+                                        <dd>
+                                            edward-rooster@gmail.com 
+                                            <span>
+                                                <a class="pull-right" href="#">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                        </dd>
+                                        <hr>
+                                        <dt><strong>Phone Number </strong></dt>
+                                        <dd>
+                                            (304) 33-2867-499 
+                                            <span>
+                                                <a class="pull-right" href="#">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                        </dd>
+                                        <hr>
+                                        <dt><strong>Office Number </strong></dt>
+                                        <dd>
+                                            (304) 44-9810-296 
+                                            <span>
+                                                <a class="pull-right" href="#">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                        </dd>
+                                        <hr>
+                                        <dt><strong>Address </strong></dt>
+                                        <dd>
+                                            California, US 
+                                            <span>
+                                                <a class="pull-right" href="#">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                        </dd>
+                                        <hr>
+                                    </dl>
+                                    <button type="button" class="btn-u btn-u-default">Cancel</button>
+                                    <button type="button" class="btn-u">Save Changes</button>
+                                </div-->
+
+                                <div id="passwordTab" class="profile-edit tab-pane fade in active">
+                                <!--
+                                    <h2 class="heading-md">Manage your Security Settings</h2>
+                                    <p>Change your password.</p>
+                                    </br>
+                                    <form class="sky-form" id="sky-form4" action="#">
+                                        <dl class="dl-horizontal">
+                                            <dt>Username</dt>
+                                            <dd>
+                                                <section>
+                                                    <label class="input">
+                                                        <i class="icon-append fa fa-user"></i>
+                                                        <input type="text" placeholder="Username" name="username">
+                                                        <b class="tooltip tooltip-bottom-right">Needed to enter the website</b>
+                                                    </label>
+                                                </section>
+                                            </dd>
+                                            <dt>Email address</dt>
+                                            <dd>
+                                                <section>
+                                                    <label class="input">
+                                                        <i class="icon-append fa fa-envelope"></i>
+                                                        <input type="email" placeholder="Email address" name="email">
+                                                        <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
+                                                    </label>
+                                                </section>
+                                            </dd>
+                                            <dt>Enter your password</dt>
+                                            <dd>
+                                                <section>
+                                                    <label class="input">
+                                                        <i class="icon-append fa fa-lock"></i>
+                                                        <input type="password" id="password" name="password" placeholder="Password">
+                                                        <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                                                    </label>
+                                                </section>
+                                            </dd>
+                                            <dt>Confirm Password</dt>
+                                            <dd>
+                                                <section>
+                                                    <label class="input">
+                                                        <i class="icon-append fa fa-lock"></i>
+                                                        <input type="password" name="passwordConfirm" placeholder="Confirm password">
+                                                        <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                                                    </label>
+                                                </section>
+                                            </dd>    
+                                        </dl>
+                                     
+                                        </br>
+                                        <section>
+                                            <label class="checkbox"><input type="checkbox" id="terms" name="terms"><i></i><a href="#">I agree with the Terms and Conditions</a></label>
+                                        </section>
+                                        <button type="button" class="btn-u btn-u-default">Cancel</button>
+                                        <button class="btn-u" type="submit">Save Changes</button>
+                                    </form>    
+                                    -->
+                                       <div class="home-main fl">
+        <div class="safe-main">
+            <h2 class="t">Security Setting</h2>
+            <p class="t">Your personal information is kept confidential by Tweebaa</p>
+           <!--  Hide this bar base on issue #38
+            <div class="your-account-level">
+                <span class="t fl">Security Level </span><b class="fl">&nbsp; Low</b>
+                <span class="jdt fl">
+                    <i id="safe-level" style="width: 30%;"></i>
+                </span>
+            </div>
+            -->
+            <ul>
+                <li style="display:none;">
+                    <div id="phone-container" class="clearfix">
+                        <i class="error"></i>
+                        <b id="phone-safe-state">不安全</b>
+                        <span id="phone">绑定手机号</span>
+                        <b id="phone-state">未设置</b>
+                        <a href="#" class="setBtn">设置</a>
+                    </div>
+                    <form>
+                        <div class="setbox">
+                            <table width="100%">
+                                <tr>
+                                    <td class="t">
+                                        <strong>请输入手机号</strong>
+                                    </td>
+                                    <td>
+                                        <input id="txtPhone" type="text" class="txt safe-tel" />
+                                        <span class="error">请输入正确的手机号码</span>
+                                        <span class="ok">ok</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a id="btnPhoneNext" href="#" class="setbtn">下一步</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </li>
+                <li>
+                    <div id="email-container" class="clearfix">
+                        <i class="error"></i>
+                        <b id="email-safe-state">Danger</b>
+                        <span id="email">Email Address</span>
+                        <b id="email-state" style=" width:150px;">Not Verify</b>
+                        <a href="#" class="setBtn">Change email</a>
+                    </div>
+                    <form>
+                        <div class="setbox">
+                            <table width="100%">
+                                <tr><td colspan="2"> To change the email address on your account, enter the NEW email address below, then we’ll send a verification email to that account</td></tr>
+                                <tr>
+                                    <td class="t">
+                                        <strong>Email Address</strong>
+                                    </td>
+                                    <td>
+                                        <input id="txtEMail_new" type="text" class="txt safe-email" />
+                                        <span class="error">Please enter a valid email address</span>
+                                        <span class="ok">ok</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a id="btnEmail" href="#" class="setbtn">Verify email address</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </li>
+                <li>
+                    <div class="clearfix">
+                        <i class="ok"></i>
+                        <b>Safe</b>
+                        <span>Password</span>
+                        <b style=" width:150px;">Already Setup</b>
+                        <a href="#" class="setBtn">Change Password</a>
+                    </div>
+                    <form>
+                        <div class="setbox" style="height: auto;">
+                            <table width="100%">
+                                <tr>
+                                    <td class="t">
+                                        <strong>Current Password</strong>
+                                    </td>
+                                    <td>
+                                        <input type="password" class="txt" id="txtPwd" />
+                                        <span class="error">Current Password</span>
+                                        <span class="ok">ok</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="t">
+                                        <strong>New Password</strong>
+                                    </td>
+                                    <td>
+                                        <input type="password" class="txt set-pwd1" id="txtPwdNew1" />
+                                       <%-- <span class="error">Retype Password</span>
+                                        <span class="ok">ok</span>--%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="t">
+                                        <strong>Retype Password</strong>
+                                    </td>
+                                    <td>
+                                        <input type="password" class="txt set-pwd2" id="txtPwdNew2" />
+                                        <%--<span class="error">Password not match</span>
+                                        <span class="ok">ok</span>--%>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="t">
+                                        <strong>Verify Code</strong>
+                                    </td>
+                                    <td>
+                                        <div class="email-yzm fl yzm-style">
+                                            <input type="text" id="ValiCode1"  class="txt yzm" />                         
+                                            <div style="float: left;">
+                                                <label id="code" style="float: left; text-align:center; width: 70px; font-size:18px; letter-spacing:2px; color:Blue; line-height:28px;  font-weight:bold; font-family:Arial; font-style:italic; background-image: url(../Images/yzm.png);">
+                                                </label>
+                                                <a href="javascript:void(0)"  style=" color:#007fd8; width:120px;" onclick="CreateCode()">Get another code</a>
+                                            </div>
+                                        </div>
+
+
+                                        <span class="error">Retype password</span>
+                                        <span class="ok">ok</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="javascript:;" onclick="UpdatePwd()" class="setbtn">Confirm</a>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </form>
+                </li>
+                <li style="display: none">
+                    <div class="clearfix">
+                        <i class="ok"></i>
+                        <b>Safe</b>
+                        <span>Security Question</span>
+                        <b>Already Setup</b>
+                        <a href="#" class="setBtn">Setting</a>
+                    </div>
+                    <form action="">
+                        <div class="setbox">
+                            <table width="100%">
+                                <tr>
+                                    <td class="t">
+                                        <strong>Select security question</strong>
+                                    </td>
+                                    <td>
+
+                                        <div class="safe-q-box pr">
+                                            <i class="selectBtn"></i>
+                                            <input type="text" class="txt safe-q" />
+                                            <dl>
+                                                <dd>
+                                                    <a href="#">Your father name is</a>
+                                                </dd>
+                                                <dd>
+                                                    <a href="#">Your mother name is</a>
+                                                </dd>
+                                                <dd>
+                                                    <a href="#">Your birthday is</a>
+                                                </dd>
+                                                <dd>
+                                                    <a href="#">Your favorite pet name is</a>
+                                                </dd>
+                                            </dl>
+                                        </div>
+
+                                        <span class="error">Please enter correct security question</span>
+                                        <span class="ok">ok</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="t">
+                                        <strong>Enter</strong>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="txt" />
+                                        <span class="error">Enter correct answer</span>
+                                        <span class="ok">ok</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="#" class="setbtn" onclick="modifyPwd()">Confirm</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+                                </div>
+
+                                <div id="payment" class="profile-edit tab-pane fade">
+                                <!--
+                                    <h2 class="heading-md">Manage your Payment Settings</h2>
+                                    <p>Below are the payment options for your account.</p>
+                                    </br>
+                                    <form class="sky-form" id="sky-form" action="#">
+                                        
+                                        <section>
+                                            <div class="inline-group">
+                                                <label class="radio"><input type="radio" checked="" name="radio-inline"><i class="rounded-x"></i>Visa</label>
+                                                <label class="radio"><input type="radio" name="radio-inline"><i class="rounded-x"></i>MasterCard</label>
+                                                <label class="radio"><input type="radio" name="radio-inline"><i class="rounded-x"></i>PayPal</label>
+                                            </div>
+                                        </section>                  
+
+                                        <section>
+                                            <label class="input">
+                                                <input type="text" name="name" placeholder="Name on card">
+                                            </label>
+                                        </section>
+                                        
+                                        <div class="row">
+                                            <section class="col col-10">
+                                                <label class="input">
+                                                    <input type="text" name="card" id="card" placeholder="Card number">
+                                                </label>
+                                            </section>
+                                            <section class="col col-2">
+                                                <label class="input">
+                                                    <input type="text" name="cvv" id="cvv" placeholder="CVV2">
+                                                </label>
+                                            </section>
+                                        </div>                                        
+                                        
+                                        <div class="row">
+                                            <label class="label col col-4">Expiration date</label>
+                                            <section class="col col-5">
+                                                <label class="select">
+                                                    <select name="month">
+                                                        <option disabled="" selected="" value="0">Month</option>
+                                                        <option value="1">January</option>
+                                                        <option value="1">February</option>
+                                                        <option value="3">March</option>
+                                                        <option value="4">April</option>
+                                                        <option value="5">May</option>
+                                                        <option value="6">June</option>
+                                                        <option value="7">July</option>
+                                                        <option value="8">August</option>
+                                                        <option value="9">September</option>
+                                                        <option value="10">October</option>
+                                                        <option value="11">November</option>
+                                                        <option value="12">December</option>
+                                                    </select>
+                                                    <i></i>
+                                                </label>
+                                            </section>
+                                            <section class="col col-3">
+                                                <label class="input">
+                                                    <input type="text" placeholder="Year" id="year" name="year">
+                                                </label>
+                                            </section>
+                                        </div>
+                                        <button type="button" class="btn-u btn-u-default">Cancel</button>
+                                        <button class="btn-u" type="submit">Save Changes</button>
+                                       
+                                    </form>    
+                                -->
+
+                                  <form id="form1" class="sky-form" runat="server">
+    <div class="home-main binding  fl">
+    <h2 class="t">My payment method</h2>
+    <div class="binding-main">
+     <h3>NOTE：</h3>
+              	<p class="tip">  You do not need to link your PayPal account to pay for Tweebaa purchases.  You would only need to link it to redeem commission earnings (“TweeBucks”) for cash.  Your PayPal info will be treated confidentially.</p>
+        <table cellspacing="0" cellpadding="0" border="0" widht="100%">
+            <tr>
+                <td class="t">
+                    Account Link
+                </td>
+                <td colspan="2">
+                    <img src="/Images/paypal.jpg" />
+          
+                </td>
+            </tr>
+            <tr>
+                <td class="t" style="width:130px;">Your first name <span style="color:red;">*</span></td>
+                <td>
+                    <input type="hidden" runat="server" id="hidUserid" />
+                    <input type="hidden" runat="server" id="hidOption" />
+                    <input type="hidden" runat="server" id="hidAccountId" />
+                    <input type="text" runat="server" id="txtFirstName" class="txt textZip" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="t">Your last name <span style="color:red;">*</span></td>
+                <td>
+                    <input type="text" runat="server" id="txtLastName" class="txt textZip" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="t">Paypal email address <span style="color:red;">*</span></td>
+                <td>
+                    <input type="text" runat="server" id="txtPayPalAccount" class="txt textZip" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="t">Email <span style="color:red;">*</span></td>
+                <td>
+                    <input type="text" runat="server" id="txtEmail" class="txt textZip" />
+                </td>
+                <td style="color:red;">Click on "Get code" to send verification code to this email</td>
+            </tr>
+            <tr>
+                <td class="t">Verification code <span style="color:red;">*</span></td>
+                <td>
+                    <input type="text" runat="server" id="txtCode" class="txt textZip" />
+                </td>
+                <td>
+                    <input type="button" onclick="Send()" value="Get code" class="send" style="cursor:pointer;">
+                    <span style="color:red; display:none;" id="emailSendSuc">Email has been sent</span>
+                    <span style="color:red; display:none;" id="emailSendFal">Email sent fail</span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">
+                    <input type="checkbox" id="chk" />
+                  I have read and agree to <a href="/College/TweeBuck.aspx" target="_blank">TweeBuck Activities Terms & Conditions</a>
+                  <!--  <a href="#" target="_top" class="blue">
+                        《TweeBaa Gains agreement》
+                    </a> -->
+                </td>
+            </tr>
+            <tr>
+			<td class="t">
+			</td>
+			<td>
+                 <input type="button" class="send bind" style="cursor:pointer;" id="btnBind" onclick="javascript: Save();" value="Link Account" />
+            </td>
+                <td>
+                    <input type="button" class="send bind" style="cursor:pointer;" id="btnUnBind" onclick="javascript: Unbind();" value="Unbind Account" />
+                </td>
+		</tr>
+        </table>
+        <script type="text/javascript">
+
+            $(function () {
+                UnbindShow();
+            })
+
+            function UnbindShow() {
+                var id = $.trim($("#hidAccountId").val());
+                if (id == '') {
+                    $("#btnUnBind").hide();
+                } else {
+                    $("#btnUnBind").show();
+                }
+            }
+
+            function Unbind() {
+                if (window.confirm("Are you sure unbind your current account ?")) {
+                    var id = $.trim($("#hidAccountId").val());
+                    var res = TweebaaWebApp2.Home.AccountSettings.Unbind(id).value;
+                    if (res == "success") { alert('Unbind account success .'); }
+                    else { alert('Unbind account fail .'); }
+                }
+            }
+
+            function Save() {
+                if (verfy()) {
+                    var firstName = $.trim($("#[id$=txtFirstName]").val());
+                    var lastName = $.trim($("#[id$=txtLastName]").val());
+                    var account = $.trim($("#[id$=txtPayPalAccount]").val());
+                    var email = $.trim($("#[id$=txtEmail]").val());
+                    var code = $.trim($("#[id$=txtCode]").val());
+                    var op = $.trim($("#hidOption").val());
+                    var userid = $.trim($("#hidUserid").val());
+                    var res = TweebaaWebApp2.Home.AccountSettings.Save(op, userid, firstName, lastName, account, email, code).value;
+                    if (res == "addsuccess") { alert('bind account success !'); $("#txtCode").val(''); return false; }
+                    if (res == "fail" || res == "nooption") { alert('bind account fail !'); return false; }
+                    if (res == "nouser") { alert('please relogin !'); return false; }
+                    if (res == "nodata") { alert('please input verfinication code !'); return false; }
+                    if (res == "codeerror") { alert('verfinication code is wrong !'); return false; }
+                    if (res == "updatesuccess") { alert('update bind account success !'); $("#txtCode").val(''); return false; }
+                }
+            }
+
+            function Send() {
+                var userid = $("#hidUserid").val();
+                var email = $.trim($("[id$=txtEmail]").val());
+                console.log("email for paypal=" + email);
+                if (email == '') { alert('please input your email'); return false; }
+                //对电子邮件的验证
+                var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if (!myreg.test(email)) { alert('please input correct email'); return false; }
+                var res = TweebaaWebApp2.Home.AccountSettings.GetCode(email, userid).value;
+                if (res == 'emailsuccess') {
+                    $("#emailSendSuc").css("display", "block");
+                } else {
+                    $("#emailSendFal").css("display", "block");
+                }
+            }
+
+            function filter(str) {
+                str = str.replace(/<\/?[^>]*>/g, '');
+                return str;
+            }
+
+            function verfy() {
+                var firstName = $.trim($("#txtFirstName").val());
+                var lastName = $.trim($("#txtLastName").val());
+                var account = $.trim($("#txtPayPalAccount").val());
+                var email = $.trim($("#txtEmail").val());
+                var code = $.trim($("#txtCode").val());
+                var chked = $("#chk").attr("checked");
+                if (chked != 'checked') { alert('please aggree to the agreement'); return false; }
+                if (firstName == '') { alert('please input first name'); return false; }
+                if (lastName == '') { alert('please input last name'); return false; }
+                if (account == '') { alert('please input paypal account'); return false; }
+                if (email == '') { alert('please input your email'); return false; }
+                //对电子邮件的验证
+                var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if (!myreg.test(email)) { alert('please input correct email'); return false; }
+                if (code == '') { alert('please input verification code'); return false; }
+                return true;
+            }
+        </script>
+    </div></div>
+    </form>
+                                </div>
+
+                                <div id="settings" class="profile-edit tab-pane fade">
+                                    <h2 class="heading-md">Manage your Notifications.</h2>
+                                    <p>Below are the notifications you may manage.</p>
+                                    </br>
+                                    <form class="sky-form" id="sky-form" action="#">
+                                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i></i>Email notification</label>
+                                      
+                                        <hr>
+                                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i></i>Send me email notification for the latest update</label>
+                                        <hr>
+                                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i></i>Send me email notification when a user sends me message</label>
+                                        <hr>
+                                        <label class="toggle"><input type="checkbox" checked="" name="checkbox-toggle-1"><i></i>Receive our monthly newsletter</label>
+                                        <hr>    
+                                        <button type="button" class="btn-u btn-u-default">Reset</button>
+                                        <button class="btn-u" type="submit">Save Changes</button>
+                                    </form>    
+                                </div>
+                            </div>
+               
+                  </div>
+                          
+        </div>
+                                 
+                        </div>
+
+
+<script type="text/javascript">
+    $(function () {
+        //显示设置内容
+        $(".setBtn").each(function (index, el) {
+            $(this).click(function () {
+
+                console.log('index=' + index);
+                if (!$(this).hasClass('on')) {
+                    $(this).text('Hide')
+                    $(this).addClass('on').parents("li").find(".setbox").show();
+                } else {
+                    if (index == 1) {
+                        $(this).text('Change emai')
+                    } else {
+                        $(this).text('Change Password')
+                    }
+                    $(this).removeClass('on').parents("li").find(".setbox").hide();
+                }
+                return false;
+            })
+
+        });
+        //问题下拉
+        $(".selectBtn").click(function () {
+            if (!$(this).siblings('dl').hasClass('db')) {
+                $(this).siblings('dl').addClass('db').show();
+            } else {
+                $(this).siblings('dl').removeClass('db').hide();
+            }
+
+        })
+        $(".safe-q-box").mouseleave(function (event) {
+            $(this).find('dl').removeClass('db').hide();
+        });
+        $(".safe-q-box").find("dl a").click(function (event) {
+            $(".safe-q").val($(this).text())
+
+            return false;
+        });
+    })
+
+
+</script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#upload").change(function () {
+                $("#upload-state").show();
+                $("#personal-upload-form").submit();
+            });
+        });
+    </script>
+</asp:Content>

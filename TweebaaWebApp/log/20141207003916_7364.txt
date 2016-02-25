@@ -1,0 +1,1 @@
+Procedure or function 'Prc_User_Reg2' expects parameter '@userName', which was not supplied.

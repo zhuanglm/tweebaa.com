@@ -1,0 +1,143 @@
+﻿ <!doctype html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Tweebaa Order Confirmation #order_number#</title>
+                                                                                                                                                                                                                                                                                                                                                                                                            
+    <style type="text/css">
+        .ReadMsgBody {width: 100%; background-color: #ffffff;}
+        .ExternalClass {width: 100%; background-color: #ffffff;}
+        body     {width: 100%; background-color: #ffffff; margin:0; padding:0; -webkit-font-smoothing: antialiased;font-family: Arial, Helvetica, sans-serif}
+        table {border-collapse: collapse;}
+        
+        @media only screen and (max-width: 640px)  {
+                        body[yahoo] .deviceWidth {width:440px!important; padding:0;}    
+                        body[yahoo] .center {text-align: center!important;}  
+                }
+                
+        @media only screen and (max-width: 479px) {
+                        body[yahoo] .deviceWidth {width:420px!important; padding:0;}    
+                        body[yahoo] .center {text-align: center!important;}  
+                }
+    </style>
+    </head>
+    <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" yahoo="fix" style="font-family: Arial, Helvetica, sans-serif">
+
+    <!-- Wrapper -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+        <tr>
+            <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+                
+            <!--Start Header-->
+            <table width="700" bgcolor="#fff" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+                <tr>
+                    <td style="padding: 6px 0px 0px">
+                        <table width="680" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+                            <tr>
+                                <td width="100%" >
+                                    <!--Start logo-->
+                                    <table  border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+                                        <tr>
+                                            <td class="center" style="padding: 10px 0px 30px 0px">
+                                                <a href="https://tweebaa.com"><img src="https://tweebaa.com/images/logo.png" /></a>
+                                            </td>
+                                        </tr>
+                                    </table><!--End logo-->
+                                
+                                </td>
+                            </tr>
+                        </table>
+                   </td>
+                </tr>
+            </table> 
+            <!--End Header-->
+
+ <!--Start Midlle Picture -->
+                <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+                    <tr>
+                        <td class="center">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth" bgcolor="#fff"> 
+                             
+                                <tr>
+                                    <td  class="center" style="font-size: 14px; color: #666; font-weight: bold; text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 25px; vertical-align: top; padding:15PX; " >
+                                    Dear #useremail#<br/>
+                                    Thank you for your order !<br/>
+                                   
+                                     Order Number: #order_number#<br/>
+                                     Order Date: #order_date#<br/>
+                                     Payment Method: #payment_method#<br/>
+                                
+                                      
+                                  
+                                     
+ </td></tr>  <tr>
+ <td  style="font-size: 13px; color: #666; text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 23px; vertical-align:top; padding: 15px; background-color: #FAFAFA  ;" >
+                                     Ship to:<br/>
+                               #shipping_address#
+</td>
+ 
+  </tr>
+  <tr>
+                                    <td  class="center" style="font-size: 14px; color: #666;  text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 25px; vertical-align: middle; padding: 20px 20px 0; " >
+                If there are items from your order that are not listed below, you will receive an email-notification of the shipment when it occurs. <div style="width:100%; margin-bottom:20px"></div>
+
+ </td> </tr>
+  </table>
+ </td>  
+                        </tr>     
+                </table>
+                <!--End Midlle Picture -->
+  <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+                    <tr>
+                        <td class="center" style="font-size: 12px; color: #666;  text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 25px; vertical-align: middle; padding: 20px; line-height:18px;">
+                            <table  width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth" bgcolor="#fff">
+                         	<tr style="background-color:#F1F1F1;">
+						<th style="padding:10px;">Product Name</th>                      
+                        <th style="text-align:left; padding:10px;">QTY</th>	
+                        <th style="text-align:left; padding:10px;">Unit Price</th>	
+                        <th style="text-align:left; padding:10px;">Shipping Fee</th>
+                        <th style="text-align:left; padding:10px;">Sub-Total</th>
+                       
+                      
+                </tr>
+  #order_details#
+                                                                    
+                                                    
+                                                    
+                                                  
+                                                    </table>
+                        
+                        
+                        </td></tr></table>     
+                        
+                               <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+                    <tr>
+                        <td class="center">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth" bgcolor="#fff"> 
+                             
+                                <tr>
+                                    <td  class="center" style="font-size: 14px; color: #666; text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 25px; vertical-align: middle; padding: 10px 20px 0; " >
+     <br/>                             
+ <strong>Members: </strong>  You may also find up-to-date order and REWARD status by logging on to your account. <br/>
+ 
+  <strong>If you are not a member, or if you checked out as a “guest”: </strong> Membership is FREE, and Tweebaa members can earn UP TO 10% COMMISSION just by recommending Tweebaa products to friends plus Shopping Reward points on every purchase. <div style="width:100%; margin-bottom:20px"></div>
+  
+<a href="https://tweebaa.com " >https://tweebaa.com </a><br>
+
+Please feel free to contact us at  <a href="mailto:support@tweebaa.com">support@tweebaa.com</a> with any questions.<br>
+
+Thank you for choosing Tweebaa.
+ 
+<p style="font-size:14px;line-height:18px;padding-top:20px;">(This is an automated message, please do not reply)</p>
+                                     
+ </td> </tr></table></td></tr></table>               
+                <div style="height:15px">&nbsp;</div><!-- divider-->
+
+            </td>
+        </tr>
+    </table> 
+    <!-- End Wrapper -->
+    </body>
+    
+
+</html>

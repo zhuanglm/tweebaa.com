@@ -1,0 +1,282 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="TweebaaWebApp2.User.register" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+Ready to start earning? Become a Tweebaa Member
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+  <link rel="stylesheet" href="../Css/index.css" />
+
+      <link rel="stylesheet" href="/css/pages/log-reg-v3.css">  
+
+	<link rel="stylesheet" href="../Css/selectCss.css" />
+    <script src="../Js/jquery.min.js" type="text/javascript"></script>  
+    <script type="text/javascript" src="../Js/jquery-hcheckbox.js"></script>
+    <script src="../Js/jquery.placeholder2.js" type="text/javascript"></script>
+    <!--
+    <script src="../Js/createCode.js" type="text/javascript"></script>
+   为啥用 register.js & /js/reg.js ??
+     <script src="../MethodJs/register.js" type="text/javascript"></script> -->
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+    <form runat="server" id="sky_form4" class="log-reg-block sky-form">
+        <div class="log-reg-v3 content margin-bottom-30">
+        <div class="container">
+            <div class="row">
+                
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                  <!--
+                    <form id="sky-form4" class="log-reg-block sky-form">
+                    -->
+                        <h2>Create New Account</h2>
+
+                        <div class="login-input reg-input">
+                      
+                            <label class="select margin-bottom-15">
+                                <select name="slCountry" class="form-control" runat="server" id="selectCountry" >
+                            <%--
+                            <option value="0" selected disabled>Choose Your Country</option>
+                            <option>China </option>
+                            <option>United States</option>
+                            <option>Canada</option>
+                            <option>Russian Federation</option>
+                            <option>Australia</option>--%>
+                                </select>
+                            </label>
+                       
+                            <section>
+                                <label class="input">
+                                    <input type="text" name="username" id="txtLoginName" maxlength="50" onchange="verfy('username',this)"  placeholder="Username" class="form-control">
+                                </label><span class="error" id="nameTip">Username does not meet criteria</span> <span class="ok" id="nameOk">ok</span>
+                            </section>                            
+                            <section>
+                                <label class="input">
+                                    <input type="email" name="email" id="txtEmail" maxlength="50" onchange="verfy('email',this)" placeholder="Email address" class="form-control">
+                                </label><span class="error" id="emailTip">Please enter a valid email address</span> <span class="ok" id="emailOk">ok</span>
+                            </section>                                
+                            <section>
+                                <label class="input">
+                                    <input type="password" name="password" placeholder="Password" id="txtPass" class="form-control">
+                                </label><span class="error" id="pwdTip">Must contain numbers and letters </span> <span class="ok" id="pwdOk">ok</span>
+                            </section>                                
+                            <section>
+                                <label class="input">
+                                    <input type="password" name="passwordConfirm" placeholder="Confirm password" id="txtPassAgain" class="form-control">
+                                    <span class="error" id="pwdTip2">Password does not match</span> <span class="ok">ok</span>
+                                </label>
+                            </section> 
+
+                            <section>
+                                 <label class="select margin-bottom-15">
+                                 <!--
+                                <select name="gender" class="form-control">
+                                    <option value="-1" selected disabled>Where did you hear about Tweebaa</option>
+                                    <option value="-2">Friend</option>
+                                    <option value="1">Online Advertisement</option>
+                                    <option value="2">Social Media post</option>
+                                    <option value="3">Newspaper</option>
+                                    <option value="4">Magazine</option>
+                                    <option value="5">Tradeshow</option>
+                                    <option value="7">Other</option>
+                                
+                                </select> -->
+                                 <select id="ddlway" class="form-control"  onchange="ChangeDDL(this)">
+                           <%=_knowWay %>
+                             </select>
+                        <script type="text/javascript">
+                            function ChangeDDL(obj) {
+                                var value = $(obj).find("option:selected").attr("value");
+                                if (value == "-2") {
+                                    $("#firendDiv").show();
+                                } else {
+                                    $("#firendDiv").hide();
+                                }
+                            }
+                        </script>
+                            </label>
+                            <div id="firendDiv" style="display:none; ">
+                    
+                        <input type="text" class="txt email" placeholder="Tell us your friend's email so we can send a reward."
+                            id="txtReferrerEmail" style="width:350px; padding-left:5px; color:Black" />
+                       <%-- <span class="error">Please enter a valid email address</span> <span class="ok">ok</span>--%>
+                    </div>
+                </section>
+                                      <div class="row">
+                                <div class="col-sm-6">
+                                    <section>
+                                        <label class="input">
+                                            <input type="text" id="ValiCode1" name="Verification" placeholder="Verification" class="form-control">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col-sm-6">
+                                 <label id="code" style="float: left; width: 70px; font-size:18px; background-image: url(../Images/yzm.png);">
+                                </label>
+                                <a href="javascript:void(0)" style=" line-height:40px" class="fl resetYzm" onclick="CreateCode()">Get another code</a>
+                                  <!-- <a style=" line-height:40px"> Get another code </a>   -->
+                                </div>
+                            </div>                               
+                        </div>
+
+                   
+                        <label class="checkbox margin-bottom-20">
+                            <input  type="checkbox" value='1' id="ckbAgree" />
+                            <i></i>
+                            I have read agreed with the <a href="/College/General_Terms_ofUse.aspx" target="_blank">terms &amp; conditions</a>
+                        </label>
+
+                        <label class="checkbox margin-bottom-20">
+                          <input type="checkbox" value='1' id="chkConsent" /><i></i>
+                          <strong>I consent to receiving electronic communications from Tweebaa Inc. and its affiliates and subsidiaries in connection with the services offered by this website. I acknowledge that I may withdraw such consent at any time.</strong>
+                        </label>
+                        <section style="padding-top:60px;">
+                            <input type="button" id="btnRegister" class="btn-u btn-u-sea-shop btn-block  margin-bottom-20 send" value="Create Account" />
+                            <%--onclick="RegFuc()" --%>
+                        </section>
+                        <!--
+                    </form>
+                    -->
+                    <div class="margin-bottom-20"></div>
+                    <p class="text-center">Already you have an account? <a href="/User/login.aspx">Sign In</a></p>
+                </div>
+            </div><!--/end row-->
+        <!-- Footer Version 3 -->
+           </div><!--/end container-->
+    </div>
+
+    </form>
+
+     <!-- 弹出注册成功窗口 -->
+    <div class="greybox" id="greybox" style="display: none;">
+        <div class="reg-ok-box">
+            <div class="box pr">
+                <a href="#" class="closeBtn" title="Close" onclick="$('#greybox').css('display','none');"></a>
+                <h2>
+                    Thanks for registering!</h2>
+                <p style="text-align: left;">
+                Please check your email for a verification link, <br />
+				then come on back to complete your registration.
+
+                    <label id="labMessage1">
+                    </label>
+                </p>
+                <div>
+                    <a href="#" class="returnLogin" onclick="$('#greybox').css('display','none');window.location.href='login.aspx'">
+                        Back to Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 弹出注册失败窗口 -->
+    <div class="greybox" id="greybox2" style="display: none;">
+        <div class="reg-ok-box">
+            <div class="box pr">
+                <a href="javascript:void(0);" class="closeBtn" title="Close" onclick="$('#greybox2').css('display','none');"></a>
+                <h3>
+                    <label id="labTitle">
+                    </label>
+                </h3>
+                <p>
+                    <label id="labMessage">
+                    </label>
+                </p>
+                <div>
+                    <a href="javascript:void(0);" class="returnLogin" onclick="$('#greybox2').css('display','none');">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        #code
+        {
+            text-align: center;
+            font-family: Arial;
+            font-style: italic;
+            font-weight: bold;
+            border: 0;
+            letter-spacing: 2px;
+            color: blue;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            //表单提示
+            /*
+            $("input.txt").placeholder();
+            //表单美化
+            $('.chklist').hcheckbox();
+            //手机验证码提示
+            $(".tel-yzm > a.pr").mouseenter(function (event) {
+                $(this).find("b").show()
+            }).mouseleave(function (event) {
+                $(this).find("b").hide()
+            });*/
+        })
+    </script>
+    <script src="../Js/reg.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        function verfy(op, obj) {
+            var val = $(obj).val();
+            if (op == "email") {
+                if (!/.+@.+\.[a-zA-Z]{2,4}$/.test(val) && !/^1\d{10}$/.test(val)) {
+                    flag = "error";
+                    $("#emailTip").html("Please enter a valid email address").show();
+                    $("#emailOk").hide();
+                    return;
+                }
+            }
+
+            if (op == "username") {
+                if (val == "" || val.length < 2 || val.length > 20) {
+                    flag = "error";
+                    $("#nameTip").html("Username does not meet criteria").show();
+                    $("#nameOk").hide();
+                    return;
+                }
+            }
+
+            var res = TweebaaWebApp2.User.register.verfy(op, val).value;
+            if (res == "empty") {
+                if (op == "email") {
+                    flag = "error";
+                    $("#emailTip").html("please input your email").show();
+                    $("#emailOk").hide();
+                }
+                if (op == "username") {
+                    flag = "error";
+                    $("#nameTip").html("please input your username").show();
+                    $("#nameOk").hide();
+                }
+                return false;
+            }
+            if (res == "fail") {
+                if (op == "email") {
+                    isexit = true;
+                    $("#emailTip").html("The email has been registered").show();
+                    $("#emailOk").hide();
+                }
+                if (op == "username") {
+                    isexit = true;
+                    $("#nameTip").html("The user name has been registered").show();
+                    $("#nameOk").hide();
+                }
+                return false;
+            }
+            if (res == "success") {
+                isexit = false;
+                //$parent.find(".ok").css('display', 'block');
+                if (op == "email") {
+                    $("#emailOk").show();
+                    $("#emailTip").hide();
+                }
+                if (op == "username") {
+                    $("#nameOk").show();
+                    $("#nameTip").hide();
+                }
+            }
+            return true;
+        }
+                         </script>
+
+
+
+</asp:Content>

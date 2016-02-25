@@ -1,0 +1,11 @@
+D:\tweebaa.com\Twee.DataMgr\obj\Debug\Twee.DataMgr.csprojResolveAssemblyReference.cache
+D:\tweebaa.com\Twee.DataMgr\bin\Debug\Twee.DataMgr.dll
+D:\tweebaa.com\Twee.DataMgr\bin\Debug\Twee.DataMgr.pdb
+D:\tweebaa.com\Twee.DataMgr\bin\Debug\log4net.dll
+D:\tweebaa.com\Twee.DataMgr\bin\Debug\Newtonsoft.Json.dll
+D:\tweebaa.com\Twee.DataMgr\bin\Debug\Twee.Comm.dll
+D:\tweebaa.com\Twee.DataMgr\bin\Debug\Twee.Model.dll
+D:\tweebaa.com\Twee.DataMgr\bin\Debug\Twee.Comm.pdb
+D:\tweebaa.com\Twee.DataMgr\bin\Debug\Twee.Model.pdb
+D:\tweebaa.com\Twee.DataMgr\obj\Debug\Twee.DataMgr.dll
+D:\tweebaa.com\Twee.DataMgr\obj\Debug\Twee.DataMgr.pdb

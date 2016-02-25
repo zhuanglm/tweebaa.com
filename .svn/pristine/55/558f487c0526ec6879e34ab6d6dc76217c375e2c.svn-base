@@ -1,0 +1,356 @@
+var flag = "ok";
+var isexit = false;
+var smsStr = "";
+// JavaScript Document
+
+$(document).ready(function () {
+    CreateCode();
+});
+$(function () {
+    $("form").each(function (index, el) {
+        var THIS = $(this)
+        //文本框失去焦点后
+        THIS.find(':input').blur(function () {
+            var $parent = $(this).parent();
+            // $parent.find(".error,.ok").hide();
+            //验证用户名  yourname
+            //            if ($(this).is('.yourname')) {
+            //                if (this.value == "" || this.value.length < 2 || this.value.length > 20) {
+            //                    flag = "error";
+            //                    $("#nameTip").show();
+            //                    $("#nameOk").hide();
+            //                }
+            //                else {
+            //                    if (isNaN($.trim(this.value).split("")[0])) {
+            //                        flag = "ok";
+            //                        $("#nameTip").hide();
+            //                        $("#nameOk").show();
+            //                    }
+            //                    else {
+            //                        flag = "error";
+            //                        $("#nameTip").show();
+            //                        $("#nameOk").hide();
+            //                    }
+            //                }
+            //            }
+            //验证密码
+            var psw1 = 0;
+            var psw2 = 0;
+            if ($(this).is('.userPwd')) {
+                psw1 = this.value;
+                var reg = /^([a-z]+(?=[0-9])|[0-9]+(?=[a-z]))[a-z0-9]+$/ig;
+                if (this.value == "" || this.value.length < 6 || this.value.length > 20 || reg.test(psw1) == false) {
+                    flag = "error";
+                    /*
+                    $("#pwdTip").show();
+                    $("#pwdOk").hide();
+                    */
+                    $("#password").addClass("invalid");
+                    $("#labPassword").addClass("state-error");
+                    // $("#password").focus();
+                    //                    $parent.find(".error").show();
+                    //                    $parent.find(".ok").hide();
+                } else {
+                    flag = "ok";
+                    $("#password").removeClass("invalid");
+                    $("#labPassword").removeClass("state-error");
+                    //$parent.find(".ok").css('display', 'block');
+                    //$parent.find(".error").hide();
+                }
+            }
+            if ($(this).is('.userPwd2')) {
+                psw2 = this.value
+
+                if (this.value == "" || ($(".userPwd").val() != psw2)) {
+                    flag = "error";
+                    /*
+                    $parent.find(".error").show();
+                    $parent.find(".ok").hide();*/
+                    $("#txtPassAgain").addClass("invalid");
+                    $("#labPassAgain").addClass("state-error");
+                    // $("#txtPassAgain").focus();
+                } else {
+                    flag = "ok";
+                    /*
+                    $parent.find(".ok").css('display', 'block');
+                    $parent.find(".error").hide();*/
+                    $("#txtPassAgain").removeClass("invalid");
+                    $("#labPassAgain").removeClass("state-error");
+                }
+
+            }
+
+        }).keyup(function () {
+            $(this).triggerHandler("blur");
+        }).focus(function () {
+            $(this).triggerHandler("blur");
+        }); //end blur
+
+
+        //提交，最终验证。
+        THIS.find('.send').click(function () {
+            THIS.find(" :input").trigger('blur');
+
+            //verify username again
+            verfy("username", $("#txtLoginName"));
+            //verify e-mail again
+            verfy("email", $("#txtEmail"));
+
+            //check password
+            var pswd1 = $('.userPwd').val();
+            var pswd2 = $('.userPwd2').val();
+            var reg = /^([a-z]+(?=[0-9])|[0-9]+(?=[a-z]))[a-z0-9]+$/ig;
+            if (pswd1 == "" || pswd1.length < 6 || pswd1.length > 20 || reg.test(pswd1) == false) {
+                flag = "error";
+                /*
+                $("#pwdTip").show();
+                $("#pwdOk").hide();
+                */
+                $("#password").addClass("invalid");
+                $("#labPassword").addClass("state-error");
+                return false;
+                // $("#password").focus();
+                //                    $parent.find(".error").show();
+                //                    $parent.find(".ok").hide();
+            }
+            if (pswd2 == "" || pswd2.length < 6 || pswd2.length > 20) {
+                flag = "error";
+                /*
+                $("#pwdTip").show();
+                $("#pwdOk").hide();
+                */
+                $("#txtPassAgain").addClass("invalid");
+                $("#labPassAgain").addClass("state-error");
+                return false;
+                // $("#password").focus();
+                //                    $parent.find(".error").show();
+                //                    $parent.find(".ok").hide();
+            }
+            if (pswd2 == "" || (pswd1 != pswd2)) {
+                flag = "error";
+                /*
+                $parent.find(".error").show();
+                $parent.find(".ok").hide();*/
+                $("#txtPassAgain").addClass("invalid");
+                $("#labPassAgain").addClass("state-error");
+                $("#labTitle").html("Password Error");
+                $("#labMessage").html("Two password doesn't match!");
+                $("#greybox2").show();
+                return false;
+                // $("#txtPassAgain").focus();
+            }
+
+            //check country
+            var iCountry = $("#WebContent_selectCountry :selected").val();
+            var sCountry = $("#WebContent_selectCountry :selected").text();
+            if (iCountry==undefined || iCountry==null ||  iCountry == 0) {
+                $("#labTitle").html("Country");
+                $("#labMessage").html(" Please select your country");
+                $("#greybox2").show();
+                return false;
+            }
+
+            /*
+            var challengeField = $("input#recaptcha_challenge_field").val();
+            var responseField = $("input#recaptcha_response_field").val();
+            //alert(challengeField);
+            //alert(responseField);
+            //return false;
+            var html = $.ajax({
+            type: "POST",
+            url: "/AjaxPages/GoogleReCapAjax.aspx",
+            data: "recaptcha_challenge_field=" + challengeField + "&amp;recaptcha_response_field=" + responseField,
+            async: false
+            }).responseText;
+
+            if (html == "success") {
+            $("#captchaStatus").html(" ");
+            // Uncomment the following line in your application
+            return ;
+            }
+            else {
+            $("#captchaStatus").html("Your captcha is incorrect. Please try again");
+            Recaptcha.reload();
+            return ;
+            }
+            */
+            /*
+            if (!($("#emailTip").is(":hidden") )) {
+            $("#labTitle").html("Invalid E-Mail address");
+            $("#labMessage").html("Please check the data you input");
+            $("#greybox2").show();
+            return;
+            }
+            if (!( $("#nameTip").is(":hidden") )) {
+            $("#labTitle").html("Invalid Username");
+            $("#labMessage").html("Please check the data you input");
+            $("#greybox2").show();
+            return;
+            }
+            if (!($("#pwdTip").is(":hidden") )) {
+            $("#labTitle").html("Invalid Password");
+            $("#labMessage").html("Please check the data you input");
+            $("#greybox2").show();
+            return;
+            }
+            if (!( $("#pwdTip2").is(":hidden"))) {
+            $("#labTitle").html("Invalid Confirm Password");
+            $("#labMessage").html("Please check the data you input");
+            $("#greybox2").show();
+            return;
+            }
+            */
+            if (document.getElementById("ckbAgree").checked == false) {
+                $("#labTitle").html("Registration Agreement");
+                $("#labMessage").html("You must agree to our Terms of Service");
+                $("#greybox2").show();
+                return false;
+            }
+            if (document.getElementById("chkConsent").checked == false) {
+                $("#labTitle").html("Consent to receiving electronic communications");
+                $("#labMessage").html("You must check consent to receiving electronic communications");
+                $("#greybox2").show();
+                return false;
+            }
+
+            var numError = THIS.find('.onError').length;
+            var Email = $("#txtEmail").val();
+            //            if (Email == "" || Email == null || !/.+@.+\.[a-zA-Z]{2,4}$/.test(Email) && !/^1\d{10}$/.test(Email)) {
+            //                flag = "error";
+            //                $("#emailTip").html("Please enter a valid email address").show();
+            //                $("#emailOk").hide();
+            //                return;
+            //            }
+
+            var LoginName = $("#txtLoginName").val();
+            //            if (LoginName == "" || LoginName.length < 2 || LoginName.length > 20 || !isNaN($.trim(LoginName).split("")[0])) {
+            //                flag = "error";
+            //                $("#nameTip").show();
+            //                return;
+            //            }
+
+            if (flag != "error") {
+                var regType = "1";
+                var codeStr1 = $("#ValiCode1").val(); //文本验证码
+                // var code = document.getElementById("code").innerText;
+                var code = $("#code").html();
+                if (codeStr1 == "" || codeStr1.toUpperCase() != code) {
+                    $("#labTitle").html("Enter the verification code");
+                    $("#labMessage").html("Verification code input error");
+                    $("#greybox2").show();
+                    return false;
+                }
+
+
+                var Email = $("#txtEmail").val();
+                var Pass = $("#password").val();
+                var PassAgain = $("#txtPassAgain").val();
+                var Country = $("#WebContent_selectCountry  option:selected").val();
+
+
+                var tuijieEmail = $("#txtReferrerEmail").val();
+                var knowWay = $("#ddlway option:selected").val();
+
+                //                var obj = document.getElementById("<%=selectCountry.ClientID %>"); //定位id
+                //                var index = obj.selectedIndex; // 选中索引               
+                //                var Country = obj.options[index].value; // 选中值
+
+                var Consent = document.getElementById("chkConsent").checked;
+                $("#btnRegister").attr("disabled", "disabled");
+                $("#btnRegister").val("Working...");
+                Apost(Email, LoginName, Pass, PassAgain, Country, tuijieEmail, knowWay, Consent);
+            }
+            else {
+                //alert("失败");
+                $("#labTitle").html("Data Validation");
+                $("#labMessage").html("Please check the data you input which have dark red background");
+                $("#greybox2").show();
+                return false;
+            }
+            return false;
+        });
+
+        //重置
+        $('#res').click(function () {
+            $(".formtips").remove();
+        });
+
+        function trim(str) {
+            return str.replace(/(^\s*)|(\s*$)/g, "");
+        }
+    });
+})
+
+
+
+//注册请求
+function Apost(Email, LoginName, Pass, PassAgain, Country, tuijieEmail, knowWay, Consent) {
+    Loading(true);
+    var _data = 'Email=' + Email + "&LoginName=" + LoginName + "&Pass=" + Pass + "&Country=" + Country + "&TuiJieEmail=" + tuijieEmail + "&KnowWay=" + knowWay + "&Consent=" + Consent;
+    $.ajax({
+        type: "POST",
+        url: '/AjaxPages/registerAjax.aspx',
+        data: _data,
+        success: function (msg) {
+            $("#labTitle").html("User registration");
+            Loading(false);
+            if (msg == "1") {
+               // $("#labMessage1").html("The activation email has been sent. <br> Please login and activate your account.");
+                $("#greybox").show();
+                $("#btnRegister").val("Create Account Success");
+                return false;
+            }
+            else if (msg == "-1") {
+                $("#labMessage").html("The mailbox is already registered");
+                $("#greybox2").show();
+                $("#btnRegister").removeAttr("disabled");
+                $("#btnRegister").val("Create Account");
+            }
+            else {
+                $("#labMessage").html("Registration failed, please try again later");
+                $("#greybox2").show();
+                $("#btnRegister").removeAttr("disabled");
+                $("#btnRegister").val("Create Account");
+            }
+        },
+        error: function (msg) {
+            $("#labMessage").html("Registration failed, please try again later");
+            $("#greybox2").show();
+            $("#btnRegister").removeAttr("disabled");
+            $("#btnRegister").val("Create Account");
+        }
+    });
+}
+function CreateCode() {
+    var code = "";
+    var codeLength = 4; //验证码的长度  
+    //var checkCode = document.getElementById("code");
+    var random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //随机数  
+    for (var i = 0; i < codeLength; i++) {//循环操作  
+        var index = Math.floor(Math.random() * 36); //取得随机数的索引（0~35）  
+        //alert(index);
+        code += random[index]; //根据索引取得随机数加到code上
+
+    }
+    //checkCode.innerText = code; //把code值赋给验证码
+    $("#code").html(code);
+
+}
+
+
+
+//接收URL参数
+/*
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}  */     

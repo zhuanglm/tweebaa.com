@@ -1,0 +1,638 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="fileCrop.aspx.cs" Inherits="TweebaaWebApp2.upload.fileCrop" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+ <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+ 
+<script type="text/javascript">
+    var g_cropper;
+    var g_value = 10;
+    var blockMove = 11;
+</script>	    
+
+<script src="/upload/jquery/cropbox.js?v=20160120"  type="text/javascript"></script>
+   
+    
+    
+
+    <style>
+        
+        .cropped>img
+        {
+            margin-right: 10px;
+        }
+        
+ .control_bg{
+	background-image:url("/upload/assets/control_bg.jpg");
+	background-repeat:no-repeat;
+	width:363px;
+	height:34px;
+}
+        
+        
+.imageBox
+{
+    position: relative;
+    width : 790px;
+    height: 600px;
+    border:1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+}
+
+.imageBox .thumbBox
+{
+    position: absolute;
+    top: 0px;
+    left: 95px;
+    width: 600px;
+    height: 600px;
+    
+    /*margin-top: -100px;*/
+    /*margin-left: -100px;*/
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+
+.imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+}        
+
+	.article{
+		width:790px;
+		height:600px;
+		overflow:hidden;
+		vertical-align:top;
+	}
+	#imgContainer{
+		width:790px;
+		height:600px;
+	}
+	.jcExample{
+	border-bottom:1px #cccccc solid;
+	}
+	#outer_div{
+	  width:788px;
+	/*	margin-left:20px;*/
+		border:1px #cccccc solid;
+	}
+	#slider {
+	margin-left:10px;
+	
+	}
+
+
+
+
+
+	
+	.drag_note{
+	display: table-cell;
+	  position: absolute;
+    left: 300px;
+    top: 350px;
+    width:200px;
+    height:40px;
+    background-color:#000000;
+    z-index:65536;
+    color:#ffffff;
+    font-size:14px;
+    vertical-align:middle;
+    text-align:center;
+       		border-radius: 4px;
+   		-moz-border-radius: 4px;
+   		-webkit-border-radius: 4px;
+	}
+	.btnSubmit{
+		background-color:#0099ff;
+		color:#ffffff;
+		border: 1px solid #a8acab;
+   		border-radius: 4px;
+   		-moz-border-radius: 4px;
+   		-webkit-border-radius: 4px;
+   		padding:10px;
+	}
+	
+	.btnCancel{
+		background-color:#ffffff;
+		color:#000000;
+		border: 1px solid #a8acab;
+   		border-radius: 4px;
+   		-moz-border-radius: 4px;
+   		-webkit-border-radius: 4px;
+   		padding:10px;
+	}	
+	.top_text{
+		height:50px;
+		vertical-align:middle;
+		margin:0px auto;
+	}
+
+
+	
+
+
+
+
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+ /* margin: 5.55px 0;*/
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4.9px;
+  cursor: pointer;
+/*  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/
+  background: rgba(255, 255, 255, 0);
+  border-radius: 1.3px;
+  /*border: 0.2px solid #010101;*/
+  margin-top: -10px;
+}
+input[type=range]::-webkit-slider-thumb {
+/*  box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #00001e;*/
+  height: 16px;
+  width: 16px;
+  border-radius: 6px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -1.75px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0);
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 4.9px;
+  cursor: pointer;
+ /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/
+  background: rgba(255, 255, 255, 0);
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-moz-range-thumb {
+ /* box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #00001e;*/
+  height: 16px;
+  width: 16px;
+  border-radius: 6px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  /*margin-top: -6px;*/
+}
+input[type=range]::-ms-fill-lower {
+  background: rgba(242, 242, 242, 0);
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+ /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/
+}
+input[type=range]::-ms-fill-upper {
+  background: rgba(255, 255, 255, 0);
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+ /* box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;*/
+}
+input[type=range]::-ms-thumb {
+  /*box-shadow: 0.9px 0.9px 1px #000031, 0px 0px 0.9px #00004b;
+  border: 1.8px solid #00001e;*/
+  height: 16px;
+  width: 16px;
+  border-radius: 6px;
+  background: #ffffff;
+  cursor: pointer;
+  height: 4.9px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: rgba(255, 255, 255, 0);
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: rgba(255, 255, 255, 0);
+}
+
+
+    </style>
+    
+
+     <link type="text/css" rel="stylesheet" href="/css/loading.css" /> 
+   
+  
+</head>
+<body>
+            <input type="hidden" name="hidTip" id="hidTip" />
+           <input type="hidden" name="hidBigFilePath" id="hidBigFilePath" />
+
+
+
+<!--
+<div class="container">
+
+    <div class="action">
+        <input type="file" id="file" style="float:left; width: 250px">
+       
+    </div>
+    
+</div>
+-->
+
+<script type="text/javascript">
+    $(window).load(function () {
+        var options =
+        {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: 'avatar.png'
+        }
+
+        $("#crop_container").hide();
+
+
+
+        $('#file').on('change', function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                options.imgSrc = e.target.result;
+
+
+                g_cropper = $('.imageBox').cropbox(options);
+                $('#dialog').dialog("option", "minWidth", 800);
+                $("#dialog").dialog("open");
+                /*
+                var newImg = new Image();
+                newImg.src = e.target.result;
+                var height = newImg.naturalHeight;
+                var width = newImg.naturalWidth;
+
+                //console.log("x=" + newImg.naturalWidth + " y=" + newImg.naturalHeight);
+                if (height < 600 || width < 600) {
+
+                $("#divFileSizeError").html("<p style='color:#ff0000'>Uploaded image must be Min 600x600 pixels; Max 1200x1200 pixels.</p>");
+
+
+                } else {
+
+                $("#crop_container").show();
+                $("#upload_container").hide();
+                var img = g_cropper.getDataURL();
+                $('.cropped').html('<img  src="' + img + '"  width="60">');
+                }
+                */
+                /*
+                var $img = $('<img>');
+
+                $img.on('load', function () {
+                $("#crop_container").append(this);
+                alert($(this).width() + " " + $(this).naturalWidth);
+                });
+
+                $img.attr('src', e.target.result);*/
+
+                var image = document.createElement('img');
+
+                image.addEventListener('load', function () {
+                    //alert(image.width + "×" + image.height);
+                    var height = image.height;
+                    var width = image.width;
+                    if (height < 600 || width < 600) {
+
+                        //$("#divFileSizeError").html("<p style='color:#ff0000'>Uploaded image must be Min 600x600 pixels; Max 1200x1200 pixels.</p>");
+                        alert("Uploaded image must be Min 600x600 pixels; Max 1200x1200 pixels.");
+
+                    } else {
+
+                        $("#crop_container").show();
+                        $("#upload_container").hide();
+                        var img = g_cropper.getDataURL();
+                        $('.cropped').html('<img  src="' + img + '"  width="60">');
+                    }
+                });
+                image.src = e.target.result;
+            }
+            reader.readAsDataURL(this.files[0]);
+            this.files = [];
+            //load image
+            //check image size ??
+
+
+        });
+        /*
+        var img = "/upload/images/20150606130933_9493.jpg";
+        options.imgSrc = img;
+        g_cropper = $('.imageBox').cropbox(options);
+        */
+        //Init thumbnails
+
+
+
+        $("#slider_block").slider();
+
+        $('#btnCrop').on('click', function () {
+            Loading(true);
+            $("#btnCrop").html("Working...");
+            $("#btnCrop").attr('disabled', "disabled");
+            var img = g_cropper.getDataURL();
+            /*
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST", '/upload/fileSave.ashx', false);
+            ajax.onreadystatechange = function () {
+            console.log(ajax.responseText);
+            }
+            ajax.setRequestHeader('Content-Type', 'application/upload');
+            ajax.send("imgData=" + canvasData);
+            */
+            $.ajax({
+                //提交数据的类型 POST GET
+                type: "POST",
+                //提交的网址
+                url: "/upload/fileSave.ashx",
+                //提交的数据
+                data: { imgData: img },
+                //返回数据的格式
+                datatype: "html", //"xml", "html", "script", "json", "jsonp", "text".
+                //在请求之前调用的函数
+                beforeSend: function () {
+                    //   $("#msg").html("logining"); 
+                },
+                //成功返回之后调用的函数             
+                success: function (data) {
+                    // $("#msg").html(decodeURI(data));
+                    //set image                  
+                    var imgNewSrc = data;
+
+                    var url = document.location.href;
+                    var start = url.indexOf("?") + 1;
+                    if (start == 0) {
+                        Loading(false);
+                        return "";
+                    }
+                    var value = "";
+                    var queryString = url.substring(start);
+                    var paraNames = queryString.split("=");
+                    var imgid = paraNames[1];
+                    setImg(imgNewSrc, imgid);
+                    // console.log("image=" + imgNewSrc + " id=" + imgid);
+                    //unload this dialog
+
+
+                },
+                //调用执行后调用的函数
+                complete: function (XMLHttpRequest, textStatus) {
+                    //alert(XMLHttpRequest.responseText);
+                    //alert(textStatus);
+                    //HideLoading();
+                    Loading(false);
+                },
+                //调用出错执行的函数
+                error: function () {
+                    //请求出错处理
+                    Loading(false);
+                }
+            });
+            //window.open(img);
+            // GetImageDataInfo();
+            //$("#dialog").dialog("close"); 
+            // $('.cropped').html('<img src="'+img+'">');
+        });
+        $('#btnZoomIn').on('click', function () {
+            //alert(blockMove);
+            blockMove++;
+            if (blockMove <= 21) {
+                //$('#slider_block').slider("refresh");	
+                var val = $('#slider_block').val(blockMove * 5);
+                //g_cropper.zoomIn(1.1 * blockMove);
+                g_cropper.zoomIn(1.1);    // // 1.1 is not used in zoomIn function of cropbox.js
+                var img = g_cropper.getDataURL()
+                $('.cropped').html('<img src="' + img + '" width="60">');
+            } else {
+                blockMove--;
+            }
+        });
+
+        $('#slider_block').on('change', function () {
+            var value = $('#slider_block').val();
+            //alert(value);
+            blockMove = parseFloat(value) / 5;
+            //alert(blockMove);
+            var ratio = 1.0;
+            if (blockMove >= 11) ratio = Math.pow(1.1, (blockMove - 11));
+            else ratio = Math.pow(1 / 1.1, (11 - blockMove));
+            g_cropper.setRatio(ratio);
+            /*
+            
+            console.log("val=" + value + " g_value=" + g_value);
+            if (parseFloat(value) > parseFloat(g_value)) {
+            //console.log("zoom IN val="+value + " g_value="+g_value + " rate="+ 19/value);
+            //how many step ? 
+            var p = parseInt((value - g_value) / 10) * 1.1;
+            var p1 = Math.pow(1.1, p);
+            console.log("zoom IN val=" + p1);
+            g_cropper.zoomIn(p1);
+            } else {
+            var p = parseInt((g_value - value) / 10);
+            var p1 = Math.pow(0.90909090, p);
+            console.log("zoom OUT val=" + p1);
+            g_cropper.zoomOut(p1);
+            }
+            g_value = value;
+            //$('#donation-amount').val(value);
+            */
+        });
+
+        $('#btnZoomOut').on('click', function () {
+            blockMove--;
+            if (blockMove >= 1) {
+                $('#slider_block').val(blockMove * 5);
+                g_cropper.zoomOut(0.90909090);   // 0.90909090 is not used in zoomOUt function of cropbox.js
+                var img = g_cropper.getDataURL();
+                $('.cropped').html('<img src="' + img + '"  width="60">');
+
+            } else {
+                blockMove++;
+            }
+        });
+        $('#btnCancel').on('click', function () {
+            // $("#dialog").dialog("close"); 
+            window.close();
+        });
+        $("#outer_div").mousedown(function () {
+            //("#drag_div").css(display:"none");
+            document.getElementById("drag_div").style.display = "none";
+        });
+        //alert( 
+
+        //$("#dialog").dialog({autoOpen : false, modal : true, show : "blind", hide : "blind"});
+
+        var ms_ie = false;
+        var ua = window.navigator.userAgent;
+        var old_ie = ua.indexOf('MSIE ');
+        var new_ie = ua.indexOf('Trident/');
+
+        if ((old_ie > -1) || (new_ie > -1)) {
+            ms_ie = true;
+        }
+
+        if (ms_ie) {
+            $(".control_bgtd1").css(
+ 			{
+ 			    "vertical-align": "top",
+ 			    "padding-top": "px",
+ 			    "padding-left": "14px"
+ 			});
+            $(".control_bgtd2").css({
+                "vertical-align": "top"
+            });
+
+        } else {
+            $(".control_bgtd1").css(
+ 			{
+ 			    "vertical-align": "middle",
+ 			    "padding-left": "14px"
+ 			});
+        }
+    });
+
+function setImg(imgsrc, imgid) {
+    
+   
+    window.opener.setImg(imgsrc, imgid);
+    window.close();
+
+}
+
+ 
+</script>
+
+<div id="outer_div" >
+
+<!-- upload image first -->
+    <div id="upload_container">
+ <div class="container">
+
+    <div class="action">
+        <input type="file" id="file" style="float:left; width: 250px">
+       
+       <br style="clear:both" />
+        <div style="margin-left:0px;padding-top:20px;padding-bottom:20px;">
+
+            You may add up to 5 images (at least one image is required).<br>
+            Uploaded image must be Min 600x600 pixels; Max 1200x1200 pixels.<br>
+            Upload image size limit is 1MB.<br>
+            Crop image size must be 600x600 ~ 800x800 pixels.<br>
+            White background is preferred.<br>
+            Do not include any text on images (no phone numbers, websites or offers).
+
+        </div>
+
+    </div>
+
+    <div id="divFileSizeError"></div>
+    
+</div>
+   
+    </div>
+	<div class="jcExample" id="crop_container">
+			<div class="article">
+		
+    <div class="imageBox">
+        <div class="thumbBox"></div>
+        <div class="spinner" style="display: none">Loading...</div>
+    </div>
+				
+
+<div class="drag_note" id="drag_div">
+	
+<table width="100%" cellspacing="0" cellpadding="0"  style="padding-top:6px;">
+<tr><td style="padding-left:6px;"><img src="images/drag.jpg" border="0" /></td><td style="color:#ffffff">		
+	Drag to Reposition
+</td></tr></table>	
+</div>		
+
+
+	</div>
+	
+	
+	<div style="padding-top:10px;width:790px;">
+		
+<table cellspacing="0" cellpadding="0" width="100%">
+<tr>
+	<td style="padding-left:15px;" align="left">
+		<div class="cropped">
+		 </div>		
+		
+	</td>
+	<td style="padding-left:118px;" align="left">			
+					<div id="positionButtonDiv">
+
+
+<table cellspacing="0" cellpadding="0" width="100%" height="34" class="control_bg">
+<tr>
+	<td  align="left" width="30" class="control_bgtd1" >	
+<img id="btnZoomOut" class="zoomButton" src="assets/zoomOut.jpg" title="zoom out" alt="zoom out" />
+</td><td style="padding-right:6px; width:260px;" align="left"  class="control_bgtd2">
+
+<input id="slider_block" type="range" min="5" max="105" step="5" value="55">
+
+</td><td align="left" style="padding-left:10px;"  class="control_bgtd1">
+<img id="btnZoomIn" class="zoomButton" src="assets/zoomIn.jpg" title="zoom in" alt="zoom in" /> 
+</td></tr></table>
+  
+  
+
+
+
+
+
+
+						</div>	
+					</td>
+					<td align="left" style="padding-right:70px;">
+						
+					</td>
+</tr></table>				
+</div>
+<div style="margin-top:10px;padding-right:15px;text-align:right;padding-top:10px;padding-bottom:10px;border-top:1px #cccccc solid;">				
+		<!-- This is the form that our event handler fills -->
+		<input type="button" id="btnCancel" class="btnCancel" value="Cancel" />&nbsp;&nbsp;&nbsp;
+		 <input type="button" id="btnCrop" class="btnSubmit" value="Crop and Save" />
+</div>	
+
+
+	</div>
+
+
+	</div>
+
+<script type="text/javascript" src="/js/loading.js"></script>
+
+</body>
+</html>

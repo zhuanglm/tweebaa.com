@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+
+namespace TweebaaWebApp2.Product
+{
+    public partial class WaterMark : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+           
+            string sPageName = Request["pn"].ToString();
+            if (sPageName == null) sPageName = string.Empty;
+
+            string sAlpha = "ABCDEFGHIJKLMNPQRSTUVXYZ";  // do not need 'O' because it will be confused with "0", do not need "W", it is too width.
+            string sDigit = "123456789";
+            string sOriginalImgFile = System.Web.HttpContext.Current.Server.MapPath("~") + @"\images\WaterMarkBack.jpg";
+         
+            // Create a font
+            FontFamily myFontFamily = new FontFamily("Arial");
+            Font myFont = new Font(
+                        myFontFamily,
+                        16,
+                        FontStyle.Regular,
+                        GraphicsUnit.Pixel);
+            // create the position;
+            Point myPos = new Point(12, 8);
+
+            using (System.Drawing.Image img = System.Drawing.Image.FromFile(sOriginalImgFile))
+            using (Graphics g = Graphics.FromImage(img)) 
+            {
+                Random rnd = new Random();
+                string sMark = string.Empty;
+                Color[] myColor6 = new Color[] { Color.Black, Color.Red, Color.Blue, Color.DarkGreen, Color.Black, Color.SeaGreen };
+
+                for (int i = 0; i < 3; i++)
+                {
+                    int idxAlpha = rnd.Next(sAlpha.Length);
+                    int idxDigit = rnd.Next(sDigit.Length);
+                    sMark = sMark + sAlpha.Substring(idxAlpha, 1) +  sDigit.Substring(idxDigit, 1) ;
+
+                    System.Drawing.SolidBrush brushAlpha = new System.Drawing.SolidBrush( myColor6[i*2]);
+                    g.DrawString(sAlpha.Substring(idxAlpha, 1), myFont, brushAlpha, myPos);
+                    SizeF sizeAlpha = g.MeasureString(sAlpha.Substring(idxAlpha, 1), myFont, 12);
+                    myPos.X += sizeAlpha.ToSize().Width ;
+
+                    System.Drawing.SolidBrush brushDigit = new System.Drawing.SolidBrush(myColor6[i*2+1]);
+                    g.DrawString(sDigit.Substring(idxDigit, 1), myFont, brushDigit, myPos);
+                    SizeF sizeDigit = g.MeasureString(sDigit.Substring(idxDigit, 1), myFont, 10);
+                    myPos.X += sizeDigit.ToSize().Width;
+
+                }
+                Response.Cookies["WaterMark" + sPageName]["Text"] = sMark;
+                Response.Cookies["WaterMark" + sPageName].Expires = DateTime.Now.AddDays(1d);
+
+                using ( MemoryStream ms= new MemoryStream())
+                {
+                   img.Save(ms, ImageFormat.Jpeg);
+                    ms.Position = 0;
+                    Response.ContentType = "image/jpg";
+                    ms.WriteTo(Response.OutputStream);
+                }
+            }
+        }
+    }
+}

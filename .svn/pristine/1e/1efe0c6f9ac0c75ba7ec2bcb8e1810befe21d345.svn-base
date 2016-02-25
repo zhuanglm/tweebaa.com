@@ -1,0 +1,406 @@
+﻿<%@ Page Title=""  Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="ShopIndex.aspx.cs" Inherits="TweebaaWebApp2.Product.ShopIndex" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/scrollbar/src/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/plugins/owl-carousel/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/plugins/sky-forms/version-2.0.1/css/custom-sky-forms.css">
+    <link rel="stylesheet" href="/plugins/master-slider/quick-start/masterslider/style/masterslider.css">
+    <link rel="stylesheet" href="/plugins/master-slider/quick-start/masterslider/skins/default/style.css">
+    <!-- CSS Page Style -->
+  
+
+    <!-- Style Switcher -->
+    <link rel="stylesheet" href="/css/plugins/style-switcher.css">
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="/css/theme-colors/default.css" id="style_color">
+     <link rel="stylesheet" href="/css/theme-skins/dark.css">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="/css/custom.css">
+    <style>
+   	    .product-description .gender {
+            height: 84px;
+            overflow: hidden;
+        } 
+    </style>
+      <script src="/MethodJs/share.js" type="text/javascript"></script>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+
+ <!--=== Breadcrumbs v4 ===-->
+    <div class="breadcrumbs-v4 shop_back">
+        <div class="container">
+            <h1>DISCOVER A NEW WAY TO  <span class="shop-red">  SHOP</span> </h1>
+<p>unique products & great deals</p>
+            <ul class="breadcrumb-v4-in">
+                <li><a href="/index.aspx">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li class="active">Welcome</li>
+            </ul>
+        </div><!--/end container-->
+    </div> 
+    <!--=== End Breadcrumbs v4 ===-->
+ <!--=== Content Part ===-->
+    <div class="content container">
+            <div class="row margin-bottom-40 margin-top-20">
+         
+                 <div class="col-sm-12">
+                 <form id="frmSearch" action="/Product/prdSaleAll.aspx?action=search" method="post">
+                 <div class="input-group">
+
+                                    <div class="input-group-btn">
+                                    <!--
+                                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                          All Category
+                                            <span class="caret"></span>
+                                        </button> -->
+                                        <select class="btn btn-danger dropdown-toggle" id="shopCategory" name="shopCategory">
+                                            <option value="-1">All Category</option>
+                                            <option value="1608AC1B-786A-4596-9DEE-04FC45131332">Electronics</option>
+                                            <option value="3EE6A6A4-933A-42BA-9C53-07F6AEE27ED2">Apparel & Accessories</option>
+                                            <option value="4036D9BF-F178-45BB-94F0-1693923AE9B5">Garden & Outdoor</option>
+                                            <option value="C9590D3C-F179-413A-AC5B-24DB7EEB2A1A">Toys</option>
+                                            <option value="5D01EB4D-7E33-4381-B993-45988262CB92">Tools & Hardware</option>
+                                            <option value="F66C02B2-3441-4D71-8328-5A5129E73D2A">Children/Infant</option>
+                                            <option value="B984BDA6-A0A7-4CD2-9EDD-6D1B33EFC3AD">Arts, Crafts & Party</option>
+                                            <option value="1382D416-6E2D-4708-8557-7F226EDBDC13">Household</option>
+                                            <option value="C781386B-DBD9-4257-9EB6-8D74ED61A9C1">Health & Beauty</option>
+                                            <option value="F5527740-ED0E-4F9B-B7B9-A8222E5EA31C">Automotive</option>
+                                            <option value="1F728092-0771-431D-81B2-A9B7D3DDE7FE">Pets</option>
+                                            <option value="EA786CE8-9664-48CC-A22D-B1BB5957F0E2">Sports & Leisure</option>
+                                            <option value="1E12E85A-F86C-4243-8446-C5F33B19E454">Office & Stationery</option>
+                                            <option value="FDAC6A4C-86D4-4DBB-857C-F52831F846B1">Green / Eco Products</option>
+                                            <option value="7DEE69E4-6103-4E16-A0CC-FB065473183D">Clean & Organize</option>
+                                        </select>
+                                    </div>
+                                    <input type="text" name="txtKeywords" class="form-control" placeholder="Search products...">
+                                     <span class="input-group-btn">
+                        <button class="btn-u btn-u-shop" onclick="SubmitForm(): type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                    
+                                </div>
+  </form>
+                 
+                    </div>
+                   
+                      
+                </div><!--/end result category-->
+              <!--=== Collection Banner ===-->
+         
+       <div class="row margin-bottom-60">
+            <div class="col-md-4 product-service">
+              
+                <div class="product-service-in">
+                    <h3>Share & Earn</h3>
+                    <p>Share to your friends <br> when they purchase (up to 10%)!</p>
+                    <a href="#">+Read More</a>
+                </div>
+            </div>
+            <div class="col-md-4 product-service">
+               
+                <div class="product-service-in">
+                    <h3>Tweebot event</h3>
+                    <p>Integer mattis lacinia felis vel molestie. Ut eu euismod erat.</p>
+                    <a href="#">+Read More</a>
+                </div>
+            </div>
+            <div class="col-md-4 product-service">
+              
+                <div class="product-service-in">
+                    <h3>30-50% OFF Full-Price Styles</h3>
+                    <p>Big sale items<br>hhhhh</p>
+                    <a href="#">+Read More</a>
+                </div>
+            </div>
+        </div> 
+
+                
+       <div class="title-v1 margin-bottom-40">
+            <h2>Featured products</h2>
+        </div>
+             <!--=== Illustration v2 Featured products===-->
+        <div  class="illustration-v2 margin-bottom-40">
+        <div class="customNavigation margin-bottom-20">
+                <a class="owl-btn prev fpprev rounded-x"><i class="fa fa-angle-left"></i></a>
+                <a class="owl-btn next fpnext rounded-x"><i class="fa fa-angle-right"></i></a>
+            </div>
+           <ul id="owlFeaturedProduct" class="list-inline owl-slider">
+            <%=strHTML_Featured%>
+            
+
+            </ul>
+            
+
+         
+        </div> 
+        <!--=== End Illustration v2 Featured products ===-->
+
+        <!--=== Illustration v1 ===-->
+          <div class="collection-banner margin-bottom-60">
+        <div class="container">
+        
+        </div>
+    </div>
+    <!--=== End Collection Banner ===-->
+        <!--=== End Illustration v1 ===-->
+          <div class="title-v1 margin-bottom-20">
+            <h2>Latest products</h2>
+        </div>
+            <!--=== Illustration v2 ===-->
+        <div  class="illustration-v2 margin-bottom-40">
+            <div class="customNavigation margin-bottom-25">
+                <a class="owl-btn prev lpprev rounded-x"><i class="fa fa-angle-left"></i></a>
+                <a class="owl-btn next lpnext rounded-x"><i class="fa fa-angle-right"></i></a>
+            </div>
+
+            <ul id="owlLatestProduct" class="list-inline owl-slider">
+   <%=strHTML_Latest%>        
+            
+            </ul>
+        </div> 
+        <!--=== End Illustration v2 ===-->   
+                <!--=== Illustration v1 ===-->
+        <div class="row margin-bottom-60">
+            <div class="col-md-6 md-margin-bottom-30">
+                <div class="overflow-h">
+                    <div class="illustration-v1 illustration-img1">
+                        <div class="illustration-bg">
+                            <div class="illustration-ads ad-details-v1">
+                                <h3><strong>TWEEBOT EVENT </strong><br> Earn $10000 NOW!</h3>
+                                <a class="btn-u btn-brd btn-brd-hover btn-u-light" href="/Product/prdSaleAll.aspx">Shop Now</a>
+                            </div>    
+                        </div>    
+                    </div>
+                </div>    
+            </div>
+                     <div class="col-md-6 md-margin-bottom-30">
+                <div class="overflow-h">
+                    <div class="illustration-v1 illustration-img2">
+                        <div class="illustration-bg">
+                            <div class="illustration-ads ad-details-v1">
+                                <h3><strong>SHARE & EARN </strong></h3>
+                                <a class="btn-u btn-brd btn-brd-hover btn-u-light" href="/Product/prdSaleAll.aspx">Shop Now</a>
+                            </div>    
+                        </div>    
+                    </div>
+                </div>    
+            </div>
+
+        </div><!--/end row-->
+        <!--=== End Illustration v1 ===-->
+
+        <!--=== Illustration v4 ===-->
+        <div class="row illustration-v4 margin-bottom-40">
+            <div class="col-md-4">
+                <div class="heading heading-v1 margin-bottom-20">
+                    <h2>Free Shipping</h2>
+                </div>
+               <%=strHTML_FreeShipping%> 
+            </div>
+            <div class="col-md-4">
+                <div class="heading heading-v1 margin-bottom-20">
+                    <h2>Test-Sale</h2>
+                </div>
+               
+                <%=strHTML_TestSale%>
+               
+            </div>
+            <div class="col-md-4 padding">
+                <div class="heading heading-v1 margin-bottom-20">
+                    <h2>Inventor Shop</h2>
+                </div>
+                <%=strHTML_InventorShop %>
+                
+            </div>
+        </div><!--/end row-->
+        <!--=== End Illustration v4 ===-->
+        <div class="container content">
+        <div class="title-v1 margin-bottom-40">
+            <h2>Our Brand</h2>
+        </div>
+
+        <ul class="list-inline owl-slider-v2">
+           <%=strHTML_OurBrand %>
+        </ul><!--/end owl-carousel-->
+    </div>
+    </div><!--/end container-->    
+       
+<!-- JS Global Compulsory -->
+
+
+ <%-- 分享弹出ydf----%> 
+     <div class="greybox" style="margin-top:60px">
+        <div id="share-tck2" class="tck">
+            <a href="#" class="closeBtn" title="Close"></a>
+            <h2 class="t">
+                <span>Share & Earn</span>
+            </h2>
+             <div class="box">
+                <div class="sharebox clearfix my-dietu">
+                    <span class="fl t ">Share to </span>
+                    <div class="bdsharebuttonbox fl">
+                        <% // include all share method  %>        
+                        <!--#include file="../Include/ShareMethod.inc" -->
+                      </div>                  
+                    <a href="#" style="display:none;" class="share-media-set">Share Binding setting</a>
+                </div>
+                <div class="ps clearfix">
+                    <span class="fr"><a href="#"></a></span><span class="fl">You will earn <!--<span id="sharePercent"></span> --> commission when your friend  makes a purchase from your shared link. </span>
+                </div>
+            </div>         
+        </div>
+    </div> 
+
+<script src="/plugins/jquery/jquery-migrate.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Master Slider -->
+<script src="/plugins/master-slider/quick-start/masterslider/masterslider.min.js"></script>
+<script src="/plugins/master-slider/quick-start/masterslider/jquery.easing.min.js"></script>
+<!-- Scrollbar -->
+<script src="/plugins/scrollbar/src/jquery.mousewheel.js"></script>
+<script src="/plugins/scrollbar/src/perfect-scrollbar.js"></script>
+<script src="/plugins/jquery.parallax.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<!-- JS Implementing Plugins -->
+<script src="/plugins/back-to-top.js"></script>
+<script src="/plugins/owl-carousel/owl-carousel/owl.carousel.js"></script>
+
+<!-- JS Customization -->
+<script src="/js/custom.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<!-- JS Page Level -->
+<script src="/js/shop.app.js"></script>
+<script src="/js/plugins/owl-carousel.js"></script>
+<script src="/js/forms/product-quantity.js"></script>
+<script src="/js/plugins/revolution-slider.js"></script>
+<script src="/js/plugins/master-slider.js"></script>
+<script type="text/javascript" src="/js/plugins/style-switcher.js"></script>
+
+ <script src="/MethodJs/favorite.js" type="text/javascript"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        App.init();
+        App.initParallaxBg();
+        /*
+         $("#owl-demo1").owlCarousel();
+         $("#owl-demo2").owlCarousel();
+        */
+        //OwlCarousel.initOwlCarousel();
+        //////////////////////////////////////////////
+        var owlfp = jQuery("#owlFeaturedProduct");
+		owlfp.owlCarousel({
+		    items: [4],
+		    itemsDesktop : [1000,3], //3 items between 1000px and 901px
+		    itemsDesktopSmall : [979,2], //2 items between 901px
+		    itemsTablet: [600,1], //1 items between 600 and 0;
+		    slideSpeed: 1000
+		});
+
+		    // Custom Navigation Events
+		    jQuery(".fpnext").click(function(){
+		        owlfp.trigger('owl.next');
+		    })
+		    jQuery(".fpprev").click(function(){
+		        owlfp.trigger('owl.prev');
+		    })
+	    //});
+
+       var owllp = jQuery("#owlLatestProduct");
+		owllp.owlCarousel({
+		    items: [4],
+		    itemsDesktop : [1000,3], //3 items between 1000px and 901px
+		    itemsDesktopSmall : [979,2], //2 items between 901px
+		    itemsTablet: [600,1], //1 items between 600 and 0;
+		    slideSpeed: 1000
+		});
+
+		    // Custom Navigation Events
+		    jQuery(".lpnext").click(function(){
+		        owllp.trigger('owl.next');
+		    })
+		    jQuery(".lpprev").click(function(){
+		        owllp.trigger('owl.prev');
+		    })
+		    //});
+
+  //Owl Slider v2
+	        jQuery(document).ready(function() {
+	        var owl = jQuery(".owl-slider-v2");
+	            owl.owlCarousel({
+	                items:5,
+	                itemsDesktop : [1000,4], //4 items between 1000px and 901px
+		            itemsDesktopSmall : [979,3], //3 items between 901px
+	                itemsTablet: [600,2], //2 items between 600 and 0;
+	            });
+		    });
+        /////////////////////////////////////
+        RevolutionSlider.initRSfullWidth();
+        StyleSwitcher.initStyleSwitcher();
+        MasterSliderShowcase2.initMasterSliderShowcase2();
+
+
+
+    });
+
+    //分享动作
+    function SharePrd(id, name, img, page, desc, saleprice) {
+        var cur_url = window.location.href.toLowerCase();
+
+        name = unescape(name);
+        var tip = true;
+        var userid = $("#hiduserid").val();
+        var persent = $("#hidpersent").val();
+        if (persent != "") {
+            var getP = saleprice * persent;
+            $("#sharePercent").html("$" + getP);
+        } else {
+            $("#sharePercent").html("$0");
+        }
+
+        if (SetShareLink(id, name, img, page, desc, saleprice) == true) {
+            $("#share-tck2").parents(".greybox").show();
+            $("#share-tck2").animate({ top: "2%" }, 300);
+        }
+    }
+
+    //关闭弹出框
+    $('.closeBtn,.iagree').click(function (event) {
+        var obj2 = $(this).parents(".tck")
+        obj2.animate({
+            top: "-500px"
+        },
+				300, function () {
+				    obj2.parents(".greybox").hide()
+
+				});
+        return false;
+    });
+
+    //隐藏弹出 框
+    function hidePopup() {
+        $(".popbox").hide();
+    }
+
+    function SubmitForm() {
+        $("#frmSearch").submit();
+    }
+</script>
+<!--[if lt IE 9]>
+    <script src="/plugins/respond.js"></script>
+    <script src="/plugins/html5shiv.js"></script>
+    <script src="js/plugins/placeholder-IE-fixes.js"></script>
+<![endif]-->
+
+</asp:Content>

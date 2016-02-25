@@ -1,0 +1,176 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace Twee.Mgr
+{
+   public class AdminstratorMgr
+    {
+       private readonly Twee.DataMgr.AdministratorDataMgr dal=new DataMgr.AdministratorDataMgr ();
+		
+		#region  BasicMethod
+		/// <summary>
+		/// 是否存在该记录
+		/// </summary>
+		public bool Exists(Guid guid)
+		{
+			return dal.Exists(guid);
+		}
+
+        public bool Exists(string username, string pwd)
+        {
+            return dal.Exists(username,pwd);
+        }
+
+
+        public Twee.Model.Adminstrator GetSingle(string username, string pwd)
+        {
+            return dal.GetSingle(username,pwd);
+        }
+		/// <summary>
+		/// 增加一条数据
+		/// </summary>
+		public bool Add(Twee.Model.Adminstrator model)
+		{
+			return dal.Add(model);
+		}
+
+		/// <summary>
+		/// 更新一条数据
+		/// </summary>
+		public bool Update(Twee.Model.Adminstrator model)
+		{
+			return dal.Update(model);
+		}
+
+		/// <summary>
+		/// 删除一条数据
+		/// </summary>
+		public bool Delete(Guid guid)
+		{
+			
+			return dal.Delete(guid);
+		}
+		/// <summary>
+		/// 删除一条数据
+		/// </summary>
+		public bool DeleteList(string guidlist )
+		{
+			return dal.DeleteList(guidlist );
+		}
+
+		/// <summary>
+		/// 得到一个对象实体
+		/// </summary>
+		public Twee.Model.Adminstrator GetModel(Guid guid)
+		{
+			
+			return dal.GetModel(guid);
+		}
+
+		/// <summary>
+		/// 得到一个对象实体，从缓存中
+		/// </summary>
+		public Twee.Model.Adminstrator GetModelByCache(Guid guid)
+		{
+			
+			string CacheKey = "adminstratorMgrModel-" + guid;
+			object objModel = Maticsoft.Common.DataCache.GetCache(CacheKey);
+			if (objModel == null)
+			{
+				try
+				{
+					objModel = dal.GetModel(guid);
+					if (objModel != null)
+					{
+						int ModelCache = Maticsoft.Common.ConfigHelper.GetConfigInt("ModelCache");
+						Maticsoft.Common.DataCache.SetCache(CacheKey, objModel, DateTime.Now.AddMinutes(ModelCache), TimeSpan.Zero);
+					}
+				}
+				catch{}
+			}
+			return (Twee.Model.Adminstrator)objModel;
+		}
+
+		/// <summary>
+		/// 获得数据列表
+		/// </summary>
+		public DataSet GetList(string strWhere)
+		{
+			return dal.GetList(strWhere);
+		}
+		/// <summary>
+		/// 获得前几行数据
+		/// </summary>
+		public DataSet GetList(int Top,string strWhere,string filedOrder)
+		{
+			return dal.GetList(Top,strWhere,filedOrder);
+		}
+		/// <summary>
+		/// 获得数据列表
+		/// </summary>
+		public List<Twee.Model.Adminstrator> GetModelList(string strWhere)
+		{
+			DataSet ds = dal.GetList(strWhere);
+			return DataTableToList(ds.Tables[0]);
+		}
+		/// <summary>
+		/// 获得数据列表
+		/// </summary>
+		public List<Twee.Model.Adminstrator> DataTableToList(DataTable dt)
+		{
+			List<Twee.Model.Adminstrator> modelList = new List<Twee.Model.Adminstrator>();
+			int rowsCount = dt.Rows.Count;
+			if (rowsCount > 0)
+			{
+				Twee.Model.Adminstrator model;
+				for (int n = 0; n < rowsCount; n++)
+				{
+					model = dal.DataRowToModel(dt.Rows[n]);
+					if (model != null)
+					{
+						modelList.Add(model);
+					}
+				}
+			}
+			return modelList;
+		}
+
+		/// <summary>
+		/// 获得数据列表
+		/// </summary>
+		public DataSet GetAllList()
+		{
+			return GetList("");
+		}
+
+		/// <summary>
+		/// 分页获取数据列表
+		/// </summary>
+		public int GetRecordCount(string strWhere)
+		{
+			return dal.GetRecordCount(strWhere);
+		}
+		/// <summary>
+		/// 分页获取数据列表
+		/// </summary>
+		public DataSet GetListByPage(string strWhere, string orderby, int startIndex, int endIndex)
+		{
+			return dal.GetListByPage( strWhere,  orderby,  startIndex,  endIndex);
+		}
+		/// <summary>
+		/// 分页获取数据列表
+		/// </summary>
+		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
+		//{
+			//return dal.GetList(PageSize,PageIndex,strWhere);
+		//}
+
+		#endregion  BasicMethod
+		#region  ExtensionMethod
+
+		#endregion  ExtensionMethod
+    }
+}

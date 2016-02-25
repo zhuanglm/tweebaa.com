@@ -1,0 +1,613 @@
+﻿using System;
+using System.Data;
+using System.Text;
+using System.Data.SqlClient;
+using Newtonsoft.Json;
+using Twee.Comm;
+
+
+namespace Twee.DataMgr
+{
+    public partial class ShipOrderDataMgr
+    {
+
+        public DataSet GetShipOrderCountByStatus()
+        {
+            // get ship order count of current login user by ship order status.
+
+            Guid? userGuid = CommUtil.IsLogion();
+            if (userGuid == null) return null;
+
+            StringBuilder sSql = new StringBuilder();
+            sSql.Append("select a.ShipOrder_Status, count(distinct a.ShipOrder_ID) as ShipOrder_Count"); 
+            sSql.Append(" from wn_ShipOrder a");
+            sSql.Append(" inner join wn_orderHead b on b.guidno = a.OrderHead_GuidNo");                             // link to order head 
+            sSql.Append(" inner join wn_orderBody c on c. headGuid = b.guid and c.ShipOrder_ID = a.ShipOrder_ID");  // link to order body for all items
+            sSql.Append(" inner join wn_proRules d on d.id = c.ruleid");                                            // link to product items 
+            sSql.Append(" inner join wn_ShipFrom e on e.ShipFrom_ID = d.ShipFrom_ID");                              // link to ship from11
+            sSql.Append(" where d.ShipPartner_ID = 3");                                                             // drop-shipper only
+            sSql.Append("   and e.userguid = '" + userGuid.ToString() + "'");                                       // limited to the current login user
+            sSql.Append("   and c.ShipMethod_ID is not null");
+            sSql.Append(" group by a.ShipOrder_Status");                                                            // group by shipping order status
+            DataSet ds = DbHelperSQL.Query(sSql.ToString()); 
+
+            return ds;
+        }
+
+        public DataSet GetShipOrderInfo(string sOrderGuidNo)
+        {
+            StringBuilder sSql = new StringBuilder();
+            
+            sSql.Append("select a.guid as OrderHead_Guid, a.wnstat OrderStatus ");
+            sSql.Append(" ,x.name as ProductName");
+            sSql.Append(" ,b.guid as OrderBody_Guid, b.prdGuid, b.quantity as Item_Quantity, b.buydanjia as Item_UnitPrice, b.logisticscost as Item_ShipFee, a.TaxSum");
+            sSql.Append(" ,c.ShipPartner_ID, c.ShipFrom_ID, c.prosku as Item_TweebaaSku, c.suppliersku as Item_SupplierSku, c.proruletitle as Item_Title, c.prorule as Item_Name, c.barcode as Item_Barcode, c.prosize as Item_Size, c.proweight as Item_Weight, c.WholeSalePrice as Item_WholeSalePrice, c.SupplierShipFee as Item_SupplierShipFee, c.IsCustomerFreeShip as Item_IsCustomerFreeShip");
+            sSql.Append(" ,f.Supplier_ID, f.ShipFrom_CompanyName, f.ShipFrom_ContactName, f.ShipFrom_Address1, f.ShipFrom_Address2, f.Country_ID as ShipFrom_CountryID, g.ProName as ShipFrom_ProvinceName, g.ProShortName as ShipFrom_ProvinceShortName, f.ShipFrom_Zip, f.ShipFrom_City, f.ShipFrom_Phone, f.ShipFrom_Email");
+            sSql.Append(" ,h.username as ShipTo_FirstName, h.lastname as ShipTo_LastName,  h.address as ShipTo_Address1, h.address2 as ShipTo_Address2, h.countyid as ShipTo_CountryID, i.ProName as ShipTo_ProvinceName, i.ProShortName as ShipTo_ProvinceShortName, h.zip as ShipTo_Zip, h.city as ShipTo_City, h.Phone as ShipTo_Phone");
+            sSql.Append(" ,j.prodetailType as Item_TypeName");
+            sSql.Append(" ,y.ShipMethod_ID, y.ShipMethod_Name, y.ShipMethod_Code");
+            sSql.Append(" from wn_OrderHead a");
+            sSql.Append(" inner join wn_OrderBody b on b.headGuid = a.guid ");                          // link order head to its body
+            sSql.Append(" inner join wn_proRules c on  c.id = b.ruleid and c.proid =b.prdGuid" );       // link order body to product rules
+            sSql.Append(" inner join wn_ShipFrom f on f.ShipFrom_ID = c.ShipFrom_ID");                  // link to product details
+            sSql.Append(" inner join wn_province g on g.ProID = f.Province_ID");                        // link to supplier province
+            sSql.Append(" inner join wn_useraddress h on h.guid = a.addressguid");                      // link to delievery address
+            sSql.Append(" inner join wn_province i on i.ProID = h.provinceid");                         // link to delievery province
+            sSql.Append(" inner join wn_proDetailSupplyType j on j.id = c.proruletitle");               // product detail specs type name
+            sSql.Append(" inner join wn_prd x on x.prdguid = b.prdGuid");
+            sSql.Append(" left join wn_ShipMethod y on y.ShipMethod_ID = b.ShipMethod_ID");
+            sSql.Append(" where a.guidno='" + sOrderGuidNo + "'");
+            sSql.Append("  order by c.ShipPartner_ID, c.ShipFrom_ID");
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            return ds;
+        }
+
+        public DataSet GetShipOrderShipmentDetail(int iShipOrderID) {
+            StringBuilder sSql = new StringBuilder();
+            sSql.Append("select a.guidno as TweebaaOrderID");
+            sSql.Append(", b.ShipOrder_ID as ShipOrderID, b.quantity as PurchasedQuantity, b.buydanJia  as UnitPrice");
+            sSql.Append(", c.username as ShipToFirstName, c.lastName as ShipToLastName, c.address as ShipToAddress, c.city as ShipToCity, c.zip as ShipToZip, c.phone as ShipToPhone, c.email as ShipToEmail");
+            sSql.Append(", d.ShipmentDetail_Quantity as  ShippedQuantity, d.ShipmentDetail_ShippedDate as ShippedDate");
+            sSql.Append(", e.ShipmentDetailTracking_No as TrackingNo, e.ShipmentDetailTracking_CarrierName as CarrierName");
+            sSql.Append(", f.ProName as ShipToProvinceName");
+            sSql.Append(", g.country as ShipToCountryName");
+            sSql.Append(", x.name as ProductName");
+            sSql.Append(" from wn_orderhead a");
+            sSql.Append(" inner join wn_orderBody  b on b.headGuid = a.guid");
+            sSql.Append(" inner join wn_useraddress c on c.guid = a.addressguid");
+            sSql.Append(" inner join wn_ShipmentDetail d  on d.ShipmentDetail_ID = b.ShipmentDetail_ID");
+            sSql.Append(" inner join wn_ShipmentDetailTracking e on e.ShipmentDetail_ID = d.ShipmentDetail_ID");
+            sSql.Append(" inner join wn_Province f on f.ProID = c.provinceid");
+            sSql.Append(" inner join wn_country g on g.id = c.countyid");
+            sSql.Append(" inner join wn_prd x on x.prdGuid = b.prdGuid");
+            sSql.Append(" where b.ShipOrder_ID = " + iShipOrderID.ToString());
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            return ds;
+        }
+
+        public DataSet GetShipOrderDetailSupplier(string sShipOrderID)
+        {
+            StringBuilder sSql = new StringBuilder();
+
+            sSql.Append("select ");
+            sSql.Append("  so.OrderHead_GuidNo, so.ShipOrder_Date, so.ShipOrder_Status, so.ShipOrder_PartnerOrderID, so.ShipOrder_ReqXML, so.ShipOrder_ResponseXML");
+            sSql.Append(" ,a.guid as OrderHead_Guid, a.wnstat OrderStatus ");
+            sSql.Append(" ,x.name as ProductName");
+            sSql.Append(" ,b.guid as OrderBody_Guid, b.prdGuid, b.quantity as Item_Quantity, b.buydanjia as Item_UnitPrice, b.logisticscost as Item_ShipFee, a.TaxSum");
+            sSql.Append(" ,c.ShipPartner_ID, c.ShipFrom_ID, c.prosku as Item_TweebaaSku, c.suppliersku as Item_SupplierSku, c.proruletitle as Item_Title, c.prorule as Item_Name, c.barcode as Item_Barcode, c.prosize as Item_Size, c.proweight as Item_Weight, c.WholeSalePrice as Item_WholeSalePrice, c.SupplierShipFee as Item_SupplierShipFee, c.IsCustomerFreeShip as Item_IsCustomerFreeShip");
+            sSql.Append(" ,f.Supplier_ID, f.ShipFrom_CompanyName, f.ShipFrom_ContactName, f.ShipFrom_Address1, f.ShipFrom_Address2, f.Country_ID as ShipFrom_CountryID, g.ProName as ShipFrom_ProvinceName, g.ProShortName as ShipFrom_ProvinceShortName, f.ShipFrom_Zip, f.ShipFrom_City, f.ShipFrom_Phone, f.ShipFrom_Email");
+            sSql.Append(" ,h.username as ShipTo_FirstName, h.lastname as ShipTo_LastName,  h.address as ShipTo_Address1, h.address2 as ShipTo_Address2, h.countyid as ShipTo_CountryID, i.ProName as ShipTo_ProvinceName, i.ProShortName as ShipTo_ProvinceShortName, h.zip as ShipTo_Zip, h.city as ShipTo_City, h.Phone as ShipTo_Phone, h.email as ShipTo_Email");
+            sSql.Append(" ,j.prodetailType as Item_TypeName");
+            sSql.Append(" ,k.ShipmentDetail_ShippedDate as ShipOrder_ShippedDate");
+            sSql.Append(" ,l.ShipmentDetailTracking_No as ShipOrder_TrackingNo, l.ShipmentDetailTracking_CarrierName as ShipOrder_CarrierName");
+            sSql.Append(" ,y.ShipMethod_ID, y.ShipMethod_Name");
+            sSql.Append(" ,m.country as ShipTo_CountryName");
+            sSql.Append(" from wn_OrderHead a");
+            sSql.Append(" inner join wn_OrderBody b on b.headGuid = a.guid ");                          // link order head to its body
+            sSql.Append(" inner join wn_proRules c on  c.id = b.ruleid and c.proid =b.prdGuid");       // link order body to product rules
+            sSql.Append(" inner join wn_ShipFrom f on f.ShipFrom_ID = c.ShipFrom_ID");                  // link to product details
+            sSql.Append(" inner join wn_province g on g.ProID = f.Province_ID");                        // link to supplier province
+            sSql.Append(" inner join wn_useraddress h on h.guid = a.addressguid");                      // link to delievery address
+            sSql.Append(" inner join wn_province i on i.ProID = h.provinceid");                         // link to delievery province
+            sSql.Append(" inner join wn_proDetailSupplyType j on j.id = c.proruletitle");               // product detail specs type name
+            sSql.Append(" inner join wn_prd x on x.prdguid = b.prdGuid");
+            sSql.Append(" inner join wn_ShipMethod y on y.ShipMethod_ID = b.ShipMethod_ID");
+            sSql.Append(" inner join wn_ShipOrder so on so.ShipOrder_ID = b.ShipOrder_ID");
+            sSql.Append(" left join wn_ShipmentDetail k on k.Shipmentdetail_ID = b.ShipmentDetail_ID ");
+            sSql.Append(" left join wn_ShipmentDetailTracking l on l.Shipmentdetail_ID = k.ShipmentDetail_ID ");
+            sSql.Append(" left join wn_Country m on m.id=h.countyid ");                                 // link to country of delivery address
+
+            sSql.Append(" where so.ShipOrder_ID = " + sShipOrderID );
+            sSql.Append("  order by c.prosku");
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            return ds;
+        }
+
+        public DataSet GetShipOrderCancelInfo(string sOrderGuidNo)
+        {
+            StringBuilder sSql = new StringBuilder();
+
+            sSql.Append("select distinct c.ShipOrder_ID, c.ShipPartner_ID, c.ShipOrder_PartnerOrderID");
+            sSql.Append(" from wn_OrderHead a");
+            sSql.Append(" inner join wn_OrderBody b on b.headGuid = a.guid ");                          // link order head to its body
+            sSql.Append(" inner join wn_ShipOrder c on c.ShipOrder_ID = b.ShipOrder_ID ");
+            sSql.Append(" where a.guidno='" + sOrderGuidNo + "'");
+            sSql.Append("   and c.ShipOrder_PartnerOrderID is not null");
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            return ds;
+        }
+
+        #region member center Shipping order list for drop-shipper
+        public DataTable GetShipOrderList(string sShipOrderID, string sTrackingNo, string sOrderStatus, string sStartTime, string sEndTime, int iStartRow, int iEndRow, out int iTotalCount)
+        {
+            iTotalCount = 0;
+            Guid? userGuid = CommUtil.IsLogion();
+            if (userGuid == null) return null;
+
+            StringBuilder sSqlComm = new StringBuilder();
+
+            sSqlComm.Append("SELECT ROW_NUMBER()  over ( ORDER BY a.ShipOrder_ID desc) as Row ");
+            sSqlComm.Append(", a.ShipOrder_ID, a.OrderHead_GuidNo as Tweebaa_OrderID");
+            sSqlComm.Append(", a.ShipOrder_Date, a.ShipOrder_Status");
+            sSqlComm.Append(", f.ShipmentDetailTracking_No as ShipOrder_TrackingNo , sum(b.quantity) as Qty_Sum  , sum(b.quantity*b.buydanJia) as Price_Sum, sum(b.quantity*c.WholesalePrice) as SupplierPrice_Sum");
+            sSqlComm.Append(" from wn_shipOrder a ");
+            sSqlComm.Append(" inner join wn_orderBody b on b.ShipOrder_ID = a.ShipOrder_ID");
+            sSqlComm.Append(" inner join wn_proRules c on c.id = b.ruleid"); 
+            sSqlComm.Append(" inner join wn_ShipFrom d on d.ShipFrom_ID = c.ShipFrom_ID");
+            sSqlComm.Append(" left join wn_ShipmentDetail e on e.ShipmentDetail_ID = b.ShipmentDetail_ID ");
+            sSqlComm.Append(" left join wn_ShipmentDetailTracking f on f.ShipmentDetail_ID = e.ShipmentDetail_ID ");
+            sSqlComm.Append(" where d.userguid = '" + userGuid.ToString() + "'");
+            sSqlComm.Append("  and a.ShipPartner_ID = 3");
+ //           sSqlComm.Append("  where a.ShipPartner_ID = 3");
+
+            // search by ship Order #
+            if (!string.IsNullOrEmpty(sShipOrderID))
+            {
+                sSqlComm.Append(" and a.ShipOrder_ID=" + sShipOrderID  );
+            }
+
+            // search by tracking no
+            if (!string.IsNullOrEmpty(sTrackingNo))
+            {
+                sSqlComm.Append(" and f.ShipmentDetailTracking_No='" + CommUtil.Quo(sTrackingNo) + "'");
+            }
+
+            // search by tracking no
+            if (!string.IsNullOrEmpty(sOrderStatus))
+            {
+                sSqlComm.Append(" and a.ShipOrder_Status=" + sOrderStatus);
+            }
+
+            // search by data range
+            DateTime dtmTemp;
+            if (DateTime.TryParse(sStartTime, out dtmTemp))
+            {
+                string sTemp = CommUtil.ToDBDateFormat(dtmTemp.ToString("yyyy/MM/dd/"));
+                sSqlComm.Append(" and a.ShipOrder_Date>='" + sTemp + " 0:00'");
+            }
+            if (DateTime.TryParse(sEndTime, out dtmTemp))
+            {
+                string sTemp = CommUtil.ToDBDateFormat(dtmTemp.ToString("yyyy/MM/dd"));
+                sSqlComm.Append(" and a.ShipOrder_Date<='" + sTemp + " 23:59'");
+            }
+            sSqlComm.Append("  group by a.ShipOrder_ID, a.OrderHead_GuidNo, a.ShipOrder_Date, a.ShipOrder_Status, f.ShipmentDetailTracking_No ");
+ 
+            // retrieve total count
+            StringBuilder sSql = new StringBuilder();
+            iTotalCount = 0;
+            sSql.Append("select count(*) from (");
+            sSql.Append(sSqlComm.ToString());
+            sSql.Append(") as t");
+
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    iTotalCount = dt.Rows[0][0].ToString().ToInt();
+                }
+            }
+
+            // retrieve data list
+            sSql.Clear();
+            sSql.Append("select * from (");
+            sSql.Append(sSqlComm.ToString());
+            sSql.Append(") as t");
+            sSql.Append(" where t.Row between " + iStartRow.ToString() + " and " + iEndRow.ToString());
+
+            ds = DbHelperSQL.Query(sSql.ToString());
+            if (ds == null || ds.Tables.Count == 0) return null;
+
+            return ds.Tables[0];
+
+        }
+
+        #endregion
+
+
+        public int UpdateShipOrderStatus(DB db, int iShipOrderID, int iStatus, DateTime dtStatus)
+        {
+            // update ship order status
+            StringBuilder sSql = new StringBuilder();
+            sSql.Append("update wn_ShipOrder set ShipOrder_Status =" + iStatus.ToString());
+            
+            //if (iStatus == (int)ConfigParamter.OrderStatus.Shipped) {
+            //    sSql.Append(", ShipOrder_ShippedDate='" +  CommUtil.ToDBDateFormat(dtStatus) + "'");    
+            //}
+            //else if (iStatus == (int)ConfigParamter.OrderStatus.WaitingToShip) {
+            //    sSql.Append(", ShipOrder_ShippedDate=null");    
+            //}
+            
+            sSql.Append(" where ShipOrder_ID=" + iShipOrderID.ToString());
+            int iCnt = db.DBExecute(sSql.ToString());
+
+            // update customer order status
+            iCnt = UpdateCustomerOrderStatus(db, iShipOrderID);
+
+            return iCnt;
+        }
+
+        public bool SaveShipment(DB db, int iShipOrderID, int iShipPartnerID, string sShippedDate, string sTrackingNo, string sCarrierName, out string sErrMsg)
+        {
+            sErrMsg = string.Empty;
+            try
+            {
+               // create a sipment request id
+               StringBuilder sSql = new StringBuilder();
+               int iAffectedRow = 0;
+
+               // get product item info of this shipping order
+               sSql.Append("select a.guidno as TweebaaOrderNo, b.ShipOrder_ID, c.prosku as TweebaaSku,c.suppliersku as SupplierSku, b.Quantity");
+               sSql.Append(" from wn_orderHead a");
+               sSql.Append(" inner join wn_orderBody b on b.headGuid =a.guid");
+               sSql.Append(" inner join wn_proRules c on c.id = b.ruleid");
+               sSql.Append(" where b.ShipOrder_ID = " + iShipOrderID.ToString());
+
+               DataSet dsItem = db.DBQuery(sSql.ToString());
+               if (dsItem == null || dsItem.Tables.Count == 0)
+               {
+                   sErrMsg = "Cannot get shpping order item info Shipping Order #: " + iShipOrderID.ToString();
+                   return false;
+               }
+               DataTable dtItem = dsItem.Tables[0];
+
+               int iShipmentDetailReqID = db.DBGetSeq("ShipmentDetailRequestID");
+
+               // insert request
+               sSql.Clear();
+               sSql.Append("insert into wn_ShipmentDetailRequest(ShipmentDetailRequest_ID, ShipPartner_ID, ShipmentDetailRequest_Date, ShipmentDetailRequest_Success, ShipmentDetailRequest_DataCount, ShipmentDetailRequest_ErrMsg)");
+               sSql.Append("VALUES(");
+               sSql.Append(iShipmentDetailReqID.ToString() + ",");
+               sSql.Append(iShipPartnerID.ToString() + ",");
+               sSql.Append("getdate(),");
+               sSql.Append("1,");  // success
+               sSql.Append("1,");  // 1 detail
+               sSql.Append("'')"); // no error
+
+               iAffectedRow = db.DBExecute(sSql.ToString());
+
+
+               foreach (DataRow drItem in dtItem.Rows)
+               {
+
+                   // insert detail
+                   int iShipmentDetailID = db.DBGetSeq("ShipmentDetailID");
+                   sSql.Clear();
+
+                   // insert shipment detail
+                   sSql.Append("insert into wn_ShipmentDetail");
+                   sSql.Append("(ShipmentDetail_ID");
+                   sSql.Append(",ShipPartner_ID");
+                   sSql.Append(",ShipmentDetailRequest_ID");
+                   sSql.Append(",ShipmentDetail_PartnerOrderID");
+                   sSql.Append(",ShipmentDetail_PartnerLineItemNo");
+                   sSql.Append(",ShipmentDetail_PartnerSku");
+                   sSql.Append(",ShipmentDetail_Quantity");
+                   sSql.Append(",ShipOrder_ID");
+                   sSql.Append(",Order_LineItemNo");
+                   sSql.Append(",TweebaaSku");
+                   sSql.Append(",ShipmentDetail_ShippedDate");
+                   sSql.Append(",ShipmentDetail_CreateDate)");
+                   sSql.Append("VALUES(");
+                   sSql.Append(iShipmentDetailID.ToString() + ",");
+                   sSql.Append(iShipPartnerID.ToString() + ",");
+                   sSql.Append(iShipmentDetailReqID.ToString() + ",");
+                   sSql.Append("'',");   // partner order #
+                   sSql.Append("1,");    // partner line item no
+                   sSql.Append("'" + CommUtil.Quo(drItem["SupplierSku"].ToNullString()) + "',");  // partner sku
+                   sSql.Append(drItem["Quantity"].ToString() + ",");
+                   sSql.Append("'" + iShipOrderID.ToString() + "',");
+                   sSql.Append("1,");
+                   sSql.Append("'" + drItem["TweebaaSku"].ToNullString() + "',");        // tweebaa sku
+                   sSql.Append("'" + sShippedDate + "',");
+                   sSql.Append("getdate())");
+                   iAffectedRow = db.DBExecute(sSql.ToString());
+
+                   // insert tracking
+                   sSql.Clear();
+                   sSql.Append("insert into wn_ShipmentDetailTracking(ShipmentDetail_ID,ShipmentDetailTracking_No,ShipmentDetailTracking_CarrierCode,ShipmentDetailTracking_CarrierName,ShipmentDetailTracking_CreateDate) ");
+                   sSql.Append("VALUES(");
+                   sSql.Append(iShipmentDetailID.ToString() + ",");
+                   sSql.Append("'" + sTrackingNo + "',");
+                   sSql.Append("' ',");
+                   sSql.Append("'" + sCarrierName + "',");
+                   sSql.Append("getdate())");
+                   iAffectedRow = db.DBExecute(sSql.ToString());
+
+
+                   // update orderbody 
+                   sSql.Clear();
+                   sSql.Append("update wn_OrderBody set ShipmentDetail_ID=" + iShipmentDetailID.ToString());
+                   sSql.Append(" where ShipOrder_ID =" + iShipOrderID.ToString());
+                   sSql.Append("   and ruleid = ( select id from wn_proRules where prosku ='" + drItem["TweebaaSku"].ToString() + "')");
+                   iAffectedRow = db.DBExecute(sSql.ToString());
+               }
+
+               // update ship order status and ship shipped date
+               sSql.Clear();
+               sSql.Append("update wn_ShipOrder set ShipOrder_Status =" + ((int)(ConfigParamter.OrderStatus.Shipped)).ToString());
+               sSql.Append(" where ShipOrder_ID=" + iShipOrderID.ToString());
+               int iCnt = db.DBExecute(sSql.ToString());
+
+
+               // update customer order status
+               iCnt = UpdateCustomerOrderStatus(db, iShipOrderID);
+
+               return true;
+            }
+            catch (Exception ex)
+            {
+                sErrMsg = ex.Message;
+                return false;
+            }
+        }
+
+        public bool SaveReturn(DB db, int iShipOrderID, int iShipPartnerID, string sReturnDate, string sReasonCode, string sReasonDesc, string sAction, out string sErrMsg)
+        {
+            sErrMsg = string.Empty;
+            try
+            {
+                StringBuilder sSql = new StringBuilder();
+                int iAffectedRow = 0;
+
+                // get product item info of this shipping order
+                sSql.Append("select a.guidno as TweebaaOrderNo, b.ShipOrder_ID, c.prosku as TweebaaSku,c.suppliersku as SupplierSku, b.Quantity");
+                sSql.Append(" from wn_orderHead a");
+                sSql.Append(" inner join wn_orderBody b on b.headGuid =a.guid");
+                sSql.Append(" inner join wn_proRules c on c.id = b.ruleid");
+                sSql.Append(" where b.ShipOrder_ID = " + iShipOrderID.ToString());
+
+                DataSet dsItem = db.DBQuery(sSql.ToString());
+                if (dsItem == null || dsItem.Tables.Count == 0)
+                {
+                    sErrMsg = "Cannot get shpping order item info Shipping Order #: " + iShipOrderID.ToString();
+                    return false;
+                }
+                DataTable dtItem = dsItem.Tables[0];
+
+                // get a new return request ID
+                int iReturnInfoReqID = db.DBGetSeq("ReturnInfoRequestID");
+ 
+                // insert a Return info Request
+                sSql.Append("insert into wn_ReturnInfoRequest(ReturnInfoRequest_ID, ShipPartner_ID, ReturnInfoRequest_Date, ReturnInfoRequest_Success, ReturnInfoRequest_DataCount, ReturnInfoRequest_ErrMsg)");
+                sSql.Append("VALUES(");
+                sSql.Append(iReturnInfoReqID.ToString() + ",");
+                sSql.Append(iShipPartnerID.ToString() + ",");
+                sSql.Append("getdate(),");
+                sSql.Append("1,");
+                sSql.Append("1,");
+                sSql.Append("'')");
+                iAffectedRow = db.DBExecute(sSql.ToString());
+
+
+                foreach (DataRow drItem in dtItem.Rows)
+                {
+                    int iReturnInfoID = db.DBGetSeq("ReturnInfoID");
+                    sSql.Clear();
+
+                    // insert return info
+                    sSql.Append("insert into wn_ReturnInfo");
+                    sSql.Append("(ReturnInfo_ID");
+                    sSql.Append(",ShipPartner_ID");
+                    sSql.Append(",ReturnInfoRequest_ID");
+                    sSql.Append(",ReturnInfo_PartnerOrderID");
+                    sSql.Append(",ReturnInfo_PartnerLineItemNo");
+                    sSql.Append(",ShipOrder_ID");
+                    sSql.Append(",TweebaaSku");
+                    sSql.Append(",Order_LineItemNo");
+                    sSql.Append(",ReturnInfo_ReturnDate");
+                    sSql.Append(",ReturnInfo_ReturnQuantity");
+                    sSql.Append(",ReturnInfo_Quality");
+                    sSql.Append(",ReturnInfo_ReasonCode");
+                    sSql.Append(",ReturnInfo_ReasonDesc");
+                    sSql.Append(",ReturnInfo_ActionRequested");
+                    sSql.Append(",ReturnInfo_LastUpdatedDate");
+                    sSql.Append(",ReturnInfo_CreateDate)");
+                    sSql.Append(" VALUES(");
+                    sSql.Append(iReturnInfoID.ToString() + ",");
+                    sSql.Append(iShipPartnerID.ToString() + ",");
+                    sSql.Append(iReturnInfoReqID.ToString() + ",");
+                    sSql.Append("'',");  // partner order #
+                    sSql.Append("1,");   // Partner Line Item  #
+                    sSql.Append(iShipOrderID.ToString() + ",");  // Tweebaa shipping order
+                    sSql.Append("'" + CommUtil.Quo(drItem["TweebaaSku"].ToString()) + "',");  // tweebaa sku #
+                    sSql.Append("'1',");        // tweebaa order line Item #
+                    sSql.Append("'" + sReturnDate + "',");
+                    sSql.Append(drItem["Quantity"].ToString() + ",");
+                    sSql.Append("1,"); // 1/2/0
+                    sSql.Append("'" + CommUtil.Quo(sReasonCode) + "',");
+                    sSql.Append("'" + CommUtil.Quo(sReasonDesc) + "',");
+                    sSql.Append("'" + CommUtil.Quo(sAction) + "',");
+                    sSql.Append("'" + DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss").Replace("-", "/") + "',");
+                    sSql.Append("getdate())");
+                    iAffectedRow = db.DBExecute(sSql.ToString());
+
+                    // update orderbody 
+                    sSql.Clear();
+                    sSql.Append("update wn_OrderBody set ReturnInfo_ID=" + iReturnInfoID.ToString());
+                    sSql.Append(" where ShipOrder_ID =" + iShipOrderID.ToString());
+                    sSql.Append("   and ruleid = ( select id from wn_proRules where prosku ='" + CommUtil.Quo(drItem["TweebaaSku"].ToString()) + "')");
+                    iAffectedRow = db.DBExecute(sSql.ToString());
+
+                }
+
+                // update ship order status 
+                sSql.Clear();
+                sSql.Append("update wn_ShipOrder set ShipOrder_Status =" + ((int)(ConfigParamter.OrderStatus.RefundCompleted)).ToString());
+                sSql.Append(" where ShipOrder_ID=" + iShipOrderID.ToString());
+                int iCnt = db.DBExecute(sSql.ToString());
+
+
+                // update customer order status
+                iCnt = UpdateCustomerOrderStatus(db, iShipOrderID);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                sErrMsg = ex.Message;
+                return false;
+            }
+        }   
+
+
+        public int UpdateCustomerOrderStatus(DB db, int iShipOrderID)
+        {
+
+            // get customer PO #
+            string sSql = "select OrderHead_GuidNo from wn_shipOrder where ShipOrder_ID=" + iShipOrderID.ToString();
+            DataSet ds = db.DBQuery(sSql);
+            if (ds == null || ds.Tables.Count == 0) return 0;
+
+            DataTable dt = ds.Tables[0];
+            if (dt == null || dt.Rows.Count ==  0) return 0;
+
+            string sOrderHeadGuidNo = dt.Rows[0]["OrderHead_GuidNo"].ToString(); // customer PO # like:  Twee12345678
+ 
+            // check all shiporder status in the customer order #
+            // set customer order status to shipped if all ship orders are shipped
+            sSql = "select b.ShipOrder_Status from wn_OrderBody a " +
+                   " inner join wn_ShipOrder b on a.ShipOrder_ID = b.ShipOrder_ID " +
+                   " inner join wn_OrderHead c on c.guid = a.headGuid " + 
+                   " where c.guidno ='" + sOrderHeadGuidNo + "'";
+
+            ds = db.DBQuery(sSql);
+            if (ds == null || ds.Tables.Count == 0) return 0;
+
+            dt = ds.Tables[0];
+            if (dt == null && dt.Rows.Count == 0) return 0;
+
+            int iCntUnPaid = 0;
+            int iCntWaitingToShip = 0;
+            int iCntShipped = 0;
+            //int iCntCompleted = 0;
+            int iCntCancelled = 0;
+            int iCntUnknown = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                int iShipOrderStatus = dr["ShipOrder_Status"].ToString().ToInt();
+                switch (iShipOrderStatus)
+                {
+                    case (int)(ConfigParamter.OrderStatus.UnPaid):
+                        iCntUnPaid++;
+                        break;
+                    case (int)(ConfigParamter.OrderStatus.WaitingToShip): 
+                        iCntWaitingToShip ++;
+                        break;
+                    case (int)(ConfigParamter.OrderStatus.Shipped):
+                        iCntShipped ++;
+                        break;
+                    //case (int)(ConfigParamter.OrderStatus.Completed):
+                    //    iCntCompleted++;
+                    //    break;
+                    case (int)(ConfigParamter.OrderStatus.Cancelled):
+                        iCntCancelled++;
+                        break;
+                    default:
+                        iCntUnknown++;
+                        break;
+                }
+            }
+
+            int iTotalShipOrder = dt.Rows.Count;
+            int iNewCustomerOrderStatus = int.MaxValue;
+
+            if (iCntWaitingToShip > 0 && iCntShipped ==  0) iNewCustomerOrderStatus = (int)(ConfigParamter.OrderStatus.WaitingToShip);
+            else if (iCntWaitingToShip > 0 && iCntShipped > 0) iNewCustomerOrderStatus = (int)(ConfigParamter.OrderStatus.PartiallyShipped);
+            else if (iTotalShipOrder == iCntCancelled ) iNewCustomerOrderStatus = (int)(ConfigParamter.OrderStatus.Cancelled);
+            else if (iTotalShipOrder ==  (iCntCancelled + iCntShipped)) iNewCustomerOrderStatus = (int)(ConfigParamter.OrderStatus.Shipped);
+
+            int iCnt = 0;
+            if (iNewCustomerOrderStatus != int.MaxValue)
+            {
+                sSql = "update wn_OrderHead set wnstat = " + iNewCustomerOrderStatus.ToString() + " where guidno ='" + sOrderHeadGuidNo + "'";
+                iCnt = db.DBExecute(sSql);
+
+            }
+            return iCnt;
+        }
+
+        #region backend methods
+        public DataTable MgeGetShipOrderList(int iStartRow, int iEndRow, out int iTotalCount, string sShipOrderID, string sTweebaaOrderID, string sPartnerOrderID,
+            string sStartTime, string sEndTime, string sSuccess)
+        {
+
+            StringBuilder sSqlComm = new StringBuilder();
+            sSqlComm.Append("SELECT ROW_NUMBER()  over ( ORDER BY a.ShipOrder_ID desc) as Row");
+            sSqlComm.Append(",a.ShipOrder_ID, a.OrderHead_GuidNo, a.ShipOrder_IsSuccess, a.ShipOrder_PartnerOrderID, a.ShipOrder_Date, a.ShipOrder_ErrMsg");
+            sSqlComm.Append(",b.ShipPartner_Name");
+            sSqlComm.Append(" from wn_ShipOrder a");
+            sSqlComm.Append(" inner join wn_ShipPartner b on b.ShipPartner_ID = a.ShipPartner_ID");
+            sSqlComm.Append(" where 1=1");
+            int iShipOrderID = 0;
+            if (Int32.TryParse(sShipOrderID, out iShipOrderID)) sSqlComm.Append(" and a.ShipOrder_ID=" + iShipOrderID.ToString());
+            if (sTweebaaOrderID != string.Empty) sSqlComm.Append(" and a.OrderHead_GuidNo='" + CommUtil.Quo(sTweebaaOrderID) + "'");
+            if (sPartnerOrderID != string.Empty) sSqlComm.Append(" and a.ShipOrder_PartnerOrderID='" + CommUtil.Quo(sPartnerOrderID) + "'");
+            DateTime dtmTemp;
+            if (DateTime.TryParse(sStartTime, out dtmTemp))
+            {
+                string sTemp = CommUtil.ToDBDateFormat(dtmTemp.ToString("yyyy/MM/dd/"));
+                sSqlComm.Append(" and a.ShipOrder_Date>='" + sTemp + " 0:00'");
+            }
+            if (DateTime.TryParse(sEndTime, out dtmTemp))
+            {
+                string sTemp = CommUtil.ToDBDateFormat(dtmTemp.ToString("yyyy/MM/dd"));
+                sSqlComm.Append(" and a.ShipOrder_Date<='" + sTemp + " 23:59'");
+            }
+            int iSuccess = 0;
+            if (int.TryParse(sSuccess, out iSuccess)) sSqlComm.Append(" and a.ShipOrder_IsSuccess=" + iSuccess.ToString());
+
+            // retrieve total count
+            StringBuilder sSql = new StringBuilder();
+            iTotalCount = 0;
+            sSql.Append("select count(*) from (");
+            sSql.Append(sSqlComm.ToString());
+            sSql.Append(") as t");
+ 
+            DataSet ds = DbHelperSQL.Query(sSql.ToString());
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                DataTable dt = ds.Tables[0];
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    iTotalCount = dt.Rows[0][0].ToString().ToInt();
+                }
+            }
+
+            // retrieve data list
+            sSql.Clear();
+            sSql.Append("select * from (");
+            sSql.Append(sSqlComm.ToString());
+            sSql.Append(") as t");
+            sSql.Append(" where t.Row between " + iStartRow.ToString() + " and " + iEndRow.ToString());
+
+            ds = DbHelperSQL.Query(sSql.ToString());
+            if (ds == null || ds.Tables.Count == 0) return null;
+
+            return ds.Tables[0];
+            
+        }
+        #endregion
+    }
+}

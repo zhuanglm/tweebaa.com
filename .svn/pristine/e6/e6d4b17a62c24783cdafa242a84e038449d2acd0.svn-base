@@ -1,0 +1,148 @@
+
+.spinslot #container
+{
+    margin-left:110px;
+    margin-right:90px;
+    padding-top: 10px;
+}
+
+
+#container #reels
+{
+    display:block;
+    position:relative;
+    width:440px;
+    height: 390px;
+    overflow: hidden;
+    text-align: center;
+   /* padding: 10px 10px 0 10px;
+    
+    background:#000;
+    border: 10px solid;
+    border-color: #777 #999 #666 #999;
+    border-radius:3px;
+    -moz-box-shadow:#fff 0px 1px 0px;*/
+}
+#canvas1
+{
+margin-left:12px;
+
+}
+#canvas2
+{
+margin-left:-148px;
+
+}
+#canvas3
+{
+margin-left:-149px;
+
+}
+
+
+
+
+#canvas1 {width:298px;}
+.can1 {width:138px;}
+.can2 {width:138px; }
+.can3{width:138px;}
+    /*#container #reels canvas
+{
+width:246px;
+ position: relative;
+
+    background: white;
+    border: 2px solid gold;
+}*/
+@media only screen and (max-width: 650px) 
+{
+    
+ #container #reels
+{width:410px;}
+.spinslot #container
+{
+    margin-left:0px;
+}
+
+#canvas1
+{
+margin-left:0px;
+
+}
+#canvas2
+{
+margin-left:-170px;
+
+}
+#canvas3
+{
+margin-left:-175px;
+
+}
+#canvas1 {width:288px;}
+.can1 {width:128px;}
+.can2 {width:128px; }
+.can3{width:128px;}
+	}
+
+#container #overlay 
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    opacity: 0.3;
+    background-image: -moz-linear-gradient(#555,#fff,#fff,#555);
+    background-image: -webkit-gradient(linear, 0 25%, 0 100%, from(grey), color-stop(0.5, white), to(grey));
+    display: none;
+}
+#container #overlay #winline 
+{	
+    width: 100%;
+    height: 5px;
+    background: red;	
+    position: relative;
+    top: 50%;
+}
+
+#reels #results
+{
+    display: none;
+    background: white;
+    border: 3px solid gold;
+    height: 120px;
+    width: 250px;
+    left: 80px;
+    top: 120px;
+    position: absolute;
+    font-size: x-large;
+}
+
+#results #score {
+    margin: 5px;
+}
+/*
+#results #score img {
+    vertical-align: middle;
+}
+*/
+
+
+
+/*
+#canvas1
+{
+    background-image:url(../images/Slot_wheel.png);
+}
+
+#canvas2
+{
+    margin-left:18px;
+    background-image:url(../images/Slot_wheel.png);
+}
+
+#canvas3
+{
+     margin-left:18px;
+    background-image:url(../images/Slot_wheel.png);
+}*/

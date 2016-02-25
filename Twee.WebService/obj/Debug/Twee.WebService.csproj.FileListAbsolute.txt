@@ -1,0 +1,16 @@
+D:\tweebaa.com\Twee.WebService\bin\Twee.WebService.dll
+D:\tweebaa.com\Twee.WebService\bin\Twee.WebService.pdb
+D:\tweebaa.com\Twee.WebService\bin\Twee.Comm.dll
+D:\tweebaa.com\Twee.WebService\bin\Twee.Mgr.dll
+D:\tweebaa.com\Twee.WebService\bin\Newtonsoft.Json.dll
+D:\tweebaa.com\Twee.WebService\bin\Twee.DataMgr.dll
+D:\tweebaa.com\Twee.WebService\bin\Twee.Model.dll
+D:\tweebaa.com\Twee.WebService\bin\log4net.dll
+D:\tweebaa.com\Twee.WebService\bin\Maticsoft.Common.dll
+D:\tweebaa.com\Twee.WebService\bin\Twee.Comm.pdb
+D:\tweebaa.com\Twee.WebService\bin\Twee.Mgr.pdb
+D:\tweebaa.com\Twee.WebService\bin\Twee.DataMgr.pdb
+D:\tweebaa.com\Twee.WebService\bin\Twee.Model.pdb
+D:\tweebaa.com\Twee.WebService\obj\Debug\Twee.WebService.csprojResolveAssemblyReference.cache
+D:\tweebaa.com\Twee.WebService\obj\Debug\Twee.WebService.dll
+D:\tweebaa.com\Twee.WebService\obj\Debug\Twee.WebService.pdb

@@ -1,0 +1,541 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="TweebaaWebApp2.index" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+At Tweebaa Everybody Earns - earn by shopping, submitting, evaluating, sharing
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+ <%=TweebaaWebApp2.SEOTextDefine.HomePageSEOMeta %>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
+    <% // public.js has been inlcuded in master page Jack 2015-10-23 %>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="/js/tab.js"></script>
+    <script src="MethodJs/index.js?v=151128" type="text/javascript"></script>
+    <script src="MethodJs/share.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="/js/jquery.cookie.js" ></script>
+
+<script type="text/javascript" src="/MethodJs/favorite.js" ></script>
+
+
+
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+    window.$zopim || (function (d, s) {
+        var z = $zopim = function (c) { z._.push(c) }, $ = z.s =
+d.createElement(s), e = d.getElementsByTagName(s)[0]; z.set = function (o) {
+    z.set.
+_.push(o)
+}; z._ = []; z.set._ = []; $.async = !0; $.setAttribute("charset", "utf-8");
+        $.src = "//v2.zopim.com/?3SkhL2CFelNy1xITHgs9PrwP0JnHNM52"; z.t = +new Date; $.
+type = "text/javascript"; e.parentNode.insertBefore($, e)
+    })(document, "script");
+</script>
+<!--End of Zopim Live Chat Script-->
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+    <% // include google share  %>
+    <!--#include file="./Include/GoogleShare.inc" -->
+
+
+    <!--=== Slider ===-->
+  
+              <!--=== Slider ===-->
+    <div class="tp-banner-container">
+        <div class="tp-banner">
+        
+            <ul>
+           <!-- SLIDE DISCOVER SHOP-->
+                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="DISCOVER SHOP">
+                 
+                    <img src="images/head/share-bg.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="right top" data-bgrepeat="no-repeat">
+                    <div class="tp-caption revolution-ch5 sft start"
+                        data-x="right"
+                        data-hoffset="50"
+                        data-y="0"
+                        data-speed="1500"
+                        data-start="100"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                      <img src="images/head/shop.png">
+                    </div>
+
+                    <div class="tp-caption revolution-ch5 sft start"
+                        data-x="left"
+                        data-hoffset="0"
+                        data-y="100"
+                        data-speed="1500"
+                        data-start="500"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                       <strong> EARN </strong>SHOPPING REWARDS<br> ON <strong><span style="color:#f59aa9"> ALL PURCHASES</span></strong>
+                    </div>
+
+                    <div class="tp-caption revolution-ch4 sft"
+                        data-x="left"
+                        data-hoffset="0"
+                        data-y="260"
+                        data-speed="1400"
+                        data-start="2000"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6"> unique products & great deals
+                      
+                    </div>
+
+                 
+                    <div class="tp-caption shopbtn sft"
+                        data-x="left"
+                        data-hoffset="0"
+                        data-y="310"
+                        data-speed="1600"
+                        data-start="2800"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6">
+                        <a href="/Product/prdSaleAll.aspx" class="btn-u btn-u-shop btn-u-lg rounded">Shop Now</a>
+                    </div>
+                </li>
+                <!-- END SLIDE -->
+                   <!-- SHARE & EARN MONEY SLIDE-->
+                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="SHARE & EARN MONEY">
+                   
+                    
+                    <img src="images/head/share-bg.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                     <div class="tp-caption sft start"
+                        data-x="left"
+                        data-hoffset="-50"
+                        data-y="0"
+                        data-speed="1500"
+                        data-start="100"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                    <img src="images/head/share.png">
+                    </div>
+  <div class="tp-caption revolution-ch6 sft start"
+                        data-x="right"
+                        data-hoffset="35"
+                        data-y="100"
+                        data-speed="1500"
+                        data-start="500"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                      BROWSE FOR YOUR FRIENDS
+                    </div>
+
+                    <div class="tp-caption revolution-ch3 sft start"
+                        data-x="right"
+                        data-hoffset="35"
+                        data-y="130"
+                        data-speed="1500"
+                        data-start="500"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                       <strong><span style="color: #faa54e">EARN MONEY</span></strong>
+                    </div>
+
+                    <div class="tp-caption revolution-ch7 sft"
+                        data-x="right"
+                        data-hoffset="35"
+                        data-y="240"
+                        data-speed="1400"
+                        data-start="2000"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index:6"> WHEN THEY BUY</div>
+                        
+                <div class="tp-caption revolution-ch9 sft"
+                        data-x="right"
+                        data-hoffset="35"
+                        data-y="290"
+                        data-speed="1400"
+                        data-start="2400"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="310"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index:6"> Post, Tweet or email them products they’ll love</div>
+                  
+                    <div class="tp-caption sharebtn sft"
+                        data-x="right"
+                        data-hoffset="35"
+                        data-y="340"
+                        data-speed="1600"
+                        data-start="2800"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6">
+                      
+                        <button onclick="window.location.href='/Product/prdSingleShare.aspx'" class="btn-u rounded btn-u-orange btn-u-lg" type="button">Share Now</button>
+                    </div>
+                </li>
+                <!-- END SLIDE -->
+             <!--tweebot SLIDE -->
+                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="TWEEBOT">
+               
+                    <img src="images/head/tweebot.jpg"  alt="everybodyearns"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                <div class="tp-caption sft start"
+                        data-x="left"
+                        data-hoffset="0"
+                        data-y="15"
+                        data-speed="1500"
+                        data-start="100"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                     <img src="images/head/tweebot.png">
+                    </div>
+                    <div class="tp-caption revolution-ch6 sft start"
+                        data-x="right"
+                        data-hoffset="40"
+                        data-y="100"
+                        data-speed="1500"
+                        data-start="500"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                     <strong><span style="color:#fff;">AT TWEEBAA YOU’LL FIND</span></strong>
+                    </div>
+                    
+                         <div class="tp-caption revolution-ch8 sft start"
+                        data-x="right"
+                        data-hoffset="0"
+                        data-y="110"
+                        data-speed="1500"
+                        data-start="800"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                     <strong><span style="color:#ec0000;">UNIQUE PRODUCTS LIKE</span></strong>
+                     <br><img src="images/head/tbot-logo.png">
+                    </div>
+
+                   
+                    <div class="tp-caption revolution-ch10 sft"
+                        data-x="right"
+                        data-hoffset="40"
+                        data-y="290"
+                        data-speed="1400"
+                        data-start="2000"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6">A wireless, Bluetooth speaker that listens to you.
+                    </div>
+
+                  
+                    <div class="tp-caption sft"
+                        data-x="right"
+                        data-hoffset="40"
+                        data-y="330"
+                        data-speed="1600"
+                        data-start="1800"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6">
+                        <a href="/Product/saleBuy.aspx?id=670bdf26-a935-4643-ac0e-ba24c2249107" class="btn-u btn-block btn-u-red btn-u-lg rounded">BUY NOW</a>
+                    
+                    </div>
+                </li>
+                <!-- END SLIDE -->
+
+                <!-- game SLIDE-->
+                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="TWEEBAA APP">
+                
+                    <img src="images/head/share-bg.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="center top" data-bgrepeat="no-repeat">
+         <div class="tp-caption sft start"
+                        data-x="right"
+                        data-hoffset="0"
+                        data-y="20"
+                        data-speed="1500"
+                        data-start="100"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                 <img src="images/head/game.png">
+                    </div>
+                    <div class="tp-caption revolution-ch5 sft start"
+                        data-x="left"
+                        data-hoffset="0"
+                        data-y="100"
+                        data-speed="1500"
+                        data-start="500"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300">
+                       <strong >DOWNLOAD THE <br>
+TWEEBAA APP</strong>
+                    </div>
+
+                    <div class="tp-caption revolution-ch4 sft"
+                        data-x="left"
+                        data-hoffset="0"
+                        data-y="260"
+                        data-speed="1400"
+                        data-start="2000"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6">
+                       Have fun while earning rewards!
+                    </div>
+
+                    <div class="tp-caption gameicon sft"
+                        data-x="left"
+                        data-hoffset="20"
+                        data-y="290"
+                        data-speed="1600"
+                        data-start="2800"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6">
+                        <a href="https://play.google.com/store/apps/details?id=com.Tweebaa.App.CollageApp" style="margin-right:10px;"><img src="images/head/android.png"></a>
+                       <a style="margin-right:10px;" href="https://itunes.apple.com/ca/app/tweebaa/id1027840811?mt=8"> <img src="images/head/AppStore.png"></a>
+                      
+             
+        
+                    </div>
+                </li>
+                <!-- END SLIDE -->  
+               
+                <!-- college SLIDE  -->
+                <li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="EDUCAITON">
+            
+                    <img src="images/head/learn.jpg"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="center top" data-bgrepeat="no-repeat">
+
+                    <div class="tp-caption revolution-ch3 sft start"
+                        data-x="center"
+                        data-hoffset="0"
+                        data-y="70"
+                        data-speed="1000"
+                        data-start="622"
+                        data-easing="Back.easeInOut"
+                        data-endeasing="Power1.easeIn"                        
+                        data-endspeed="300"><span style="text-align:center">Learn about Tweebaa</span> </div>
+
+                  
+                    <div class="tp-caption revolution-ch12 sft"
+                        data-x="center"
+                        data-hoffset="20"
+                        data-y="200"
+                        data-speed="1400"
+                        data-start="1000"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6">
+                        <span style="text-align:center">Don’t know where to start?  Let us help.</span>
+                      
+                    </div>
+
+                 
+                    <div class="tp-caption sft collage"
+                        data-x="center"
+                        data-hoffset="0"
+                        data-y="240"
+                        data-speed="1600"
+                        data-start="2000"
+                        data-easing="Power4.easeOut"
+                        data-endspeed="300"
+                        data-endeasing="Power1.easeIn"
+                        data-captionhidden="off"
+                        style="z-index: 6">
+                       <a href="/College/College.aspx"> <img src="images/head/learn-text.png"></a>
+        
+                    </div>
+      
+
+                </li>
+                <!-- END SLIDE -->
+              
+
+               
+               
+            </ul>
+            <div class="tp-bannertimer tp-bottom"></div>            
+        </div>
+    </div>
+    <!--=== End Slider ===-->
+    <!--=== End Slider ===-->
+    
+        <div class="container content ">
+         <div class="heading heading-v6 margin-bottom-20 four_ways">
+            <h2>4 ways to earn with Tweebaa </h2>
+        </div>
+
+        <!--=== Product Service ===-->
+   
+            <div class="row margin-bottom-10" >
+                   <div class="col-md-3 col-width-full">
+                   <a href="/Product/prdSaleAll.aspx" style="text-decoration:none;">
+                <div class="pricing-table-v6 v6-plus">
+                    <div class="service-block service-block-red">
+                        <i class="icon-custom icon-color-light rounded-x fa fa-shopping-cart"></i>
+                        <h2 class="heading-md">SHOP</h2>
+                        <p>Shop at Tweebaa. </p><p>
+Discover cool products; <br />earn Shopping Rewards.</p>
+                                  
+                    </div>
+                </div>
+                </a>
+            </div>
+            
+           <div class="col-md-3 col-width-full">
+                <a href="/Product/CollageShare.aspx" style="text-decoration:none;">
+                <div class="pricing-table-v6 v6-plus">
+                    <div class="service-block service-block-orange">
+                       <i class="icon-custom icon-color-light rounded-x fa fa-share-alt"></i>
+                        <h2 class="heading-md">SHARE</h2>
+                      <p>Share items with friends.</p><p>
+They’ll love your thoughtfulness, <br />
+and you’ll earn CASH.</p>
+                     
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-width-full" >
+                <a href="/Product/Product_Submit.aspx" style="text-decoration:none;">
+                <div class="pricing-table-v6 v6-plus">
+                    <div class="service-block service-block-blue">
+                   <i class="icon-custom icon-color-light rounded-x fa fa-pencil-square-o"></i>
+                   <h2 class="heading-md">SUGGEST</h2>
+                     <p>Tell us about cool products.</p><p>
+If they reach our Tweebaa Shop, <br />
+you’ll be rewarded </p>
+                    </div>
+                </div>
+                </a>
+            </div>
+        <div class="col-md-3 col-width-full">
+                <a href="/Product/prdReviewAll.aspx" style="text-decoration:none;">
+                <div class="pricing-table-v6 v6-plus">
+                    <div class="service-block service-block-sea">
+                        <i class="icon-custom icon-color-light rounded-x fa fa-check-square-o"></i>
+                        <h2 class="heading-md">EVALUATE</h2>
+                        <p>Evaluate community products.</p><p>
+It’s fun, and you can earn <br />cash and free gifts.</p>
+                                
+                    </div>
+                </div>
+                </a>
+            </div>
+          
+
+            
+        </div>
+        <!--=== End Product Service ===-->
+         <div class="heading heading-v6 margin-bottom-20">
+            <h2>Featured products</h2>
+            <!--
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed odio elit, ultrices vel cursus sed, placerat ut leo. Phasellus in magna erat. Etiam gravida convallis augue non tincidunt. Nunc lobortis dapibus neque quis lacinia. Nam dapibus tellus sit amet odio venenatis</p>
+            -->
+        </div>
+        
+        <!--=== Illustration v2 ===-->
+        <div class="illustration-v2 ">
+            <div class="customNavigation margin-bottom-20">
+                <a class="owl-btn prev rounded-x"><i class="fa fa-angle-left"></i></a>
+                <a class="owl-btn next rounded-x"><i class="fa fa-angle-right"></i></a>
+            </div>
+
+            <ul class="list-inline owl-slider" id="ulData">
+           
+            </ul>
+        </div> 
+        <!--=== End Illustration v2 ===-->
+        </div>
+      
+      <div class="greybox" style="margin-top:45px">
+        <div id="share-tck2" class="tck">
+            <a href="javascript: hiddenShare();" class="closeBtn" title="Close"></a>
+            <h2 class="t">
+                <span>Share</span>
+            </h2>
+             <div class="box">
+                <div class="sharebox clearfix my-dietu">
+                    <span class="fl t ">Share to </span>
+                    
+                        <% // include all share method  %>        
+                        <!--#include file="./Include/ShareMethod.inc" -->
+                                   
+                    <a href="#" style="display:none;" class="share-media-set">Share Binding setting</a>
+                </div>
+                <div class="ps clearfix">
+                    <span class="fr"><a href="#"></a></span><span class="fl">You will earn a commission if anyone makes a purchase from your shared link!</span>
+                </div>
+            </div>         
+        </div>
+    </div> 
+    
+    <!--=== Style Switcher ===--> 
+<i class="style-switcher-btn icon-custom icon-lg rounded icon-line icon-social-youtube hidden-xs watchvd" data-toggle="modal" data-target="#myModal" style="height:80px; line-height:16px; padding:15px 5px;"><br><span style="font-size:12px; line-height:6px; padding-top:5px;">Watch<br>Video</span></i>
+
+
+<div class="modal fade" style="top:50px;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog" style="width:475px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="PauseVideo();">×</button>
+                                        <h4 id="myModalLabel" class="modal-title">Watch Video</h4>
+                                    </div>
+                                    <div class="modal-body">
+                             
+ <div class="responsive-video">
+                    <iframe id="frmVideo" src="/Product/HomeVideo.aspx" width="840" height="400" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                </div>
+                                     
+                                    </div>
+                                 
+                                  </div>
+                            </div>
+                        </div>
+
+<i class="style-switcher-btn icon-lg rounded hidden-xs tevent"><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="/images/tbot_s.png" width="50%"></a><br><span style="font-size:12px; line-height:6px; padding-top:5px;"><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="/images/As_seen_on_TV.png" width="80%"></a></span></i>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var i = $.cookie("tweebot_popshow");
+        if (i == undefined || i < 1 || isNaN(i)) {
+            $("#linkTweebotEvent").trigger("click");
+            if (i == undefined || isNaN(i)) i = 0;
+            //setTimeout("PopupClose()", 50000);
+            i++;
+
+        } else {
+            //set check for the checkbox
+            $("#subscription").prop('checked', true);
+        }
+
+    });
+</script>
+
+
+
+  
+</asp:Content>
+
+

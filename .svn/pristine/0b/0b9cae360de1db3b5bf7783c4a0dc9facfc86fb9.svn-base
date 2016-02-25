@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.UI;
+using System.Data;
+using System.Web.UI.WebControls;
+using AjaxPro;
+using System.Configuration;
+using Twee.Comm;
+using System.Xml;
+using Newtonsoft.Json;
+
+namespace TweebaaWebApp2.Mgr.ByFocusMgr
+{
+    public partial class ByFocusCateMgr : System.Web.UI.Page
+    {
+        public string webAppDomain = string.Empty;
+
+        Twee.Mgr.PrdMgr mgr = new Twee.Mgr.PrdMgr();
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            Utility.RegisterTypeForAjax(typeof(ByFocusCateMgr));
+            if (!IsPostBack)
+            {
+                webAppDomain = ConfigurationManager.AppSettings["webAppDomain"].Trim();
+                XmlNode configNode = mgrcomm.MgrConfigHelper.GetXmlNodeById("40");
+                if (null != configNode)
+                {
+                    //// hidMgrConfig1.Value = configNode.Attributes["text"].Value.ToString();
+                    //// hidMgrConfigCount.Value = configNode.Attributes["count"].Value.ToString();
+                }
+
+                Twee.Model.MgrUser adm = Session["CURRENT_USER"] as Twee.Model.MgrUser;
+                ////hidMgrAdminid.Value = adm.guid.ToString();
+
+                int iTotalCount = 0;
+                var ddlBind = mgr.MgeGetFocusCateList(1, 20, out iTotalCount);
+            }
+        }
+
+        [AjaxPro.AjaxMethod]
+        public string GetFocusCateInfo(string sFocusCateID)
+        {
+            DataTable dt = mgr.MgeGetFocusCateInfo(sFocusCateID);
+            string sInfo = JsonConvert.SerializeObject(dt);
+            return sInfo;
+        }
+
+        [AjaxPro.AjaxMethod]
+        public string Add(string sName, string  sNote, string sActive)
+        {
+            string sResult = mgr.MgeAddFocusCate(sName, sNote, sActive);
+            return sResult;
+        }
+
+        [AjaxPro.AjaxMethod]
+        public string Update(string sID, string sName, string sNote, string sActive)
+        {
+            string sResult = mgr.MgeUpdateFocusCate(sID, sName, sNote, sActive);
+            return sResult;
+        }
+
+
+    }
+}

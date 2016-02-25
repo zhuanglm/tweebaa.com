@@ -1,0 +1,471 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using System.Reflection;
+using System.Data;
+using Twee.DataMgr;
+using log4net;
+using Twee.Model;
+
+namespace Twee.Mgr
+{
+    public class OrderMgr
+    {
+        ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        OrderDataMgr mgr = new OrderDataMgr();
+
+
+        #region 后台方法
+        /// <summary>
+        /// 获取订单列表
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>     
+        public DataTable MgeGetList(string strWhere)
+        {
+            try
+            {
+                return mgr.MgeGetList(strWhere);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("",ex);
+            }
+          
+        }
+        /// <summary>
+        /// 获取订单列表
+        /// </summary>
+        /// <param name="prdName"></param>
+        /// <param name="txtData1"></param>
+        /// <param name="txtData2"></param>
+        /// <param name="orderCode"></param>
+        /// <param name="txtUser"></param>
+        /// <param name="txtRecive"></param>
+        /// <param name="orderby"></param>
+        /// <param name="state"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <returns></returns>
+        public DataTable MgeGetListAll(string prdName, string txtData1, string txtData2, string orderCode, string txtUser, string txtRecive, string orderby, string state, int startIndex, int endIndex)
+        {
+            try
+            {
+                return mgr.MgeGetListAll(prdName,txtData1, txtData2, orderCode, txtUser, txtRecive, orderby, state, startIndex, endIndex);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("", ex);
+            }
+          
+
+        }
+        /// <summary>
+        /// 获取订单记录总数
+        /// </summary>
+        /// <param name="prdName"></param>
+        /// <param name="txtData1"></param>
+        /// <param name="txtData2"></param>
+        /// <param name="orderCode"></param>
+        /// <param name="txtUser"></param>
+        /// <param name="txtRecive"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public int MgeGetRecordCount(string prdName, string txtData1, string txtData2, string orderCode, string txtUser, string txtRecive, string state)
+        {
+            try
+            {
+                return mgr.MgeGetRecordCount(prdName,txtData1, txtData2, orderCode, txtUser, txtRecive, state);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("", ex);
+            }
+           
+        }
+
+
+           /// <summary>
+        /// 获取订单信息
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>       
+        private DataTable MgeGetOrderInfo(Guid orderGuid)
+        {
+            //return mgr.GetOrderInfo(orderGuid);
+            return null;
+        }
+
+          /// <summary>
+        /// 获取订单产品详情列表
+        /// </summary>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>       
+        public DataTable MgeGetOrderProInfo(Guid orderGuid)
+        {
+            try
+            {
+                return mgr.MgeGetOrderProInfo(orderGuid);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("", ex);
+            }
+           
+        }
+
+          /// <summary>
+        /// 获取收货人详细信息
+        /// </summary>
+        /// <param name="orderGuid"></param>
+        /// <returns></returns>
+        public DataTable MgeGetOrderPeopleInfo(Guid orderGuid)
+        {
+            try
+            {
+                return mgr.MgeGetOrderPeopleInfo(orderGuid);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("", ex);
+            }
+            
+        }
+
+          /// <summary>
+        /// 订单综合信息
+        /// </summary>
+        /// <param name="orderGuid"></param>
+        /// <returns></returns>
+        public Dictionary<string, string> MgeGetAllInfo(Guid orderGuid)
+        {
+            try
+            {
+                return mgr.MgeGetAllInfo(orderGuid);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("", ex);
+            }
+           
+        }
+
+          /// <summary>
+        /// 1改价/2支付/3发货/4完成/5作废
+        /// </summary>
+        /// <param name="dicUpdate">所有操作的参数集合</param>
+        /// <param name="upAction">行为</param>
+        /// <param name="orderGuid">订单ID</param>
+        /// <returns></returns>
+        public bool MgeUpDateInfo(Dictionary<string, string> dicUpdate, int upAction, Guid orderGuid)
+        {
+            try
+            {
+                return mgr.MgeUpDateInfo(dicUpdate, upAction, orderGuid);
+            }         
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("", ex);
+            }
+            
+        }
+
+           /// <summary>
+        /// 获取销售记录
+        /// </summary>
+        /// <param name="strWhere">条件</param>
+        /// <param name="orderby">排序</param>
+        /// <param name="state">2：预售区；3：销售区</param>
+        /// <param name="startIndex">开始位置</param>
+        /// <param name="endIndex">结束位置</param>
+        /// <returns></returns>
+        public DataTable MgeGetAllSale(string strWhere1, string strWhere2, string orderby, string state, int startIndex, int endIndex)
+        {
+            try
+            {
+                return mgr.MgeGetAllSale(strWhere1, strWhere2, orderby, state, startIndex, endIndex);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("", ex);
+            }
+           
+        }
+
+           /// <summary>
+        /// 获取订单所有产品图片
+        /// </summary>
+        /// <param name="headGuid"></param>
+        /// <returns></returns>
+        public DataTable MgeGetOrderImg(string headGuid)
+        {
+            try
+            {
+                return mgr.MgeGetOrderImg(headGuid);
+            }
+            catch (Exception ex)
+            {
+                log.Error("error", ex);
+                throw new Exception("", ex);
+            }
+
+        }
+
+        public int MgeGetWarehouseShipOrderID(string sGuidNo)
+        {
+            return mgr.MgeGetWarehouseShipOrderID(sGuidNo);
+        }
+
+        #endregion
+
+        #region  前台方法
+        /// <summary>
+        /// 添加订单
+        /// </summary>
+        /// <param name="orderHead"></param>
+        /// <param name="listBody"></param>
+        /// <returns></returns>
+        public bool AddOrder(Orderhead orderHead, List<OrderBody> listBody)
+        {
+            return mgr.AddOrder(orderHead, listBody);
+        }
+        /*
+         * 为了兼容老版本
+         */
+        public bool AddOrder2(Orderhead orderHead, List<OrderBody> listBody)
+        {
+            return mgr.AddOrder2(orderHead, listBody);
+        }
+        /// <summary>
+        /// 查询订单
+        /// </summary>
+        /// <param name="userGuid">用户id</param>
+        /// <returns></returns>
+        public DataTable GetOrder(Guid userGuid)
+        {
+            return mgr.GetOrder(userGuid);
+        }
+        /// <summary>
+        /// 根据订单号查询订单信息
+        /// </summary>
+        /// <param name="orderNo">订单号</param>
+        /// <returns></returns>
+        public DataTable GetOrderByOrserNo(string orderNo)
+        {
+            return mgr.GetOrderByOrserNo(orderNo);
+        }
+
+        public int GetOrderState(string guidno)
+        {
+            return mgr.GetOrderState(guidno);
+        }
+
+        public string GetOrderEmail(string guidno)
+        {
+            return mgr.GetOrderEmail(guidno);
+        }
+
+        /// <summary>
+        /// 修改订单状态
+        /// </summary>
+        /// <param name="guidno">订单号</param>
+        /// <param name="state">订单状态</param>
+        /// <returns></returns>
+        public bool UpdateOrderState(string guidno, int state)
+        {
+            bool b = mgr.UpdateOrderState(guidno, state);            
+            if (b)
+            {              
+                UserGradeCalMgr grade=new UserGradeCalMgr();
+                //Modify by Long 2015/11/4,只有state为1的情况下才更新 Shopping Point,否则，
+                //其他状态也更新了，这样Shopping Point
+                bool resu = false;
+                if (state == 1)
+                {
+                    resu = grade.UpdateShopingPoint(guidno);
+                }
+                else
+                {
+                    resu = true;
+                }
+                string email = mgr.GetOrderEmail(guidno);
+                if (!string.IsNullOrEmpty(email))
+                {
+                    Twee.Comm.Mailhelper.SendMail("Order:" + guidno, "Your order has been paid, waiting for delivery", email);
+                }                
+                return resu;
+            }
+            return b;
+        }
+
+        /// <summary>
+        /// update logicticcost of order header
+        /// </summary>
+        /// <param name="guidno">订单号</param>
+        /// <param name="dLogisticsCost">shipping fee</param>
+        /// <returns></returns>
+        public bool UpdateOrderLogisticsCost(string guidno, decimal dLogisticsCost)
+        {
+            return mgr.UpdateOrderLogisticsCost(guidno, dLogisticsCost);
+        }
+     
+
+        /// <summary>
+        /// table转换位list
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public List<Twee.Model.Order> DataTableToList(DataTable dt)
+        {
+            List<Twee.Model.Order> modelList = new List<Twee.Model.Order>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                Twee.Model.Order model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = mgr.DataRowToModel(dt.Rows[n]);
+                    if (model != null)
+                    {
+                        modelList.Add(model);
+                    }
+                }
+            }
+            return modelList;
+        }
+        #endregion
+
+        #region 会员中心方法
+        /// <summary>
+        /// 查询待发货，已发货，已完成的个数，根据userid
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="ordertype">状态编号</param>
+        /// <returns></returns>
+        public string GetInfo(string userid, string ordertype) {
+            return mgr.GetInfo(userid,ordertype);
+        }
+
+        /// <summary>
+        /// 会员中心查询订单(根据会员id,查询所属订单号)
+        /// </summary>
+        /// <param name="userGuid">用户id</param>
+        /// <returns></returns>
+        public DataTable GetHomeOrder(Guid userGuid, string wnstat, string orderby, string strWhere, int startIndex, int endIndex)
+       {
+           return mgr.GetHomeOrder(userGuid, wnstat, orderby, strWhere, startIndex, endIndex);
+        }
+
+        /// <summary>
+        /// 会员中心查询订单,记录数(根据会员id,查询所属订单号)
+        /// </summary>
+        /// <param name="userGuid">用户id</param>
+        /// <param name="wnstat">订单状态</param>
+        /// <returns></returns>
+        public int GetHomeOrderRecordCount(Guid userGuid, string wnstat, string orderby, string strWhere)
+        {
+            return mgr.GetHomeOrderRecordCount(userGuid, wnstat, orderby, strWhere);
+
+        }
+
+        /// <summary>
+        /// 会员中心查询订单(根据订单号，查询订单明细)
+        /// </summary>
+        /// <param name="userGuid"></param>
+        /// <returns></returns>
+        public DataTable GetHomeOrderDetial(Guid headGuid)
+        {
+            return mgr.GetHomeOrderDetial(headGuid);
+        }
+
+        /// <summary>
+        /// member center query order shipment details
+        /// </summary>
+        /// <param name="order no"></param>
+        /// <returns></returns>
+        public DataTable GetHomeOrderShipmentDetail(string sOrderNo)
+        {
+            return mgr.GetHomeOrderShipmentDetail(sOrderNo);
+        }
+
+        /// <summary>
+        /// member center query order return details
+        /// </summary>
+        /// <param name="order no"></param>
+        /// <returns></returns>
+        public DataTable GetHomeOrderReturnDetail(string sOrderNo)
+        {
+            return mgr.GetHomeOrderReturnDetail(sOrderNo);
+        }
+
+        /// <summary>
+        ///  查询订单信息（包括:订单时间、订单号、收货人电话、收货人姓名、物流公司、物流费；订单id和订单号输入其中一个即可）
+        /// </summary>
+        /// <param name="headGuid"></param>
+        /// <returns></returns>
+        public DataTable GetOrderHead(Guid headGuid, string orderNum)
+        {
+            return mgr.GetOrderHead(headGuid, orderNum);
+        }
+
+        /// <summary>
+        /// 查询订单明细(用于收益计算：根据订单号OrderNo，查询订单明细)
+        /// </summary>
+        /// <param name="userGuid"></param>
+        /// <returns></returns>
+        public DataTable GetOrderDetial(string orderNo)
+        {
+            return mgr.GetOrderDetial(orderNo);
+        }
+        public string GetGuestCheckoutUsernameByOrderno(string strOrderno)
+        {
+            return mgr.GetGuestCheckoutUsernameByOrderno(strOrderno);
+        }
+        /// <summary>
+        /// 查询会员所有消费总额
+        /// </summary>
+        /// <param name="userGuid">会员id</param>
+        /// <param name="orderState">订单状态</param>
+        /// <returns></returns>
+        public decimal GetSumShopMoney(string userGuid, Twee.Comm.ConfigParamter.OrderStatus orderState)
+        {
+            return mgr.GetSumShopMoney(userGuid, orderState); 
+
+        }
+        public decimal GetBonusShoppingPoint(string userGuid, Twee.Comm.ConfigParamter.OrderStatus orderState)
+        {
+            return mgr.GetBonusShoppingPoint(userGuid, orderState);
+        }
+        /// <summary>
+        /// 查询用户用掉的消费积分
+        /// </summary>
+        /// <param name="userGuid"></param>
+        /// <returns></returns>
+
+        public decimal GetSumUsedShoppingPointsMoney(string userGuid)
+        {
+            return mgr.GetSumUsedShoppingPointsMoney(userGuid);
+        }
+
+        /// <summary>
+        /// 查询插入购物积分所需的字段信息
+        /// </summary>
+        /// <param name="headGuid"></param>
+        /// <returns></returns>
+        public DataTable GetPointInfoByHeadGuid(string headGuid)
+        {
+            return mgr.GetPointInfoByHeadGuid(headGuid);
+        }
+        #endregion
+    }
+}

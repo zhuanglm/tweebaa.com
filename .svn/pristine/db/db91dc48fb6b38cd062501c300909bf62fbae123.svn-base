@@ -1,0 +1,223 @@
+﻿<%@ Page Title=""  Language="C#" MasterPageFile="~/MasterPages/Main.Master" AutoEventWireup="true" CodeBehind="ContactUs.aspx.cs" Inherits="TweebaaWebApp2.College.ContactUs" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="WebTitle" runat="server">
+<%=TweebaaWebApp2.SEOTextDefine.ContactUsSEOTitle %>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="WebCssAndJs" runat="server">
+<%=TweebaaWebApp2.SEOTextDefine.ContactUsSEOMeta %>
+  <!-- CSS Page Style -->    
+    <link rel="stylesheet" href="/css/pages/page_faq1.css">
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v5.css"> 
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v6.css"> 
+    <link rel="stylesheet" href="/css/pages/pricing/pricing_v7.css"> 
+     <link rel="stylesheet" href="/css/pages/pricing/pricing_v2.css"> 
+    <!-- CSS Page Style -->    
+    <link rel="stylesheet" href="/css/pages/page_contact.css">
+        <link rel="stylesheet" href="/plugins/sky-forms/custom-sky-forms.css">
+        <!--
+        <link rel="stylesheet" href="/plugins/sky-forms/sky-forms.css">
+        -->
+        <style>
+      /**/
+/* submited state */
+/**/
+.sky-form .message {
+	display: none;
+	color: #6fb679;
+}
+.sky-form .message i {
+	display: block;
+	margin: 0 auto 20px;
+	width: 81px;
+	height: 81px;
+	border: 1px solid #6fb679;
+	border-radius: 50%;
+	font-size: 30px;
+	line-height: 81px;
+}
+.sky-form.submited fieldset,
+.sky-form.submited footer {
+	display: none;
+}
+.sky-form.submited .message {
+	display: block;
+	padding: 25px 30px;
+	background: rgba(255,255,255,.9);
+	font: 300 18px/27px 'Open Sans', Helvetica, Arial, sans-serif;
+	text-align: center;
+}
+  
+        </style>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="WebContent" runat="server">
+
+      <!--=== Breadcrumbs v4 ===-->
+    <div class="breadcrumbs-v4 contact_back">
+        <div class="container">
+            <h1>We’d love to <span class="shop-evaluate"> hear  </span>from you…</h1>
+<p>Learn how you can maximize your earning potential!</p>
+            <ul class="breadcrumb-v4-in">
+                <li><a href="../index.aspx">Home</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li class="active">Welcome</li>
+            </ul>
+        </div><!--/end container-->
+    </div> 
+    <!--=== End Breadcrumbs v4 ===-->
+       <!--=== Content Part ===-->
+    <div class="container content">     
+      
+         <!-- Clients Block-->
+                <div class="row clients-page">
+                    <div class="col-md-5">
+                            <!-- Google Map -->
+                <div id="map" class="map map-box map-box-space1 margin-bottom-40">
+                </div><!---/map-->
+                <!-- End Google Map -->
+                    </div>
+                    <div class="col-md-7">
+                        <h3>Canada Headquarters</h3>
+                        
+                          <ul class="list-unstyled who margin-bottom-30">
+                    <li><a href="#"><i class="fa fa-home"></i>3601 Hwy 7 East , HSBC Tower Suite 302 , Markham , Ontario L3R 0M3 CANDA</a></li>
+                    <li><a href="#"><i class="fa fa-phone-square"></i>Phone: 905-479-9969</a></li>
+                    <li><a href="#"><i class="fa fa-phone"></i>Toll free: 1-877-238-9898</a></li>
+                    <li><a href="#"><i class="fa fa-fax"></i>Fax: 905-479-9939</a></li>
+                    <li><a href="#"><i class="fa fa-envelope"></i>Fax: 905-479-9939</a></li>
+                </ul>
+                <h4>Business Hours</h4>
+                <ul class="list-unstyled margin-bottom-30">
+                	<li><strong>Monday-Friday:</strong> 9:30 am to 6 pm</li>
+
+                </ul>
+
+                       
+                    </div></div>
+                    
+               <div class="row margin-bottom-30">
+            <div class="col-md-12 mb-margin-bottom-30 tag-box tag-box-v6">       
+             <form class="sky-form contact-style <%=IsSubmit %>" method="post" action="/College/ContactUs.aspx?action=send" novalidate="novalidate" runat="server">
+                    <fieldset class="no-padding">
+
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-7 col-md-offset-0 " style="color:#ff0000;font-size:20px;">
+                            <%=VerifyCodeError%>
+                        </div>                
+                    </div>
+
+                    <label>Name</label>
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-7 col-md-offset-0 ">
+                            <input type="text" class="form-control" id="txtName" name="txtName" runat="server">
+                        </div>                
+                    </div>
+                    
+                    <label>Email <span class="color-red">*</span></label>
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-7 col-md-offset-0">
+                            <input type="text" class="form-control" id="txtEmail" name="txtEmail" runat="server" /> 
+                        </div>                
+                    </div>
+                    
+                    <label>Message</label>
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-11 col-md-offset-0">
+                            <textarea rows="8" class="form-control" id="txtMessage" name="txtMessage" runat="server"></textarea>
+                        </div>                
+                    </div>
+                    <label>Verify</label>
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-11 col-md-offset-0">
+                           <div style="width:auto;float:left"> <input type="text" style="width:80px;" class="form-control pull-left" id="txtVerify" name="txtVerify" maxlength="6" runat="server"/></div>
+                           <div style="width:auto;float:left;padding-left:10px;padding-top:2px;"><img id="imgWaterMark" src="/product/WaterMark.aspx?pn=<% =sPageName %>" class="pull-left" /></div>
+                           <div style="width:auto;float:left;padding-left:10px;padding-top:2px;"><a href="javascript:void(0)" style="line-height:40px;" onclick="DoGetAnotherWaterMark(); return false;">Get another code</a></div>
+                         </div>                
+                    </div>
+                    <p><button type="submit" class="btn-u" name="btnSend" id="btnSend" >Send Message</button></p>
+                    </fieldset>
+                     <div class="message">
+                        <i class="rounded-x fa fa-check"></i>
+                        <p>Your Message has been Sent,Thanks for Contact Us,We will reply you as soon as possilble！</p>
+                    </div>
+                </form>
+            </div><!--/col-md-9-->
+        </div><!--/row-->          
+                    
+                 <div class="row clients-page">
+                 <div class="col-sm-4">
+                <div class="tag-box tag-box-v3">
+                     <h3>China Banch</h3>
+                       <h4>Tweebaa (Shanghai) Co.,Ltd.</h4>
+                          <ul class="list-unstyled who margin-bottom-30">
+                          <!--
+                    <li><a href="#"><i class="fa fa-home"></i>3601 Hwy 7 East , HSBC Tower Suite 302 ,  Markham , Ontario L3R 0M3 CANDA</a></li>
+                    <li><a href="#"><i class="fa fa-phone-square"></i>Phone: 905-479-9969</a></li>
+                    <li><a href="#"><i class="fa fa-phone"></i>Toll free: 1-877-479-3332</a></li>
+                    <li><a href="#"><i class="fa fa-fax"></i>Fax: 905-479-9939</a></li>
+                    <li><a href="#"><i class="fa fa-envelope"></i>Fax: 905-479-9939</a></li>
+                    -->
+
+<li><a href="#"><i class="fa fa-home"></i>3Room 822, No. 355 Fute No. 1 (W) Road. <br />
+Gao Xing Building, PuDong New Area.<br />
+Shanghai, 200131<br />
+China<br />
+</a></li>
+
+                </ul>
+                </div>
+            </div>
+<!--
+            <div class="col-sm-4">
+                <div class="tag-box tag-box-v3">
+                    <h3>USA Banch</h3>
+                        
+                          <ul class="list-unstyled who margin-bottom-30">
+                    <li><a href="#"><i class="fa fa-home"></i>3601 Hwy 7 East , HSBC Tower Suite 302 , Markham , Ontario L3R 0M3 CANDA</a></li>
+                    <li><a href="#"><i class="fa fa-phone-square"></i>Phone: 905-479-9969</a></li>
+                    <li><a href="#"><i class="fa fa-phone"></i>Toll free: 1-877-479-3332</a></li>
+                    <li><a href="#"><i class="fa fa-fax"></i>Fax: 905-479-9939</a></li>
+                    <li><a href="#"><i class="fa fa-envelope"></i>Fax: 905-479-9939</a></li>
+                </ul>
+                </div>
+            </div>
+-->
+                <div class="col-sm-4">
+                <div class="tag-box tag-box-v3">
+                    <h3>Canada Headquarters</h3>
+                        
+                          <ul class="list-unstyled who margin-bottom-30">
+                    <li><a href="#"><i class="fa fa-home"></i>3601 Hwy 7 East , HSBC Tower Suite 302 , Markham , Ontario L3R 0M3 CANDA</a></li>
+                    <li><a href="#"><i class="fa fa-phone-square"></i>Phone: 905-479-9969</a></li>
+                    <li><a href="#"><i class="fa fa-phone"></i>Toll free: 1-877-479-3332</a></li>
+                    <li><a href="#"><i class="fa fa-fax"></i>Fax: 905-479-9939</a></li>
+                    <li><a href="#"><i class="fa fa-envelope"></i>Fax: 905-479-9939</a></li>
+                </ul>
+                </div>
+            </div> 
+                 </div>    
+           
+                <!-- End Clients Block-->     
+
+        
+    </div><!--/container-->     
+    <!--=== End Content Part ===-->
+
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="/plugins/gmap/gmap.js"></script>
+<script type="text/javascript" src="/assets/js/forms/contact.js"></script>
+<!-- JS Page Level -->
+
+<script type="text/javascript" src="/js/pages/page_contacts.js"></script>
+<script type="text/javascript" src="/js/forms/page_contact_form.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        ContactPage.initMap();
+       // ContactForm.initContactForm();
+    });
+
+    function DoGetAnotherWaterMark() {
+        d= new Date();
+        var sSource = '/product/WaterMark.aspx?pn=<% =sPageName %>&dt=' + d.getTime();
+        $("#imgWaterMark").attr("src", sSource);
+    }
+</script>
+</asp:Content>

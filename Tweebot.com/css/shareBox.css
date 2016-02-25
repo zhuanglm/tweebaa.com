@@ -1,0 +1,93 @@
+﻿
+/*分享弹出框的*/
+#share-tck .bili{padding-top: 83px;padding-bottom: 28px;
+	background: url(../images/daosj.png) center 15px no-repeat;
+}
+#share-tck .bili span.item{display: inline-block;
+	width: 45%;font-size: 14px;color: #999999; padding:0px 0px 0px 5px;
+
+}
+#share-tck .bili span.item b{
+	font-size: 18px;color: #666666;line-height: 30px;font-weight:bold;
+}
+#share-tck  .title{padding-top: 43px;
+	color: #F68E56;font-size: 14px; padding:30px 10px 0px 10px;
+}
+#share-tck  h2{
+font-size: 20px;padding-bottom: 8px; font-weight:bold;
+}
+#share-tck .email{
+	width: 316px;padding: 0 5px;height: 31px;line-height: 31px;
+	border: 2px solid #E1E1E1;
+}
+#share-tck .jiaru{display: inline-block;
+	text-align: center;color: #fff;background-color: #F68E56;
+	width: 138px;height: 39px;line-height: 39px;
+	border-radius: 5px; margin-right:20px;
+}
+#share-tck .jiaru:hover{text-decoration: none;background-color: #E38B5D;}
+#share-tck .tips{font-size: 12px;color: #999;text-align: center;padding-top: 15px;}
+#share-tck .go-share-btn{
+	display: inline-block;margin-top: 37px;
+	width:250px;height: 39px;line-height: 39px;text-align: center;background-color: #B7B7B7;border-radius: 5px;color: #fff;
+}
+#share-tck .go-share-btn:hover{background-color: #A0A0A0;text-decoration: none;}
+
+
+#share-tck2 h2{
+	height: 58px;line-height: 58px;font-size: 18px;color: #999;background: url(../images/share-tck-line.png) 5px center no-repeat;
+}
+#share-tck2 h2 span{
+	display: inline-block;background-color: #fff;margin-left: 26px;padding: 0 10px;
+}
+
+
+#share-tck2 .box{width: 590px;margin:  0px auto 0;}
+#share-tck2 .areabox{
+	border: 1px solid #C2C2C2;background-color: #fff;
+}
+#share-tck2 textarea{
+	width: 570px;padding: 9px;max-width: 570px;
+	height: 85px;border: 0;outline: none;font-size: 12px;color: #999999;line-height: 24px;
+}
+#share-tck2 .zishu{
+	height: 38px;line-height: 38px;text-align: right;background-color: #F2F2F2;color: #999999;font-size: 14px;padding-right: 10px;
+}
+#share-tck2 .go-share-btn{
+	width: 165px;height: 35px;line-height: 35px;text-align: center;background-color: #F68E56;color: #fff;border-radius: 5px;
+}
+#share-tck2 .sharebox{padding-bottom: 20px;height: 35px;line-height: 35px;}
+#share-tck2 .go-share-btn:hover{
+	background-color: #EA8655;text-decoration: none;
+}
+#share-tck2 .sharebox span.t{
+	font-size: 14px;color: #999999;padding-right: 7px; /*line-height:55px*/
+}
+#share-tck2 .closeBtn {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	right: 16px;
+	top: 16px;
+	background: url(../images/x24.png) 0 0 no-repeat;
+}
+#share-tck .closeBtn {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	right: 16px;
+	top: 16px;
+	background: url(../images/x24.png) 0 0 no-repeat;
+}
+#share-tck2 .share-media-set{float: left;color: #F68E56; line-height:55px} 
+#share-tck2 .ps{padding-top: 25px;
+	color: #999999;font-size: 12px;
+}
+#share-tck2 .ps a{
+	color: #F68E56;padding: 0 5px;
+}
+#share-tck2 .ps span.fr{
+	color: #666;
+}

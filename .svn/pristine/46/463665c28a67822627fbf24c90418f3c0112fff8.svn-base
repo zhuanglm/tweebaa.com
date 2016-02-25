@@ -1,0 +1,129 @@
+@charset "utf-8";
+
+#sale-page { font-size: 14px }
+#sale-page .des-box { padding-bottom: 15px }
+#sale-page .yellow-share { width: 97px; height: 31px; line-height: 31px; padding-left: 32px; text-align: center; background: url(../images/myf.png) 10px center no-repeat #fb9254; border-radius: 5px; color: #fff; margin-top: 15px }
+#sale-page .priceNumber { font-size: 30px; font-weight: bold; color: #9c3 }
+#sale-page .sold-infor { padding: 5px 0;height: 42px;overflow: hidden;}
+#sale-page .sold-infor span.fl { line-height: 34px }
+#sale-page .sold-infor span.f14 { padding-left: 20px }
+#sale-page .sold-infor div.fr { width: 135px; height: 40px; text-align: center }
+#sale-page .sold-infor div.fr span { display: inline-block; width: 66px; font-size: 12px; float: left; line-height: 22px }
+#sale-page .sold-infor .sold-num { border-right: 1px solid #ccc }
+#sale-page .sold-infor .f16{font-size: 16px;}
+#sale-page .sold-infor .f16 .priceNumber{color: #999;}
+#sale-page .tab a.active, #sale-page .tab a:hover { background-color: #cf5252 }
+#sale-page .des-txt { height:auto;}
+#sale-page .wuliu { width: 300px; height: 118px; border-top: 1px solid #ebebeb; font-size: 12px }
+#sale-page .wuliu li { height: 40px; line-height: 40px;border-right: 1px solid #ebebeb;border-left: 1px solid #ebebeb;border-bottom: 1px solid #ebebeb; padding: 0 15px }
+#sale-page .wuliu span.t { float: left }
+#sale-page .wuliu span.tcon {float: left; padding-right: 40px; background: url(../images/sjk.png) right center no-repeat }
+#sale-page .wuliu span.tcon  font{padding-right: 10px;font-size: 12px;}
+#sale-page .select-area{
+	position: absolute;
+	width: 268px;
+	left: -50px;top:30px;
+	line-height: 24px;
+	border: 1px solid #ccc;background-color: #fff;
+	padding: 10px;display: none;
+
+}
+#sale-page .select-area a{font-size: 12px;white-space: nowrap;
+	display: inline-block; padding: 0 5px;float: left;margin-right: 3px;margin-bottom: 3px;
+}
+#sale-page .select-area a:hover{
+	background-color: #AF4346;color: #fff;text-decoration: none;
+}
+
+
+#sale-page .select-wuliu{
+	position: absolute;
+	width: 268px;
+	left: -38px;top:30px;
+	line-height: 24px;
+	border: 1px solid #ccc;background-color: #fff;
+	padding: 10px;display: none;
+
+}
+#sale-page .select-wuliu a{white-space: nowrap;
+	display: inline-block; padding: 0 5px;float: left;margin-right: 3px;margin-bottom: 3px;
+}
+#sale-page .select-wuliu font{font-size: 12px;}
+#sale-page .select-wuliu a:hover{
+	background-color: #AF4346;color: #fff;text-decoration: none;
+}
+
+
+#sale-page .chima { font-size: 12px; width: 203px; height: 118px; border-top: 1px solid #ebebeb; }
+#sale-page .chima li{ height: 40px; line-height: 40px;border-right: 1px solid #ebebeb;border-left: 1px solid #ebebeb;border-bottom: 1px solid #ebebeb; padding: 0 15px }
+#sale-page .chima span { display: inline-block; width: 49%; float: left }
+#sale-page .chima i { width: 1px; height: 40px; overflow: hidden; background-color: #ebebeb; float: left }
+#sale-page .guige { line-height: 28px; width:100%; float:left; display:inline; }
+#sale-page .guige dl { padding-right: 27px }
+#sale-page .guige dt { width: 60px; line-height: 28px }
+#sale-page .guige dd span { display: block; float: left; height: 26px; padding: 0 7px; border: 1px solid #ebebeb; margin-right: 3px; cursor: pointer }
+#sale-page .guige dd span.on { border-color: #f56100 }
+#sale-page .color { line-height: 28px; width:100%; float:left; display:inline; }
+#sale-page .color dl { padding-right: 27px }
+#sale-page .color dt { width: 45px }
+#sale-page .color dd span { display: block; float: left; height: 21px; width: 21px; border: 1px solid #fff; margin-right: 3px; margin-top: 2px }
+#sale-page .color dd span.on { border-color: #f56100; cursor: pointer }
+#sale-page .btn-group { height: 30px; line-height: 30px }
+#sale-page .btn-group a { display: block; float: left; margin-right: 11px; border-radius: 5px }
+#sale-page .btn-group .now-buy { width: 146px; height: 42px; background-color: #fff4ee; line-height: 42px; text-align: center; border:1px solid #e3afb0;  color: #bf4547;font-size: 16px; }
+#sale-page .btn-group .now-buy:hover { background-color: #F2E3D6; text-decoration: none ; }
+#sale-page .btn-group .join-car { width: 146px; height: 42px; background-color: #bf4547; line-height: 42px; text-align: center; border: 1px solid #bf4547; font-size: 16px; color: #fff }
+#sale-page .btn-group .join-car:hover { text-decoration: none;background-color: #AF4346;}
+#sale-page .btn-group .sc { padding:6px 0 0 30px; font-size: 14px; background: url(../images/love-down.png) 10px 13px no-repeat; text-decoration:none; }
+#sale-page .btn-group .schover{ padding:6px 0 0 30px; font-size: 14px; background: url(../images/love-down.png) 10px -18px no-repeat; text-decoration:none; }
+#sale-page .btn-group .download { padding-left: 20px; font-size: 12px; background: url(../images/love-down.png) -61px 15px no-repeat }
+#sale-page .yushou-jdt { width: 175px; text-align: center; float: right; padding-right: 50px; position: relative }
+#sale-page .btn-group .clock { padding-left: 8px; font-size: 12px; background: url(../images/clock.png) 0px 6px no-repeat; width:25px;}
+#sale-page .yushou-jdt strong { color: #bf4547; font-weight: 100 }
+#sale-page .yushou-jdt span.jdt {text-align: left; width: 175px; height: 10px; display: block; overflow: hidden; background-color: #e5e5e5 }
+#sale-page .yushou-jdt span.jdt i { height: 10px; display: block; background-color: #bf4547 }
+#sale-page .yushou-jdt span.num { position: absolute; right: 0; top: 0; line-height: 58px }
+#sale-page .presale-ing-box .sold-infor { padding-top: 2px;height:58px;}
+#sale-page .tips{color: #bd464a;line-height:18px;padding-top: 10px;margin-bottom: -40px; font-size:12px; }
+
+.buyNumber { float:left; width:100%;}
+.buyNumber dl { padding-right: 27px }
+.buyNumber dt { width: 60px; line-height: 28px }
+.buyNumber dd { line-height: 28px }
+.buyNumber .number { display: inline-block; width: 84px; height: 25px; line-height: 25px; overflow: hidden; border: 1px solid #ebebeb }
+.buyNumber .number .btn { border: 0; font-size: 18px; color: #2b2b2b; background-color: #ebebeb; text-align: center; width: 25px; height: 25px; font-weight: bold; position: absolute; top: 0; cursor: pointer }
+.buyNumber .number .left-btn { left: 0 }
+.buyNumber .number .right-btn { right: 0 }
+.buyNumber .number .num { width: 100%; height: 23px; text-align: center; background-color: #fff; border: 0; color: #010101; line-height: 16px; height: 16px; padding-top: 3px; padding-bottom: 4px }
+.buyNumber .kucun { padding: 0 10px }
+.buyNumber .want-pifa { display: inline-block; padding-left: 24px; background: url(../images/icon-pifa.png) 0 center no-repeat }
+.yushouColor { color: #bf4547 !important }
+.tuijian-pro { height: 47px; line-height: 52px; overflow: hidden; border-bottom: 1px solid #b7b7b7; font-size: 14px }
+
+/*浮动样式*/
+#floatALink{top:220px;}
+
+
+/*主图样式*/
+#imageMenu{
+ width: 298px;
+ float: none;
+ margin: 0 auto;
+ height: 72px;
+ position: relative;
+}
+#imageMenu ul{
+	position: absolute;left: 0;top:0;
+	width: 20000px;
+}
+.preview a.btn{
+	display: block;width: 24px;height: 24px;background: url(../images/previewbtn.png) 0 0 no-repeat;position: absolute;top:35px;
+}
+.preview a.leftBtn{
+	left: 0;
+}
+.preview a.rightBtn{
+	right: 0;background-position: -24px 0;
+}
+
+.jdt{text-align: left;}

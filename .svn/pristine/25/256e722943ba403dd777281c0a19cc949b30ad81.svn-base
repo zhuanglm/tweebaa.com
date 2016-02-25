@@ -1,0 +1,513 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using log4net;
+using System.Reflection;
+using System.Web.Script.Serialization;
+using Twee.Comm;
+using Twee.Mgr;
+using System.Data;
+using Twee.Model;
+using Newtonsoft.Json;
+
+namespace TweebaaWebApp2.AjaxPages
+{
+    public partial class prdSaleAjax : System.Web.UI.Page
+    {
+        ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static string action = "";
+        Dictionary<string, object> dic = null;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            System.IO.StreamReader sr = new System.IO.StreamReader(Request.InputStream);
+            string reviewInfo = sr.ReadToEnd();
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            dic = js.Deserialize<Dictionary<string, object>>(reviewInfo);
+
+            action = dic["action"].ToString();
+            if (action == "add")
+            {
+                AddReview();
+            }
+            else if (action == "query")
+            {
+                QueryReview();
+            }
+            else if (action == "reviewPrd")
+            {
+                GetSalePrd();
+            }
+            else if (action == "reviewPrdCount")
+            {
+                GetSalePrdCount();
+            }
+            else if (action == "reviewPrdCount_Collage")
+            {
+                GetSalePrdCount_Collage();
+            }
+            else if (action == "reviewPrd_Collage")
+            {
+                GetSalePrd_Collage();
+            }
+            else if (action == "prdMayLike") //Add by Long for product you may like
+            {
+                GetSalePrdMayLike();
+
+            }else if (action == "addRating"){
+                string prdGuid = dic["PrdGuid"].ToNullString();
+                string UserGuid = dic["UserGuid"].ToNullString();
+                string sRate = dic["Rating"].ToNullString();
+                string Comments =Twee.Comm.CommUtil.Quo(dic["Comments"].ToNullString());
+                PrdMgr mgr = new PrdMgr();
+                if (mgr.AddProductComments(prdGuid, UserGuid, short.Parse(sRate), Comments))
+                {
+                    Response.Write("1");
+                }
+                else
+                {
+                    Response.Write("0");
+                }
+            }
+            else if (action == "load_comment_total")
+            {
+                string prdGuid = dic["PrdGuid"].ToNullString();
+                PrdMgr mgr = new PrdMgr();
+                string ss = mgr.GetProductCommentsTotal(prdGuid);
+                Response.Write(ss);
+            }
+            else if (action == "load_Comments_By_Page")
+            {
+                string prdGuid = dic["PrdGuid"].ToNullString();
+                string page = dic["page"].ToNullString();
+                int iPage = int.Parse(page);
+                if (iPage <= 0) iPage = 1;
+
+                string pageDiv = dic["pageDiv"].ToNullString();
+                int iPageDiv = int.Parse(pageDiv);
+                if (iPageDiv <= 0) iPageDiv = 16;
+                int startIndex = iPageDiv * (iPage - 1) + 1;
+                int endIndex = iPageDiv * iPage;
+                PrdMgr mgr = new PrdMgr();
+                DataTable dt = mgr.GetProductCommentsByPage(prdGuid, startIndex, endIndex);
+                string prdInfo = JsonConvert.SerializeObject(dt);
+                Response.Write(prdInfo);
+            }
+
+        }
+
+        public void GetSalePrdMayLike()
+        {
+            try
+            {
+                Response.Clear();
+                string prdName = Uri.UnescapeDataString(dic["prdName"].ToNullString());
+                string cate = dic["cate"].ToNullString();
+                string state = dic["state"].ToNullString();
+                string focusCateIDs = dic["focusCateIDs"].ToNullString();
+                string prdCate1 = dic["prdCate1"].ToNullString();
+                string prdCate2 = dic["prdCate2"].ToNullString();
+                string prdCate3 = dic["prdCate3"].ToNullString();
+                string orderby = " ranking desc ";// dic["orderby"].ToNullString();
+                int page = dic["page"].ToNullString().ToInt();
+                //orderby = orderby == "" ? "addtime desc" : orderby;
+                orderby = orderby == "" && state == "" ? " wnstat desc" : orderby;
+
+                PrdMgr mgr = new PrdMgr();
+                int startIndex = ConfigParamter.prdPageSize * (page - 1) + 1;
+                int endIndex = ConfigParamter.prdPageSize * page;
+                DataTable dt = mgr.GetPrdSale(prdName, cate, focusCateIDs, prdCate1, prdCate2, prdCate3, state, orderby, startIndex, endIndex);
+                if (dt == null || dt.Rows.Count == 0)
+                {
+                    Response.Write("");
+                    return;
+                }
+                List<Prd> listReviewPrd = mgr.DataTableToList3(dt);
+                string prdInfo = JsonConvert.SerializeObject(listReviewPrd);
+                Response.Write(prdInfo);
+            }
+            catch (Exception)
+            {
+                Response.Write("");
+            }
+
+        }
+        /// <summary>
+        /// 查询预售区产品列表
+        /// </summary>
+        /// <param name="prdName">产品名称</param>
+        /// <param name="cate">类别</param>
+        /// <param name="state">区域状态</param>
+        /// <param name="orderby">排序条件</param>
+        /// <param name="page">页码</param>
+        public void GetSalePrd()
+        {
+            try
+            {
+                Response.Clear();
+                string prdName = Uri.UnescapeDataString(dic["prdName"].ToNullString());
+                string cate = dic["cate"].ToNullString();
+                string state = dic["state"].ToNullString();
+                string focusCateIDs = dic["focusCateIDs"].ToNullString();
+                string prdCate1 = dic["prdCate1"].ToNullString();
+                string prdCate2 = dic["prdCate2"].ToNullString();
+                string prdCate3 = dic["prdCate3"].ToNullString();
+                string orderby = dic["orderby"].ToNullString();
+                int page = dic["page"].ToNullString().ToInt();
+
+                int pageSize = dic["pageSize"].ToNullString().ToInt();
+
+                if (pageSize <= 0) pageSize = ConfigParamter.prdPageSize;
+                int startIndex = pageSize * (page - 1) + 1;
+                int endIndex = pageSize * page;
+                //orderby = orderby == "" ? "addtime desc" : orderby;
+
+                orderby = orderby == "" && state == "" ? " ranking desc" : orderby;
+
+                // cache
+                XMLCache xmlCache = new XMLCache();
+                string sCacheFile = "ShopProductRankingDescPage1Data_" + xmlCache.GetDateString();
+                bool bIsDataCasheable = IsDataCacheable(prdName, cate, focusCateIDs, prdCate1, prdCate2, prdCate3, state, orderby, startIndex, endIndex, pageSize);
+
+                if (bIsDataCasheable)
+                {
+                    if (xmlCache.IsJsonFileExists(sCacheFile))
+                    {
+                        xmlCache.ReadCacheJson(this.Context, sCacheFile);
+                        return;
+                    }
+                }
+
+
+                PrdMgr mgr = new PrdMgr();
+                DataTable dt = mgr.GetPrdSale(prdName, cate, focusCateIDs, prdCate1, prdCate2, prdCate3, state, orderby, startIndex, endIndex);
+                string sData = string.Empty;
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<Prd> listReviewPrd = mgr.DataTableToList3(dt);
+                    sData = JsonConvert.SerializeObject(listReviewPrd);
+                }
+
+                Response.Write(sData);
+                
+                // cache
+                if (bIsDataCasheable)
+                {
+                    xmlCache.WriteJsonFile(Context, sData, sCacheFile);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
+
+        }
+        public void GetSalePrd_Collage()
+        {
+            try
+            {
+                Response.Clear();
+                string prdName = Uri.UnescapeDataString(dic["prdName"].ToNullString());
+                string cate = dic["cate"].ToNullString();
+                string state = dic["state"].ToNullString();
+                string focusCateIDs = dic["focusCateIDs"].ToNullString();
+                string prdCate1 = dic.ContainsKey("prdCate1") ? dic["prdCate1"].ToNullString() :cate;
+                string prdCate2 = dic.ContainsKey("prdCate2") ? dic["prdCate2"].ToNullString() : "";
+                string prdCate3 = dic.ContainsKey("prdCate3") ? dic["prdCate3"].ToNullString() : "";
+                string orderby = dic["orderby"].ToNullString();
+                int page = dic["page"].ToNullString().ToInt();
+
+                int pageSize = dic.ContainsKey("pageSize") ? dic["pageSize"].ToNullString().ToInt() :16;
+                if (pageSize <= 0) pageSize = ConfigParamter.prdPageSize;
+                int startIndex = pageSize * (page - 1) + 1;
+                int endIndex = pageSize * page;
+                //orderby = orderby == "" ? "addtime desc" : orderby;
+
+                orderby = orderby == "" && state == "" ? " ranking desc" : orderby;
+
+                // cache
+                XMLCache xmlCache = new XMLCache();
+                string sCacheFile = "ShopProductRankingDescPage1Data_" + cate + "_" + page;
+                bool bIsDataCasheable = true;// IsDataCacheable(prdName, cate, focusCateIDs, prdCate1, prdCate2, prdCate3, state, orderby, startIndex, endIndex, pageSize);
+                /*
+                if (bIsDataCasheable)
+                {
+                    if (xmlCache.IsJsonFileExists(sCacheFile))
+                    {
+                        xmlCache.ReadCacheJson(this.Context, sCacheFile);
+                        return;
+                    }
+                }*/
+                
+
+                PrdMgr mgr = new PrdMgr();
+                DataTable dt = mgr.GetPrdSale(prdName, cate, focusCateIDs, cate, prdCate2, prdCate3, state, orderby, startIndex, endIndex);
+                string sData = string.Empty;
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<Prd> listReviewPrd = mgr.DataTableToList3(dt);
+                    sData = JsonConvert.SerializeObject(listReviewPrd);
+                }
+
+                Response.Write(sData);
+
+                // cache
+                if (bIsDataCasheable)
+                {
+                    xmlCache.WriteJsonFile(Context, sData, sCacheFile);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
+
+        }
+        /// <summary>
+        /// 查询预售区产品列表 count
+        /// </summary>
+        /// <param name="prdName">产品名称</param>
+        /// <param name="cate">类别</param>
+        /// <param name="state">区域状态</param>
+        /// <param name="orderby">排序条件</param>
+        /// <param name="page">页码</param>
+        public void GetSalePrdCount()
+        {
+            try
+            {
+                Response.Clear();
+                string prdName = Uri.UnescapeDataString(dic["prdName"].ToNullString());
+                string cate = dic["cate"].ToNullString();
+                string state = dic["state"].ToNullString();
+                string focusCateIDs = dic["focusCateIDs"].ToNullString();
+                string prdCate1 = dic["prdCate1"].ToNullString();
+                string prdCate2 = dic["prdCate2"].ToNullString();
+                string prdCate3 = dic["prdCate3"].ToNullString();
+                string orderby = dic["orderby"].ToNullString();
+                int page = dic["page"].ToNullString().ToInt();
+                int pageSize = dic["pageSize"].ToNullString().ToInt();
+                int startIndex = 1;
+                int endIndex = int.MaxValue;
+                orderby = orderby == "" ? "addtime desc" : orderby;
+
+                // cache
+                XMLCache xmlCache = new XMLCache();
+                string sCacheFile = "ShopProductRankingDescPage1Count_" + xmlCache.GetDateString();
+                bool bIsDataCasheable = IsDataCacheable(prdName, cate, focusCateIDs, prdCate1, prdCate2, prdCate3, state, orderby, startIndex, endIndex, pageSize);
+
+                if (bIsDataCasheable)
+                {
+                    if (xmlCache.IsJsonFileExists(sCacheFile))
+                    {
+                        xmlCache.ReadCacheJson(this.Context, sCacheFile);
+                        return;
+                    }
+                }
+
+
+                PrdMgr mgr = new PrdMgr();
+                DataTable dt = mgr.GetPrdSale(prdName, cate, focusCateIDs, prdCate1, prdCate2, prdCate3, state, orderby, startIndex, endIndex);
+                string sData = "0";
+                if (dt != null)
+                {
+                    sData = dt.Rows.Count.ToString();
+                }
+
+                Response.Write(sData);
+                if (bIsDataCasheable)
+                {
+                    xmlCache.WriteJsonFile(Context, sData, sCacheFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                CommHelper.WrtLog("GetPrdSale Error: " + ex.Message);
+                Response.Write("0");
+            }
+
+        }
+
+        public void GetSalePrdCount_Collage()
+        {
+            try
+            {
+                Response.Clear();
+                string prdName = Uri.UnescapeDataString(dic["prdName"].ToNullString());
+                string cate = dic["cate"].ToNullString();
+                string state = dic["state"].ToNullString();
+                string focusCateIDs = dic["focusCateIDs"].ToNullString();
+                string prdCate1 =dic.ContainsKey("prdCate1") ? dic["prdCate1"].ToNullString() :"";
+                string prdCate2 = dic.ContainsKey("prdCate2") ?dic["prdCate2"].ToNullString() : "";
+                string prdCate3 = dic.ContainsKey("prdCate3") ? dic["prdCate3"].ToNullString() : "";
+                string orderby = dic["orderby"].ToNullString();
+                int page = dic["page"].ToNullString().ToInt();
+                int pageSize =dic.ContainsKey("pageSize") ? dic["pageSize"].ToNullString().ToInt():16;
+                int startIndex = 1;
+                int endIndex = int.MaxValue;
+               // int searchflag = dic["serchflag"].ToNullString().ToInt();
+                orderby = orderby == "" ? "addtime desc" : orderby;
+
+                // cache
+                XMLCache xmlCache = new XMLCache();
+                string sCacheFile = "ShopProductRankingDescPage1Count_" + cate;
+                bool bIsDataCasheable = true;// IsDataCacheable(prdName, cate, focusCateIDs, prdCate1, prdCate2, prdCate3, state, orderby, startIndex, endIndex, pageSize);
+                /*
+                if (bIsDataCasheable && searchflag==0)
+                {
+                    if (xmlCache.IsJsonFileExists(sCacheFile))
+                    {
+                        xmlCache.ReadCacheJson(this.Context, sCacheFile);
+                        return;
+                    }
+                }*/
+
+
+                PrdMgr mgr = new PrdMgr();
+                DataTable dt = mgr.MobileAppGetCollagePrd(prdName, cate, focusCateIDs, cate, prdCate2, prdCate3, state, orderby, startIndex, endIndex);
+                string sData = "0";
+                if (dt != null)
+                {
+                    sData = dt.Rows.Count.ToString();
+                }
+
+                Response.Write(sData);
+                if (bIsDataCasheable)
+                {
+                    xmlCache.WriteJsonFile(Context, sData, sCacheFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                CommHelper.WrtLog("GetPrdSale Error: " + ex.Message);
+                Response.Write("0");
+            }
+
+        }
+
+        /// <summary>
+        /// 添加评审
+        /// </summary>
+        private void AddReview()
+        {
+            try
+            {
+                Response.Clear();
+                string prdID = dic["id"].ToString();
+                string content = CommHelper.GetStrDecode(dic["content"].ToString());
+                string cmdtype = CommHelper.GetStrDecode(dic["cmdtype"].ToString());
+                Review review = new Review();
+                review.cmdtxt = content;
+                review.prtguid = prdID.ToGuid().Value;
+                review.cmdtype = cmdtype;
+                review.edttime = DateTime.Now;
+                Guid? uGuid = CommUtil.IsLogion();
+                if (uGuid == null)
+                {
+                    Response.Write("-2");//未登录
+                    return;
+                }
+                review.userguid = uGuid.Value;
+                review.wnstat = 1;
+                ReviewMgr mgr = new ReviewMgr();
+                int isExit = mgr.HaveReviewed(review.prtguid, uGuid.Value);
+                if (isExit==0)
+                {
+                    Response.Write("-1");//存在
+                    return;
+                }
+                int suportCount = 0;
+                if (mgr.Add(review,out suportCount))
+                {
+                    Response.Write("1");//成功
+                    //UserGradeCalMgr grade = new UserGradeCalMgr();
+                    //grade.MgePublishIntegralCal(uGuid.Value, suportCount, review.prtguid);//计算发布者积分
+                }
+                else
+                {
+                    Response.Write("0");//失败
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("-1");
+            }
+
+        }
+
+        /// <summary>
+        /// 查询产品评审记录
+        /// </summary>
+        private void QueryReview()
+        {
+            if (dic["id"] != null && !string.IsNullOrEmpty(dic["id"].ToString()) && dic["id"].ToString() != "undefined")
+            {
+
+
+                string prdID = dic["id"].ToString();
+                ReviewMgr mgr = new ReviewMgr();
+                UserMgr userMgr = new UserMgr();
+                int count = mgr.GetRecordCount(" prtguid='" + prdID + "'");
+                DataSet ds = mgr.GetListByPage(" prtguid='" + prdID + "'", " edttime desc ", 0, 50);
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    DataTable dt = ds.Tables[0];
+                    List<Review> listData = mgr.DataTableToList(dt);
+                    for (int i = 0; i < listData.Count; i++)
+                    {
+                        listData[i].username = userMgr.GetUserNameByID(listData[i].userguid.ToString());
+                    }
+                    string data = JsonConvert.SerializeObject(listData);
+                    Response.Clear();
+                    Response.Write(data);
+                }
+            }
+            else
+            {
+                Response.Clear();
+                Response.Write("");
+            }
+        }
+
+        private bool IsDataCacheable(string prdName, string cate, string focusCateIDs, string prdCate1, string prdCate2, string prdCate3, string state, string orderby, int startIndex, int endIndex, int pageSize)
+        {
+            // do not cache when user is login because favorite status depends on login user
+            Guid? userGuid = CommUtil.IsLogion();
+            if (userGuid != null) return false;
+            
+            // only cache first page of default search of by ranking desc, no other conditions 
+            if (startIndex == 1 && 
+                 pageSize == 21 &&
+                 string.IsNullOrEmpty(prdName) &&
+                 string.IsNullOrEmpty(cate) &&
+                 string.IsNullOrEmpty(focusCateIDs) &&
+                 string.IsNullOrEmpty(prdCate1) &&
+                 string.IsNullOrEmpty(prdCate2) &&
+                 string.IsNullOrEmpty(prdCate3) &&
+                 string.IsNullOrEmpty(state) &&
+                 orderby.Trim().ToLower().IndexOf("ranking desc") != -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+
+
+
+
+    }
+
+
+}

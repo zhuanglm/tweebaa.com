@@ -1,0 +1,168 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Web.Script.Serialization;
+using Twee.Comm;
+using Twee.Mgr;
+
+
+
+
+namespace TweebaaWebApp.AjaxPages
+{
+    public partial class registerAjax : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {           
+            if (!string.IsNullOrEmpty(Request["id"]))
+            {
+                //激活
+                string userID = Request["id"].ToString();
+                Guid guid=new Guid(userID);
+                Twee.Mgr.UserMgr mgr = new Twee.Mgr.UserMgr();
+                Twee.Model.User user = new Twee.Model.User();
+                bool b = mgr.UpdateState(1, guid, out user);
+                Response.Clear();
+                if (b)
+                {
+                    UpdateShareIntegral(userID);
+                    if (user!=null)
+                    {
+                        Response.Write(user.username);
+                        return;
+                    }
+                    Response.Write("");
+                }
+                else
+                {
+                    Response.Write("Activation failed");
+                }
+            }
+            else
+            {
+                //注册
+                if (string.IsNullOrEmpty(Request["Email"])
+                   || string.IsNullOrEmpty(Request["LoginName"])
+                   || string.IsNullOrEmpty(Request["Pass"])
+                   )
+                {
+                    Response.Clear();
+                    Response.Write("error");
+                }
+                string email = Request["Email"].ToString();
+                string loginName = Request["LoginName"].ToString();
+                string pass = Request["Pass"].ToString();
+                string country = Request["Country"].ToString();
+                string tuijieEmail = Request["TuiJieEmail"].ToString();
+                string KnowWay = Request["KnowWay"].ToString();
+                string Consent = Request["Consent"].ToString();
+
+
+                Twee.Model.User user = new Twee.Model.User();               
+		        user.email = email;
+                user.phone="";                    
+                user.username = loginName;
+                user.pwd = pass;
+                user.knowwayid =int.Parse( KnowWay);
+                user.tuijieEmail = tuijieEmail;
+                user.consent =  (Consent.ToLower() == "true")?true:false;
+                //user.countryid = country.ToInt();
+                Twee.Mgr.UserMgr userMgr = new Twee.Mgr.UserMgr();
+                string resu = userMgr.RegUser(loginName, user.email, user.phone, pass, country.ToInt(),user.knowwayid,user.tuijieEmail, (bool)user.consent);//{it:'1',strLoginGuid:'345a26d4-4dc3-4d36-a6ca-6b40ec9ed26d'}
+                Response.Clear();
+                JObject json = JObject.Parse(resu);
+                string it = json["it"].ToString();
+                if (it=="-1")
+                {
+                    Response.Write(-1);//该邮箱已经注册过
+                    return;
+                }
+                else if (it == "1" && json["strLoginGuid"].ToString()!="")
+                {
+                    //注册成功
+                    string userGuid = json["strLoginGuid"].ToString();
+                    bool b = AddGrade(userGuid.ToGuid().Value, user.email);
+                    if (b == true)
+                    {                         
+                        Response.Write(1);//注册成功并且添加会员等级信息成功
+                        return;
+                    }
+                    else
+                    {
+                        Response.Write(0);//注册失败
+                    }  
+                }
+                else
+                {
+                    Response.Write(0);//注册失败
+                }
+            }               
+        }    
+
+        /// <summary>
+        /// 初次注册成功，向会员等级表中添加初始等级和积分
+        /// </summary>
+        private bool AddGrade(Guid userGuid,string email)
+        {
+            UserGradeCalMgr gradeMgr = new UserGradeCalMgr();
+            Twee.Model.Usergrade grade = new Twee.Model.Usergrade();
+            grade.userguid = userGuid;
+            grade.publishgrade = 0;
+            grade.publishintegral = 0;
+            grade.publishcount = 0;
+            grade.reviewgrade = 0;
+            grade.reviewintegral = 0;
+            grade.reviewhcount = 0;
+            grade.sharegrade = 0;
+            grade.shareintegral = 0;
+            grade.sharecount = 0;
+            grade.updatetime = DateTime.Now;
+            bool b = gradeMgr.Add(grade);
+            if (b==false)
+            {
+                Twee.Mgr.UserMgr userMgr = new Twee.Mgr.UserMgr();
+                bool resu = userMgr.Delete(userGuid, email);
+            }
+            return b;
+        
+        }
+
+        /// <summary>
+        /// 为推荐人奖励分享积分30(每个区)
+        /// </summary>
+        /// <param name="regiserGuid">新注册会员guid</param>
+        /// <returns></returns>
+        private bool UpdateShareIntegral(string regiserGuid)
+        {
+            /*
+            string tuijianID=string.Empty;
+            UserGradeCalMgr gradeMgr = new UserGradeCalMgr();
+            bool b = gradeMgr.UpdateShareIntegral(regiserGuid, 30,out tuijianID);
+            Twee.Model.Point point1 = new Twee.Model.Point();
+            Twee.Model.Point point2 = new Twee.Model.Point();
+            Twee.Model.Point point3 = new Twee.Model.Point();
+
+            point1.addTime = point2.addTime = point3.addTime = DateTime.Now;
+            point1.point = point2.point = point3.point = 30;
+            point1.type = "1";
+            point2.type = "2";
+            point3.type = "3";
+            point1.remark = point2.remark = point3.remark = "Introduction member";
+            point1.state = point2.state = point3.state = 1;
+            point1.userId = point2.userId = point3.userId = tuijianID.ToGuid().Value;
+            PointMgr pointMgr = new PointMgr();
+            pointMgr.Add(point1);
+            pointMgr.Add(point2);
+            pointMgr.Add(point3);
+            return b; 
+            */
+            UserGradeCalMgr gradeMgr = new UserGradeCalMgr();
+            return gradeMgr.UpdateShareIntegral(regiserGuid);
+        }
+    }
+}

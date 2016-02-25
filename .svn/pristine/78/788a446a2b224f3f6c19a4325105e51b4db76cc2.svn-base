@@ -1,0 +1,102 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Mainold.Master.cs"
+    Inherits="TweebaaWebApp.MasterPages.Mainold" EnableViewState="false" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../Css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../Css/submit.css" />
+	<link rel="stylesheet" href="../Css/selectCss.css" />
+	<link rel="stylesheet" href="../Css/scroll.css" />
+
+    <title>
+        <asp:ContentPlaceHolder ID="WebTitle" runat="server">
+        </asp:ContentPlaceHolder>
+    </title>
+    <asp:ContentPlaceHolder ID="WebCssAndJs" runat="server">
+    </asp:ContentPlaceHolder>
+    
+</head>
+<body>
+
+        <div class="top">
+            <div class="w clearfix">
+                <div class="fr">
+                     <asp:ContentPlaceHolder ID="WebLogin" runat="server"></asp:ContentPlaceHolder>
+                         <p class="tr"><a href="#" class="language">语言切换</a>
+				<!-- 登陆后 -->
+				<span class="login-ok pr font1">
+					<b>你好！<asp:Label ID="userName" runat="server"></asp:Label></b>
+					<span class="login-lv2 tl" style="position: absolute;top:25px">
+						<a href="#">个人资料</a>
+						<a href="#">发布</a>
+						<a href="#">退出</a>
+					</span>
+				</span>
+				<!-- 登陆后 -->
+				<a href="#" class="dxx">100</a>
+				<a href="#" class="car car2">100</a>
+				</p>
+
+                    <ul>
+                        <li>
+                            <a href="#">首页</a>
+                        </li>
+                        <li>
+                            <a href="#">产品发布</a>
+                        </li>
+                        <li>
+                            <a href="#">有奖评审</a>
+                        </li>
+                        <li>
+                            <a href="#">有偿分享</a>
+                        </li>
+                        <li>
+                            <a href="#">我要购买</a>
+                        </li>
+                        <li>
+                            <a href="#">推易吧学院</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="#" class="logo">
+                    <img src="../Images/logo.png"  /></a>
+            </div>
+        </div>
+
+        <asp:ContentPlaceHolder ID="WebContent" runat="server">
+        </asp:ContentPlaceHolder>
+
+
+        <!-- foot -->
+	<div class="footer">
+		<div class="w clearfix">
+			 <div class="fr tr">
+			 	<p class="link">                                        
+			 	 <a href="#">推易吧学院</a>|<a href="#">服务条款</a>|<a href="#">常见问题</a>|<a href="#">关于我们</a>
+				 </p>
+				 <p class="txt">
+				 	<span>版权所有：tweebaa（中国）版权所有  沪ICP备：777888999</span>
+				 	<span>电信与信息服务业务经营许可证120183号</span>
+				 </p>
+			 </div>
+			 <div class="fl tc">
+			 	<span class="t">关注我们</span>
+			 	<p class="tc">
+			 		<a href="#"><img src="../Images/weibo3.png"  /></a>
+			 		<a href="#"><img src="../Images/weixin3.png"  /></a>
+			 		<a href="#"><img src="../Images/qqweibo3.png"  /></a>
+			 		<a href="#"><img src="../Images/renren3.png"  /></a>
+			 		<a href="#"><img src="../Images/dou3.png"  /></a>
+			 	</p>
+			 	<div>
+			 		24小时免费热线：888888888888888
+			 	</div>
+			 </div>
+		</div>
+	</div>
+
+</body>
+</html>

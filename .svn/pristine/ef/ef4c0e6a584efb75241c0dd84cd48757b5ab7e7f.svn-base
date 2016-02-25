@@ -1,0 +1,542 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.master.cs" Inherits="TweebaaWebApp2.MasterPages.Home" %>
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+ 
+<html lang="en"> 
+<% 
+Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
+Response.AppendHeader("Expires", "0"); // Proxies.
+%>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/shop.style.css">
+     <link rel="stylesheet" href="/css/style.css">
+<!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/scrollbar/src/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/plugins/owl-carousel/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/plugins/revolution-slider/rs-plugin/css/settings.css">
+ <!-- Style Switcher -->
+    <link rel="stylesheet" href="/css/plugins/style-switcher.css">
+  <!-- CSS Theme -->
+    <link rel="stylesheet" href="/css/theme-colors/default.css" id="style_color">
+
+ <!-- CSS Customization -->
+    <link rel="stylesheet" href="/css/custom.css">    
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/MethodJs/functions.js" type="text/javascript"></script>
+
+       <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../css/home.css" />
+
+
+    <script src="/js/jquery.placeholder.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/jquery-hcheckbox.js"></script>
+    <script src="/js/selectNav.js" type="text/javascript"></script>
+    <script src="/js/homePage.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../css/selectCss.css" />
+    <script src="/js/selectCss.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/public.js"></script>
+
+     <script src="../MethodJs/logion.js" type="text/javascript"></script>
+
+ <!-- CSS Page Style -->
+    <link rel="stylesheet" href="/css/pages/profile.css">
+
+    <!-- Style Switcher -->
+    <link rel="stylesheet" href="/css/plugins/style-switcher.css">
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" href="/css/theme-colors/default.css">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="/css/custom.css">
+
+    <title>
+        <asp:ContentPlaceHolder ID="WebTitle" runat="server">
+        </asp:ContentPlaceHolder>
+    </title>
+    <asp:ContentPlaceHolder ID="WebCssAndJs" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/Product" class="header-fixed">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N8594B"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({ 'gtm.start':
+new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-N8594B');</script>
+<!-- End Google Tag Manager -->
+
+
+
+<div class="wrapper">
+ <!--=== Header v5 ===-->   
+    <div class="header-v5 header-static">
+        <!-- Topbar v3 -->
+        <div class="topbar-v3">
+            <div class="search-open">
+                <div class="container">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="search-close"><i class="icon-close"></i></div>
+                </div>    
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- Topbar Navigation 
+                        <ul class="left-topbar">
+                            <li>
+                                <a>Currency (USD)</a>
+                                <ul class="currency">
+                                    <li class="active">
+                                        <a href="#">USD <i class="fa fa-check"></i></a> 
+                                    </li>
+                                  
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Language (EN)</a>
+                                <ul class="language">
+                                    <li class="active">
+                                        <a href="#">English (EN)<i class="fa fa-check"></i></a> 
+                                    </li>
+                                 
+                                </ul>
+                            </li>   
+                        </ul>   end left-topbar-->
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="list-inline right-topbar pull-right">
+                        <!--
+                            <li><a href="#">Account</a></li>
+                        -->
+                            <li><span id="spanLogion1" runat="server"><a href="/User/login.aspx">Login</a> | <a href="/User/register.aspx">Register</a></span>
+                         <span id="spanLogion2" runat="server" class="login-ok pr font1"><b>Hello <a href="../Home/Index.aspx">
+                        <label id="userName" runat="server" onclick="window.location.href ='../Home/Index.aspx';">
+                        </label>
+                    </a></b><span class="login-lv2" style="margin-top: -5px;">
+                     <a href="../Home/Index.aspx?page=home2" style="margin-left:20px;">My Account</a>
+                     <!--a href="../Home/Index.aspx">My Income</a>
+                     <a href="../Home/Index.aspx?page=homeorder">My Orders</a> 
+                     <a href="../Home/Index.aspx?page=homeCollection">My Favorites</a> 
+                     <a href="../Home/Index.aspx?page=homeShare">My Shares</a> --> 
+                     <a href="#" onclick="LogionOut()" style="margin-left:20px;">Logout</a> 
+                     <!--a href="../User/login.aspx">Change Account</a> -->
+                    </span></span>
+                    <!-- 登陆后 -->   
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div><!--/container-->
+        </div>
+        <!-- End Topbar v3 -->
+        
+        <!-- Navbar -->
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/index.aspx">
+                        <img id="logo-header" src="/images/logo.png" alt="Logo">
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                
+
+                    <!-- Badge  -->
+                    <ul class="list-inline shop-badge badge-lists badge-icons pull-right">
+                        <li>
+                            <a href="/Product/shopCart.aspx"><i class="fa fa-shopping-cart"></i></a>
+                            <span class="badge badge-sea rounded-x"><a href="/Product/shopCart.aspx" id="hrefCart" runat="server"><b class="car-num">
+                            <asp:Label ID="labCartCount" runat="server"></asp:Label></b></a></span>
+                            <!--
+                            <ul id="scrollbar" class="list-unstyled badge-open contentHolder">
+                                <li>
+                                    <img src="images/thumb/01.jpg" alt="">
+                                    <button type="button" class="close">×</button>
+                                    <div class="overflow-h">
+                                        <span>Black Glasses</span>
+                                        <small>1 x $400.00</small>
+                                    </div>    
+                                </li>
+                                <li>
+                                    <img src="images/thumb/02.jpg" alt="">
+                                    <button type="button" class="close">×</button>
+                                    <div class="overflow-h">
+                                        <span>Black Glasses</span>
+                                        <small>1 x $400.00</small>
+                                    </div>    
+                                </li>
+                                <li>
+                                    <img src="images/thumb/03.jpg" alt="">
+                                    <button type="button" class="close">×</button>
+                                    <div class="overflow-h">
+                                        <span>Black Glasses</span>
+                                        <small>1 x $400.00</small>
+                                    </div>    
+                                </li>
+                                <li class="subtotal">
+                                    <div class="overflow-h margin-bottom-10">
+                                        <span>Subtotal</span>
+                                        <span class="pull-right subtotal-cost">$1200.00</span>
+                                    </div>        <div class="row">    
+                                        <div class="col-xs-6">
+                                            <a href="shop-ui-inner.html" class="btn-u btn-brd btn-brd-hover btn-u-red btn-block">View Cart</a>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <a href="shop-ui-add-to-cart.html" class="btn-u btn-u-red btn-block">Checkout</a>
+                                        </div>
+                                    </div>         
+                                </li>    
+                            </ul>-->
+                        </li>
+                    </ul>
+                    <!-- End Badge -->
+
+                    <ul class="nav navbar-nav">
+                        <!-- Pages -->
+                        <li class="li0">
+                            <a href="/index.aspx" > home </a>
+                         
+                        </li>
+                 
+                        <!-- End Pages -->
+
+                        <!-- Submit -->
+                        <li class="dropdown li1 ">
+                            <a href="javascript:void(0);" onclick="window.location.href='/Product/Product_Submit.aspx'"  class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                                Suggest
+                            </a>
+                        <ul class="dropdown-menu dro1">
+                                <li><a href="javascript:void(0);" onclick="GoToSuggestPage();">Suggest Now</a></li>
+                                <li><a href="/College/Suggest-zone.aspx#collapseOne">Learn to Suggest</a></li>
+                            </ul>
+                        </li>
+                        <!-- End Submit -->
+
+                        <!-- Evaluate -->
+                        <li class="dropdown li2">
+                            <a href="javascript:void(0);" onclick="window.location.href='/Product/prdReviewAll.aspx'" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                                evaluate
+                            </a>
+                             <ul class="dropdown-menu dro2">
+                                <li><a href="/Product/prdReviewAll.aspx">Evaluate Now</a></li>
+                                <li><a href="College/evaluate-zone.aspx#collapseOne">Learn to Evaluate</a></li>
+                            </ul>
+                         <!--/end dropdown-menu-->
+                        </li>
+                        <!-- End Evaluate -->
+
+                      
+                        <!--  Shop -->
+                        <li class="dropdown li3">
+                            <a href="javascript:void(0);" onclick="window.location.href='/Product/prdSaleAll.aspx'" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-delay="1000">
+                                shop
+                            </a>
+                            <ul class="dropdown-menu dro3">
+                                <li><a href="/Product/prdSaleAll.aspx">Shop Now </a></li>
+                                <li><a href="/College/shopping_reward.aspx">Shopping Reward Points</a></li>
+                                <li><a href="/College/shop-zone.aspx#collapseOne">About Tweebaa products</a></li>
+                            </ul>
+                        </li>
+                        <!-- End Shop -->
+
+                     <!-- share -->
+                            <li class="dropdown li4"><a href="javascript:void(0);" onclick="window.location.href='/Product/CollageShare.aspx'" class="dropdown-toggle" data-hover="dropdown"
+                                data-toggle="dropdown" data-delay="1000">Collage</a>
+                                <ul class="dropdown-menu dro4">
+                             <li><a href="/Product/CollageShare.aspx">Collage</a></li>
+                                    <li><a href="/College/share-zone.aspx#collapseOne">Learn to Share</a></li>
+                                </ul>
+                            </li>
+                       <!--end share -->
+     <li class="dropdown li6"><a href="/Games/SlotMachine/index.aspx">Reward</a></li>
+
+           <!--end share -->
+                        <li class="dropdown li5"><a href="/College/College.aspx">education</a></li>
+                       
+                    </ul>
+                </div><!--/navbar-collapse-->
+            </div>    
+        </div>            
+        <!-- End Navbar -->
+        </div>
+        
+        </div>
+
+
+        <!--=== Profile ===-->
+    <div class="profile container content">
+    	<div class="row">
+            <!--Left Sidebar-->
+            <div class="col-md-3 md-margin-bottom-40">               
+            <img class="img-responsive profile-img margin-bottom-20" src="<%=_userHeadPic %>" onerror="this.src='/images/head_default.jpg'" alt="">
+
+<% if (_IsUploadImg)
+   {  %>
+<div class="personal-main">
+               <form id="personal-upload-form" method="post" enctype="multipart/form-data" action="/Home/AccountSettings.aspx">
+                <!--
+                <div class="tx-box">
+                    <asp:Image ID="imgUserHead" runat="server" ImageUrl="images/102x102.png" />
+                </div>
+                -->
+                <div class="uploadBox clearfix">
+                    <div class="line fl">
+                        <span class="span" style="display: none;">
+                            <input name="" type="text" id="viewfile" onmouseout="document.getElementById('upload').style.display='none';" class="inputstyle" />
+                        </span>
+                        <label for="unload" onmouseover="document.getElementById('upload').style.display='block';" class="btn-u btn-block margin-bottom-20">Change Picture</label>
+                        <input type="file" name="upload" onchange="document.getElementById('viewfile').value=this.value;this.style.display='none';" class="file" id="upload" />
+                    </div>
+                    <strong id="upload-state" style="display: none">uploading, please wait...</strong>
+                </div>
+            </form>
+</div>
+            <!--
+            <a class="btn-u btn-block margin-bottom-20" href="#">Change Picture</a>
+            -->
+<% } %>
+     <!--    <h3 class="heading-xs">Submitter Level 4 <span class="pull-right">1782 Points</span></h3>
+                <div class="progress progress-u progress-xxs">
+                    <div style="width: 32%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="92" role="progressbar" class="progress-bar progress-bar-u">
+                    </div>
+                </div>
+                <h3 class="heading-xs">Evaluator Level 1 <span class="pull-right">133 Points</span></h3>
+                <div class="progress progress-u progress-xxs">
+                    <div style="width: 5%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="85" role="progressbar" class="progress-bar progress-bar-blue">
+                    </div>
+                </div>
+                <h3 class="heading-xs">Sharer Level 1<span class="pull-right">4 Points</span></h3>
+                <div class="progress progress-u progress-xxs margin-bottom-20">
+                    <div style="width: 1%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="64" role="progressbar" class="progress-bar progress-bar-dark">
+                    </div>
+                </div> -->
+                    <ul class="list-group sidebar-nav-v1" id="sidebar-nav-1">
+           
+                                        <li class="list-group-item list-toggle">
+                                          <!--  <span class="badge rounded-x badge-red"></span> -->               
+                                            <a data-toggle="collapse" data-parent="#sidebar-nav-1" href="#collapse-demo-1">My Rewards</a>
+                                            <ul id="collapse-demo-1" class="collapse">
+                                                <li><a href="/Home/HomeProfit.aspx"><i class="fa fa-money"></i> Commission Rewards</a></li>
+                                                <li>
+                                                   <!-- <span class="badge badge-red">New</span> -->
+                                                    <a href="/Home/HomeIntegral.aspx"><i class="fa fa-trophy"></i> Reward Points</a>
+                                                </li>
+                                                   <li>
+                                                   <!-- <span class="badge badge-red">New</span> -->
+                                                    <a href="/Home/Shopping_Points.aspx"><i class="fa fa-shopping-cart"></i> Shopping Points</a>
+                                                </li>
+                                                <li>
+                                                   <!-- <span class="badge badge-red">New</span>  -->                          
+                                                    <a href="/Home/HomeGiftReward.aspx"><i class="fa fa-gift"></i> Gift Rewards</a>
+                                                </li>
+                                                <li><a href="/Home/SharePointRedeem.aspx"><i class="fa fa-money"></i> Share Point Redemption</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="list-group-item list-toggle">
+                                          <!--  <span class="badge rounded badge-blue">2</span> -->                  
+                                            <a data-toggle="collapse" data-parent="#sidebar-nav-1" href="#collapse-demo-2">My Activity</a>
+                                            <ul id="collapse-demo-2" class="collapse">
+                                                <li><a href="/Home/HomeSupply.aspx"><i class="fa  fa-pencil-square-o"></i> My Suggestions</a></li>
+                                                <li>
+                                                   <!-- <span class="badge badge-blue">New</span> -->                           
+                                                    <a href="/Home/HomeReview.aspx"><i class="fa fa-check-square-o"></i> My Evaluations</a>
+                                                </li>
+                                                <li>
+                                                   <!-- <span class="badge badge-blue">New</span>    -->                        
+                                                    <a href="/Home/HomeShare.aspx"><i class="fa fa-share-alt"></i> My Shares</a>
+                                                </li>
+                                                <li>
+                                                   <!-- <span class="badge badge-blue">New</span>    -->                        
+                                                    <a href="/Home/HomeCollageShare.aspx"><i class="fa fa-picture-o"></i> My Collage Shares</a>
+                                                </li>
+                                                
+                                            </ul>
+                                        </li>
+                                        <!--
+                                        <li class="list-group-item">                
+                                            <a href="../Home/HomeCollection.aspx">My Favorite Products</a>
+                                        </li>  
+                                        -->
+                                        <li class="list-group-item list-toggle">
+                                          <!--  <span class="badge rounded badge-blue">2</span> -->                  
+                                            <a data-toggle="collapse" data-parent="#sidebar-nav-1" href="#collapse-demo-22">My Favorite</a>
+                                            <ul id="collapse-demo-22" class="collapse">
+                                                <li><a href="/Home/HomeCollection.aspx"><i class="fa  fa-heart"></i> My Favorite Products</a></li>
+                                                <li>
+                                                   <!-- <span class="badge badge-blue">New</span> -->                           
+                                                    <a href="/Home/HomeCollageFavorite.aspx"><i class="fa fa-camera-retro"></i> My Favorite Collage</a>
+                                                </li>
+                                               
+                                            </ul>
+                                        </li>                                   
+                                                                              
+                                        <li class="list-group-item">
+                                          <!-- <span class="badge badge-dark rounded-2x">New</span>   -->              
+                                            <a href="../Home/HomeOrder.aspx">My Order</a>
+                                        </li> 
+                                             <li class="list-group-item list-toggle">             
+                                            <a data-toggle="collapse" data-parent="#sidebar-nav-1" href="#collapse-demo-3">My Account</a>
+                                            <ul id="collapse-demo-3" class="collapse">
+                                             <li>  <a href="/Home/AccountSettings.aspx"><i class="glyphicon glyphicon-user"></i> Account Setting</a></li>
+                                             <li>  <a href="/Home/HomeAddress.aspx"><i class="fa fa-truck"></i> My Shipping Address</a></li>
+                                            </ul>
+                                            
+                                        </li>
+                                          <li class="list-group-item list-toggle">
+                                                             
+                                            <a data-toggle="collapse" data-parent="#sidebar-nav-1" href="#collapse-demo-4">My Quotations</a>
+                                            <ul id="collapse-demo-4" class="collapse">
+                                                <li><a href="../Home/HomeProfile.aspx"><i class="fa fa-cogs"></i> My profile</a></li>
+                                                <li><a href="../Home/HomeShipOrder.aspx"><i class="fa fa-shopping-cart"></i> Purchase Orders</a></li>
+                                              <li>                                                                      
+                                                    <a href="../Home/homeSupply.aspx"><i class="fa fa-cubes"></i> Go to supply</a>
+                                                </li>
+                                               
+                                            </ul>
+                                            
+                                        </li>                                                 
+                                    </ul>
+                </div>
+                    
+
+   
+    <asp:ContentPlaceHolder ID="WebContent" runat="server">
+    </asp:ContentPlaceHolder>
+
+    </div>
+</div>
+        <!-- Footer Version 3 -->
+        <div class="footer-v3">
+        <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <!-- Terms Info-->
+                        <div class="col-md-7">
+                            <p>
+                                &copy; Copyright: 2012-<script type="text/javascript" language="JavaScript"><!--
+
+                                                           var today = new Date();
+
+                                                           document.write(today.getFullYear());
+        //--></script> Tweebaa Inc.<br/>
+                               <a href="../College/AboutUs.aspx">About Us</a> | <a href="/College/ContactUs.aspx">Contact Us</a> | <a href="/College/Privacy_Policy.aspx">Privacy Policy</a> | <a href="/College/General_Terms_ofUse.aspx">Terms
+                            and Conditions</a> | <a href="/College/College.aspx#nav-faqq">Education</a>
+                            </p>
+                        </div>
+                        <!-- End Terms Info-->
+
+                        <!-- Social Links -->
+                        <div class="col-md-5">  
+                            <ul class="social-icons pull-right">
+                                <li><a href="https://www.facebook.com/tweebaa" target="_blank" data-original-title="Facebook" class="rounded-x social_facebook"></a></li>
+                                <li><a href="https://twitter.com/tweebaa" target="_blank" data-original-title="Twitter" class="rounded-x social_twitter"></a></li>
+                                <li><a href="https://www.google.com/+Tweebaa" target="_blank" data-original-title="Goole Plus" class="rounded-x social_googleplus"></a></li>
+                                <li><a href="https://www.linkedin.com/company/tweebaa-inc-" target="_blank" data-original-title="Linkedin" class="rounded-x social_linkedin"></a></li>
+                                <li><a href="https://www.pinterest.com/tweebaa/" target="_blank" data-original-title="Pinterest" class="rounded-x social_pintrest"></a></li>
+                                    <li><a href="https://instagram.com/tweebaa/" target="_blank" data-original-title="Instagram" class="rounded-x social_instagram "></a></li>
+                            </ul>
+                        </div>
+                        <!-- End Social Links -->
+                    </div>
+                </div> 
+            </div>
+ 
+<!-- 通用消息窗口 -->
+ <div class="modal fade in" id="divPopupMessageDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+                            <div class="modal-dialog modalw">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button aria-hidden="true" data-dismiss="modal" class="close closeBtn" onclick="$('#divPopupMessageDialog').modal('show');" type="button" >×</button>
+                                        <h4 id="myModalLabel" class="modal-title">    <label id="labPopupTitle">
+                    </label></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                
+                                        <p>          <label id="labPopupMessage"> </label></p>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button data-dismiss="modal" class="btn-u btn-u-default returnLogin" onclick="$('#divPopupMessageDialog').modal('show');" type="button" >Close</button>
+                               
+                                    </div>
+                                  </div>
+                            </div>
+ </div>
+
+</body>
+
+</html> 
+
+<!-- JS Global Compulsory -->
+
+<script src="/plugins/jquery/jquery-migrate.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- JS Implementing Plugins -->
+<script src="/plugins/back-to-top.js"></script>
+<script src="/plugins/owl-carousel/owl-carousel/owl.carousel.js"></script>
+<script src="/plugins/scrollbar/src/jquery.mousewheel.js"></script>
+<script src="/plugins/scrollbar/src/perfect-scrollbar.js"></script>
+<script src="/plugins/jquery.parallax.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<!-- JS Customization -->
+<script src="/js/custom.js"></script>
+<!-- JS Page Level -->
+<script src="/js/shop.app.js"></script>
+<script src="/js/plugins/owl-carousel.js"></script>
+<script src="/js/plugins/revolution-slider.js"></script>
+<script type="text/javascript" src="/js/plugins/style-switcher.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        App.init();
+        App.initParallaxBg();
+
+        RevolutionSlider.initRSfullWidth();
+        StyleSwitcher.initStyleSwitcher();
+    });
+</script>
+<script >
+    function GoToSuggestPage() {
+        if (!CheckUserLogin()) {
+            alert("Please login!");
+            window.location.href = "/User/login.aspx?op=submit";
+        }
+        else {
+            window.location.href = "/Product/SubmitForm.aspx";
+        }
+    }
+</script>
+
+
+
+

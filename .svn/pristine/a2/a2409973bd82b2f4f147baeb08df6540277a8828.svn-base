@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3BE869F6-A3C0-4821-9073-965F60CD3AFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Twee.DataMgr</RootNamespace>
+    <AssemblyName>Twee.DataMgr</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\mycodedll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\mycodedll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="accountBindDataMgr.cs" />
+    <Compile Include="AccountBindVerfyCodeDataMgr.cs" />
+    <Compile Include="AdministratorDataMgr.cs" />
+    <Compile Include="AnalysisDataMgr.cs" />
+    <Compile Include="ArticleDataMgr.cs" />
+    <Compile Include="ArticleTypeDataMgr.cs" />
+    <Compile Include="CityDataMgr.cs" />
+    <Compile Include="CollageCategoryDataMgr.cs" />
+    <Compile Include="CollageDesignDataMgr.cs" />
+    <Compile Include="CollageDesignProductDataMgr.cs" />
+    <Compile Include="CollageShareDataMgr.cs" />
+    <Compile Include="CollageTemplateDataMsg.cs" />
+    <Compile Include="CountryDataMgr.cs" />
+    <Compile Include="DistrictDataMgr.cs" />
+    <Compile Include="ExpressCompanyDataMgr.cs" />
+    <Compile Include="FavoriteDataMgr.cs" />
+    <Compile Include="FileDataMgr.cs" />
+    <Compile Include="knowTweeWayDataMgr.cs" />
+    <Compile Include="mgrProStatusLogDataMgr.cs" />
+    <Compile Include="mgrProStatusReasonDataMgr.cs" />
+    <Compile Include="MoneyDataMgr.cs" />
+    <Compile Include="OrderDataMgr.cs" />
+    <Compile Include="PatentDataMgr.cs" />
+    <Compile Include="payaccountbindDataMgr.cs" />
+    <Compile Include="paybindverfycodeDataMgr.cs" />
+    <Compile Include="PicbgDataMgr.cs" />
+    <Compile Include="PointDataMgr.cs" />
+    <Compile Include="PrdCateDataMgr.cs" />
+    <Compile Include="PrdColorDataMgr.cs" />
+    <Compile Include="PrdDataMgr.cs" />
+    <Compile Include="PrdPricesDataMgr.cs" />
+    <Compile Include="PrdSpecDataMgr.cs" />
+    <Compile Include="PrdStoragDataMgr.cs" />
+    <Compile Include="proDetailOtherDataMgr.cs" />
+    <Compile Include="proDetailsDataMgr.cs" />
+    <Compile Include="ProfitDataMgr.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="proPriceAreaDataMgr.cs" />
+    <Compile Include="proPriceDataMgr.cs" />
+    <Compile Include="proRulesDataMgr.cs" />
+    <Compile Include="ProvinceDataMgr.cs" />
+    <Compile Include="PublistGradeParamDataMgr.cs" />
+    <Compile Include="PurchaseOrderDataMgr.cs" />
+    <Compile Include="ReviewDataMgr.cs" />
+    <Compile Include="ReviewgradeparamDataMgr.cs" />
+    <Compile Include="SendAreaDataMgr.cs" />
+    <Compile Include="ShareDataMgr.cs" />
+    <Compile Include="SharegradeparamDataMgr.cs" />
+    <Compile Include="SharePrdDataMgr.cs" />
+    <Compile Include="ShareSaveDataMgr.cs" />
+    <Compile Include="ShoppingcartDataMgr.cs" />
+    <Compile Include="StoragDataMgr.cs" />
+    <Compile Include="SupplyInforDataMgr.cs" />
+    <Compile Include="TemplateDataMgr.cs" />
+    <Compile Include="UserAddressDataMgr.cs" />
+    <Compile Include="UserDataMgr.cs" />
+    <Compile Include="UserGiftRewardDataMgr.cs" />
+    <Compile Include="UserGradeCalDataMgr.cs" />
+    <Compile Include="userQianDaoDataMgr.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Twee.Comm\Twee.Comm.csproj">
+      <Project>{7238477B-CEE8-4433-A6DE-B521B193F4AE}</Project>
+      <Name>Twee.Comm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Twee.Model\Twee.Model.csproj">
+      <Project>{043B94A8-F045-4946-869B-2A97BB3F5139}</Project>
+      <Name>Twee.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

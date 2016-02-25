@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../css/index.css" />
+	<script src="../js/jquery.min.js" type="text/javascript"></script>
+	<script src="http://www.web63.cn/jss/apic.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/jquery-hcheckbox.js"></script>
+	<link rel="stylesheet" href="../css/selectCss.css" />
+	<script src="../js/jquery.placeholder2.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/public.js"></script>
+</head>
+<body>
+<div class="top">
+		<div class="w clearfix">
+			<div class="fr">
+				
+				
+			</div>
+			<a href="#" class="logo"><img src="../images/logo.png" alt="" /></a>
+		</div>
+</div>
+
+<!-- 登陆left -->	
+<div class="share-main">
+	<div class="w">
+		<form action="">
+		<div class="share-main-box fl">	
+			<h1>	Use Your Email to Share with your friends</h1>
+          <div class=" fl"><img src="../images/emai-share.jpg" alt="" /></div>
+			<div class=" fl right"><h2>MoonDock Speaker</h2>
+            
+			<h3>		<label for="textfield">Email Content</label><br />
+<textarea style="width:400px; height:100px"></textarea> </h3>
+			<label for="textfield">Add your Emails</label><br />
+            <input type="text" name="Emails" id="textfield"  class="input"/> <span class="add">Add</span>
+			<div class="box">
+			
+				
+					<div class="submit-box">
+						<input type="button" class="submit-btn send" value="Sent Email" />
+						
+					</div>
+					
+			</div></div>
+
+		</div>
+
+
+		</form>
+
+
+	
+	</div>
+
+    
+    <script type="text/javascript">
+    	$(".login-main").apic()
+    </script>
+</div>
+
+
+
+
+
+
+<!-- foot -->
+<div class="footer">
+	<div class="w clearfix">
+		<div class="box">
+			<div class="clearfix">
+				<span class="fr tr">
+<br />
+				</span>
+				<span class="fl">
+					<a href="#">About Us</a>｜<a href="#">Contact Us</a>｜<a href="#">Privacy Policy</a>｜<a href="#">Terms and Conditions</a>｜<a href="#">FAQ</a>｜<a href="#">Customer Services</a> </span>
+			</div>
+			<div class="clearfix p pr">
+				<p>Copyright：2012-2014 Tweebaa Inc. </p>
+				<p></p>
+				<p class="gz">Follow Us<a href="#"><img src="images/wb25x25.png" alt="" /></a><a href="#"><img src="images/wx25x25.png" alt="" /></a><a href="#"><img src="images/txwb25x25.png" alt="" /></a><a href="#"><img src="images/renren25x25.png" alt="" /></a><a href="#"><img src="images/dou25x25.png" alt="" /></a></p>
+				<div class="erweima">
+					<img src="images/erweima.png" alt="" />
+				</div>
+			</div>
+		</div>	 
+	</div>
+</div>
+
+
+
+</body>
+
+
+
+
+<script type="text/javascript">
+	$(function() {
+		//表单提示
+		$("input").placeholder();
+		//表单美化
+		$('.chklist').hcheckbox();
+		//关闭登录框
+		$(".closeBtn").click(function(){
+			$(this).parents(".greybox").hide()
+		})
+		//弹出登录框
+		$("#minilogin").click(function(event) {
+			$(".greybox").show();
+			return false;
+		});
+		
+	});
+</script>
+
+
+</html>
